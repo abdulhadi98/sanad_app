@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="13" viewBox="0 0 20 13">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="20" height="13" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Icon_Mail" data-name="Icon Mail" clip-path="url(#clip-path)">
+    <rect id="Rectangle_29" data-name="Rectangle 29" width="18" height="11" transform="translate(1 1)" fill="none" stroke="#1178ba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path id="Path_65" data-name="Path 65" d="M1,2l9,5,9-5" fill="none" stroke="#1178ba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+</svg>

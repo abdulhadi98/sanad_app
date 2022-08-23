@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="23.45" height="21.067" viewBox="0 0 23.45 21.067">
+  <g id="Component_3_2" data-name="Component 3 – 2" transform="translate(1 1)">
+    <g id="icn_inbox_dark">
+      <path id="Path_57" data-name="Path 57" d="M6.958,11.725H1C1.834,7.793,2.549,4.933,3.383,1H20.067L22.45,11.725H17.683" transform="translate(-1 -1)" fill="none" stroke="#1178ba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+      <path id="Path_58" data-name="Path 58" d="M14.108,10H22.45v8.342H1V10H9.342" transform="translate(-1 0.725)" fill="none" stroke="#1178ba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+      <path id="Path_59" data-name="Path 59" d="M8,10a2.383,2.383,0,1,0,4.767,0" transform="translate(0.342 0.725)" fill="none" stroke="#1178ba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

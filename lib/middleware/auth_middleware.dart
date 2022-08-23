@@ -1,0 +1,20 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:wits_app/main.dart';
+
+class AuthMiddleWare extends GetMiddleware {
+  @override
+  RouteSettings? redirect(String? route) {
+    int? roleId = sharedPreferences!.getInt('role');
+    if (roleId == 6)
+      return RouteSettings(name: '/movment-manger-root-screen');
+    else if (roleId == 5)
+      return RouteSettings(name: '/sales-manger-root-screen');
+    else if (roleId == 4)
+      return RouteSettings(name: '/sales-employee-root-screen');
+    else if (roleId == 3)
+      return RouteSettings(name: '/salesman-root-screen');
+    else
+      RouteSettings(name: '/salesman-root-screen');
+  }
+}

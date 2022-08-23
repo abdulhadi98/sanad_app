@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="18" viewBox="0 0 20 18">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="20" height="18" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Icon_Camera_Icon" data-name="Icon Camera Icon" clip-path="url(#clip-path)">
+    <path id="Path_80" data-name="Path 80" d="M10,17h6.8A2.22,2.22,0,0,0,19,14.8V4.8a2.22,2.22,0,0,0-2.2-2.2H14.3A2.488,2.488,0,0,0,11.9,1H8.1A2.488,2.488,0,0,0,5.7,2.6H3.2A2.156,2.156,0,0,0,1,4.8V14.9A2.135,2.135,0,0,0,3.2,17H10" fill="none" stroke="#1178ba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <circle id="Ellipse_28" data-name="Ellipse 28" cx="4.3" cy="4.3" r="4.3" transform="translate(5.7 5.3)" fill="none" stroke="#1178ba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+</svg>

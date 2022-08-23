@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="18.9" viewBox="0 0 20 18.9">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="20" height="18.9" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Icon_Share_Inactive" data-name="Icon Share Inactive" clip-path="url(#clip-path)">
+    <path id="Path_52" data-name="Path 52" d="M12.2,5.5V1L19,7.8l-6.8,6.7V10" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <path id="Path_53" data-name="Path 53" d="M12.2,5.5C1,5.5,1,17.9,1,17.9S4.4,10,12.2,10" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+</svg>

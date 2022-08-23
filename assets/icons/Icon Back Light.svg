@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="10.822" height="16.446" viewBox="0 0 10.822 16.446">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="10.822" height="16.446" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Icon_Back_Light" data-name="Icon Back Light" clip-path="url(#clip-path)">
+    <g id="icn_back" transform="translate(41.596 42.892) rotate(180)">
+      <line id="Line_17" data-name="Line 17" y1="6.981" x2="8" transform="translate(32.185 34.5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+      <path id="Path_44" data-name="Path 44" d="M1.079-.035,9,7" transform="translate(31.185 27.481)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

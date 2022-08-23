@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="19" viewBox="0 0 20 19">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="20" height="19" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Icon_Month_View_Active" data-name="Icon Month View Active" clip-path="url(#clip-path)">
+    <rect id="Rectangle_49" data-name="Rectangle 49" width="4" height="3" transform="translate(1 7.9)" fill="#1178ba" stroke="#1178ba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <rect id="Rectangle_50" data-name="Rectangle 50" width="4" height="3" transform="translate(8 7.9)" fill="#1178ba" stroke="#1178ba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <rect id="Rectangle_51" data-name="Rectangle 51" width="4" height="3" transform="translate(15 7.9)" fill="#1178ba" stroke="#1178ba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <rect id="Rectangle_52" data-name="Rectangle 52" width="4" height="3" transform="translate(1 1)" fill="#1178ba" stroke="#1178ba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <rect id="Rectangle_53" data-name="Rectangle 53" width="4" height="3" transform="translate(8 1)" fill="#1178ba" stroke="#1178ba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <rect id="Rectangle_54" data-name="Rectangle 54" width="4" height="3" transform="translate(15 1)" fill="#1178ba" stroke="#1178ba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <rect id="Rectangle_55" data-name="Rectangle 55" width="4" height="3" transform="translate(1 15)" fill="#1178ba" stroke="#1178ba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <rect id="Rectangle_56" data-name="Rectangle 56" width="4" height="3" transform="translate(8 15)" fill="#1178ba" stroke="#1178ba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+    <rect id="Rectangle_57" data-name="Rectangle 57" width="4" height="3" transform="translate(15 15)" fill="#1178ba" stroke="#1178ba" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2"/>
+  </g>
+</svg>

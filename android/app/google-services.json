@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "822217502468",
+    "project_id": "sandad-app",
+    "storage_bucket": "sandad-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822217502468:android:2b15d7ef1d2917f483aa51",
+        "android_client_info": {
+          "package_name": "com.example.wits_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822217502468-v4amqrtt2q2e7htragg4pdg8skctc0md.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQXV2fbW7AndtLYg0QIj7khZReslIEk_g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822217502468-v4amqrtt2q2e7htragg4pdg8skctc0md.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
