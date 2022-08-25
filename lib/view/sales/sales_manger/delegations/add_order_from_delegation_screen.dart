@@ -26,8 +26,7 @@ class AddOrderFromDelegationScreen extends StatelessWidget {
   // final put = Get.put<DelegationDetailsController>(
   //   AddOrderFromDelegationScreenController(),
   // ); // or optionally with tag
-  final DelegationDetailsController delegationDetailsController =
-      Get.find<DelegationDetailsController>();
+  final DelegationDetailsController delegationDetailsController = Get.find<DelegationDetailsController>();
   final GlobalController globalController = Get.find<GlobalController>();
   @override
   Widget build(BuildContext context) {
@@ -71,7 +70,7 @@ class AddOrderFromDelegationScreen extends StatelessWidget {
                                 ),
                               );
                             case Status.ERROR:
-                              return Utils.errorText('');
+                              return Utils.errorText();
 
                             case Status.DATA:
                               return Column(
@@ -86,25 +85,15 @@ class AddOrderFromDelegationScreen extends StatelessWidget {
                                       width: 295.w,
                                       child: TextFieldSearch(
                                         textStyle: TextStyle(
-                                          color:
-                                              AppColors.black.withOpacity(.70),
+                                          color: AppColors.black.withOpacity(.70),
                                           fontSize: 13.sp,
                                         ),
 
                                         decoration: inputDecoration,
                                         // getSelectedValue: (b){print(b);},
-                                        initialList: delegationDetailsController
-                                            .clientsList
-                                            .map(
-                                                (client) => client.clientNumber)
-                                            .toList(),
-                                        label: delegationDetailsController
-                                                .clientsList.isNotEmpty
-                                            ? delegationDetailsController
-                                                .clientsList.first.clientNumber!
-                                            : ' ',
-                                        controller: delegationDetailsController
-                                            .clientNumberController.value,
+                                        initialList: delegationDetailsController.clientsList.map((client) => client.clientNumber).toList(),
+                                        label: delegationDetailsController.clientsList.isNotEmpty ? delegationDetailsController.clientsList.first.clientNumber! : ' ',
+                                        controller: delegationDetailsController.clientNumberController.value,
                                       ),
                                     ),
                                   ),
@@ -114,9 +103,7 @@ class AddOrderFromDelegationScreen extends StatelessWidget {
                                   TextFieldCustom(
                                     keyboardType: TextInputType.number,
                                     hint: 'أدخل رقم الفاتورة',
-                                    textEditingController:
-                                        delegationDetailsController
-                                            .invoiceNumberController.value,
+                                    textEditingController: delegationDetailsController.invoiceNumberController.value,
                                     onChanged: (val) {},
                                   ),
                                   SizedBox(
@@ -125,9 +112,7 @@ class AddOrderFromDelegationScreen extends StatelessWidget {
                                   TextFieldCustom(
                                     keyboardType: TextInputType.number,
                                     hint: 'أدخل عدد الأصناف',
-                                    textEditingController:
-                                        delegationDetailsController
-                                            .categoriesNumberController.value,
+                                    textEditingController: delegationDetailsController.categoriesNumberController.value,
                                     onChanged: (val) {},
                                   ),
                                   SizedBox(
@@ -135,9 +120,7 @@ class AddOrderFromDelegationScreen extends StatelessWidget {
                                   ),
                                   TextFieldTall(
                                     hint: 'تفاصيل إضافية',
-                                    textEditingController:
-                                        delegationDetailsController
-                                            .detailsController.value,
+                                    textEditingController: delegationDetailsController.detailsController.value,
                                     onChanged: (val) {},
                                   ),
                                   SizedBox(
@@ -151,13 +134,10 @@ class AddOrderFromDelegationScreen extends StatelessWidget {
                                       height: 50.h,
                                       onPressed: () {
                                         // AddOrderFromDelegationScreenController
-                                        if (delegationDetailsController
-                                            .validateOrder()) {
-                                          delegationDetailsController
-                                              .setOrderModel();
+                                        if (delegationDetailsController.validateOrder()) {
+                                          delegationDetailsController.setOrderModel();
                                           // print(delegationDetailsController.orderModel);
-                                          Get.toNamed(
-                                              '/submit-order-delegation-screen');
+                                          Get.toNamed('/submit-order-delegation-screen');
                                         }
                                       },
                                     ),
@@ -181,10 +161,7 @@ class AddOrderFromDelegationScreen extends StatelessWidget {
                     height,
                     false,
                     () {
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) => SalesMangerRootScreen()),
-                          (Route<dynamic> route) => false);
+                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => SalesMangerRootScreen()), (Route<dynamic> route) => false);
                     },
                   ),
               ],

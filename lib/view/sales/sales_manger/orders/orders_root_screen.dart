@@ -75,7 +75,7 @@ class OrdersRootScreen extends StatelessWidget {
                             return SizedBox(
                               height: height / 1.5,
                               child: Center(
-                                child: Utils.errorText(''),
+                                child: Utils.errorText(),
                               ),
                             );
 
@@ -85,19 +85,12 @@ class OrdersRootScreen extends StatelessWidget {
                                   padding: EdgeInsets.zero,
                                   itemCount: ordersController.ordersList.length,
                                   itemBuilder: (BuildContext context, int i) {
-                                    print(i.toString() +
-                                        ' ' +
-                                        ordersController.ordersList[i].name!);
+                                    print(i.toString() + ' ' + ordersController.ordersList[i].name!);
                                     return OrderWidget(
-                                        title: ordersController
-                                            .ordersList[i].name!,
-                                        clientNumber: ordersController
-                                            .ordersList[i].invoiceNumber!
-                                            .toString(),
-                                        mainColor: ordersController
-                                            .ordersList[i].status!.color,
-                                        sideColor: ordersController
-                                            .ordersList[i].status!.secondColor,
+                                        title: ordersController.ordersList[i].name!,
+                                        clientNumber: ordersController.ordersList[i].invoiceNumber!.toString(),
+                                        mainColor: ordersController.ordersList[i].status!.color,
+                                        sideColor: ordersController.ordersList[i].status!.secondColor,
                                         type: 'delegation');
                                   }),
                             );

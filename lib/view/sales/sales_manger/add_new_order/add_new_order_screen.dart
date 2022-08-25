@@ -25,8 +25,7 @@ class AddNewOrderScreen extends StatelessWidget {
   final put = Get.put<AddNewOrderScreenController>(
     AddNewOrderScreenController(),
   ); // or optionally with tag
-  final AddNewOrderScreenController addNewOrderScreenController =
-      Get.find<AddNewOrderScreenController>();
+  final AddNewOrderScreenController addNewOrderScreenController = Get.find<AddNewOrderScreenController>();
   final GlobalController globalController = Get.find<GlobalController>();
   @override
   Widget build(BuildContext context) {
@@ -70,7 +69,7 @@ class AddNewOrderScreen extends StatelessWidget {
                                 ),
                               );
                             case Status.ERROR:
-                              return Utils.errorText('');
+                              return Utils.errorText();
 
                             case Status.DATA:
                               return Column(
@@ -85,25 +84,15 @@ class AddNewOrderScreen extends StatelessWidget {
                                       width: 295.w,
                                       child: TextFieldSearch(
                                         textStyle: TextStyle(
-                                          color:
-                                              AppColors.black.withOpacity(.70),
+                                          color: AppColors.black.withOpacity(.70),
                                           fontSize: 13.sp,
                                         ),
 
                                         decoration: inputDecoration,
                                         // getSelectedValue: (b){print(b);},
-                                        initialList: addNewOrderScreenController
-                                            .clientsList
-                                            .map(
-                                                (client) => client.clientNumber)
-                                            .toList(),
-                                        label: addNewOrderScreenController
-                                                .clientsList.isNotEmpty
-                                            ? addNewOrderScreenController
-                                                .clientsList.first.clientNumber!
-                                            : ' ',
-                                        controller: addNewOrderScreenController
-                                            .clientNumberController.value,
+                                        initialList: addNewOrderScreenController.clientsList.map((client) => client.clientNumber).toList(),
+                                        label: addNewOrderScreenController.clientsList.isNotEmpty ? addNewOrderScreenController.clientsList.first.clientNumber! : ' ',
+                                        controller: addNewOrderScreenController.clientNumberController.value,
                                       ),
                                     ),
                                   ),
@@ -113,9 +102,7 @@ class AddNewOrderScreen extends StatelessWidget {
                                   TextFieldCustom(
                                     keyboardType: TextInputType.number,
                                     hint: 'أدخل رقم الفاتورة',
-                                    textEditingController:
-                                        addNewOrderScreenController
-                                            .invoiceNumberController.value,
+                                    textEditingController: addNewOrderScreenController.invoiceNumberController.value,
                                     onChanged: (val) {},
                                   ),
                                   SizedBox(
@@ -124,9 +111,7 @@ class AddNewOrderScreen extends StatelessWidget {
                                   TextFieldCustom(
                                     keyboardType: TextInputType.number,
                                     hint: 'أدخل عدد الأصناف',
-                                    textEditingController:
-                                        addNewOrderScreenController
-                                            .categoriesNumberController.value,
+                                    textEditingController: addNewOrderScreenController.categoriesNumberController.value,
                                     onChanged: (val) {},
                                   ),
                                   SizedBox(
@@ -134,9 +119,7 @@ class AddNewOrderScreen extends StatelessWidget {
                                   ),
                                   TextFieldTall(
                                     hint: 'تفاصيل إضافية',
-                                    textEditingController:
-                                        addNewOrderScreenController
-                                            .detailsController.value,
+                                    textEditingController: addNewOrderScreenController.detailsController.value,
                                     onChanged: (val) {},
                                   ),
                                   SizedBox(
@@ -150,10 +133,8 @@ class AddNewOrderScreen extends StatelessWidget {
                                       height: 50.h,
                                       onPressed: () {
                                         // addNewOrderScreenController
-                                        if (addNewOrderScreenController
-                                            .validateInputs()) {
-                                          addNewOrderScreenController
-                                              .setOrderModel();
+                                        if (addNewOrderScreenController.validateInputs()) {
+                                          addNewOrderScreenController.setOrderModel();
                                           // print(addNewOrderScreenController.orderModel);
                                           Get.toNamed('/submit-order-screen');
                                         }
@@ -179,10 +160,7 @@ class AddNewOrderScreen extends StatelessWidget {
                     height,
                     false,
                     () {
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) => SalesMangerRootScreen()),
-                          (Route<dynamic> route) => false);
+                      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) => SalesMangerRootScreen()), (Route<dynamic> route) => false);
                     },
                   ),
               ],

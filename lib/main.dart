@@ -8,7 +8,9 @@ import 'package:wits_app/middleware/auth_middleware.dart';
 import 'package:wits_app/view/auth/login_screen.dart';
 import 'package:wits_app/view/common_widgets/steper_widget.dart';
 import 'package:wits_app/view/common_widgets/timeline.dart';
+import 'package:wits_app/view/movment_manger/assign_driver_screen.dart';
 import 'package:wits_app/view/movment_manger/movment_manger_root_screen.dart';
+import 'package:wits_app/view/movment_manger/orders_movement_manger_screen.dart';
 import 'package:wits_app/view/movment_manger/order_details_movment_manger_screen.dart';
 import 'package:wits_app/view/movment_manger/print_order_movment_manger.dart';
 import 'package:wits_app/view/root/choose_role_screen.dart';
@@ -23,6 +25,8 @@ import 'package:wits_app/view/sales/sales_manger/delegations/submit_order_delega
 import 'package:wits_app/view/sales/sales_manger/orders/orders_root_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 import 'package:get/get.dart';
+import 'package:wits_app/view/warehouse_manger/orders_warehouse_manger.dart';
+import 'package:wits_app/view/warehouse_manger/warehouse_manger_root_screen.dart';
 
 import 'helper/app_colors.dart';
 import 'view/sales/sales representative/salesman_root_screen.dart';
@@ -94,6 +98,12 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/movment-manger-root-screen', page: () => MovmentMangerRootScreen(), binding: GolbalBindings()),
         GetPage(name: '/print-order-movament-manger-screen', page: () => PrintOrderMovmentMangerScreen(), binding: GolbalBindings()),
         GetPage(name: '/Order-details-movament-manger-screen', page: () => OrderDetailsMovmentMangerScreen(), binding: GolbalBindings()),
+        GetPage(name: '/orders_movment_manger_screen', page: () => MovmentMangerRootScreen(), binding: GolbalBindings()),
+        GetPage(name: '/orders-screen-movment-manger', page: () => OrdersScreentMovmentManger()),
+        GetPage(name: '/assign-driver-screen', page: () => AssignDriverScreen()),
+        //WareHouse Section
+        GetPage(name: '/warehouse-manger-root-screen', page: () => WarehouseMangerRootScreen()),
+        GetPage(name: '/orders-screen-warehouse-manger', page: () => OrdersWarehouseMangerScreen()),
       ],
     );
   }

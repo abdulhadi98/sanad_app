@@ -26,5 +26,14 @@ class UrlsContainer {
   //Movment Manger
   static String printOrder = "$baseApiUrl/print-order";
   static String getDrivers = "$baseApiUrl/get-drivers";
-  static String assignDriver = "$baseApiUrl/assigne-driver";
+  static String assignDriver = "$baseApiUrl/assign-driver";
+
+  //Warehouse Manger
+  static String receiveReturns = "$baseApiUrl/returns-delevired";
+  static String getPerperators = "$baseApiUrl/get-preparators";
+  static String assignPerperator = "$baseApiUrl/assign-preparator";
+
+
+  
+  
 }

@@ -28,8 +28,7 @@ class SalesmanRootScreen extends StatelessWidget {
   final put = Get.put<AddDelegationController>(
     AddDelegationController(),
   ); // or optionally with tag
-  final AddDelegationController addDelegationController =
-      Get.find<AddDelegationController>();
+  final AddDelegationController addDelegationController = Get.find<AddDelegationController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -63,9 +62,7 @@ class SalesmanRootScreen extends StatelessWidget {
                       title: "مدير قسم المبيعات",
                       scaffoldKey: scaffoldKey,
                     ),
-                    TitleWidget(
-                        tilte:
-                            'إرسال طلب إلى مدير المبيعات \n لبدء طلبية جديدة'),
+                    TitleWidget(tilte: 'إرسال طلب إلى مدير المبيعات \n لبدء طلبية جديدة'),
                     Expanded(
                       child: SizedBox(
                         width: width,
@@ -80,7 +77,7 @@ class SalesmanRootScreen extends StatelessWidget {
                                   ),
                                 );
                               case Status.ERROR:
-                                return Utils.errorText('');
+                                return Utils.errorText();
 
                               case Status.DATA:
                                 return Column(
@@ -92,27 +89,15 @@ class SalesmanRootScreen extends StatelessWidget {
                                         width: 295.w,
                                         child: TextFieldSearch(
                                           textStyle: TextStyle(
-                                            color: AppColors.black
-                                                .withOpacity(.70),
+                                            color: AppColors.black.withOpacity(.70),
                                             fontSize: 13.sp,
                                           ),
 
                                           decoration: inputDecoration,
                                           // getSelectedValue: (b){print(b);},
-                                          initialList: addDelegationController
-                                              .clientsList
-                                              .map((client) =>
-                                                  client.clientNumber)
-                                              .toList(),
-                                          label: addDelegationController
-                                                  .clientsList.isNotEmpty
-                                              ? addDelegationController
-                                                  .clientsList
-                                                  .first
-                                                  .clientNumber!
-                                              : ' ',
-                                          controller: addDelegationController
-                                              .clientNumberController.value,
+                                          initialList: addDelegationController.clientsList.map((client) => client.clientNumber).toList(),
+                                          label: addDelegationController.clientsList.isNotEmpty ? addDelegationController.clientsList.first.clientNumber! : ' ',
+                                          controller: addDelegationController.clientNumberController.value,
                                         ),
                                       ),
                                     ),
@@ -122,9 +107,7 @@ class SalesmanRootScreen extends StatelessWidget {
                                     TextFieldTall(
                                       //    enabled: false,
                                       height: 158.h,
-                                      textEditingController:
-                                          addDelegationController
-                                              .detailsController.value,
+                                      textEditingController: addDelegationController.detailsController.value,
 
                                       hint: 'تفاصيل إضافية',
                                       onChanged: (val) {},
@@ -139,34 +122,26 @@ class SalesmanRootScreen extends StatelessWidget {
                                       height: 50.h,
                                       onPressed: () async {
                                         // addNewOrderScreenController
-                                        if (addDelegationController
-                                            .validateInputs()) {
+                                        if (addDelegationController.validateInputs()) {
                                           //if all fields not empty
 
-                                          addDelegationController
-                                              .setDelegation();
+                                          addDelegationController.setDelegation();
                                           showDialogCustom(
                                             height: height,
                                             width: width,
                                             context: context,
                                             padding: EdgeInsets.zero,
-                                            dialogContent:
-                                                DialogContentAreYouSure(
+                                            dialogContent: DialogContentAreYouSure(
                                               onYes: () async {
-                                                dynamic status =
-                                                    await addDelegationController
-                                                        .addDelegation();
+                                                dynamic status = await addDelegationController.addDelegation();
                                                 if (status == '200')
                                                   showDialogCustom(
                                                       height: height,
                                                       width: width,
                                                       context: context,
                                                       padding: EdgeInsets.zero,
-                                                      dialogContent:
-                                                          DialogContentThanks(
-                                                              onTap: () {
-                                                        Get.offAllNamed(
-                                                            '/salesman-root-screen');
+                                                      dialogContent: DialogContentThanks(onTap: () {
+                                                        Get.offAllNamed('/salesman-root-screen');
                                                       }));
                                               },
                                             ),

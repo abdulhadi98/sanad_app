@@ -30,34 +30,35 @@ class OrderDetailsController extends GetxController {
   OrderDetailsModel? orderDetailsModel;
   var employeeId;
   late final selectedProcessIndex;
+  getProcessDate(date) async {
+    await Utils.formatProcessDate(date!);
+  }
+
   getOrderById() async {
     setStatus(Status.LOADING);
-
+    print('order_id=${Get.arguments['order_id']}');
     String? token = await sharedPreferences!.getString("token");
-     try {
-    dynamic response = await http.get(Uri.parse(UrlsContainer.getOrderById + '?order_id=${OrdersRootScreen.orderId}'), headers: {'Authorization': 'Bearer $token'});
-    dynamic body = jsonDecode(response.body);
-    print(body);
-    //List<dynamic> data = body['data'];
-    var data = body['data'];
+    try {
+      dynamic response = await http.get(Uri.parse(UrlsContainer.getOrderById + '?order_id=${Get.arguments['order_id']}'), headers: {'Authorization': 'Bearer $token'});
+      dynamic body = jsonDecode(response.body);
+      print(body);
+      //List<dynamic> data = body['data'];
+      var data = body['data'];
 
-    orderDetailsModel = OrderDetailsModel.fromJson(data);
-    setOrderDetails();
-    print(OrderDetailsModel.fromJson(data));
+      orderDetailsModel = OrderDetailsModel.fromJson(data);
+      setOrderDetails();
+      print(OrderDetailsModel.fromJson(data));
 
-    String code = body['code'].toString();
-    String message = body['message'];
-    Utils.getResponseCode(code, message);
-    setStatus(Status.DATA);
-    return code;
+      String code = body['code'].toString();
+      String message = body['message'];
+      Utils.getResponseCode(code, message);
+      setStatus(Status.DATA);
+      return code;
     } catch (e) {
       print(e);
       setStatus(Status.ERROR);
       // spinner.value = false;
-      Utils.showGetXToast(
-          title: 'خطأ',
-          message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً',
-          toastColor: AppColors.red);
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
       return 'error';
     }
   }

@@ -30,15 +30,13 @@ class SalesmanOrderScreen extends StatelessWidget {
   final put = Get.put<DelegationDetailsController>(
     DelegationDetailsController(),
   ); // or optionally with tag
-  final DelegationDetailsController delegationDetailsController =
-      Get.find<DelegationDetailsController>();
+  final DelegationDetailsController delegationDetailsController = Get.find<DelegationDetailsController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   final salesEmp = Get.put<SalesEmployeeController>(
     SalesEmployeeController(),
   ); // or optionally with tag
-  final SalesEmployeeController salesEmployeeController =
-      Get.find<SalesEmployeeController>();
+  final SalesEmployeeController salesEmployeeController = Get.find<SalesEmployeeController>();
   //FocusNode focusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
@@ -85,20 +83,16 @@ class SalesmanOrderScreen extends StatelessWidget {
                                 return SizedBox(
                                   height: height / 1.5,
                                   child: Center(
-                                    child: Utils.errorText(''),
+                                    child: Utils.errorText(),
                                   ),
                                 );
 
                               case Status.DATA:
                                 return Column(
                                   children: [
-                                    TitleWidget(
-                                        tilte:
-                                            '“ ${delegationDetailsController.employeeName.value} ”'),
+                                    TitleWidget(tilte: '“ ${delegationDetailsController.employeeName.value} ”'),
                                     TextFieldCustom(
-                                      textEditingController:
-                                          delegationDetailsController
-                                              .clientNumberController.value,
+                                      textEditingController: delegationDetailsController.clientNumberController.value,
                                       enabled: false,
                                       hint: 'رقم العميل',
                                       onChanged: (val) {},
@@ -107,9 +101,7 @@ class SalesmanOrderScreen extends StatelessWidget {
                                       height: 15.h,
                                     ),
                                     TextFieldTall(
-                                      textEditingController:
-                                          delegationDetailsController
-                                              .detailsController.value,
+                                      textEditingController: delegationDetailsController.detailsController.value,
                                       enabled: false,
                                       height: 158.h,
                                       hint: 'تفاصيل إضافية',
@@ -124,8 +116,7 @@ class SalesmanOrderScreen extends StatelessWidget {
                                       width: 262.w,
                                       height: 50.h,
                                       onPressed: () {
-                                        Get.toNamed(
-                                            '/add-order-from-delegation-screen');
+                                        Get.toNamed('/add-order-from-delegation-screen');
                                       },
                                     ),
                                     SizedBox(
@@ -137,8 +128,7 @@ class SalesmanOrderScreen extends StatelessWidget {
                                       width: 262.w,
                                       height: 50.h,
                                       onPressed: () async {
-                                        await salesEmployeeController
-                                            .getSalesEmployees();
+                                        await salesEmployeeController.getSalesEmployees();
                                         showDialogCustom(
                                           height: height,
                                           width: width,
@@ -151,28 +141,22 @@ class SalesmanOrderScreen extends StatelessWidget {
                                                 height: height,
                                                 width: width,
                                                 child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.start,
                                                   children: [
                                                     Padding(
-                                                      padding:
-                                                          EdgeInsets.symmetric(
+                                                      padding: EdgeInsets.symmetric(
                                                         horizontal: 15.w,
                                                         vertical: 15.h,
                                                       ),
                                                       child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .end,
+                                                        mainAxisAlignment: MainAxisAlignment.end,
                                                         children: [
                                                           InkWell(
                                                             onTap: () {
                                                               Get.back();
                                                             },
-                                                            child: SvgPicture
-                                                                .asset(
+                                                            child: SvgPicture.asset(
                                                               'assets/icons/Icon Close Light-1.svg',
                                                               width: 16.w,
                                                               height: 16.w,
@@ -185,18 +169,14 @@ class SalesmanOrderScreen extends StatelessWidget {
                                                       'تعيين موظف المبيعات',
                                                       style: TextStyle(
                                                         fontSize: 30.sp,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: AppColors
-                                                            .textColorXDarkBlue,
+                                                        fontWeight: FontWeight.bold,
+                                                        color: AppColors.textColorXDarkBlue,
                                                       ),
                                                     ),
                                                     Padding(
-                                                      padding: EdgeInsets.only(
-                                                          bottom: 6.h),
+                                                      padding: EdgeInsets.only(bottom: 6.h),
                                                       child: Divider(
-                                                        color: AppColors
-                                                            .textColorXDarkBlue,
+                                                        color: AppColors.textColorXDarkBlue,
                                                         indent: width / 2.3,
                                                         endIndent: width / 2.3,
                                                         thickness: 1,
@@ -207,34 +187,16 @@ class SalesmanOrderScreen extends StatelessWidget {
                                                       height: height / 1.3,
                                                       width: width,
                                                       child: ListView.builder(
-                                                          itemCount:
-                                                              salesEmployeeController
-                                                                  .salesEmployeesList
-                                                                  .length,
-                                                          itemBuilder:
-                                                              (BuildContext
-                                                                      context,
-                                                                  int index) {
+                                                          itemCount: salesEmployeeController.salesEmployeesList.length,
+                                                          itemBuilder: (BuildContext context, int index) {
                                                             return WorkerWidget(
-                                                                workerName:
-                                                                    salesEmployeeController
-                                                                        .salesEmployeesList[
-                                                                            index]
-                                                                        .name!,
-                                                                workerDepartment:
-                                                                    'قسم المبيعات',
+                                                                workerName: salesEmployeeController.salesEmployeesList[index].name!,
+                                                                workerDepartment: 'قسم المبيعات',
                                                                 onPressed: () {
-                                                                  salesEmployeeController
-                                                                          .employeeId =
-                                                                      salesEmployeeController
-                                                                          .salesEmployeesList[
-                                                                              index]
-                                                                          .id;
+                                                                  salesEmployeeController.employeeId = salesEmployeeController.salesEmployeesList[index].id;
 
-                                                                  print(salesEmployeeController
-                                                                      .employeeId);
-                                                                  Get.toNamed(
-                                                                      '/send_order_to_sales_employee');
+                                                                  print(salesEmployeeController.employeeId);
+                                                                  Get.toNamed('/send_order_to_sales_employee');
                                                                   // Get.toNamed(
                                                                   //     '/order-details-screen');
                                                                 });
@@ -257,8 +219,7 @@ class SalesmanOrderScreen extends StatelessWidget {
                                       width: 262.w,
                                       height: 50.h,
                                       onPressed: () {
-                                        Get.toNamed(
-                                            '/reject-delegation-screen');
+                                        Get.toNamed('/reject-delegation-screen');
                                       },
                                     )
                                   ],

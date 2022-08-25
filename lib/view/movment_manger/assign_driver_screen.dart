@@ -31,8 +31,8 @@ import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
 import 'dart:ui' as ui;
 
-class OrderDetailsMovmentMangerScreen extends StatelessWidget {
-  OrderDetailsMovmentMangerScreen({Key? key}) : super(key: key);
+class AssignDriverScreen extends StatelessWidget {
+  AssignDriverScreen({Key? key}) : super(key: key);
   final put = Get.put<DriversController>(
     DriversController(),
   );
@@ -97,90 +97,6 @@ class OrderDetailsMovmentMangerScreen extends StatelessWidget {
                             else
                               return Column(
                                 children: [
-                                  MaterialButton(
-                                    onPressed: () async {
-                                      await initializeDateFormatting("ar_SA", '');
-                                      var now = orderDetailsController.orderDetailsModel!.processes!.first.createdAt;
-                                      //    print(Utils.convertToArabicNumber(now!.hour.toString()));
-                                      var formatter = DateFormat.yMMMMd('ar_SA');
-                                      var formatterTime = DateFormat.HOUR24_MINUTE_SECOND;
-                                      //print(formatter.locale);
-                                      String formatted = formatter.format(now!);
-                                      // print(formatted);
-
-                                      //        print(now.toLocal());
-
-                                      var d = DateFormat('hh:mm a').format(now);
-                                      //  print(d);
-
-                                      var x = Utils.formatProcessTime(now);
-                                    },
-                                    child: Text('adsa'),
-                                    color: Colors.blue,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 18.0.h),
-                                    child: Row(
-                                      textDirection: ui.TextDirection.rtl,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          ":حالة الطلبية",
-                                          style: TextStyle(color: AppColors.textColorXDarkBlue, fontSize: 15.sp, fontWeight: FontWeight.bold, fontFamily: ('Bahij')),
-                                        ),
-                                        SizedBox(
-                                          width: 40.w,
-                                        ),
-                                        Container(
-                                            alignment: Alignment.center,
-                                            width: 174.w,
-                                            height: 29.h,
-                                            decoration: BoxDecoration(
-                                              color: Color(int.parse(orderDetailsController.orderDetailsModel!.statusColor!)),
-                                              borderRadius: BorderRadius.circular(8.r),
-                                            ),
-                                            child: Text(
-                                              orderDetailsController.orderDetailsModel!.statusName!,
-                                              style: TextStyle(
-                                                color: AppColors.white,
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                            )),
-                                      ],
-                                    ),
-                                  ),
-                                  Row(
-                                    textDirection: ui.TextDirection.rtl,
-                                    children: [
-                                      StepsIndicator(
-                                        selectedStep: orderDetailsController.orderDetailsModel!.statusId! == 8 || orderDetailsController.orderDetailsModel!.statusId! == 5
-                                            ? 4
-                                            : orderDetailsController.orderDetailsModel!.statusId! - 1,
-                                        nbSteps: 7,
-                                        doneLineColor: Colors.green, //line
-                                        doneStepColor: Colors.green,
-                                        undoneLineColor: Color(0xFFE5E5E5), //line
-                                        selectedStepColorIn: Colors.orange,
-                                        selectedStepColorOut: Color(0xFFE5E5E5),
-                                        unselectedStepColorIn: Colors.transparent,
-                                        unselectedStepColorOut: Color(0xFFE5E5E5),
-
-                                        //  undoneLineThickness: .5,
-                                        isHorizontal: false,
-                                        lineLength: 20,
-                                        lineLengthCustomStep: [
-                                          StepsIndicatorCustomLine(
-                                            nbStep: 1,
-                                            length: 40,
-                                          )
-                                        ],
-                                        enableLineAnimation: true,
-                                        enableStepAnimation: true,
-                                      ),
-                                      SizedBox(height: 310.h, width: width / 1.5, child: Processes(processesList: orderDetailsController.orderDetailsModel!.processes!)),
-                                    ],
-                                  ),
                                   TextFieldCustom(
                                     enabled: false,
                                     hint: 'رقم العميل',
@@ -283,7 +199,7 @@ class OrderDetailsMovmentMangerScreen extends StatelessWidget {
                                                       ),
                                                     ),
                                                     Text(
-                                                      'تعيين موظف المبيعات',
+                                                      'تعيين  سائق',
                                                       style: TextStyle(
                                                         fontSize: 30.sp,
                                                         fontWeight: FontWeight.bold,

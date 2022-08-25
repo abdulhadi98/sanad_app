@@ -22,8 +22,7 @@ class DelegationsListSceen extends StatelessWidget {
     DelegationsController(),
   );
 
-  final DelegationsController delegationsController =
-      Get.find<DelegationsController>();
+  final DelegationsController delegationsController = Get.find<DelegationsController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -73,7 +72,7 @@ class DelegationsListSceen extends StatelessWidget {
                             return SizedBox(
                               height: height / 1.5,
                               child: Center(
-                                child: Utils.errorText(''),
+                                child: Utils.errorText(),
                               ),
                             );
 
@@ -81,22 +80,15 @@ class DelegationsListSceen extends StatelessWidget {
                             return Container(
                               child: ListView.builder(
                                   padding: EdgeInsets.zero,
-                                  itemCount: delegationsController
-                                      .delegationsList.length,
+                                  itemCount: delegationsController.delegationsList.length,
                                   itemBuilder: (BuildContext context, int i) {
                                     return DelegationWidget(
-                                      salesmanName: delegationsController
-                                          .delegationsList[i]
-                                          .delegationEmployeeName,
+                                      salesmanName: delegationsController.delegationsList[i].delegationEmployeeName,
                                       onTap: () {
-                                        print(delegationsController
-                                            .delegationsList[i].id);
+                                        print(delegationsController.delegationsList[i].id);
 
-                                        SalesmanOrderScreen.delegationId =
-                                            delegationsController
-                                                .delegationsList[i].id;
-                                        Get.toNamed(
-                                            '/order-from-salesperson-screen');
+                                        SalesmanOrderScreen.delegationId = delegationsController.delegationsList[i].id;
+                                        Get.toNamed('/order-from-salesperson-screen');
                                       },
                                       // title: ordersController
                                       //     .delegationsList[i].name!,

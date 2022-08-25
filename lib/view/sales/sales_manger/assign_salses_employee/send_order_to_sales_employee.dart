@@ -32,16 +32,13 @@ class SendOrderToSalesEmployee extends StatelessWidget {
   final put = Get.put<DelegationDetailsController>(
     DelegationDetailsController(),
   ); // or optionally with tag
-  final DelegationDetailsController delegationDetailsController =
-      Get.find<DelegationDetailsController>();
-  final SalesEmployeeController salesEmployeeController =
-      Get.find<SalesEmployeeController>();
+  final DelegationDetailsController delegationDetailsController = Get.find<DelegationDetailsController>();
+  final SalesEmployeeController salesEmployeeController = Get.find<SalesEmployeeController>();
 
   final put2 = Get.put<AddDelegationController>(
     AddDelegationController(),
   );
-  final AddDelegationController addDelegationController =
-      Get.find<AddDelegationController>();
+  final AddDelegationController addDelegationController = Get.find<AddDelegationController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -90,7 +87,7 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                                   ),
                                 );
                               case Status.ERROR:
-                                return Utils.errorText('');
+                                return Utils.errorText();
 
                               case Status.DATA:
                                 return Column(
@@ -102,28 +99,14 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                                         width: 295.w,
                                         child: TextFieldSearch(
                                           textStyle: TextStyle(
-                                            color: AppColors.black
-                                                .withOpacity(.70),
+                                            color: AppColors.black.withOpacity(.70),
                                             fontSize: 13.sp,
                                           ),
                                           decoration: inputDecoration,
                                           // getSelectedValue: (b){print(b);},
-                                          initialList:
-                                              delegationDetailsController
-                                                  .clientsList
-                                                  .map((client) =>
-                                                      client.clientNumber)
-                                                  .toList(),
-                                          label: delegationDetailsController
-                                                  .clientsList.isNotEmpty
-                                              ? delegationDetailsController
-                                                  .clientsList
-                                                  .first
-                                                  .clientNumber!
-                                              : ' ',
-                                          controller:
-                                              delegationDetailsController
-                                                  .clientNumberController.value,
+                                          initialList: delegationDetailsController.clientsList.map((client) => client.clientNumber).toList(),
+                                          label: delegationDetailsController.clientsList.isNotEmpty ? delegationDetailsController.clientsList.first.clientNumber! : ' ',
+                                          controller: delegationDetailsController.clientNumberController.value,
                                         ),
                                       ),
                                     ),
@@ -133,9 +116,7 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                                     TextFieldTall(
                                       //    enabled: false,
                                       height: 158.h,
-                                      textEditingController:
-                                          delegationDetailsController
-                                              .detailsController.value,
+                                      textEditingController: delegationDetailsController.detailsController.value,
 
                                       hint: 'تفاصيل إضافية',
                                       onChanged: (val) {},
@@ -150,42 +131,29 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                                       height: 50.h,
                                       onPressed: () async {
                                         // addNewOrderScreenController
-                                        if (delegationDetailsController
-                                            .validateInputs()) {
+                                        if (delegationDetailsController.validateInputs()) {
                                           //if all fields not empty
 
-                                          delegationDetailsController
-                                              .setDelegationManger(
-                                                  salesEmployeeController
-                                                      .employeeId);
+                                          delegationDetailsController.setDelegationManger(salesEmployeeController.employeeId);
                                           showDialogCustom(
                                             height: height,
                                             width: width,
                                             context: context,
                                             padding: EdgeInsets.zero,
-                                            dialogContent:
-                                                DialogContentAreYouSure(
+                                            dialogContent: DialogContentAreYouSure(
                                               onYes: () async {
-                                                delegationDetailsController
-                                                    .setDelegationManger(
-                                                        salesEmployeeController
-                                                            .employeeId);
+                                                delegationDetailsController.setDelegationManger(salesEmployeeController.employeeId);
                                                 // addDelegationController
                                                 //         .setDelegationInfo()
-                                                dynamic status =
-                                                    await delegationDetailsController
-                                                        .addDelegationManger();
+                                                dynamic status = await delegationDetailsController.addDelegationManger();
                                                 if (status == '200')
                                                   showDialogCustom(
                                                       height: height,
                                                       width: width,
                                                       context: context,
                                                       padding: EdgeInsets.zero,
-                                                      dialogContent:
-                                                          DialogContentThanks(
-                                                              onTap: () {
-                                                        Get.offAllNamed(
-                                                            '/sales_manger_root_screen');
+                                                      dialogContent: DialogContentThanks(onTap: () {
+                                                        Get.offAllNamed('/sales_manger_root_screen');
                                                       }));
                                               },
                                             ),

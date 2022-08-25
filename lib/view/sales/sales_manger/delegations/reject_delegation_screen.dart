@@ -29,8 +29,7 @@ class RejectDelegationScreen extends StatelessWidget {
   final put = Get.put<RejectDelegationController>(
     RejectDelegationController(),
   ); // or optionally with tag
-  final RejectDelegationController rejectDelegationController =
-      Get.find<RejectDelegationController>();
+  final RejectDelegationController rejectDelegationController = Get.find<RejectDelegationController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -79,7 +78,7 @@ class RejectDelegationScreen extends StatelessWidget {
                                   ),
                                 );
                               case Status.ERROR:
-                                return Utils.errorText('');
+                                return Utils.errorText();
 
                               case Status.DATA:
                                 return Column(
@@ -87,9 +86,7 @@ class RejectDelegationScreen extends StatelessWidget {
                                     TextFieldTall(
                                       //    enabled: false,
                                       height: 158.h,
-                                      textEditingController:
-                                          rejectDelegationController
-                                              .detailsController.value,
+                                      textEditingController: rejectDelegationController.detailsController.value,
 
                                       hint: "تفاصيل التعديل \/ الرفض",
                                       onChanged: (val) {},
@@ -104,8 +101,7 @@ class RejectDelegationScreen extends StatelessWidget {
                                       height: 50.h,
                                       onPressed: () async {
                                         // addNewOrderScreenController
-                                        if (rejectDelegationController
-                                            .validateInputs()) {
+                                        if (rejectDelegationController.validateInputs()) {
                                           //if all fields not empty
 
                                           showDialogCustom(
@@ -113,23 +109,17 @@ class RejectDelegationScreen extends StatelessWidget {
                                             width: width,
                                             context: context,
                                             padding: EdgeInsets.zero,
-                                            dialogContent:
-                                                DialogContentAreYouSure(
+                                            dialogContent: DialogContentAreYouSure(
                                               onYes: () async {
-                                                dynamic status =
-                                                    await rejectDelegationController
-                                                        .rejectDelegation();
+                                                dynamic status = await rejectDelegationController.rejectDelegation();
                                                 if (status == '200')
                                                   showDialogCustom(
                                                       height: height,
                                                       width: width,
                                                       context: context,
                                                       padding: EdgeInsets.zero,
-                                                      dialogContent:
-                                                          DialogContentThanks(
-                                                              onTap: () {
-                                                        Get.offAllNamed(
-                                                            '/sales-manger-root-screen');
+                                                      dialogContent: DialogContentThanks(onTap: () {
+                                                        Get.offAllNamed('/sales-manger-root-screen');
                                                       }));
                                               },
                                             ),

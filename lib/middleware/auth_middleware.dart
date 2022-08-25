@@ -14,7 +14,9 @@ class AuthMiddleWare extends GetMiddleware {
       return RouteSettings(name: '/sales-employee-root-screen');
     else if (roleId == 3)
       return RouteSettings(name: '/salesman-root-screen');
+    else if (roleId == 7)
+      return RouteSettings(name: '/warehouse-manger-root-screen');
     else
-      RouteSettings(name: '/salesman-root-screen');
+      RouteSettings(name: '/salesman-root-screen'); 
   }
 }

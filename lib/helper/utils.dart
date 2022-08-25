@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -16,11 +17,7 @@ import 'dart:ui' as ui;
 import 'app_colors.dart';
 
 class Utils {
-  static Widget buildImage(
-      {required String? url,
-      double? width,
-      double? height,
-      BoxFit fit = BoxFit.contain}) {
+  static Widget buildImage({required String? url, double? width, double? height, BoxFit fit = BoxFit.contain}) {
     Widget assetImage(
       resPath,
     ) {
@@ -121,37 +118,23 @@ class Utils {
     return '??';
   }
 
-  static Text errorText(String text) {
+  static Text errorText({String text = "يوجد خطأ, يرجى المحاولة لاحقاً"}) {
     return Text(
-      "يوجد خطأ, يرجى المحاولة لاحقاً",
+      text,
       textDirection: ui.TextDirection.rtl,
-      style: TextStyle(
-          color: AppColors.mainColor1,
-          fontSize: 18.sp,
-          fontWeight: FontWeight.normal,
-          fontFamily: ('Bahij')),
+      style: TextStyle(color: AppColors.mainColor1, fontSize: 18.sp, fontWeight: FontWeight.normal, fontFamily: ('Bahij')),
     );
   }
 
-  static void getResponseCode(String? code, String? message,
-      {Function? onData}) {
+  static void getResponseCode(String? code, String? message, {Function? onData}) {
     if (code == '200' && onData != null)
       onData();
     else if (code == '777')
-      Utils.showGetXToast(
-          title: 'تنبيه', message: message, toastColor: AppColors.red);
-    else if (code != '200')
-      Utils.showGetXToast(
-          title: 'خطأ',
-          message: 'حدث خطأ, يرجى المحاولة لاحقاً',
-          toastColor: AppColors.red);
+      Utils.showGetXToast(title: 'تنبيه', message: message, toastColor: AppColors.red);
+    else if (code != '200') Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
   }
 
-  static void showGetXToast(
-      {String? title,
-      String? message,
-      Color? toastColor,
-      Color textColor = Colors.black}) {
+  static void showGetXToast({String? title, String? message, Color? toastColor, Color textColor = Colors.black}) {
     Get.snackbar("", '',
         snackPosition: SnackPosition.BOTTOM,
         borderRadius: 0,
@@ -159,11 +142,7 @@ class Utils {
         messageText: Text(
           message!,
           textDirection: ui.TextDirection.rtl,
-          style: TextStyle(
-              color: textColor.withOpacity(0.75),
-              fontSize: 16.sp,
-              fontWeight: FontWeight.normal,
-              fontFamily: ('Bahij')),
+          style: TextStyle(color: textColor.withOpacity(0.75), fontSize: 16.sp, fontWeight: FontWeight.normal, fontFamily: ('Bahij')),
         ),
         titleText: Text(
           title!,
@@ -196,12 +175,10 @@ class Utils {
   // }
 
   static String enumToString<T>(T o) => o.toString().split('.').last;
-  static T? enumFromString<T>(String key, List<T> values) =>
-      values.firstWhereOrNull(
+  static T? enumFromString<T>(String key, List<T> values) => values.firstWhereOrNull(
         (v) => key == enumToString(v!),
       );
-  static int getEnumItemIndex<T>(Object o, List<T> values) =>
-      values.indexWhere((element) => element == o);
+  static int getEnumItemIndex<T>(Object o, List<T> values) => values.indexWhere((element) => element == o);
   static T getEnum<T>(int index, List<T> values) => values[index];
 
   static String getDateTimeValue(Locale local, String timeStamp) {
@@ -221,6 +198,42 @@ class Utils {
     } catch (e) {
       return '';
     }
+  }
+
+  static Future<String> formatProcessDate(date) async {
+    if (date == 'null') return '';
+    await initializeDateFormatting("ar_SA", '');
+    // var now = orderDetailsController.orderDetailsModel!.processes!.first.createdAt;
+    //    print(Utils.convertToArabicNumber(now!.hour.toString()));
+    var formatter = DateFormat.yMMMMd('ar_SA');
+    String formatted = formatter.format(date);
+    print(formatted);
+    return formatted;
+  }
+
+  static String formatProcessTime(DateTime date) {
+    var dateTime = DateFormat('hh:mm a').format(date);
+    var x = convertToArabicNumber(dateTime);
+    print(x);
+    return x;
+  }
+
+  static String convertToArabicNumber(String number) {
+    String res = '';
+
+    final arabics = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+
+    number = number.replaceFirst('PM', 'مساءً');
+    number = number.replaceFirst('AM', 'ًصباحاً');
+    print(number);
+    number.characters.forEach((element) {
+      var check = int.tryParse(element);
+
+      check == null ? res += element : res += arabics[int.parse(element)];
+    });
+
+/*   final latins = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']; */
+    return res;
   }
 
   static String getFormattedCount(var count) {

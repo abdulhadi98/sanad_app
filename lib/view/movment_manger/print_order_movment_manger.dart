@@ -31,8 +31,7 @@ class PrintOrderMovmentMangerScreen extends StatelessWidget {
   var put = Get.lazyPut<PrintOrderController>(
     () => PrintOrderController(),
   );
-  final PrintOrderController printOrderController =
-      Get.find<PrintOrderController>();
+  final PrintOrderController printOrderController = Get.find<PrintOrderController>();
   var scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalController globalController = Get.find<GlobalController>();
 
@@ -80,20 +79,17 @@ class PrintOrderMovmentMangerScreen extends StatelessWidget {
                                 return SizedBox(
                                   height: height / 1.5,
                                   child: Center(
-                                    child: Utils.errorText(''),
+                                    child: Utils.errorText(),
                                   ),
                                 );
                               case Status.DATA:
                                 return Column(
                                   children: [
-                                    TitleWidget(
-                                        tilte: 'تفاصيل الطلبية الجديدة'),
+                                    TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
                                     TextFieldCustom(
                                       enabled: false,
                                       hint: 'رقم العميل',
-                                      textEditingController:
-                                          printOrderController
-                                              .clientNumberController.value,
+                                      textEditingController: printOrderController.clientNumberController.value,
                                       onChanged: (val) {},
                                     ),
                                     SizedBox(
@@ -101,9 +97,7 @@ class PrintOrderMovmentMangerScreen extends StatelessWidget {
                                     ),
                                     TextFieldCustom(
                                       enabled: false,
-                                      textEditingController:
-                                          printOrderController
-                                              .invoiceNumberController.value,
+                                      textEditingController: printOrderController.invoiceNumberController.value,
                                       hint: 'رقم الفاتورة',
                                       onChanged: (val) {},
                                     ),
@@ -113,9 +107,7 @@ class PrintOrderMovmentMangerScreen extends StatelessWidget {
                                     TextFieldCustom(
                                       enabled: false,
                                       hint: 'عدد الأصناف',
-                                      textEditingController:
-                                          printOrderController
-                                              .categoriesNumberController.value,
+                                      textEditingController: printOrderController.categoriesNumberController.value,
                                       onChanged: (val) {},
                                     ),
                                     SizedBox(
@@ -126,9 +118,7 @@ class PrintOrderMovmentMangerScreen extends StatelessWidget {
 
                                       //focusNode: focusNode,
                                       hint: 'عنوان العميل',
-                                      textEditingController:
-                                          printOrderController
-                                              .addressController.value,
+                                      textEditingController: printOrderController.addressController.value,
                                       onChanged: (val) {},
                                     ),
                                     SizedBox(
@@ -137,9 +127,7 @@ class PrintOrderMovmentMangerScreen extends StatelessWidget {
                                     TextFieldTall(
                                       enabled: false,
                                       height: 158.h,
-                                      textEditingController:
-                                          printOrderController
-                                              .detailsController.value,
+                                      textEditingController: printOrderController.detailsController.value,
                                       hint: 'تفاصيل إضافية',
                                       onChanged: (val) {},
                                     ),
@@ -153,9 +141,7 @@ class PrintOrderMovmentMangerScreen extends StatelessWidget {
                                         width: 178.w,
                                         height: 50.h,
                                         onPressed: () async {
-                                          dynamic status =
-                                              await printOrderController
-                                                  .printOder();
+                                          dynamic status = await printOrderController.printOder();
                                           // if (status == '777')
                                           //   Utils.showGetXToast(
                                           //       message: status);
@@ -165,11 +151,9 @@ class PrintOrderMovmentMangerScreen extends StatelessWidget {
                                               width: width,
                                               context: context,
                                               padding: EdgeInsets.zero,
-                                              dialogContent:
-                                                  DialogContentThanks(
+                                              dialogContent: DialogContentThanks(
                                                 onTap: () {
-                                                  Get.offAllNamed(
-                                                      '/movment-manger-root-screen');
+                                                  Get.offAllNamed('/movment-manger-root-screen');
                                                 },
                                               ),
                                             );

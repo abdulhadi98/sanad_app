@@ -8,7 +8,7 @@ import 'package:wits_app/view/common_wigets/main_button.dart';
 import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
 
-class MovmentMangerRootScreen extends StatelessWidget {
+class WarehouseMangerRootScreen extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -39,20 +39,20 @@ class MovmentMangerRootScreen extends StatelessWidget {
                         scaffoldKey: scaffoldKey,
                         width: width,
                         employeeName: 'اسم الموظف',
-                        title: 'مدير الحركة',
+                        title: 'مدير المستودع',
                       ),
                       SizedBox(
                         height: 49.h,
                       ),
                       MainButton(
-                        text: 'طلبيات غير مطبوعة',
+                        text: 'استلام المرتجعات',
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
                           Get.toNamed(
-                            '/orders-screen-movment-manger',
+                            '/orders-screen-warehouse-manger',
                             arguments: {
-                              "api": "/get-unprinted-orders",
+                              "api": "/get-returns",
                             },
                           );
                         },
@@ -61,14 +61,14 @@ class MovmentMangerRootScreen extends StatelessWidget {
                         height: 30.h,
                       ),
                       MainButton(
-                        text: 'طلبيات تحتاج تعيين سائق',
+                        text: 'تعيين عامل تحضير',
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
                           Get.toNamed(
-                            '/orders-screen-movment-manger',
+                            '/orders-screen-warehouse-manger',
                             arguments: {
-                              "api": "/get-assign-driver-orders",
+                              "api": "/get-prepration-orders",
                             },
                           );
                         },
@@ -82,7 +82,7 @@ class MovmentMangerRootScreen extends StatelessWidget {
                         height: 50.h,
                         onPressed: () {
                           Get.toNamed(
-                            '/orders-screen-movment-manger',
+                            '/orders-screen-warehouse-manger',
                             arguments: {
                               "api": "/get-orders",
                             },

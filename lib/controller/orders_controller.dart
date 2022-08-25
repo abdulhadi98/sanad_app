@@ -24,28 +24,24 @@ class OrdersController extends GetxController {
   getOrders() async {
     ordersList.clear();
     String? token = await sharedPreferences!.getString("token");
+    print(Uri.parse(UrlsContainer.baseApiUrl + Get.arguments['api']!));
     setStatus(Status.LOADING);
     try {
-    dynamic response = await http.get(Uri.parse(UrlsContainer.getORders),
-        headers: {'Authorization': 'Bearer $token'});
-    Map body = jsonDecode(response.body);
-    print(body);
-    List<dynamic> data = body['data'];
-    ordersList =
-        List<OrderModel>.from(data.map((x) => OrderModel.fromJson(x)).toList());
-    setStatus(Status.DATA);
-    String code = body['code'].toString();
-    String message = body['message'];
-    Utils.getResponseCode(code, message);
-    return code;
+      dynamic response = await http.get(Uri.parse(UrlsContainer.baseApiUrl + Get.arguments['api']!), headers: {'Authorization': 'Bearer $token'});
+      Map body = jsonDecode(response.body);
+      print(body);
+      List<dynamic> data = body['data'];
+      ordersList = List<OrderModel>.from(data.map((x) => OrderModel.fromJson(x)).toList());
+      setStatus(Status.DATA);
+      String code = body['code'].toString();
+      String message = body['message'];
+      Utils.getResponseCode(code, message);
+      return code;
     } catch (e) {
       print(e);
       setStatus(Status.ERROR);
       // spinner.value = false;
-      Utils.showGetXToast(
-          title: 'خطأ',
-          message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً',
-          toastColor: AppColors.red);
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
       return 'error';
     }
   }
@@ -55,8 +51,7 @@ class OrdersController extends GetxController {
     dynamic response;
     spinner.value = true;
     try {
-      response = await http.post(Uri.parse(UrlsContainer.getORders),
-          headers: {'Authorization': 'Bearer $token'});
+      response = await http.post(Uri.parse(UrlsContainer.getORders), headers: {'Authorization': 'Bearer $token'});
       dynamic body = jsonDecode(response.body);
       print(body);
       spinner.value = false;
@@ -67,10 +62,7 @@ class OrdersController extends GetxController {
     } catch (e) {
       print(e);
       spinner.value = false;
-      Utils.showGetXToast(
-          title: 'خطأ',
-          message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً',
-          toastColor: AppColors.red);
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
       return 'error';
     }
   }

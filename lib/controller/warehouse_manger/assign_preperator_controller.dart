@@ -12,7 +12,7 @@ import 'package:wits_app/network/urls_container.dart';
 import 'package:wits_app/view/sales/sales_manger/orders/orders_root_screen.dart';
 import '../../helper/enums.dart';
 
-class DriversController extends GetxController {
+class PerperatorController extends GetxController {
   Rx<Status>? status = Status.DATA.obs;
   setStatus(Status s) {
     status!.value = s;
