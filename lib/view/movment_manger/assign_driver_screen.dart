@@ -71,7 +71,7 @@ class AssignDriverScreen extends StatelessWidget {
                     HeaderWidget(
                       width: width,
                       employeeName: "اسم الموظف",
-                      title: "مدير قسم المبيعات",
+                      title: "مدير الحركة ",
                       scaffoldKey: scaffoldKey,
                     ),
                     //      TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
@@ -224,7 +224,7 @@ class AssignDriverScreen extends StatelessWidget {
                                                           itemBuilder: (BuildContext context, int index) {
                                                             return WorkerWidget(
                                                                 workerName: driversController.driversList[index].name!,
-                                                                workerDepartment: 'قسم المبيعات',
+                                                                workerDepartment: '',
                                                                 onPressed: () {
                                                                   driversController.driverId = driversController.driversList[index].id;
                                                                   //  SalesMangerRootScreen.salesmanId = driversController.driversList[index].id;

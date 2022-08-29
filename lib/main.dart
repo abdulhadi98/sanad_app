@@ -8,11 +8,20 @@ import 'package:wits_app/middleware/auth_middleware.dart';
 import 'package:wits_app/view/auth/login_screen.dart';
 import 'package:wits_app/view/common_widgets/steper_widget.dart';
 import 'package:wits_app/view/common_widgets/timeline.dart';
+import 'package:wits_app/view/incpection_officer/enter_boxes_number_screen.dart';
+import 'package:wits_app/view/incpection_officer/incpection_officer_root_screen.dart';
+import 'package:wits_app/view/incpection_officer/orders_incpection_officer_screen.dart';
 import 'package:wits_app/view/movment_manger/assign_driver_screen.dart';
 import 'package:wits_app/view/movment_manger/movment_manger_root_screen.dart';
 import 'package:wits_app/view/movment_manger/orders_movement_manger_screen.dart';
 import 'package:wits_app/view/movment_manger/order_details_movment_manger_screen.dart';
 import 'package:wits_app/view/movment_manger/print_order_movment_manger.dart';
+import 'package:wits_app/view/preparation_worker/orders_preparation_worker_screen.dart';
+import 'package:wits_app/view/preparation_worker/preparation_worker_root_screen.dart';
+import 'package:wits_app/view/preparation_worker/prepration_done_screen.dart';
+import 'package:wits_app/view/returns_manger/orders_returns_manger_screen.dart';
+import 'package:wits_app/view/returns_manger/recive_returns_screen.dart';
+import 'package:wits_app/view/returns_manger/returns_manger_root_screen.dart';
 import 'package:wits_app/view/root/choose_role_screen.dart';
 import 'package:wits_app/view/root_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/add_new_order/add_new_order_screen.dart';
@@ -25,6 +34,7 @@ import 'package:wits_app/view/sales/sales_manger/delegations/submit_order_delega
 import 'package:wits_app/view/sales/sales_manger/orders/orders_root_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 import 'package:get/get.dart';
+import 'package:wits_app/view/warehouse_manger/assign_preparator_screen.dart';
 import 'package:wits_app/view/warehouse_manger/orders_warehouse_manger.dart';
 import 'package:wits_app/view/warehouse_manger/warehouse_manger_root_screen.dart';
 
@@ -101,9 +111,26 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/orders_movment_manger_screen', page: () => MovmentMangerRootScreen(), binding: GolbalBindings()),
         GetPage(name: '/orders-screen-movment-manger', page: () => OrdersScreentMovmentManger()),
         GetPage(name: '/assign-driver-screen', page: () => AssignDriverScreen()),
+
         //WareHouse Section
         GetPage(name: '/warehouse-manger-root-screen', page: () => WarehouseMangerRootScreen()),
         GetPage(name: '/orders-screen-warehouse-manger', page: () => OrdersWarehouseMangerScreen()),
+        GetPage(name: '/assign-perperator-screen', page: () => AssignPreperatorScreen()),
+
+        //Preparation Worker
+        GetPage(name: '/orders-preparation-worker-screen', page: () => OrdersPreparationWorkerScreent()),
+        GetPage(name: '/preparation-done-screen', page: () => PrepartionDoneSceeen()),
+        GetPage(name: '/prepartion-worker-root-screen', page: () => PreparationWorkerRootScreen()),
+
+        //Incpection Officer
+        GetPage(name: '/orders-screen-incpection_officer', page: () => OrdersScreentIncpectionOfficer()),
+        GetPage(name: '/enter-boxes-number-screen', page: () => EnterBoxesNumberScreen()),
+        GetPage(name: '/incpection-officer-root-screen', page: () => IncpectionOfficerRootScreen()),
+
+        //Returns Manger
+        GetPage(name: '/orders-screen-returns-manger', page: () => OrdersScreentReturnsManger()),
+        GetPage(name: '/recive-returns-screen', page: () => ReciveReturnsScreen()),
+        GetPage(name: '/return-manger-root-screen', page: () => ReturnsMangerRootScreen()),
       ],
     );
   }

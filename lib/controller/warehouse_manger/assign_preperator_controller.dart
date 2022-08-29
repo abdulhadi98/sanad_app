@@ -5,6 +5,7 @@ import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/helper/utils.dart';
 import 'package:wits_app/main.dart';
 import 'package:wits_app/model/diver_model.dart';
+import 'package:wits_app/model/preperator_model.dart';
 
 import 'package:wits_app/model/sales_empolyee_model.dart';
 import 'package:http/http.dart' as http;
@@ -18,18 +19,18 @@ class PerperatorController extends GetxController {
     status!.value = s;
   }
 
-  int? driverId;
-  List<DriverModel> driversList = [];
-  getDrivers() async {
-    driversList.clear();
+  int? preparatorId;
+  List<PerperatorModel> preparatorsList = [];
+  getPreparators() async {
+    preparatorsList.clear();
     String? token = await sharedPreferences!.getString("token");
     setStatus(Status.LOADING);
     try {
-      dynamic response = await http.get(Uri.parse(UrlsContainer.getDrivers), headers: {'Authorization': 'Bearer $token'});
+      dynamic response = await http.get(Uri.parse(UrlsContainer.getPerperators), headers: {'Authorization': 'Bearer $token'});
       dynamic body = jsonDecode(response.body);
       print(response.body);
       List<dynamic> data = body['data']; //body['data']
-      driversList = List<DriverModel>.from(data.map((x) => DriverModel.fromJson(x)).toList());
+      preparatorsList = List<PerperatorModel>.from(data.map((x) => PerperatorModel.fromJson(x)).toList());
 
       String code = body['code'].toString();
       String message = body['message'];
@@ -46,18 +47,18 @@ class PerperatorController extends GetxController {
     }
   }
 
-  assignDriver() async {
+  assignPerperator() async {
     dynamic response;
-    print(OrdersRootScreen.orderId.toString() + '  ' + driverId.toString() + ' ' + UrlsContainer.assignDriver);
+    print(OrdersRootScreen.orderId.toString() + '  ' + preparatorId.toString() + ' ' + UrlsContainer.assignPerperator);
     setStatus(Status.LOADING);
     try {
       // print(orderModel!.toJson());
       String? token = await sharedPreferences!.getString("token");
       response = await http.post(
           Uri.parse(
-            UrlsContainer.assignDriver,
+            UrlsContainer.assignPerperator,
           ),
-          body: {'order_id': OrdersRootScreen.orderId.toString(), 'driver_id': driverId.toString()},
+          body: {'order_id': OrdersRootScreen.orderId.toString(), 'preparator_id': preparatorId.toString()},
           headers: {'Authorization': 'Bearer $token'});
       dynamic body = jsonDecode(response.body);
       print(body);
@@ -65,7 +66,7 @@ class PerperatorController extends GetxController {
       String message = body['message'];
 
       Utils.getResponseCode(code, message, onData: () {
-        Get.offAllNamed('/movment-manger-root-screen');
+        Get.offAllNamed('/warehouse-manger-root-screen');
       });
       setStatus(Status.DATA);
       return code;
@@ -79,7 +80,7 @@ class PerperatorController extends GetxController {
 
   @override
   void onInit() {
-    //   getDrivers();
+  
     super.onInit();
   }
 }

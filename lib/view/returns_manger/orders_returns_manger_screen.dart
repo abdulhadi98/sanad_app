@@ -20,18 +20,18 @@ import '../../../../controller/global_controller.dart';
 import '../../../../helper/enums.dart';
 import '../../../../helper/utils.dart';
 
-class OrdersWarehouseMangerScreen extends StatelessWidget {
-  OrdersWarehouseMangerScreen({Key? key}) : super(key: key);
+class OrdersScreentReturnsManger extends StatelessWidget {
 
-  var x = Get.lazyPut(() => OrdersController());
-
+  final GlobalController globalController = Get.find<GlobalController>();
+  final put = Get.put<OrdersController>(
+    OrdersController(),
+  );
   final OrdersController ordersController = Get.find<OrdersController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    //
 
     bool isKeyboardShowing = MediaQuery.of(context).viewInsets.vertical > 0;
 
@@ -56,7 +56,7 @@ class OrdersWarehouseMangerScreen extends StatelessWidget {
                       HeaderWidget(
                         width: width,
                         employeeName: "اسم الموظف",
-                        title: "مدير المستودع",
+                        title: "مسؤول المرتجعات",
                         scaffoldKey: scaffoldKey,
                       ),
                       SizedBox(
@@ -86,56 +86,49 @@ class OrdersWarehouseMangerScreen extends StatelessWidget {
                                     itemCount: ordersController.ordersList.length,
                                     itemBuilder: (BuildContext context, int i) {
                                       return OrderWidget(
-                                        title: ordersController.ordersList[i].name ?? 'null',
-                                        clientNumber: ordersController.ordersList[i].invoiceNumber!.toString(),
-                                        mainColor: ordersController.ordersList[i].status!.color,
-                                        sideColor: ordersController.ordersList[i].status!.secondColor,
-                                        type: 'delegation',
-                                        onTap: () {
-                                          OrdersRootScreen.orderId = ordersController.ordersList[i].id;
-                                          if (Get.arguments['api'] == "/get-orders")
-                                            Get.toNamed(
-                                              '/Order-details-movament-manger-screen',
-                                              arguments: {
-                                                "order_id": ordersController.ordersList[i].id.toString(),
-                                              },
-                                            );
-                                          else if (Get.arguments['api'] == "/get-prepration-orders")
-                                            Get.toNamed(
-                                              '/assign-perperator-screen',
-                                              arguments: {
-                                                "order_id": ordersController.ordersList[i].id.toString(),
-                                              },
-                                            );
-                                          else if (Get.arguments['api'] == "/get-unprinted-orders")
-                                            Get.toNamed(
-                                              '/print-order-movament-manger-screen',
-                                              arguments: {
-                                                "order_id": ordersController.ordersList[i].id.toString(),
-                                              },
-                                            );
-                                          // OrdersRootScreen.orderId = ordersController.ordersList[i].id;
-                                          // switch (ordersController.ordersList[i].status!.status) {
-                                          //   case 'استلام طلب جديد':
-                                          //     {
-                                          //       if (ordersController.ordersList[i].isPrinted == 1)
-                                          //         Get.toNamed('/order-details-screen');
-                                          //       else
-                                          //         Get.toNamed('/print-order-movament-manger-screen');
-                                          //       break;
-                                          //     }
-                                          //   case 'تم التحضير':
-                                          //     {
-                                          //       OrdersRootScreen.orderId = ordersController.ordersList[i].id;
-                                          //       Get.toNamed('/Order-details-movament-manger-screen');
-                                          //       break;
-                                          //     }
-                                          //   default:
-                                          //     Get.toNamed('order-details-screen');
-                                          //     break;
-                                          // }
-                                        },
-                                      );
+                                          onTap: () {
+                                            OrdersRootScreen.orderId = ordersController.ordersList[i].id;
+                                            if (Get.arguments['api'] == "/get-orders")
+                                              Get.toNamed(
+                                                '/Order-details-movament-manger-screen',
+                                                arguments: {
+                                                  "order_id": ordersController.ordersList[i].id.toString(),
+                                                },
+                                              );
+                                            else if (Get.arguments['api'] == "/get-returns")
+                                              Get.toNamed(
+                                                '/recive-returns-screen',
+                                                arguments: {
+                                                  "order_id": ordersController.ordersList[i].id.toString(),
+                                                },
+                                              );
+                                         
+                                            // OrdersRootScreen.orderId = ordersController.ordersList[i].id;
+                                            // switch (ordersController.ordersList[i].status!.status) {
+                                            //   case 'استلام طلب جديد':
+                                            //     {
+                                            //       if (ordersController.ordersList[i].isPrinted == 1)
+                                            //         Get.toNamed('/order-details-screen');
+                                            //       else
+                                            //         Get.toNamed('/print-order-movament-manger-screen');
+                                            //       break;
+                                            //     }
+                                            //   case 'تم التحضير':
+                                            //     {
+                                            //       OrdersRootScreen.orderId = ordersController.ordersList[i].id;
+                                            //       Get.toNamed('/Order-details-movament-manger-screen');
+                                            //       break;
+                                            //     }
+                                            //   default:
+                                            //     Get.toNamed('order-details-screen');
+                                            //     break;
+                                            // }
+                                          },
+                                          title: ordersController.ordersList[i].name ?? 'null',
+                                          clientNumber: ordersController.ordersList[i].invoiceNumber!.toString(),
+                                          mainColor: ordersController.ordersList[i].status!.color,
+                                          sideColor: ordersController.ordersList[i].status!.secondColor,
+                                          type: 'delegation');
                                     })
                                 : Center(child: Utils.errorText(text: 'لا يوجد طلبيات حالياً'));
                         }

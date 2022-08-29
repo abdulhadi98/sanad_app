@@ -8,13 +8,13 @@ import 'package:wits_app/view/common_wigets/main_button.dart';
 import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
 
-class WarehouseMangerRootScreen extends StatelessWidget {
+class IncpectionOfficerRootScreen extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    //
+    
 
     return ScreenUtilInit(
       designSize: const Size(375, 812),
@@ -39,36 +39,20 @@ class WarehouseMangerRootScreen extends StatelessWidget {
                         scaffoldKey: scaffoldKey,
                         width: width,
                         employeeName: 'اسم الموظف',
-                        title: 'مدير المستودع',
+                        title: 'مسؤول الفحص',
                       ),
                       SizedBox(
                         height: 49.h,
                       ),
-                      // MainButton(
-                      //   text: 'استلام المرتجعات',
-                      //   width: 224.w,
-                      //   height: 50.h,
-                      //   onPressed: () {
-                      //     Get.toNamed(
-                      //       '/orders-screen-warehouse-manger',
-                      //       arguments: {
-                      //         "api": "/get-returns",
-                      //       },
-                      //     );
-                      //   },
-                      // ),
-                      // SizedBox(
-                      //   height: 30.h,
-                      // ),
                       MainButton(
-                        text: 'تعيين عامل تحضير',
+                        text: 'إدخال عدد الصناديق',
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
                           Get.toNamed(
-                            '/orders-screen-warehouse-manger',
+                            '/orders-screen-incpection_officer',
                             arguments: {
-                              "api": "/get-prepration-orders",
+                              "api": "/get-preprations-to-verify",
                             },
                           );
                         },
@@ -76,13 +60,14 @@ class WarehouseMangerRootScreen extends StatelessWidget {
                       SizedBox(
                         height: 30.h,
                       ),
+                     
                       MainButton(
                         text: 'طلبيات قيد التنفيذ',
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
                           Get.toNamed(
-                            '/orders-screen-warehouse-manger',
+                            '/orders-screen-incpection_officer',
                             arguments: {
                               "api": "/get-orders",
                             },

@@ -33,7 +33,9 @@ class UrlsContainer {
   static String getPerperators = "$baseApiUrl/get-preparators";
   static String assignPerperator = "$baseApiUrl/assign-preparator";
 
+  //Prepartion Worker
+  static String preprationDone = "$baseApiUrl/prepration-done";
 
-  
-  
+  //Incpection Officer
+  static String enterBoxesNumber = "$baseApiUrl/prepration-verified";
 }

@@ -1,5 +1,5 @@
-class Perperator {
-    Perperator({
+class PerperatorModel {
+    PerperatorModel({
         this.id,
         this.name,
         this.email,
@@ -27,7 +27,7 @@ class Perperator {
     String? deviceToken;
     String? deviceKey;
 
-    factory Perperator.fromJson(Map<String, dynamic> json) => Perperator(
+    factory PerperatorModel.fromJson(Map<String, dynamic> json) => PerperatorModel(
         id: json["id"] == null ? null : json["id"],
         name: json["name"] == null ? null : json["name"],
         email: json["email"] == null ? null : json["email"],
