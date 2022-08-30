@@ -16,8 +16,7 @@ class SalesEmployeeRootScreen extends StatefulWidget {
   final String title;
 
   @override
-  _SalesEmployeeRootScreenState createState() =>
-      _SalesEmployeeRootScreenState();
+  _SalesEmployeeRootScreenState createState() => _SalesEmployeeRootScreenState();
 }
 
 class _SalesEmployeeRootScreenState extends State<SalesEmployeeRootScreen> {
@@ -65,9 +64,7 @@ class _SalesEmployeeRootScreenState extends State<SalesEmployeeRootScreen> {
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
-                          Get.toNamed(
-                            '/add-new-order-screen',
-                          );
+                          Get.toNamed('/add-new-order-screen', arguments: {'role_name': "موظف قسم المبيعات"});
                         },
                       ),
                     ],

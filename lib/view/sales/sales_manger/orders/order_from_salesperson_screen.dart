@@ -6,6 +6,7 @@ import 'package:wits_app/controller/sales/add_delegation_controller.dart';
 import 'package:wits_app/controller/sales/delegation_details_controller.dart';
 import 'package:wits_app/controller/sales/delegations_controller.dart';
 import 'package:wits_app/controller/sales/sales_employee_controller.dart';
+import 'package:wits_app/controller/sales/sales_manger/delegation_details_screen_controller.dart';
 import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/helper/utils.dart';
 import 'package:wits_app/view/common_wigets/dilog_custom.dart';
@@ -27,10 +28,10 @@ class SalesmanOrderScreen extends StatelessWidget {
   static int? delegationId;
   SalesmanOrderScreen();
 
-  final put = Get.put<DelegationDetailsController>(
-    DelegationDetailsController(),
+  final put = Get.put<DelegationDetailsScreenController>(
+    DelegationDetailsScreenController(),
   ); // or optionally with tag
-  final DelegationDetailsController delegationDetailsController = Get.find<DelegationDetailsController>();
+  final DelegationDetailsScreenController delegationDetailsScreenController = Get.find<DelegationDetailsScreenController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   final salesEmp = Get.put<SalesEmployeeController>(
@@ -71,7 +72,7 @@ class SalesmanOrderScreen extends StatelessWidget {
                         width: width,
                         child: SingleChildScrollView(
                           child: Obx(() {
-                            switch (delegationDetailsController.status!.value) {
+                            switch (delegationDetailsScreenController.status!.value) {
                               case Status.LOADING:
                                 return SizedBox(
                                   height: height / 1.5,
@@ -90,9 +91,9 @@ class SalesmanOrderScreen extends StatelessWidget {
                               case Status.DATA:
                                 return Column(
                                   children: [
-                                    TitleWidget(tilte: '“ ${delegationDetailsController.employeeName.value} ”'),
+                                    TitleWidget(tilte: '“ ${delegationDetailsScreenController.employeeName.value} ”'),
                                     TextFieldCustom(
-                                      textEditingController: delegationDetailsController.clientNumberController.value,
+                                      textEditingController: delegationDetailsScreenController.clientNumberController.value,
                                       enabled: false,
                                       hint: 'رقم العميل',
                                       onChanged: (val) {},
@@ -101,7 +102,7 @@ class SalesmanOrderScreen extends StatelessWidget {
                                       height: 15.h,
                                     ),
                                     TextFieldTall(
-                                      textEditingController: delegationDetailsController.detailsController.value,
+                                      textEditingController: delegationDetailsScreenController.detailsController.value,
                                       enabled: false,
                                       height: 158.h,
                                       hint: 'تفاصيل إضافية',
@@ -196,7 +197,9 @@ class SalesmanOrderScreen extends StatelessWidget {
                                                                   salesEmployeeController.employeeId = salesEmployeeController.salesEmployeesList[index].id;
 
                                                                   print(salesEmployeeController.employeeId);
-                                                                  Get.toNamed('/send_order_to_sales_employee');
+                                                                  Get.back();
+                                                                  Get.toNamed('/accept-and-assign-sales-employee',
+                                                                      arguments: {'sales_employee_id': salesEmployeeController.salesEmployeesList[index].id});
                                                                   // Get.toNamed(
                                                                   //     '/order-details-screen');
                                                                 });

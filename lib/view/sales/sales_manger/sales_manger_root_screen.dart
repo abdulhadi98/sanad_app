@@ -19,8 +19,7 @@ class SalesMangerRootScreen extends StatelessWidget {
   final put = Get.put<SalesEmployeeController>(
     SalesEmployeeController(),
   ); // or optionally with tag
-  final SalesEmployeeController salesEmployeeController =
-      Get.find<SalesEmployeeController>();
+  final SalesEmployeeController salesEmployeeController = Get.find<SalesEmployeeController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -61,7 +60,7 @@ class SalesMangerRootScreen extends StatelessWidget {
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
-                          Get.toNamed('/add-new-order-screen');
+                          Get.toNamed('/add-new-order-screen', arguments: {'role_name': "مدير قسم المبيعات"});
                         },
                       ),
                       SizedBox(
@@ -85,8 +84,7 @@ class SalesMangerRootScreen extends StatelessWidget {
                                   height: height,
                                   width: width,
                                   child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Padding(
@@ -95,8 +93,7 @@ class SalesMangerRootScreen extends StatelessWidget {
                                           vertical: 15.h,
                                         ),
                                         child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
+                                          mainAxisAlignment: MainAxisAlignment.end,
                                           children: [
                                             InkWell(
                                               onTap: () {
@@ -133,36 +130,16 @@ class SalesMangerRootScreen extends StatelessWidget {
                                         height: height / 1.3,
                                         width: width,
                                         child: ListView.builder(
-                                            itemCount: salesEmployeeController
-                                                .salesEmployeesList.length,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
+                                            itemCount: salesEmployeeController.salesEmployeesList.length,
+                                            itemBuilder: (BuildContext context, int index) {
                                               return WorkerWidget(
-                                                  workerName:
-                                                      salesEmployeeController
-                                                          .salesEmployeesList[
-                                                              index]
-                                                          .name!,
-                                                  workerDepartment:
-                                                      'قسم المبيعات',
+                                                  workerName: salesEmployeeController.salesEmployeesList[index].name!,
+                                                  workerDepartment: 'قسم المبيعات',
                                                   onPressed: () {
-                                                    salesEmployeeController
-                                                            .employeeId =
-                                                        salesEmployeeController
-                                                            .salesEmployeesList[
-                                                                index]
-                                                            .id;
-                                                    SalesMangerRootScreen
-                                                            .salesmanId =
-                                                        salesEmployeeController
-                                                            .salesEmployeesList[
-                                                                index]
-                                                            .id;
-                                                    print(
-                                                        salesEmployeeController
-                                                            .employeeId);
-                                                    Get.toNamed(
-                                                        '/send_order_to_sales_employee');
+                                                    salesEmployeeController.employeeId = salesEmployeeController.salesEmployeesList[index].id;
+                                                    SalesMangerRootScreen.salesmanId = salesEmployeeController.salesEmployeesList[index].id;
+                                                    print(salesEmployeeController.employeeId);
+                                                    Get.toNamed('/send_order_to_sales_employee', arguments: {'sales_employee_id': salesEmployeeController.salesEmployeesList[index].id});
                                                     // Get.toNamed(
                                                     //     '/order-details-screen');
                                                   });

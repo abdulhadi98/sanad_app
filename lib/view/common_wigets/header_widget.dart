@@ -67,7 +67,7 @@ class HeaderWidget extends StatelessWidget {
                           style: TextStyle(
                             color: AppColors.mainColor1,
                             fontSize: 18.sp,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.normal,
                             // height: 2,
                           ),
                         ),

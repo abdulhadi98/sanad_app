@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:wits_app/controller/sales/add_new_order_screen_controller.dart';
 import 'package:wits_app/controller/sales/delegation_details_controller.dart';
+import 'package:wits_app/controller/sales/sales_manger/delegation_details_screen_controller.dart';
 import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/helper/enums.dart';
 import 'package:wits_app/helper/utils.dart';
@@ -13,20 +13,18 @@ import 'package:wits_app/view/common_wigets/main_button.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
 import 'package:wits_app/view/common_wigets/textfield_search.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
-
 import '../../../../controller/global_controller.dart';
 import '../../../common_wigets/bottom_nav_bar.dart';
 import '../../../common_wigets/header_widget.dart';
 
 class AddOrderFromDelegationScreen extends StatelessWidget {
-  AddOrderFromDelegationScreen({Key? key}) : super(key: key);
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   //TextEditingController myController = TextEditingController();
   // final put = Get.put<DelegationDetailsController>(
   //   AddOrderFromDelegationScreenController(),
   // ); // or optionally with tag
-  final DelegationDetailsController delegationDetailsController = Get.find<DelegationDetailsController>();
+  final DelegationDetailsScreenController delegationDetailsController = Get.find<DelegationDetailsScreenController>();
   final GlobalController globalController = Get.find<GlobalController>();
   @override
   Widget build(BuildContext context) {

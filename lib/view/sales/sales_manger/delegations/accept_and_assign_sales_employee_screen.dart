@@ -5,8 +5,11 @@ import 'package:get/get.dart';
 import 'package:wits_app/controller/sales/add_delegation_controller.dart';
 import 'package:wits_app/controller/sales/delegation_details_controller.dart';
 import 'package:wits_app/controller/sales/sales_employee_controller.dart';
+import 'package:wits_app/controller/sales/sales_manger/accept_and_assign_salse_employee_controller.dart';
 import 'package:wits_app/controller/sales/sales_manger/add_delegation_salesmanger_controller.dart';
+import 'package:wits_app/controller/sales/sales_manger/delegation_details_screen_controller.dart';
 import 'package:wits_app/helper/app_colors.dart';
+import 'package:wits_app/model/delegation_model.dart';
 import 'package:wits_app/view/common_wigets/bottom_nav_bar.dart';
 import 'package:wits_app/view/common_wigets/dilog_custom.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
@@ -22,20 +25,19 @@ import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 import '../../../../helper/enums.dart';
 import '../../../../helper/utils.dart';
 
-class SendOrderToSalesEmployee extends StatelessWidget {
-  SendOrderToSalesEmployee({Key? key}) : super(key: key);
-  // or optionally with tag
-
-  final put = Get.put<AddDelegationSalesMangerController>(
-    AddDelegationSalesMangerController(),
+class AcceptAndAssignSalesEmployee extends StatelessWidget {
+  final put = Get.put<AcceptAndAssignSalesEmployeeController>(
+    AcceptAndAssignSalesEmployeeController(),
   ); // or optionally with tag
-  final AddDelegationSalesMangerController addDelegationSalesMangerController = Get.find<AddDelegationSalesMangerController>();
-  final SalesEmployeeController salesEmployeeController = Get.find<SalesEmployeeController>();
+  final AcceptAndAssignSalesEmployeeController acceptAndAssignSalesEmployeeController = Get.find<AcceptAndAssignSalesEmployeeController>();
+  final DelegationDetailsScreenController delegationDetailsScreenController = Get.find<DelegationDetailsScreenController>();
 
-  final put2 = Get.put<AddDelegationController>(
-    AddDelegationController(),
-  );
-  final AddDelegationController addDelegationController = Get.find<AddDelegationController>();
+  // final SalesEmployeeController salesEmployeeController = Get.find<SalesEmployeeController>();
+
+  // final put2 = Get.put<AddDelegationController>(
+  //   AddDelegationController(),
+  // );
+  // final AddDelegationController addDelegationController = Get.find<AddDelegationController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -75,7 +77,7 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                         width: width,
                         child: SingleChildScrollView(
                           child: Obx(() {
-                            switch (addDelegationSalesMangerController.status!.value) {
+                            switch (acceptAndAssignSalesEmployeeController.status!.value) {
                               case Status.LOADING:
                                 return SizedBox(
                                   height: height / 2,
@@ -94,16 +96,11 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                                       child: Container(
                                         height: 50.h,
                                         width: 295.w,
-                                        child: TextFieldSearch(
-                                          textStyle: TextStyle(
-                                            color: AppColors.black.withOpacity(.70),
-                                            fontSize: 13.sp,
-                                          ),
-                                          decoration: inputDecoration,
-                                          // getSelectedValue: (b){print(b);},
-                                          initialList: addDelegationSalesMangerController.clientsList.map((client) => client.clientNumber).toList(),
-                                          label: addDelegationSalesMangerController.clientsList.isNotEmpty ? addDelegationSalesMangerController.clientsList.first.clientNumber! : ' ',
-                                          controller: addDelegationSalesMangerController.clientNumberController.value,
+                                        child: TextFieldCustom(
+                                          textEditingController: delegationDetailsScreenController.clientNumberController.value,
+                                          enabled: false,
+                                          hint: 'رقم العميل',
+                                          onChanged: (val) {},
                                         ),
                                       ),
                                     ),
@@ -113,7 +110,7 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                                     TextFieldTall(
                                       //    enabled: false,
                                       height: 158.h,
-                                      textEditingController: addDelegationSalesMangerController.detailsController.value,
+                                      textEditingController: delegationDetailsScreenController.detailsController.value,
 
                                       hint: 'تفاصيل إضافية',
                                       onChanged: (val) {},
@@ -122,13 +119,13 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                                       height: 30.h,
                                     ),
                                     MainButton(
-                                      text: 'إرسال',
-                                      color: AppColors.mainColor1,
-                                      width: 178.w,
-                                      height: 50.h,
-                                      onPressed: () async {
-                                        // addNewOrderScreenController
-                                        if (addDelegationSalesMangerController.validateInputs()) {
+                                        text: 'إرسال',
+                                        color: AppColors.mainColor1,
+                                        width: 178.w,
+                                        height: 50.h,
+                                        onPressed: () async {
+                                          // addNewOrderScreenController
+
                                           //if all fields not empty
 
                                           showDialogCustom(
@@ -138,10 +135,15 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                                             padding: EdgeInsets.zero,
                                             dialogContent: DialogContentAreYouSure(
                                               onYes: () async {
-                                          addDelegationSalesMangerController.setDelegationManger(Get.arguments['sales_employee_id']);
+                                                acceptAndAssignSalesEmployeeController.setDelegationManger(DelegationModel(
+                                                    clientNumber: delegationDetailsScreenController.clientNumberController.value.text.toString(),
+                                                    creatorId: delegationDetailsScreenController.delegationModel!.creatorId.toString(),
+                                                    details: delegationDetailsScreenController.detailsController.value.text,
+                                                    employeeId: Get.arguments['sales_employee_id'].toString()));
+
                                                 // addDelegationController
                                                 //         .setDelegationInfo()
-                                                dynamic status = await addDelegationSalesMangerController.addDelegationManger();
+                                                dynamic status = await acceptAndAssignSalesEmployeeController.addDelegationManger();
                                                 if (status == '200')
                                                   showDialogCustom(
                                                       height: height,
@@ -154,9 +156,7 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                                               },
                                             ),
                                           );
-                                        }
-                                      },
-                                    ),
+                                        }),
                                   ],
                                 );
                             }

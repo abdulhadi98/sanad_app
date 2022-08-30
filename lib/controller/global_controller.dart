@@ -19,13 +19,10 @@ class GlobalController extends GetxController {
     String? accessToken = sharedPreferences!.getString('token');
     String userId = sharedPreferences!.getInt('user_id').toString();
     try {
-      dynamic response = await http.get(
-          Uri.parse(UrlsContainer.getUser + '?user_id=$userId'),
-          headers: {'Authorization': 'Bearer $accessToken'});
+      dynamic response = await http.get(Uri.parse(UrlsContainer.getUser + '?user_id=$userId'), headers: {'Authorization': 'Bearer $accessToken'});
       dynamic body = jsonDecode(response.body);
       print(body);
-      UserModel userModel =
-          UserModel.fromJson(jsonDecode(response.body)['data']);
+      UserModel userModel = UserModel.fromJson(jsonDecode(response.body)['data']);
       print(userModel.accessToken);
       // spinner.value = false;
       String code = body['code'].toString();
@@ -38,10 +35,7 @@ class GlobalController extends GetxController {
       return code;
     } catch (e) {
       // spinner.value = false;
-      Utils.showGetXToast(
-          title: 'خطأ',
-          message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً',
-          toastColor: AppColors.red);
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
       return 'error';
     }
   }
@@ -53,26 +47,21 @@ class GlobalController extends GetxController {
   }
 
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-  FlutterLocalNotificationsPlugin fltNotification =
-      FlutterLocalNotificationsPlugin();
+  FlutterLocalNotificationsPlugin fltNotification = FlutterLocalNotificationsPlugin();
   void initMessaging() {
-    var androiInit =
-        AndroidInitializationSettings('@mipmap/ic_launcher'); //for logo
+    var androiInit = AndroidInitializationSettings('@mipmap/ic_launcher'); //for logo
     var iosInit = IOSInitializationSettings();
     var initSetting = InitializationSettings(android: androiInit, iOS: iosInit);
     fltNotification = FlutterLocalNotificationsPlugin();
     fltNotification.initialize(initSetting);
-    var androidDetails = AndroidNotificationDetails('1', 'channelName',
-        channelDescription: 'channelDescription');
+    var androidDetails = AndroidNotificationDetails('1', 'channelName', channelDescription: 'channelDescription');
     var iosDetails = IOSNotificationDetails();
-    var generalNotificationDetails =
-        NotificationDetails(android: androidDetails, iOS: iosDetails);
+    var generalNotificationDetails = NotificationDetails(android: androidDetails, iOS: iosDetails);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       if (notification != null && android != null) {
-        fltNotification.show(notification.hashCode, notification.title,
-            notification.body, generalNotificationDetails);
+        fltNotification.show(notification.hashCode, notification.title, notification.body, generalNotificationDetails);
       }
     });
   }

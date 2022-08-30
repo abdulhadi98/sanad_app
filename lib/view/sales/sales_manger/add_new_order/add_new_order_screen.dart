@@ -56,7 +56,7 @@ class AddNewOrderScreen extends StatelessWidget {
                         HeaderWidget(
                           width: width,
                           employeeName: "اسم الموظف",
-                          title: "مدير قسم المبيعات",
+                          title: Get.arguments['role_name'],
                           scaffoldKey: scaffoldKey,
                         ),
                         Obx(() {

@@ -77,7 +77,7 @@ class ReciveReturnsController extends GetxController {
       String? token = await sharedPreferences!.getString("token");
       response = await http.post(
         Uri.parse(
-          UrlsContainer.enterBoxesNumber,
+          UrlsContainer.receiveReturns,
         ),
         body: {'order_id': Get.arguments['order_id']},
         headers: {

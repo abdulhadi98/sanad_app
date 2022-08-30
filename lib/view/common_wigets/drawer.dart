@@ -75,12 +75,7 @@ class AppDrawer extends StatelessWidget {
                           Center(
                             child: Text(
                               'سند',
-                              style: TextStyle(
-                                  color: AppColors.mainColor1,
-                                  fontSize: 72.sp,
-                                  fontWeight: FontWeight.bold,
-                                  letterSpacing: 3,
-                                  height: 1),
+                              style: TextStyle(color: AppColors.mainColor1, fontSize: 72.sp, fontWeight: FontWeight.bold, letterSpacing: 3, height: 1),
                             ),
                           ),
                           Center(
@@ -138,8 +133,9 @@ class AppDrawer extends StatelessWidget {
                               width: 178.w,
                               height: 50.h,
                               color: Colors.white,
-                              onPressed: () {
-                                sharedPreferences!.clear();
+                              onPressed: () async {
+                                await sharedPreferences!.clear();
+                                print(sharedPreferences!.getInt('role').toString());
                                 Get.offAllNamed('/');
                               },
                             ),
@@ -182,9 +178,7 @@ class LogoutButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(25.r),
           boxShadow: [
             BoxShadow(
-              color: color == null
-                  ? AppColors.mainColor1.withOpacity(0.5)
-                  : color!.withOpacity(0.5),
+              color: color == null ? AppColors.mainColor1.withOpacity(0.5) : color!.withOpacity(0.5),
               spreadRadius: 0,
               blurRadius: 10,
               offset: Offset(0, 10), // changes position of shadow
@@ -192,9 +186,7 @@ class LogoutButton extends StatelessWidget {
           ],
         ),
         child: MaterialButton(
-          splashColor: color == null
-              ? AppColors.mainColor2.withOpacity(0.5)
-              : Colors.redAccent[800],
+          splashColor: color == null ? AppColors.mainColor2.withOpacity(0.5) : Colors.redAccent[800],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25.r),
           ),
@@ -203,8 +195,7 @@ class LogoutButton extends StatelessWidget {
           height: height,
           child: Text(
             text,
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 14.sp, letterSpacing: 2),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp, letterSpacing: 2),
           ),
           textColor: AppColors.mainColor1,
           onPressed: onPressed,
@@ -240,11 +231,7 @@ class DrawerButton extends StatelessWidget {
           ),
           Text(
             title,
-            style: TextStyle(
-                color: AppColors.textColorXDarkBlue,
-                fontSize: 15.sp,
-                fontWeight: FontWeight.bold,
-                fontFamily: ('Bahij')),
+            style: TextStyle(color: AppColors.textColorXDarkBlue, fontSize: 15.sp, fontWeight: FontWeight.bold, fontFamily: ('Bahij')),
           ),
         ],
       ),

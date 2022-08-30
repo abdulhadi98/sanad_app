@@ -88,7 +88,7 @@ class DelegationsListSceen extends StatelessWidget {
                                         print(delegationsController.delegationsList[i].id);
 
                                         SalesmanOrderScreen.delegationId = delegationsController.delegationsList[i].id;
-                                        Get.toNamed('/order-from-salesperson-screen');
+                                        Get.toNamed('/order-from-salesperson-screen', arguments: {'delegation_id': delegationsController.delegationsList[i].id});
                                       },
                                       // title: ordersController
                                       //     .delegationsList[i].name!,

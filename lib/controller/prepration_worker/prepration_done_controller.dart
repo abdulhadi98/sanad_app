@@ -30,7 +30,7 @@ class PerpartionWorkerController extends GetxController {
   getOrderById() async {
     String? token = await sharedPreferences!.getString("token");
     setStatus(Status.LOADING);
-    // try {
+    try {
     dynamic response = await http.get(Uri.parse(UrlsContainer.getOrderById + '?order_id=${OrdersRootScreen.orderId}'), headers: {'Authorization': 'Bearer $token'});
     Map body = jsonDecode(response.body);
     print(body);
@@ -43,17 +43,17 @@ class PerpartionWorkerController extends GetxController {
     });
     setStatus(Status.DATA);
     return code;
-    // } catch (e) {
-    //   print(e);
-    //   setStatus(Status.ERROR);
-    //   // spinner.value = false;
-    //   Utils.showGetXToast(
-    //     title: 'خطأ',
-    //     message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً',
-    //     toastColor: AppColors.red,
-    //   );
-    //   return 'error';
-    // }
+    } catch (e) {
+      print(e);
+      setStatus(Status.ERROR);
+      // spinner.value = false;
+      Utils.showGetXToast(
+        title: 'خطأ',
+        message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً',
+        toastColor: AppColors.red,
+      );
+      return 'error';
+    }
   }
 
   setOrderDetails() {

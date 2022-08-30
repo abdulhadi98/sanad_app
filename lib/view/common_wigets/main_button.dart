@@ -29,9 +29,7 @@ class MainButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(25.r),
           boxShadow: [
             BoxShadow(
-              color: color == null
-                  ? AppColors.mainColor1.withOpacity(0.5)
-                  : color!.withOpacity(0.5),
+              color: color == null ? AppColors.mainColor1.withOpacity(0.5) : color!.withOpacity(0.5),
               spreadRadius: 0,
               blurRadius: 10,
               offset: Offset(0, 10), // changes position of shadow
@@ -39,9 +37,7 @@ class MainButton extends StatelessWidget {
           ],
         ),
         child: MaterialButton(
-          splashColor: color == null
-              ? AppColors.mainColor2.withOpacity(0.5)
-              : Colors.redAccent[800],
+          splashColor: color == null ? AppColors.mainColor2.withOpacity(0.5) : Colors.redAccent[800],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25.r),
           ),
@@ -50,10 +46,7 @@ class MainButton extends StatelessWidget {
           height: height,
           child: Text(
             text,
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 14.sp,
-                letterSpacing: 1.5),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp, letterSpacing: 0),
           ),
           textColor: Colors.white,
           onPressed: onPressed,

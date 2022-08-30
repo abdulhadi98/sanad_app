@@ -25,8 +25,7 @@ import '../../../common_wigets/header_widget.dart';
 
 class SubmitOrderScreen extends StatelessWidget {
   SubmitOrderScreen({Key? key}) : super(key: key);
-  final AddNewOrderScreenController addNewOrderScreenController =
-      Get.find<AddNewOrderScreenController>();
+  final AddNewOrderScreenController addNewOrderScreenController = Get.find<AddNewOrderScreenController>();
   var scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalController globalController = Get.find<GlobalController>();
 
@@ -56,7 +55,7 @@ class SubmitOrderScreen extends StatelessWidget {
                     HeaderWidget(
                       width: width,
                       employeeName: "اسم الموظف",
-                      title: "مدير قسم المبيعات",
+                      title: Get.arguments['role_name'],
                       scaffoldKey: scaffoldKey,
                     ),
                     TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
@@ -77,9 +76,7 @@ class SubmitOrderScreen extends StatelessWidget {
                                       TextFieldCustom(
                                         enabled: false,
                                         hint: 'رقم العميل',
-                                        textEditingController:
-                                            addNewOrderScreenController
-                                                .clientNumberController.value,
+                                        textEditingController: addNewOrderScreenController.clientNumberController.value,
                                         onChanged: (val) {},
                                       ),
                                       SizedBox(
@@ -87,9 +84,7 @@ class SubmitOrderScreen extends StatelessWidget {
                                       ),
                                       TextFieldCustom(
                                         enabled: false,
-                                        textEditingController:
-                                            addNewOrderScreenController
-                                                .invoiceNumberController.value,
+                                        textEditingController: addNewOrderScreenController.invoiceNumberController.value,
                                         hint: 'رقم الفاتورة',
                                         onChanged: (val) {},
                                       ),
@@ -99,10 +94,7 @@ class SubmitOrderScreen extends StatelessWidget {
                                       TextFieldCustom(
                                         enabled: false,
                                         hint: 'عدد الأصناف',
-                                        textEditingController:
-                                            addNewOrderScreenController
-                                                .categoriesNumberController
-                                                .value,
+                                        textEditingController: addNewOrderScreenController.categoriesNumberController.value,
                                         onChanged: (val) {},
                                       ),
                                       SizedBox(
@@ -113,9 +105,7 @@ class SubmitOrderScreen extends StatelessWidget {
 
                                         //focusNode: focusNode,
                                         hint: 'عنوان العميل',
-                                        textEditingController:
-                                            addNewOrderScreenController
-                                                .addressController.value,
+                                        textEditingController: addNewOrderScreenController.addressController.value,
                                         onChanged: (val) {},
                                       ),
                                       SizedBox(
@@ -124,9 +114,7 @@ class SubmitOrderScreen extends StatelessWidget {
                                       TextFieldTall(
                                         enabled: false,
                                         height: 158.h,
-                                        textEditingController:
-                                            addNewOrderScreenController
-                                                .detailsController.value,
+                                        textEditingController: addNewOrderScreenController.detailsController.value,
                                         hint: 'تفاصيل إضافية',
                                         onChanged: (val) {},
                                       ),
@@ -152,9 +140,7 @@ class SubmitOrderScreen extends StatelessWidget {
                                           width: 178.w,
                                           height: 50.h,
                                           onPressed: () async {
-                                            dynamic status =
-                                                await addNewOrderScreenController
-                                                    .addNewOrder();
+                                            dynamic status = await addNewOrderScreenController.addNewOrder();
                                             // if (status == '777')
                                             //   Utils.showGetXToast(
                                             //       message: status);
@@ -164,19 +150,11 @@ class SubmitOrderScreen extends StatelessWidget {
                                                 width: width,
                                                 context: context,
                                                 padding: EdgeInsets.zero,
-                                                dialogContent:
-                                                    DialogContentThanks(
+                                                dialogContent: DialogContentThanks(
                                                   onTap: () {
-                                                    if (sharedPreferences!
-                                                            .getInt('role') ==
-                                                        5)
-                                                      Get.offAllNamed(
-                                                          '/sales-manger-root-screen');
-                                                    else if (sharedPreferences!
-                                                            .getInt('role') ==
-                                                        4)
-                                                      Get.offAllNamed(
-                                                          '/sales-employee-root-screen');
+                                                    if (sharedPreferences!.getInt('role') == 5)
+                                                      Get.offAllNamed('/sales-manger-root-screen');
+                                                    else if (sharedPreferences!.getInt('role') == 4) Get.offAllNamed('/sales-employee-root-screen');
                                                   },
                                                 ),
                                               );

@@ -28,6 +28,7 @@ import 'package:wits_app/view/sales/sales_manger/add_new_order/add_new_order_scr
 import 'package:wits_app/view/sales/sales_manger/add_new_order/submit_order_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/order_details_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/send_order_to_sales_employee.dart';
+import 'package:wits_app/view/sales/sales_manger/delegations/accept_and_assign_sales_employee_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/delegations/add_order_from_delegation_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/delegations/reject_delegation_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/delegations/submit_order_delegation_screen.dart';
@@ -95,6 +96,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/add-new-order-screen', page: () => AddNewOrderScreen(), binding: GolbalBindings()),
         GetPage(name: '/submit-order-screen', page: () => SubmitOrderScreen(), binding: GolbalBindings()),
         GetPage(name: '/order-details-screen', page: () => OrderDetailsScreen()),
+        GetPage(name: '/accept-and-assign-sales-employee', page: () => AcceptAndAssignSalesEmployee()),
+
         GetPage(name: '/send_order_to_sales_employee', page: () => SendOrderToSalesEmployee()),
         GetPage(name: '/delegations-list-screen', page: () => DelegationsListSceen()),
         GetPage(name: '/orders-root-screen', page: () => OrdersRootScreen()),

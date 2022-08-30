@@ -6,8 +6,6 @@ import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/helper/utils.dart';
 import 'package:wits_app/main.dart';
 import 'package:wits_app/model/client_model.dart';
-import 'package:wits_app/model/order_model.dart';
-import 'package:wits_app/model/user_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:wits_app/network/urls_container.dart';
 import '../../helper/enums.dart';

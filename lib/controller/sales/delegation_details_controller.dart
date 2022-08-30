@@ -242,7 +242,9 @@ class DelegationDetailsController extends GetxController {
   int? delegationId;
   getDelegationById() async {
     String? token = await sharedPreferences!.getString("token");
-    int? id = SalesmanOrderScreen.delegationId;
+   // int? id = SalesmanOrderScreen.delegationId;
+    int? id =Get.arguments['delegation_id'];
+
     print('delegationId= #$id');
     setStatus(Status.LOADING);
     try {

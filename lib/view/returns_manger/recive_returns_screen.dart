@@ -49,7 +49,7 @@ class ReciveReturnsScreen extends StatelessWidget {
                     HeaderWidget(
                       width: width,
                       employeeName: "اسم الموظف",
-                      title: "مسؤول الفحص",
+                      title: "مسؤول المرتجعات",
                       scaffoldKey: scaffoldKey,
                     ),
                     Expanded(
@@ -125,8 +125,8 @@ class ReciveReturnsScreen extends StatelessWidget {
                                       height: 23.h,
                                     ),
                                     TextFieldCustom(
-                                      enabled: true,
-                                      hint: 'أدخل عدد الصناديق',
+                                      enabled: false,
+                                      hint: 'عدد الصناديق',
                                       keyboardType: TextInputType.number,
                                       textEditingController: reciveReturnsController.boxesNumberController.value,
                                       onChanged: (val) {},
@@ -137,8 +137,8 @@ class ReciveReturnsScreen extends StatelessWidget {
                                     Padding(
                                       padding: EdgeInsets.only(bottom: 30.h),
                                       child: MainButton(
-                                        text: 'إرسال',
-                                        width: 178.w,
+                                        text: 'تم إستلام المرتجعات',
+                                        width: 232.w,
                                         height: 50.h,
                                         onPressed: () async {
                                           dynamic status = await reciveReturnsController.reciveReturns();
@@ -153,7 +153,7 @@ class ReciveReturnsScreen extends StatelessWidget {
                                               padding: EdgeInsets.zero,
                                               dialogContent: DialogContentThanks(
                                                 onTap: () {
-                                                  Get.offAllNamed('/incpection-officer-root-screen');
+                                                  Get.offAllNamed('/returns-manger-root-screen');
                                                 },
                                               ),
                                             );
