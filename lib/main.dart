@@ -1,13 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_timeline/flutter_timeline.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wits_app/bindings/bindings.dart';
 import 'package:wits_app/middleware/auth_middleware.dart';
 import 'package:wits_app/view/auth/login_screen.dart';
-import 'package:wits_app/view/common_widgets/steper_widget.dart';
-import 'package:wits_app/view/common_widgets/timeline.dart';
+import 'package:wits_app/view/driver/driver_root_screen.dart';
+import 'package:wits_app/view/driver/orders_driver_screen.dart';
 import 'package:wits_app/view/incpection_officer/enter_boxes_number_screen.dart';
 import 'package:wits_app/view/incpection_officer/incpection_officer_root_screen.dart';
 import 'package:wits_app/view/incpection_officer/orders_incpection_officer_screen.dart';
@@ -19,6 +18,8 @@ import 'package:wits_app/view/movment_manger/print_order_movment_manger.dart';
 import 'package:wits_app/view/preparation_worker/orders_preparation_worker_screen.dart';
 import 'package:wits_app/view/preparation_worker/preparation_worker_root_screen.dart';
 import 'package:wits_app/view/preparation_worker/prepration_done_screen.dart';
+import 'package:wits_app/view/quality_supervisor/orders_quality_supervisor_screen.dart';
+import 'package:wits_app/view/quality_supervisor/quality_supervisor_root_screen.dart';
 import 'package:wits_app/view/returns_manger/orders_returns_manger_screen.dart';
 import 'package:wits_app/view/returns_manger/recive_returns_screen.dart';
 import 'package:wits_app/view/returns_manger/returns_manger_root_screen.dart';
@@ -77,7 +78,6 @@ class MyApp extends StatelessWidget {
         canvasColor: Colors.white,
         primaryColor: AppColors.mainColor1,
       ),
-      // home: ,
       initialRoute: '/',
       getPages: [
         GetPage(
@@ -134,21 +134,31 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/orders-screen-returns-manger', page: () => OrdersScreentReturnsManger()),
         GetPage(name: '/recive-returns-screen', page: () => ReciveReturnsScreen()),
         GetPage(name: '/return-manger-root-screen', page: () => ReturnsMangerRootScreen()),
+
+        //Driver
+        GetPage(name: '/driver-root-screen', page: () => DriverRootScreen()),
+        GetPage(name: '/orders-driver-screen', page: () => OrdersDriverScreen()),
+        GetPage(name: '/recive-returns-screen', page: () => ReciveReturnsScreen()),
+
+        //Quality Supervisor
+        GetPage(name: '/quality-supervisor-root-screen', page: () => QualitySupervisorRootScreen()),
+        GetPage(name: '/orders-quality-supervisor-screen', page: () => OrdersQualitySupervisorScreent()),
+        GetPage(name: '/recive-returns-screen', page: () => ReciveReturnsScreen()),
       ],
     );
   }
 }
 
-class StatusSteper extends StatefulWidget {
-  StatusSteper({Key? key}) : super(key: key);
+// class StatusSteper extends StatefulWidget {
+//   StatusSteper({Key? key}) : super(key: key);
 
-  @override
-  State<StatusSteper> createState() => _StatusSteperState();
-}
+//   @override
+//   State<StatusSteper> createState() => _StatusSteperState();
+// }
 
-class _StatusSteperState extends State<StatusSteper> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
+// class _StatusSteperState extends State<StatusSteper> {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container();
+//   }
+// }

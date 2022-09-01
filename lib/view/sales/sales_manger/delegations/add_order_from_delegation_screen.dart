@@ -130,13 +130,13 @@ class AddOrderFromDelegationScreen extends StatelessWidget {
                                       text: 'إرسال',
                                       width: 178.w,
                                       height: 50.h,
-                                      onPressed: () {
+                                      onPressed: () {//TODO: salesmanger
                                         // AddOrderFromDelegationScreenController
-                                        if (delegationDetailsController.validateOrder()) {
-                                          delegationDetailsController.setOrderModel();
-                                          // print(delegationDetailsController.orderModel);
-                                          Get.toNamed('/submit-order-delegation-screen');
-                                        }
+                                        // if (delegationDetailsController.validateOrder()) {
+                                        //   delegationDetailsController.setOrderModel();
+                                        //   // print(delegationDetailsController.orderModel);
+                                        //   Get.toNamed('/submit-order-delegation-screen');
+                                        // }
                                       },
                                     ),
                                   ),

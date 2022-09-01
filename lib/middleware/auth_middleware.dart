@@ -20,6 +20,10 @@ class AuthMiddleWare extends GetMiddleware {
       return RouteSettings(name: '/prepartion-worker-root-screen');
     else if (roleId == 17)
       return RouteSettings(name: '/return-manger-root-screen');
+    else if (roleId == 2)
+      return RouteSettings(name: '/driver-root-screen');
+    else if (roleId == 10)
+      return RouteSettings(name: '/quality-supervisor-root-screen');
     else if (roleId == 9) return RouteSettings(name: '/incpection-officer-root-screen');
   }
 }

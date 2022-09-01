@@ -53,32 +53,29 @@ class DelegationDetailsScreenController extends GetxController {
 
     print('delegationId= #$id');
     setStatus(Status.LOADING);
-    // try {
-    dynamic response = await http.get(Uri.parse(UrlsContainer.getDelegationById + '?delegation_id=$id'), headers: {'Authorization': 'Bearer $token'});
-    dynamic body = jsonDecode(response.body);
-    print(body);
-    //List<dynamic> data = body['data'];
-    var data = body;
+    try {
+      dynamic response = await http.get(Uri.parse(UrlsContainer.getDelegationById + '?delegation_id=$id'), headers: {'Authorization': 'Bearer $token'});
+      dynamic body = jsonDecode(response.body);
+      print(body);
+      //List<dynamic> data = body['data'];
+      var data = body['data'];
 
-    delegationModel = DelegationModel.fromJson(data);
-    employeeName.value = delegationModel!.delegationEmployeeName!;
-    print(DelegationModel.fromJson(data));
-    setDelegationInfo();
-    setStatus(Status.DATA);
-    // String code = body['code'].toString();
-    // String message = body['message'];
-    // Utils.getResponseCode(code, message);
-    return '200'; //return code;
-    // } catch (e) {
-    //   print(e);
-    //   setStatus(Status.ERROR);
-    //   // spinner.value = false;
-    //   Utils.showGetXToast(
-    //       title: 'خطأ',
-    //       message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً',
-    //       toastColor: AppColors.red);
-    //   return 'error';
-    // }
+      delegationModel = DelegationModel.fromJson(data);
+      employeeName.value = delegationModel!.delegationEmployeeName!;
+      print(DelegationModel.fromJson(data));
+      setDelegationInfo();
+      setStatus(Status.DATA);
+      String code = body['code'].toString();
+      String message = body['message'];
+      Utils.getResponseCode(code, message);
+      return code; //return code;
+    } catch (e) {
+      print(e);
+      setStatus(Status.ERROR);
+      // spinner.value = false;
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
+      return 'error';
+    }
   }
 
   setDelegationInfo() {

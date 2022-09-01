@@ -136,6 +136,7 @@ class AcceptAndAssignSalesEmployee extends StatelessWidget {
                                             dialogContent: DialogContentAreYouSure(
                                               onYes: () async {
                                                 acceptAndAssignSalesEmployeeController.setDelegationManger(DelegationModel(
+                                                  id:delegationDetailsScreenController.delegationModel!.id ,
                                                     clientNumber: delegationDetailsScreenController.clientNumberController.value.text.toString(),
                                                     creatorId: delegationDetailsScreenController.delegationModel!.creatorId.toString(),
                                                     details: delegationDetailsScreenController.detailsController.value.text,

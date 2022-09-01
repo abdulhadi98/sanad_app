@@ -8,7 +8,7 @@ import 'package:wits_app/view/common_wigets/main_button.dart';
 import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
 
-class MovmentMangerRootScreen extends StatelessWidget {
+class QualitySupervisorRootScreen extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -39,52 +39,37 @@ class MovmentMangerRootScreen extends StatelessWidget {
                         scaffoldKey: scaffoldKey,
                         width: width,
                         employeeName: 'اسم الموظف',
-                        title: 'مدير الحركة',
+                        title: 'مراقب الجودة',
                       ),
                       SizedBox(
                         height: 49.h,
                       ),
+                      // MainButton(
+                      //   text: 'استلام المرتجعات',
+                      //   width: 224.w,
+                      //   height: 50.h,
+                      //   onPressed: () {
+                      //     Get.toNamed(
+                      //       '/orders-screen-warehouse-manger',
+                      //       arguments: {
+                      //         "api": "/get-returns",
+                      //       },
+                      //     );
+                      //   },
+                      // ),
+                      // SizedBox(
+                      //   height: 30.h,
+                      // ),
+
                       MainButton(
-                        text: 'طلبيات غير مطبوعة',
+                        text: 'الطلبيات',
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
                           Get.toNamed(
-                            '/orders-screen-movment-manger',
+                            '/orders-quality-supervisor-screen',
                             arguments: {
-                              "api": "/get-unprinted-orders",
-                            },
-                          );
-                        },
-                      ),
-                      SizedBox(
-                        height: 30.h,
-                      ),
-                      MainButton(
-                        text: 'طلبيات تحتاج تعيين سائق',
-                        width: 224.w,
-                        height: 50.h,
-                        onPressed: () {
-                          Get.toNamed(
-                            '/orders-screen-movment-manger',
-                            arguments: {
-                              "api": "/get-orders-needs-driver",
-                            },
-                          );
-                        },
-                      ),
-                      SizedBox(
-                        height: 30.h,
-                      ),
-                      MainButton(
-                        text: 'طلبيات قيد التنفيذ',
-                        width: 224.w,
-                        height: 50.h,
-                        onPressed: () {
-                          Get.toNamed(
-                            '/orders-screen-movment-manger',
-                            arguments: {
-                              "api": "/get-orders",
+                              "api": "/get-assigned-preprations",
                             },
                           );
                         },

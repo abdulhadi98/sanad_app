@@ -19,6 +19,8 @@ class UrlsContainer {
 
   static String addDelegation = "$baseApiUrl/add-delegation-sales";
   static String addDelegationManger = "$baseApiUrl/add-delegation-manager";
+  static String assignDelegationToEmployee = "$baseApiUrl/assign-delegation-to-employee";
+  
   static String rejectDelegation = "$baseApiUrl/reject-delegation";
   static String getDelegationsOrders = "$baseApiUrl/get-delegation-orders";
   static String getDelegationById = "$baseApiUrl/get-delegation-by-id";

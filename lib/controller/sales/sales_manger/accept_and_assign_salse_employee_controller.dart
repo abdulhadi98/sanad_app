@@ -32,7 +32,7 @@ class AcceptAndAssignSalesEmployeeController extends GetxController {
     String? token = await sharedPreferences!.getString("token");
     response = await http.post(
         Uri.parse(
-          UrlsContainer.addDelegationManger,
+          UrlsContainer.assignDelegationToEmployee,
         ),
         body: delegationModel!.toJsonManger(),
         headers: {'Authorization': 'Bearer $token'});

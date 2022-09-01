@@ -138,7 +138,7 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                                             padding: EdgeInsets.zero,
                                             dialogContent: DialogContentAreYouSure(
                                               onYes: () async {
-                                          addDelegationSalesMangerController.setDelegationManger(Get.arguments['sales_employee_id']);
+                                          addDelegationSalesMangerController.setDelegationManger(Get.arguments['sales_employee_id'],);
                                                 // addDelegationController
                                                 //         .setDelegationInfo()
                                                 dynamic status = await addDelegationSalesMangerController.addDelegationManger();

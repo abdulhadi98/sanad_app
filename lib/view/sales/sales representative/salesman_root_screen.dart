@@ -59,7 +59,7 @@ class SalesmanRootScreen extends StatelessWidget {
                     HeaderWidget(
                       width: width,
                       employeeName: "اسم الموظف",
-                      title: "مدير قسم المبيعات",
+                      title: "مندوب المبيعات",
                       scaffoldKey: scaffoldKey,
                     ),
                     TitleWidget(tilte: 'إرسال طلب إلى مدير المبيعات \n لبدء طلبية جديدة'),

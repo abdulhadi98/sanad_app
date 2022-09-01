@@ -38,33 +38,30 @@ class DelegationModel {
   String? acceptedDetails;
   DateTime? createdAt;
   DateTime? updatedAt;
-  factory DelegationModel.fromJson(Map<String, dynamic> json) =>
-      DelegationModel(
-        clientNumber:
-            json["client_number"] == null ? null : json["client_number"],
+  factory DelegationModel.fromJson(Map<String, dynamic> json) => DelegationModel(
+        clientNumber: json["client_number"] == null ? null : json["client_number"],
         id: json["id"] == null ? null : json["id"],
-        delegationEmployeeName: json["delegation_employee_name"] == null
-            ? null
-            : json["delegation_employee_name"],
-        commercialRecord: json["commercial_record"] == null
-            ? null
-            : json["commercial_record"],
+        delegationEmployeeName: json["delegation_employee_name"] == null ? null : json["delegation_employee_name"],
+        commercialRecord: json["commercial_record"] == null ? null : json["commercial_record"],
         creatorId: json["creator_id"] == null ? null : json["creator_id"],
         warehouseId: json["warehouse_id"] == null ? null : json["warehouse_id"],
         orderId: json["order_id"] == null ? null : json["order_id"],
         details: json["details"] == null ? null : json["details"],
         accepted: json["accepted"] == null ? null : json["accepted"],
-        acceptedDetails:
-            json["accepted_details"] == null ? null : json["accepted_details"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        acceptedDetails: json["accepted_details"] == null ? null : json["accepted_details"],
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
         employeeId: json["employee_id"] == null ? null : json["employee_id"],
       );
+  Map<String, dynamic> toJsonMangerFromScratch() => {
+        // 'delegation_id': id == null ? null : id,
+        "client_number": clientNumber == null ? null : clientNumber,
+        "details": details == null ? null : details,
+        "creator_id": creatorId == null ? null : creatorId,
+        "employee_id": employeeId == null ? null : employeeId.toString(),
+      };
   Map<String, dynamic> toJsonManger() => {
+        'delegation_id': id == null ? null : id.toString(),
         "client_number": clientNumber == null ? null : clientNumber,
         "details": details == null ? null : details,
         "creator_id": creatorId == null ? null : creatorId,

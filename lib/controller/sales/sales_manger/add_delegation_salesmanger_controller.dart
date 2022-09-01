@@ -59,7 +59,7 @@ class AddDelegationSalesMangerController extends GetxController {
     spinner.value = true;
 
     try {
-    print(delegationModel!.toJsonManger());
+    print(delegationModel!.toJsonMangerFromScratch());
     String? token = await sharedPreferences!.getString("token");
     response = await http.post(
         Uri.parse(
