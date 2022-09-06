@@ -1,16 +1,14 @@
 import 'dart:convert';
-
 import 'package:get/get.dart';
 import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/helper/utils.dart';
 import 'package:wits_app/main.dart';
 import 'package:wits_app/model/delegation_model.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:wits_app/network/urls_container.dart';
-import '../../helper/enums.dart';
+import '../../../helper/enums.dart';
 
-class DelegationsController extends GetxController {
+class SalesEmployeeDelegationsController extends GetxController {
   RxBool spinner = false.obs;
   Rx<Status>? status = Status.DATA.obs;
   setStatus(Status s) {
@@ -28,12 +26,12 @@ class DelegationsController extends GetxController {
     String? token = await sharedPreferences!.getString("token");
     setStatus(Status.LOADING);
     try {
-      dynamic response = await http.get(Uri.parse(UrlsContainer.getDelegationsOrders), headers: {'Authorization': 'Bearer $token'});
+      dynamic response = await http.get(Uri.parse(UrlsContainer.getAssignedDelegations), headers: {'Authorization': 'Bearer $token'});
       dynamic body = jsonDecode(response.body);
       print(body);
       List<dynamic> data = body['data'];
       delegationsList = List<DelegationModel>.from(data.map((x) => DelegationModel.fromJson(x)).toList());
-      delegationsList.removeWhere((delegation) => delegation.employeeId != null);
+      //  delegationsList.removeWhere((delegation) => delegation.employeeId != null);
       setStatus(Status.DATA);
       String code = body['code'].toString();
       String message = body['message'];

@@ -27,7 +27,7 @@ class AcceptAndAssignSalesEmployeeController extends GetxController {
     dynamic response;
     setStatus(Status.LOADING);
 
-    // try {
+    try {
     // print(delegationModel!.toJsonManger());
     String? token = await sharedPreferences!.getString("token");
     response = await http.post(
@@ -47,12 +47,12 @@ class AcceptAndAssignSalesEmployeeController extends GetxController {
     Utils.getResponseCode(code, message, onData: () {});
 
     return code;
-    // } catch (e) {
-    //   print(e);
-    //   spinner.value = false;
-    //   Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
-    //   return 'error';
-    // }
+    } catch (e) {
+      print(e);
+      spinner.value = false;
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
+      return 'error';
+    }
   }
 
   //

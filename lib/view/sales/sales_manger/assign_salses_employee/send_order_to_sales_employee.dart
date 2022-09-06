@@ -127,6 +127,8 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                                       width: 178.w,
                                       height: 50.h,
                                       onPressed: () async {
+                                          FocusScope.of(context).requestFocus(FocusNode());
+
                                         // addNewOrderScreenController
                                         if (addDelegationSalesMangerController.validateInputs()) {
                                           //if all fields not empty
@@ -138,7 +140,11 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                                             padding: EdgeInsets.zero,
                                             dialogContent: DialogContentAreYouSure(
                                               onYes: () async {
-                                          addDelegationSalesMangerController.setDelegationManger(Get.arguments['sales_employee_id'],);
+                                                
+                                                FocusScope.of(context).requestFocus(FocusNode());
+                                                addDelegationSalesMangerController.setDelegationManger(
+                                                  Get.arguments['sales_employee_id'],
+                                                );
                                                 // addDelegationController
                                                 //         .setDelegationInfo()
                                                 dynamic status = await addDelegationSalesMangerController.addDelegationManger();

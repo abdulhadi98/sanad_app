@@ -151,6 +151,8 @@ class EnterBoxesNumberScreen extends StatelessWidget {
                                         width: 178.w,
                                         height: 50.h,
                                         onPressed: () async {
+                                          FocusScope.of(context).requestFocus(FocusNode());
+
                                           if (enterBoxNumberController.validateInputs()) {
                                             dynamic status = await enterBoxNumberController.enterBoxesNumber();
                                             // if (status == '777')

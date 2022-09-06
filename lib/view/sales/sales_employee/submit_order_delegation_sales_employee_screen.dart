@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:wits_app/controller/sales/delegation_details_controller.dart';
+import 'package:wits_app/controller/sales/sales_employee/get_delegation_details_and_add_order_from_delegation_controllrer.dart';
 import 'package:wits_app/controller/sales/sales_manger/add_order_from_delegation_screen_controller.dart';
 import 'package:wits_app/controller/sales/sales_manger/delegation_details_screen_controller.dart';
 import 'package:wits_app/helper/app_colors.dart';
@@ -18,21 +19,17 @@ import 'package:wits_app/view/common_wigets/drawer.dart';
 import 'package:wits_app/view/common_wigets/main_button.dart';
 import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
-import 'package:wits_app/view/common_wigets/title_widget.dart';
-import 'package:wits_app/view/sales/sales_manger/add_new_order/add_new_order_screen.dart';
+import 'package:wits_app/view/sales/sales_employee/add_order_from_delegation_sales_employee_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 
 import '../../../../controller/global_controller.dart';
-import '../../../../controller/sales/add_new_order_screen_controller.dart';
-import '../../../common_wigets/bottom_nav_bar.dart';
-import '../../../common_wigets/header_widget.dart';
+import '../../common_wigets/bottom_nav_bar.dart';
+import '../../common_wigets/header_widget.dart';
 
-class SubmitOrderDelegationScreen extends StatelessWidget {
-  SubmitOrderDelegationScreen({Key? key}) : super(key: key);
-  final DelegationDetailsScreenController delegationDetailsController = Get.find<DelegationDetailsScreenController>();
-  final AddNewOrderFromDelegationScreenController addNewOrderFromDelegationScreenController = Get.find<AddNewOrderFromDelegationScreenController>();
+class SubmitOrderDelegationSalesEmployeeScreen extends StatelessWidget {
+  final GetDelegationAndAddNewOrderFromDelegationScreenController addOrderController = Get.find<GetDelegationAndAddNewOrderFromDelegationScreenController>();
 
-  var scaffoldKey = GlobalKey<ScaffoldState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalController globalController = Get.find<GlobalController>();
 
 //  FocusNode focusNode = FocusNode();
@@ -70,7 +67,7 @@ class SubmitOrderDelegationScreen extends StatelessWidget {
                         width: width,
                         child: SingleChildScrollView(
                           child: Obx(() {
-                            switch (addNewOrderFromDelegationScreenController.status!.value) {
+                            switch (addOrderController.status!.value) {
                               case Status.LOADING:
                                 return SizedBox(
                                   height: height / 1.5,
@@ -92,7 +89,7 @@ class SubmitOrderDelegationScreen extends StatelessWidget {
                                     TextFieldCustom(
                                       enabled: false,
                                       hint: 'رقم العميل',
-                                      textEditingController: delegationDetailsController.clientNumberController.value,
+                                      textEditingController: addOrderController.clientNumberController.value,
                                       onChanged: (val) {},
                                     ),
                                     SizedBox(
@@ -100,7 +97,7 @@ class SubmitOrderDelegationScreen extends StatelessWidget {
                                     ),
                                     TextFieldCustom(
                                       enabled: false,
-                                      textEditingController: addNewOrderFromDelegationScreenController.invoiceNumberController.value,
+                                      textEditingController: addOrderController.invoiceNumberController.value,
                                       hint: 'رقم الفاتورة',
                                       onChanged: (val) {},
                                     ),
@@ -110,7 +107,7 @@ class SubmitOrderDelegationScreen extends StatelessWidget {
                                     TextFieldCustom(
                                       enabled: false,
                                       hint: 'عدد الأصناف',
-                                      textEditingController: addNewOrderFromDelegationScreenController.categoriesNumberController.value,
+                                      textEditingController: addOrderController.categoriesNumberController.value,
                                       onChanged: (val) {},
                                     ),
                                     SizedBox(
@@ -121,7 +118,7 @@ class SubmitOrderDelegationScreen extends StatelessWidget {
 
                                       //focusNode: focusNode,
                                       hint: 'عنوان العميل',
-                                      textEditingController: addNewOrderFromDelegationScreenController.addressController.value,
+                                      textEditingController: addOrderController.addressController.value,
                                       onChanged: (val) {},
                                     ),
                                     SizedBox(
@@ -130,7 +127,7 @@ class SubmitOrderDelegationScreen extends StatelessWidget {
                                     TextFieldTall(
                                       enabled: false,
                                       height: 158.h,
-                                      textEditingController: delegationDetailsController.detailsController.value,
+                                      textEditingController: addOrderController.detailsController.value,
                                       hint: 'تفاصيل إضافية',
                                       onChanged: (val) {},
                                     ),
@@ -146,6 +143,7 @@ class SubmitOrderDelegationScreen extends StatelessWidget {
                                         Get.back();
                                       },
                                     ),
+                                 
                                     SizedBox(
                                       height: 23.h,
                                     ),
@@ -156,25 +154,27 @@ class SubmitOrderDelegationScreen extends StatelessWidget {
                                         width: 178.w,
                                         height: 50.h,
                                         onPressed: () async {
-                                          dynamic status = await addNewOrderFromDelegationScreenController.addNewOrder();
+                                          FocusScope.of(context).requestFocus(FocusNode());
+
+                                          dynamic addStatus = await addOrderController.addNewOrder();
                                           // if (status == '777')
                                           //   Utils.showGetXToast(
                                           //       message: status);
-                                          if (status == '200') dynamic status = await addNewOrderFromDelegationScreenController.addOrderIdToDelegation();
-
-                                          showDialogCustom(
-                                            height: height,
-                                            width: width,
-                                            context: context,
-                                            padding: EdgeInsets.zero,
-                                            dialogContent: DialogContentThanks(
-                                              onTap: () {
-                                                if (sharedPreferences!.getInt('role') == 5)
-                                                  Get.offAllNamed('/sales-manger-root-screen');
-                                                else if (sharedPreferences!.getInt('role') == 4) Get.offAllNamed('/sales-employee-root-screen');
-                                              },
-                                            ),
-                                          );
+                                          if (addStatus == '200') {
+                                            dynamic status = await addOrderController.addOrderIdToDelegation();
+                                            if (status == '200')
+                                              showDialogCustom(
+                                                height: height,
+                                                width: width,
+                                                context: context,
+                                                padding: EdgeInsets.zero,
+                                                dialogContent: DialogContentThanks(
+                                                  onTap: () {
+                                                    Get.offAllNamed('/sales-employee-root-screen');
+                                                  },
+                                                ),
+                                              );
+                                          }
                                         },
                                       ),
                                     ),

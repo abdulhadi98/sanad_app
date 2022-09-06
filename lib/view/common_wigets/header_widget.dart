@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:wits_app/controller/global_controller.dart';
+import 'package:wits_app/main.dart';
 
 import '../../helper/app_colors.dart';
 
@@ -61,15 +62,13 @@ class HeaderWidget extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Obx(
-                        () => Text(
-                          globalController.userName.value,
-                          style: TextStyle(
-                            color: AppColors.mainColor1,
-                            fontSize: 18.sp,
-                            fontWeight: FontWeight.normal,
-                            // height: 2,
-                          ),
+                      Text(
+                        sharedPreferences!.getString('user_name') ?? '...',
+                        style: TextStyle(
+                          color: AppColors.mainColor1,
+                          fontSize: 18.sp,
+                          fontWeight: FontWeight.normal,
+                          // height: 2,
                         ),
                       ),
                       Text(

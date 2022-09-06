@@ -78,7 +78,7 @@ class OrderDetailsController extends GetxController {
     clientNumberController.value.text = orderDetailsModel!.clientNumber!.toString();
     invoiceNumberController.value.text = orderDetailsModel!.invoiceNumber!.toString();
     categoriesNumberController.value.text = orderDetailsModel!.catsNumber!.toString();
-    addressController.value.text = orderDetailsModel!.invoiceNumber!.toString();
+    addressController.value.text = orderDetailsModel!.clientRegion! + ', ' + orderDetailsModel!.clientCity!;
     orderDetailsModel!.clientRegion! + ', ' + orderDetailsModel!.clientCity!;
     detailsController.value.text = orderDetailsModel!.details ?? 'لا توجد تفاصيل';
     boxNumberController.value.text = orderDetailsModel!.boxNumber.toString();

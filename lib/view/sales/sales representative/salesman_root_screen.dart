@@ -121,6 +121,7 @@ class SalesmanRootScreen extends StatelessWidget {
                                       width: 178.w,
                                       height: 50.h,
                                       onPressed: () async {
+                                          FocusScope.of(context).requestFocus(FocusNode());
                                         // addNewOrderScreenController
                                         if (addDelegationController.validateInputs()) {
                                           //if all fields not empty

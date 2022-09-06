@@ -58,14 +58,14 @@ class AddDelegationSalesMangerController extends GetxController {
     dynamic response;
     spinner.value = true;
 
-    try {
-    print(delegationModel!.toJsonMangerFromScratch());
+    // try {
+    // print(delegationModel!.toJsonMangerFromScratch());
     String? token = await sharedPreferences!.getString("token");
     response = await http.post(
         Uri.parse(
           UrlsContainer.addDelegationManger,
         ),
-        body: delegationModel!.toJsonManger(),
+        body: delegationModel!.toJsonMangerFromScratch(), //This one for adding delegation from the start(from the sales manger root screen -assign sales employee- and it doesn't need delegation id)
         headers: {'Authorization': 'Bearer $token'});
 
     dynamic body = jsonDecode(response.body);
@@ -79,12 +79,12 @@ class AddDelegationSalesMangerController extends GetxController {
     });
     employeeId = null;
     return code;
-    } catch (e) {
-      print(e);
-      spinner.value = false;
-      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
-      return 'error';
-     }
+    // } catch (e) {
+    //   print(e);
+    //   spinner.value = false;
+    //   Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
+    //   return 'error';
+    //  }
   }
 
   bool validateInputs() {

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:wits_app/controller/sales/add_delegation_controller.dart';
 import 'package:wits_app/controller/sales/reject_delegation.dart';
 import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/view/common_wigets/bottom_nav_bar.dart';
@@ -14,13 +12,8 @@ import 'package:wits_app/view/common_wigets/main_button.dart';
 import 'package:wits_app/view/common_wigets/showdialog_are_you_sure.dart';
 import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
-import 'package:wits_app/view/common_wigets/textfield_search.dart';
 import 'package:wits_app/view/common_wigets/title_widget.dart';
-import 'package:wits_app/view/sales/sales_manger/add_new_order/add_new_order_screen.dart';
-import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/order_details_screen.dart';
-import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/worker_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
-
 import '../../../../helper/enums.dart';
 import '../../../../helper/utils.dart';
 
@@ -100,6 +93,8 @@ class RejectDelegationScreen extends StatelessWidget {
                                       width: 178.w,
                                       height: 50.h,
                                       onPressed: () async {
+                                        FocusScope.of(context).requestFocus(FocusNode());
+
                                         // addNewOrderScreenController
                                         if (rejectDelegationController.validateInputs()) {
                                           //if all fields not empty

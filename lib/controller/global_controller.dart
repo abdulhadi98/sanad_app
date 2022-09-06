@@ -16,6 +16,7 @@ class GlobalController extends GetxController {
   // var scaffoldKey = GlobalKey<ScaffoldState>();
   RxString userName = ' '.obs;
   getUser() async {
+    
     String? accessToken = sharedPreferences!.getString('token');
     String userId = sharedPreferences!.getInt('user_id').toString();
     try {

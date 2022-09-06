@@ -1,33 +1,33 @@
 class PerperatorModel {
-    PerperatorModel({
-        this.id,
-        this.name,
-        this.email,
-        this.emailVerifiedAt,
-        this.imagePorofile,
-        this.active,
-        this.warehouseId,
-        this.roleId,
-        this.createdAt,
-        this.updatedAt,
-        this.deviceToken,
-        this.deviceKey,
-    });
+  PerperatorModel({
+    this.id,
+    this.name,
+    this.email,
+    this.emailVerifiedAt,
+    this.imagePorofile,
+    this.active,
+    this.warehouseId,
+    this.roleId,
+    this.createdAt,
+    this.updatedAt,
+    this.deviceToken,
+    this.deviceKey,
+  });
 
-       int?  id;
-    String? name;
-    String? email;
-      bool? emailVerifiedAt;
-    String? imagePorofile;
-       int? active;
-       int? warehouseId;
-       int? roleId;
+  int? id;
+  String? name;
+  String? email;
+  String? emailVerifiedAt;
+  String? imagePorofile;
+  int? active;
+  int? warehouseId;
+  int? roleId;
   DateTime? createdAt;
   DateTime? updatedAt;
-    String? deviceToken;
-    String? deviceKey;
+  String? deviceToken;
+  String? deviceKey;
 
-    factory PerperatorModel.fromJson(Map<String, dynamic> json) => PerperatorModel(
+  factory PerperatorModel.fromJson(Map<String, dynamic> json) => PerperatorModel(
         id: json["id"] == null ? null : json["id"],
         name: json["name"] == null ? null : json["name"],
         email: json["email"] == null ? null : json["email"],
@@ -40,9 +40,9 @@ class PerperatorModel {
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
         deviceToken: json["device_token"] == null ? null : json["device_token"],
         deviceKey: json["device_key"] == null ? null : json["device_key"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,
         "name": name == null ? null : name,
         "email": email == null ? null : email,
@@ -55,5 +55,5 @@ class PerperatorModel {
         "updated_at": updatedAt == null ? null : updatedAt?.toIso8601String(),
         "device_token": deviceToken == null ? null : deviceToken,
         "device_key": deviceKey == null ? null : deviceKey,
-    };
+      };
 }

@@ -16,8 +16,7 @@ class LoginScreenController extends GetxController {
   Rx<TextEditingController> passwordController = TextEditingController().obs;
   RxBool spinner = false.obs;
   FirebaseMessaging messaging = FirebaseMessaging.instance;
-  FlutterLocalNotificationsPlugin fltNotification =
-      FlutterLocalNotificationsPlugin();
+  FlutterLocalNotificationsPlugin fltNotification = FlutterLocalNotificationsPlugin();
 
   Future<String?> pushFCMtoken() async {
     String? deviceToken = await messaging.getToken();
@@ -26,23 +25,19 @@ class LoginScreenController extends GetxController {
   }
 
   void initMessaging() {
-    var androiInit =
-        AndroidInitializationSettings('@mipmap/ic_launcher'); //for logo
+    var androiInit = AndroidInitializationSettings('@mipmap/ic_launcher'); //for logo
     var iosInit = IOSInitializationSettings();
     var initSetting = InitializationSettings(android: androiInit, iOS: iosInit);
     fltNotification = FlutterLocalNotificationsPlugin();
     fltNotification.initialize(initSetting);
-    var androidDetails = AndroidNotificationDetails('1', 'channelName',
-        channelDescription: 'channelDescription');
+    var androidDetails = AndroidNotificationDetails('1', 'channelName', channelDescription: 'channelDescription');
     var iosDetails = IOSNotificationDetails();
-    var generalNotificationDetails =
-        NotificationDetails(android: androidDetails, iOS: iosDetails);
+    var generalNotificationDetails = NotificationDetails(android: androidDetails, iOS: iosDetails);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       if (notification != null && android != null) {
-        fltNotification.show(notification.hashCode, notification.title,
-            notification.body, generalNotificationDetails);
+        fltNotification.show(notification.hashCode, notification.title, notification.body, generalNotificationDetails);
       }
     });
   }
@@ -51,16 +46,14 @@ class LoginScreenController extends GetxController {
     spinner.value = true;
     try {
       //String? deviceToken = await pushFCMtoken();
-      dynamic response =
-          await http.post(Uri.parse(UrlsContainer.emailLogin), body: {
+      dynamic response = await http.post(Uri.parse(UrlsContainer.emailLogin), body: {
         'email': emailController.value.text,
         'password': passwordController.value.text,
         //    'device_token': deviceToken
       });
       dynamic body = jsonDecode(response.body);
       print(body);
-      UserModel userModel =
-          UserModel.fromJson(jsonDecode(response.body)['data']);
+      UserModel userModel = UserModel.fromJson(jsonDecode(response.body)['data']);
       //  print(userModel.accessToken);
 
       String code = body['code'].toString();
@@ -71,10 +64,10 @@ class LoginScreenController extends GetxController {
         message,
         onData: () async {
           sharedPreferences!.setInt('role', userModel.roleId ?? 999);
-          sharedPreferences!
-              .setString('token', userModel.accessToken ?? 'null');
+          sharedPreferences!.setString('user_name', userModel.name ?? '-');
+          sharedPreferences!.setString('token', userModel.accessToken ?? 'null');
           sharedPreferences!.setInt('user_id', userModel.id ?? 999);
-          await addDeviceToken(userModel.accessToken);
+          var addToken = await addDeviceToken(userModel.accessToken);
 
           Get.offAllNamed('/root_screen');
         },
@@ -83,21 +76,17 @@ class LoginScreenController extends GetxController {
       return code;
     } catch (e) {
       spinner.value = false;
-      Utils.showGetXToast(
-          title: 'خطأ',
-          message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً',
-          toastColor: AppColors.red);
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
       return 'error';
     }
   }
 
   addDeviceToken(accessToken) async {
-    // spinner.value = true;
+    spinner.value = true;
 
     try {
       String? deviceToken = await pushFCMtoken();
-      dynamic response =
-          await http.post(Uri.parse(UrlsContainer.addDeviceToken), body: {
+      dynamic response = await http.post(Uri.parse(UrlsContainer.addDeviceToken), body: {
         'device_token': deviceToken,
       }, headers: {
         'Authorization': 'Bearer $accessToken'
@@ -114,15 +103,12 @@ class LoginScreenController extends GetxController {
       Utils.getResponseCode(
         code,
         message,
-        onData: () {},
       );
+      spinner.value = false;
       return code;
     } catch (e) {
       spinner.value = false;
-      Utils.showGetXToast(
-          title: 'خطأ',
-          message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً',
-          toastColor: AppColors.red);
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
       return 'error';
     }
   }

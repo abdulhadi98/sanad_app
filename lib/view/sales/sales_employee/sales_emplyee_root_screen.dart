@@ -67,6 +67,17 @@ class _SalesEmployeeRootScreenState extends State<SalesEmployeeRootScreen> {
                           Get.toNamed('/add-new-order-screen', arguments: {'role_name': "موظف قسم المبيعات"});
                         },
                       ),
+                      SizedBox(
+                        height: 30.h,
+                      ),
+                      MainButton(
+                        text: 'طلبيات من المدير العام',
+                        width: 224.w,
+                        height: 50.h,
+                        onPressed: () {
+                          Get.toNamed('/delegations_list_sales_employee_screen', );
+                        },
+                      ),
                     ],
                   ),
                 ),

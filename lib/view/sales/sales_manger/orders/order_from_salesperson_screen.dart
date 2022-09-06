@@ -9,6 +9,7 @@ import 'package:wits_app/controller/sales/sales_employee_controller.dart';
 import 'package:wits_app/controller/sales/sales_manger/delegation_details_screen_controller.dart';
 import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/helper/utils.dart';
+import 'package:wits_app/network/urls_container.dart';
 import 'package:wits_app/view/common_wigets/dilog_custom.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 
@@ -222,7 +223,7 @@ class SalesmanOrderScreen extends StatelessWidget {
                                       width: 262.w,
                                       height: 50.h,
                                       onPressed: () {
-                                        Get.toNamed('/reject-delegation-screen');
+                                        Get.toNamed('/reject-delegation-screen', arguments: {'delegation_id': Get.arguments['delegation_id']});
                                       },
                                     )
                                   ],

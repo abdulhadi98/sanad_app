@@ -1,39 +1,31 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:wits_app/controller/movment_manger/print_order_movment_manger_controller.dart';
-import 'package:wits_app/controller/prepration_worker/prepration_done_controller.dart';
-import 'package:wits_app/helper/app_colors.dart';
+import 'package:wits_app/controller/driver/deliver_to_clients_controller.dart';
+import 'package:wits_app/controller/incpection_officer/enter_box_number_controller.dart';
+import 'package:wits_app/controller/order_details_controller.dart';
+import 'package:wits_app/controller/returns_manger/receive_returns_controller.dart';
+
 import 'package:wits_app/helper/enums.dart';
 import 'package:wits_app/helper/utils.dart';
-import 'package:wits_app/main.dart';
 import 'package:wits_app/view/common_wigets/dilog_custom.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
-
 import 'package:wits_app/view/common_wigets/main_button.dart';
-import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
 import 'package:wits_app/view/common_wigets/title_widget.dart';
-import 'package:wits_app/view/sales/sales_manger/add_new_order/add_new_order_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
-
 import '../../../../controller/global_controller.dart';
-import '../../../../controller/sales/add_new_order_screen_controller.dart';
 import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
 
-class PrepartionDoneSceeen extends StatelessWidget {
-  PrepartionDoneSceeen({Key? key}) : super(key: key);
-
-  var put = Get.lazyPut<PerpartionWorkerController>(
-    () => PerpartionWorkerController(),
+class DeliverToClientScreen extends StatelessWidget {
+  final put = Get.lazyPut<DeliverToClientController>(
+    () => DeliverToClientController(),
   );
-  final PerpartionWorkerController perpartionWorkerController = Get.find<PerpartionWorkerController>();
-  var scaffoldKey = GlobalKey<ScaffoldState>();
+  final DeliverToClientController deliverToClientController = Get.find<DeliverToClientController>();
+  final OrderDetailsController orderDetailsController = Get.find<OrderDetailsController>();
+
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalController globalController = Get.find<GlobalController>();
 
 //  FocusNode focusNode = FocusNode();
@@ -60,7 +52,7 @@ class PrepartionDoneSceeen extends StatelessWidget {
                     HeaderWidget(
                       width: width,
                       employeeName: "اسم الموظف",
-                      title: "عامل التحضير",
+                      title: "السائق",
                       scaffoldKey: scaffoldKey,
                     ),
                     Expanded(
@@ -68,7 +60,7 @@ class PrepartionDoneSceeen extends StatelessWidget {
                         width: width,
                         child: SingleChildScrollView(
                           child: Obx(() {
-                            switch (perpartionWorkerController.status!.value) {
+                            switch (deliverToClientController.status!.value) {
                               case Status.LOADING:
                                 return SizedBox(
                                   height: height / 1.5,
@@ -86,78 +78,55 @@ class PrepartionDoneSceeen extends StatelessWidget {
                               case Status.DATA:
                                 return Column(
                                   children: [
-                                    TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
-                                    TextFieldCustom(
-                                      enabled: false,
-                                      hint: 'رقم العميل',
-                                      textEditingController: perpartionWorkerController.clientNumberController.value,
-                                      onChanged: (val) {},
-                                    ),
-                                    SizedBox(
-                                      height: 12.h,
-                                    ),
-                                    TextFieldCustom(
-                                      enabled: false,
-                                      textEditingController: perpartionWorkerController.invoiceNumberController.value,
-                                      hint: 'رقم الفاتورة',
-                                      onChanged: (val) {},
-                                    ),
-                                    SizedBox(
-                                      height: 12.h,
-                                    ),
-                                    TextFieldCustom(
-                                      enabled: false,
-                                      hint: 'عدد الأصناف',
-                                      textEditingController: perpartionWorkerController.categoriesNumberController.value,
-                                      onChanged: (val) {},
-                                    ),
-                                    SizedBox(
-                                      height: 12.h,
-                                    ),
+                                    TitleWidget(tilte: 'تفاصيل الحمولة'),
                                     TextFieldTall(
                                       enabled: false, height: 158.h,
 
                                       //focusNode: focusNode,
                                       hint: 'عنوان العميل',
-                                      textEditingController: perpartionWorkerController.addressController.value,
+                                      textEditingController: orderDetailsController.addressController.value,
                                       onChanged: (val) {},
                                     ),
                                     SizedBox(
-                                      height: 12.h,
+                                      height: 15.h,
                                     ),
-                                    TextFieldTall(
-                                      enabled: false,
-                                      height: 158.h,
-                                      textEditingController: perpartionWorkerController.detailsController.value,
-                                      hint: 'تفاصيل إضافية',
-                                      onChanged: (val) {},
+                                    Text(orderDetailsController.orderDetailsModel!.clientLatitude! + ', ' + orderDetailsController.orderDetailsModel!.clientLongitude!),
+                                    MainButton(
+                                      text: 'اذهب إلى خرائط جوجل',
+                                      width: 295.w,
+                                      height: 50.h,
+                                      onPressed: () async {
+                                      await  Utils.openMap(
+                                            double.parse(
+                                              orderDetailsController.orderDetailsModel!.clientLatitude!,
+                                            ),
+                                            double.parse(orderDetailsController.orderDetailsModel!.clientLatitude!),
+                                            );
+                                      },
                                     ),
                                     SizedBox(
-                                      height: 23.h,
+                                      height: 15.h,
+                                    ),
+                                    MainButton(
+                                      text: 'تم الاستلام',
+                                      width: 295.w,
+                                      height: 50.h,
+                                      onPressed: () async {},
+                                    ),
+                                    SizedBox(
+                                      height: 30.h,
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(bottom: 30.h),
                                       child: MainButton(
-                                        text: 'تمت التحضير',
+                                        text: 'تصوير الفاتورة المختومة',
                                         width: 178.w,
                                         height: 50.h,
                                         onPressed: () async {
-                                          dynamic status = await perpartionWorkerController.prepartionDone();
-                                          // if (status == '777')
-                                          //   Utils.showGetXToast(
-                                          //       message: status);
-                                          if (status == '200')
-                                            showDialogCustom(
-                                              height: height,
-                                              width: width,
-                                              context: context,
-                                              padding: EdgeInsets.zero,
-                                              dialogContent: DialogContentThanks(
-                                                onTap: () {
-                                                  Get.offAllNamed('/prepartion-worker-root-screen');
-                                                },
-                                              ),
-                                            );
+                                          // if (driversController.driverId == null)
+                                          //   Utils.showGetXToast(title: 'تنبيه', message: 'يرجى تعيين سائق', toastColor: AppColors.red);
+                                          // else
+                                          //   await driversController.assignDriver();
                                         },
                                       ),
                                     ),

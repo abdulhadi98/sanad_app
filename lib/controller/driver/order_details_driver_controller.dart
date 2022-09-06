@@ -13,7 +13,7 @@ import 'package:wits_app/network/urls_container.dart';
 import 'package:wits_app/view/sales/sales_manger/orders/orders_root_screen.dart';
 import '../../helper/enums.dart';
 
-class EnterBoxNumberController extends GetxController {
+class PrintOrderController extends GetxController {
   Rx<Status>? status = Status.DATA.obs;
 
   OrderModel? orderModel;
@@ -21,21 +21,23 @@ class EnterBoxNumberController extends GetxController {
     status!.value = s;
   }
 
-  Rx<TextEditingController> clientNumberController = TextEditingController().obs;
-  Rx<TextEditingController> invoiceNumberController = TextEditingController().obs;
-  Rx<TextEditingController> categoriesNumberController = TextEditingController().obs;
+  Rx<TextEditingController> clientNumberController =
+      TextEditingController().obs;
+  Rx<TextEditingController> invoiceNumberController =
+      TextEditingController().obs;
+  Rx<TextEditingController> categoriesNumberController =
+      TextEditingController().obs;
   Rx<TextEditingController> detailsController = TextEditingController().obs;
   Rx<TextEditingController> addressController = TextEditingController().obs;
-  Rx<TextEditingController> boxesNumberController = TextEditingController().obs;
 
   getOrderById() async {
     String? token = await sharedPreferences!.getString("token");
     setStatus(Status.LOADING);
     try {
       dynamic response = await http.get(
-        Uri.parse(UrlsContainer.getOrderById + '?order_id=${OrdersRootScreen.orderId}'),
-        headers: {'Authorization': 'Bearer $token'},
-      );
+          Uri.parse(UrlsContainer.getOrderById +
+              '?order_id=${OrdersRootScreen.orderId}'),
+          headers: {'Authorization': 'Bearer $token'});
       Map body = jsonDecode(response.body);
       print(body);
       var data = body['data'];
@@ -61,15 +63,17 @@ class EnterBoxNumberController extends GetxController {
   }
 
   setOrderDetails() {
-    clientNumberController.value.text = orderModel!.clientNumber.toString(); //TODO why client num static??
+    
+    clientNumberController.value.text = '21312';//TODO why client num static??
     invoiceNumberController.value.text = orderModel!.invoiceNumber!;
-    categoriesNumberController.value.text = orderModel!.categoriesNumber.toString();
-    addressController.value.text = orderModel!.regionName! + ', ' + orderModel!.cityName!;
-
-    detailsController.value.text = orderModel!.details ?? 'لا توجد تفاصيل';
+    categoriesNumberController.value.text =
+        orderModel!.categoriesNumber.toString();
+    addressController.value.text =
+        orderModel!.regionName! + ', ' + orderModel!.cityName!;
+    detailsController.value.text = orderModel!.details!;
   }
 
-  enterBoxesNumber() async {
+  printOder() async {
     dynamic response;
     setStatus(Status.LOADING);
 
@@ -77,12 +81,11 @@ class EnterBoxNumberController extends GetxController {
       print(orderModel!.toJson());
       String? token = await sharedPreferences!.getString("token");
       response = await http.post(
-        Uri.parse(
-          UrlsContainer.enterBoxesNumber,
-        ),
-        body: {'order_id': Get.arguments['order_id'], 'box_number': boxesNumberController.value.text.toString(), 'incpection_officer_id': '14'},
-        headers: {'Authorization': 'Bearer $token'},
-      );
+          Uri.parse(
+            UrlsContainer.printOrder,
+          ),
+          body: {'order_id': OrdersRootScreen.orderId.toString()},
+          headers: {'Authorization': 'Bearer $token'});
       dynamic body = jsonDecode(response.body);
       print(body);
       String code = body['code'].toString();
@@ -94,26 +97,20 @@ class EnterBoxNumberController extends GetxController {
     } catch (e) {
       print(e);
       setStatus(Status.ERROR);
-      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
+      Utils.showGetXToast(
+          title: 'خطأ',
+          message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً',
+          toastColor: AppColors.red);
       return 'error';
     }
   }
 
-  bool validateInputs() {
-    if (boxesNumberController.value.text.isEmpty) {
-      Utils.showGetXToast(title: 'تنبيه', message: 'يرجى إدخال عدد الصناديق', toastColor: AppColors.red);
-      return false;
-    }
-
-    return true;
-  }
-
   @override
   void onInit() {
-    getOrderById();
     //addressController.value.text = 'address';
     super.onInit();
     //setStatus(Status.LOADING);
+    getOrderById();
   }
 
   @override

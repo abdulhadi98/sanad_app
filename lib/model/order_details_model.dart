@@ -40,6 +40,8 @@ class OrderDetailsModel {
     this.updatedAt,
     this.clientNumber,
     this.clientRegion,
+    this.clientLongitude,
+    this.clientLatitude,
     this.clientCity,
     this.processes,
     this.statusColor,
@@ -47,6 +49,9 @@ class OrderDetailsModel {
   });
 
   int? id;
+  String? clientLatitude;
+  String? clientLongitude;
+
   String? commercialRecord;
   int? creatorId;
   int? invoiceNumber;
@@ -72,52 +77,33 @@ class OrderDetailsModel {
 
   List<Process>? processes;
 
-  factory OrderDetailsModel.fromJson(Map<String, dynamic> json) =>
-      OrderDetailsModel(
+  factory OrderDetailsModel.fromJson(Map<String, dynamic> json) => OrderDetailsModel(
         id: json["id"] == null ? null : json["id"],
-        commercialRecord: json["commercial_record"] == null
-            ? null
-            : json["commercial_record"],
+        commercialRecord: json["commercial_record"] == null ? null : json["commercial_record"],
         creatorId: json["creator_id"] == null ? null : json["creator_id"],
-        invoiceNumber:
-            json["invoice_number"] == null ? null : json["invoice_number"],
+        invoiceNumber: json["invoice_number"] == null ? null : json["invoice_number"],
         catsNumber: json["cats_number"] == null ? null : json["cats_number"],
         boxNumber: json["box_number"] == null ? null : json["box_number"],
         details: json["details"] == null ? null : json["details"],
         warehouseId: json["warehouse_id"] == null ? null : json["warehouse_id"],
         address: json["address"] == null ? null : json["address"],
-        isStampedBill:
-            json["is_stamped_bill"] == null ? null : json["is_stamped_bill"],
+        isStampedBill: json["is_stamped_bill"] == null ? null : json["is_stamped_bill"],
         returns: json["returns"] == null ? null : json["returns"],
-        returnsIsDelivered: json["returns_is_delivered"] == null
-            ? null
-            : json["returns_is_delivered"],
+        returnsIsDelivered: json["returns_is_delivered"] == null ? null : json["returns_is_delivered"],
         isPrinted: json["is_printed"] == null ? null : json["is_printed"],
         isOk: json["is_ok"] == null ? null : json["is_ok"],
-        deleiverdType:
-            json["deleiverd_type"] == null ? null : json["deleiverd_type"],
+        deleiverdType: json["deleiverd_type"] == null ? null : json["deleiverd_type"],
         statusId: json["status_id"] == null ? null : json["status_id"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
-        clientNumber:
-            json["client_number"] == null ? null : json["client_number"],
-        clientRegion:
-            json["client_region"] == null ? null : json["client_region"],
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        clientNumber: json["client_number"] == null ? null : json["client_number"],
+        clientRegion: json["client_region"] == null ? null : json["client_region"],
         clientCity: json["client_city"] == null ? null : json["client_city"],
-        statusColor: json["order_status_color"] == null
-            ? null
-            : json["order_status_color"],
-        statusName: json["order_status_name"] == null
-            ? null
-            : json["order_status_name"],
-        processes: json["processes"] == null
-            ? null
-            : List<Process>.from(
-                json["processes"].map((x) => Process.fromJson(x))),
+        clientLatitude: json["client_latitude"] == null ? null : json["client_latitude"],
+        clientLongitude: json["client_longitude"] == null ? null : json["client_longitude"],
+        statusColor: json["order_status_color"] == null ? null : json["order_status_color"],
+        statusName: json["order_status_name"] == null ? null : json["order_status_name"],
+        processes: json["processes"] == null ? null : List<Process>.from(json["processes"].map((x) => Process.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -132,8 +118,7 @@ class OrderDetailsModel {
         "address": address == null ? null : address,
         "is_stamped_bill": isStampedBill == null ? null : isStampedBill,
         "returns": returns == null ? null : returns,
-        "returns_is_delivered":
-            returnsIsDelivered == null ? null : returnsIsDelivered,
+        "returns_is_delivered": returnsIsDelivered == null ? null : returnsIsDelivered,
         "is_printed": isPrinted == null ? null : isPrinted,
         "is_ok": isOk == null ? null : isOk,
         "deleiverd_type": deleiverdType == null ? null : deleiverdType,
@@ -143,9 +128,7 @@ class OrderDetailsModel {
         "client_number": clientNumber == null ? null : clientNumber,
         "client_region": clientRegion == null ? null : clientRegion,
         "client_city": clientCity == null ? null : clientCity,
-        "processes": processes == null
-            ? null
-            : List<dynamic>.from(processes!.map((x) => x.toJson())),
+        "processes": processes == null ? null : List<dynamic>.from(processes!.map((x) => x.toJson())),
       };
 }
 
@@ -189,16 +172,11 @@ class Process {
         details: json["details"] == null ? null : json["details"],
         driverType: json["driver_type"] == null ? null : json["driver_type"],
         taked: json["taked"] == null ? null : json["taked"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
         statusName: json["status_name"] == null ? null : json["status_name"],
         statusColor: json["status_color"] == null ? null : json["status_color"],
-        employeeName:
-            json["employee_name"] == null ? null : json["employee_name"],
+        employeeName: json["employee_name"] == null ? null : json["employee_name"],
       );
 
   Map<String, dynamic> toJson() => {

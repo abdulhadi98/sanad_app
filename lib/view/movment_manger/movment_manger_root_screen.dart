@@ -68,7 +68,7 @@ class MovmentMangerRootScreen extends StatelessWidget {
                           Get.toNamed(
                             '/orders-screen-movment-manger',
                             arguments: {
-                              "api": "/get-orders-needs-driver",
+                              "api": "/get-orders-need-driver",
                             },
                           );
                         },

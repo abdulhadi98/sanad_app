@@ -25,6 +25,7 @@ class MainButton extends StatelessWidget {
       elevation: 3,
       borderRadius: BorderRadius.circular(25.r),
       child: Container(
+        
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25.r),
           boxShadow: [
@@ -37,6 +38,7 @@ class MainButton extends StatelessWidget {
           ],
         ),
         child: MaterialButton(
+          
           splashColor: color == null ? AppColors.mainColor2.withOpacity(0.5) : Colors.redAccent[800],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25.r),

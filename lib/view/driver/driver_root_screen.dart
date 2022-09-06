@@ -45,38 +45,6 @@ class DriverRootScreen extends StatelessWidget {
                         height: 49.h,
                       ),
                       MainButton(
-                        text: 'تصوير الفواتير',
-                        width: 224.w,
-                        height: 50.h,
-                        onPressed: () {
-                          Get.toNamed(
-                            '/orders-driver-screen',
-                            arguments: {
-                              "api": "/get-returns",
-                            },
-                          );
-                        },
-                      ),
-                      SizedBox(
-                        height: 30.h,
-                      ),
-                      MainButton(
-                        text: 'استلام من سائق آخر',
-                        width: 224.w,
-                        height: 50.h,
-                        onPressed: () {
-                          Get.toNamed(
-                            '/orders-driver-screen',
-                            arguments: {
-                              "api": "/get-assigned-preprations",
-                            },
-                          );
-                        },
-                      ),
-                      SizedBox(
-                        height: 30.h,
-                      ),
-                      MainButton(
                         text: 'طلبيات جديدة',
                         width: 224.w,
                         height: 50.h,
@@ -84,7 +52,39 @@ class DriverRootScreen extends StatelessWidget {
                           Get.toNamed(
                             '/orders-driver-screen',
                             arguments: {
-                              "api": "/get-assigned-preprations",
+                              "api": "/get-driver-assigned-orders",
+                            },
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: 30.h,
+                      ),
+                      MainButton(
+                        text: 'طلبيات غير مختومة',
+                        width: 224.w,
+                        height: 50.h,
+                        onPressed: () {
+                          Get.toNamed(
+                            '/orders-driver-screen',
+                            arguments: {
+                              "api": "/get-rejected-stamps",
+                            },
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: 30.h,
+                      ),
+                      MainButton(
+                        text: 'طلبيات من سائق آخر',
+                        width: 224.w,
+                        height: 50.h,
+                        onPressed: () {
+                          Get.toNamed(
+                            '/orders-driver-screen',
+                            arguments: {
+                              "api": "/get-returns",
                             },
                           );
                         },

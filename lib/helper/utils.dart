@@ -250,6 +250,16 @@ class Utils {
     // await launch(myUrl);
   }
 
+  static Future<void> openMap(double latitude, double longitude) async {
+    String googleUrl = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+    try {
+      print(googleUrl);
+      await launchURL(googleUrl);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   static bool isExist(value) {
     return value != null && value != "";
   }

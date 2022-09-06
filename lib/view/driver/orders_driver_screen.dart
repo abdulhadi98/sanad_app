@@ -21,7 +21,6 @@ import '../../../../helper/enums.dart';
 import '../../../../helper/utils.dart';
 
 class OrdersDriverScreen extends StatelessWidget {
-
   final GlobalController globalController = Get.find<GlobalController>();
   final put = Get.put<OrdersController>(
     OrdersController(),
@@ -56,7 +55,7 @@ class OrdersDriverScreen extends StatelessWidget {
                       HeaderWidget(
                         width: width,
                         employeeName: "اسم الموظف",
-                        title: "مسؤول الفحص",
+                        title: "السائق",
                         scaffoldKey: scaffoldKey,
                       ),
                       SizedBox(
@@ -67,7 +66,7 @@ class OrdersDriverScreen extends StatelessWidget {
                           case Status.LOADING:
                             return SizedBox(
                               height: height / 1.5,
-                              child: Center(
+                              child: const Center(
                                 child: CircularProgressIndicator(),
                               ),
                             );
@@ -88,21 +87,21 @@ class OrdersDriverScreen extends StatelessWidget {
                                       return OrderWidget(
                                           onTap: () {
                                             OrdersRootScreen.orderId = ordersController.ordersList[i].id;
-                                            if (Get.arguments['api'] == "/get-orders")
+                                            if (Get.arguments['api'] == "/get-rejected-stamps")
                                               Get.toNamed(
-                                                '/Order-details-movament-manger-screen',
+                                                '/',
                                                 arguments: {
                                                   "order_id": ordersController.ordersList[i].id.toString(),
                                                 },
                                               );
-                                            else if (Get.arguments['api'] == "/get-preprations-to-verify")
+                                            else if (Get.arguments['api'] == "/get-driver-assigned-orders")
                                               Get.toNamed(
-                                                '/enter-boxes-number-screen',
+                                                '/load-will-delivered-screen',
                                                 arguments: {
                                                   "order_id": ordersController.ordersList[i].id.toString(),
                                                 },
                                               );
-                                         
+
                                             // OrdersRootScreen.orderId = ordersController.ordersList[i].id;
                                             // switch (ordersController.ordersList[i].status!.status) {
                                             //   case 'استلام طلب جديد':

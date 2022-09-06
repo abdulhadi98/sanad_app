@@ -18,6 +18,7 @@ import 'package:wits_app/view/common_wigets/dilog_custom.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 
 import 'package:wits_app/view/common_wigets/main_button.dart';
+import 'package:wits_app/view/common_wigets/order_widget.dart';
 import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
 import 'package:wits_app/view/common_wigets/title_widget.dart';
@@ -31,13 +32,7 @@ import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
 import 'dart:ui' as ui;
 
-class AssignDriverScreen extends StatelessWidget {
-  AssignDriverScreen({Key? key}) : super(key: key);
-  final put = Get.put<DriversController>(
-    DriversController(),
-  );
-  final DriversController driversController = Get.find<DriversController>();
-
+class LoadWillDeleviredScreen extends StatelessWidget {
   final putOrderDetailsController = Get.put<OrderDetailsController>(
     OrderDetailsController(),
   );
@@ -51,9 +46,7 @@ class AssignDriverScreen extends StatelessWidget {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     //
-
     bool isKeyboardShowing = MediaQuery.of(context).viewInsets.vertical > 0;
-
     return Scaffold(
       key: scaffoldKey,
       endDrawer: AppDrawer(scaffoldKey: scaffoldKey),
@@ -71,7 +64,7 @@ class AssignDriverScreen extends StatelessWidget {
                     HeaderWidget(
                       width: width,
                       employeeName: "اسم الموظف",
-                      title: "مدير الحركة ",
+                      title: "السائق",
                       scaffoldKey: scaffoldKey,
                     ),
                     Expanded(
@@ -79,14 +72,14 @@ class AssignDriverScreen extends StatelessWidget {
                         width: width,
                         child: SingleChildScrollView(
                           child: Obx(() {
-                            if (orderDetailsController.status!.value == Status.LOADING || driversController.status!.value == Status.LOADING)
+                            if (orderDetailsController.status!.value == Status.LOADING)
                               return SizedBox(
                                 height: height / 1.5,
                                 child: Center(
                                   child: CircularProgressIndicator(),
                                 ),
                               );
-                            else if (orderDetailsController.status!.value == Status.ERROR || driversController.status!.value == Status.LOADING)
+                            else if (orderDetailsController.status!.value == Status.ERROR)
                               return SizedBox(
                                 height: height / 1.5,
                                 child: Center(
@@ -96,7 +89,7 @@ class AssignDriverScreen extends StatelessWidget {
                             else
                               return Column(
                                 children: [
-                                  TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
+                                  TitleWidget(tilte: 'تفاصيل الحمولة'),
                                   TextFieldCustom(
                                     enabled: false,
                                     hint: 'رقم العميل',
@@ -126,7 +119,6 @@ class AssignDriverScreen extends StatelessWidget {
                                   ),
                                   TextFieldTall(
                                     enabled: false, height: 158.h,
-
                                     //focusNode: focusNode,
                                     hint: 'عنوان العميل',
                                     textEditingController: orderDetailsController.addressController.value,
@@ -157,11 +149,11 @@ class AssignDriverScreen extends StatelessWidget {
                                   Padding(
                                     padding: EdgeInsets.only(bottom: 20.h),
                                     child: MainButton(
-                                      text: 'تعيين السائق',
+                                      text: 'تم الاستلام',
                                       width: 178.w,
                                       height: 50.h,
                                       onPressed: () async {
-                                        await driversController.getDrivers();
+                                        //    await driversController.getDrivers();
                                         showDialogCustom(
                                           height: height,
                                           width: width,
@@ -199,7 +191,7 @@ class AssignDriverScreen extends StatelessWidget {
                                                       ),
                                                     ),
                                                     Text(
-                                                      'تعيين  سائق',
+                                                      'سيتم التسليم إلى',
                                                       style: TextStyle(
                                                         fontSize: 30.sp,
                                                         fontWeight: FontWeight.bold,
@@ -215,27 +207,35 @@ class AssignDriverScreen extends StatelessWidget {
                                                         thickness: 1,
                                                       ),
                                                     ),
+                                                    SizedBox(
+                                                      height: 30.h,
+                                                    ),
                                                     Container(
                                                       //   padding: EdgeInsets.symmetric(vertical: 5.),
-                                                      height: height / 1.3,
-                                                      width: width,
-                                                      child: ListView.builder(
-                                                          itemCount: driversController.driversList.length,
-                                                          itemBuilder: (BuildContext context, int index) {
-                                                            return WorkerWidget(
-                                                                workerName: driversController.driversList[index].name!,
-                                                                workerDepartment: '',
-                                                                onPressed: () {
-                                                                  driversController.driverId = driversController.driversList[index].id;
-                                                                  //  SalesMangerRootScreen.salesmanId = driversController.driversList[index].id;
-                                                                  print(driversController.driverId);
-                                                                  Get.back();
-                                                                  // Get.toNamed(
-                                                                  //     '/send_order_to_sales_employee');
-                                                                  // Get.toNamed(
-                                                                  //     '/order-details-screen');
-                                                                });
-                                                          }),
+                                                      child: OrderWidget(
+                                                        mainColor: '0xFF0194DB',
+                                                        sideColor: '0xFF1178BA',
+                                                        title: 'العميل',
+                                                        type: '',
+                                                        onTap: () {
+                                                          Get.toNamed(
+                                                            'deliver-to-client-screen',
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10.h,
+                                                    ),
+                                                    Container(
+                                                      //   padding: EdgeInsets.symmetric(vertical: 5.),
+                                                      child: OrderWidget(
+                                                        mainColor: '0xFF0194DB',
+                                                        sideColor: '0xFF1178BA',
+                                                        title: 'سائق آخر',
+                                                        type: '',
+                                                        onTap: () {},
+                                                      ),
                                                     )
                                                   ],
                                                 ),
@@ -253,10 +253,10 @@ class AssignDriverScreen extends StatelessWidget {
                                       width: 178.w,
                                       height: 50.h,
                                       onPressed: () async {
-                                        if (driversController.driverId == null)
-                                          Utils.showGetXToast(title: 'تنبيه', message: 'يرجى تعيين سائق', toastColor: AppColors.red);
-                                        else
-                                          await driversController.assignDriver();
+                                        // if (driversController.driverId == null)
+                                        //   Utils.showGetXToast(title: 'تنبيه', message: 'يرجى تعيين سائق', toastColor: AppColors.red);
+                                        // else
+                                        //   await driversController.assignDriver();
                                       },
                                     ),
                                   ),

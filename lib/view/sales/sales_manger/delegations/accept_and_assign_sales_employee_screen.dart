@@ -127,7 +127,7 @@ class AcceptAndAssignSalesEmployee extends StatelessWidget {
                                           // addNewOrderScreenController
 
                                           //if all fields not empty
-
+                                          FocusScope.of(context).requestFocus(FocusNode());
                                           showDialogCustom(
                                             height: height,
                                             width: width,
@@ -136,7 +136,7 @@ class AcceptAndAssignSalesEmployee extends StatelessWidget {
                                             dialogContent: DialogContentAreYouSure(
                                               onYes: () async {
                                                 acceptAndAssignSalesEmployeeController.setDelegationManger(DelegationModel(
-                                                  id:delegationDetailsScreenController.delegationModel!.id ,
+                                                    id: delegationDetailsScreenController.delegationModel!.id,
                                                     clientNumber: delegationDetailsScreenController.clientNumberController.value.text.toString(),
                                                     creatorId: delegationDetailsScreenController.delegationModel!.creatorId.toString(),
                                                     details: delegationDetailsScreenController.detailsController.value.text,

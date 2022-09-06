@@ -195,7 +195,10 @@ class LogoutButton extends StatelessWidget {
           height: height,
           child: Text(
             text,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp, letterSpacing: 2),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 14.sp,
+            ),
           ),
           textColor: AppColors.mainColor1,
           onPressed: onPressed,

@@ -5,7 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wits_app/bindings/bindings.dart';
 import 'package:wits_app/middleware/auth_middleware.dart';
 import 'package:wits_app/view/auth/login_screen.dart';
+import 'package:wits_app/view/driver/deliver_to_client_screen.dart';
 import 'package:wits_app/view/driver/driver_root_screen.dart';
+import 'package:wits_app/view/driver/load_will_delevired_to_screen.dart';
 import 'package:wits_app/view/driver/orders_driver_screen.dart';
 import 'package:wits_app/view/incpection_officer/enter_boxes_number_screen.dart';
 import 'package:wits_app/view/incpection_officer/incpection_officer_root_screen.dart';
@@ -14,7 +16,7 @@ import 'package:wits_app/view/movment_manger/assign_driver_screen.dart';
 import 'package:wits_app/view/movment_manger/movment_manger_root_screen.dart';
 import 'package:wits_app/view/movment_manger/orders_movement_manger_screen.dart';
 import 'package:wits_app/view/movment_manger/order_details_movment_manger_screen.dart';
-import 'package:wits_app/view/movment_manger/print_order_movment_manger.dart';
+import 'package:wits_app/view/movment_manger/print_order_movment_manger_screen.dart';
 import 'package:wits_app/view/preparation_worker/orders_preparation_worker_screen.dart';
 import 'package:wits_app/view/preparation_worker/preparation_worker_root_screen.dart';
 import 'package:wits_app/view/preparation_worker/prepration_done_screen.dart';
@@ -25,6 +27,9 @@ import 'package:wits_app/view/returns_manger/recive_returns_screen.dart';
 import 'package:wits_app/view/returns_manger/returns_manger_root_screen.dart';
 import 'package:wits_app/view/root/choose_role_screen.dart';
 import 'package:wits_app/view/root_screen.dart';
+import 'package:wits_app/view/sales/sales_employee/add_order_from_delegation_sales_employee_screen.dart';
+import 'package:wits_app/view/sales/sales_employee/delegations_list_sales_employee_screen.dart';
+import 'package:wits_app/view/sales/sales_employee/submit_order_delegation_sales_employee_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/add_new_order/add_new_order_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/add_new_order/submit_order_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/order_details_screen.dart';
@@ -98,11 +103,16 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/order-details-screen', page: () => OrderDetailsScreen()),
         GetPage(name: '/accept-and-assign-sales-employee', page: () => AcceptAndAssignSalesEmployee()),
 
+        //Sales Employee
+        GetPage(name: '/sales-employee-root-screen', page: () => SalesEmployeeRootScreen()),
+        GetPage(name: '/delegations_list_sales_employee_screen', page: () => DelegationsListSalesEmployeeScreen()),
+        GetPage(name: '/add-order-from-delegation-sales-employee-screen', page: () => AddOrderFromDelegationSalesEmployeeScreen()),
+        GetPage(name: '/submit-order-delegation-sales-employee-screen', page: () => SubmitOrderDelegationSalesEmployeeScreen()),
+
         GetPage(name: '/send_order_to_sales_employee', page: () => SendOrderToSalesEmployee()),
         GetPage(name: '/delegations-list-screen', page: () => DelegationsListSceen()),
         GetPage(name: '/orders-root-screen', page: () => OrdersRootScreen()),
         GetPage(name: '/order-from-salesperson-screen', page: () => SalesmanOrderScreen()),
-        GetPage(name: '/sales-employee-root-screen', page: () => SalesEmployeeRootScreen()),
         GetPage(name: '/salesman-root-screen', page: () => SalesmanRootScreen()),
         GetPage(name: '/reject-delegation-screen', page: () => RejectDelegationScreen()),
         GetPage(name: '/choose-role-screen', page: () => ChooseRoleScreen()),
@@ -138,7 +148,8 @@ class MyApp extends StatelessWidget {
         //Driver
         GetPage(name: '/driver-root-screen', page: () => DriverRootScreen()),
         GetPage(name: '/orders-driver-screen', page: () => OrdersDriverScreen()),
-        GetPage(name: '/recive-returns-screen', page: () => ReciveReturnsScreen()),
+        GetPage(name: '/load-will-delivered-screen', page: () => LoadWillDeleviredScreen()),
+        GetPage(name: '/deliver-to-client-screen', page: () => DeliverToClientScreen()),
 
         //Quality Supervisor
         GetPage(name: '/quality-supervisor-root-screen', page: () => QualitySupervisorRootScreen()),

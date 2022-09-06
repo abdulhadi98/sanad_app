@@ -140,6 +140,8 @@ class SubmitOrderScreen extends StatelessWidget {
                                           width: 178.w,
                                           height: 50.h,
                                           onPressed: () async {
+                                            // FocusScope.of(context).requestFocus(FocusNode());
+
                                             dynamic status = await addNewOrderScreenController.addNewOrder();
                                             // if (status == '777')
                                             //   Utils.showGetXToast(

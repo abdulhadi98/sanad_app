@@ -12,8 +12,9 @@ class TextFieldCustom extends StatelessWidget {
 
   final Function(String) onChanged;
   final dynamic onError;
-
+  TextDirection? textDirection;
   TextFieldCustom({
+    this.textDirection,
     this.isPassword,
     Key? key,
     this.keyboardType,
@@ -27,7 +28,7 @@ class TextFieldCustom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: textDirection ?? TextDirection.rtl,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(25.r),
@@ -37,20 +38,20 @@ class TextFieldCustom extends StatelessWidget {
         height: 50.h,
         child: TextField(
           keyboardType: keyboardType ?? TextInputType.text,
-          obscureText: isPassword??false,
+          obscureText: isPassword ?? false,
           enabled: enabled ?? true,
           textAlignVertical: TextAlignVertical.bottom,
           onChanged: onChanged,
           style: TextStyle(
             color: AppColors.black.withOpacity(.70),
-            fontSize: 13.sp,
+            fontWeight: FontWeight.normal,
+            fontSize: 15.sp,
           ),
           controller: textEditingController,
           decoration: InputDecoration(
             errorText: onError,
             isDense: true,
-            contentPadding:
-                EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.w),
+            contentPadding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.w),
             hintText: hint,
             hintStyle: TextStyle(
               color: AppColors.brown.withOpacity(.30),
@@ -144,16 +145,11 @@ class TextFieldTall extends StatelessWidget {
           maxLines: null,
           focusNode: focusNode,
           enabled: enabled ?? true,
-          style: TextStyle(
-              color: AppColors.black.withOpacity(.70), fontSize: 14.sp),
+          style: TextStyle(color: AppColors.black.withOpacity(.70), fontSize: 14.sp),
           decoration: InputDecoration(
-            contentPadding:
-                EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.w),
+            contentPadding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.w),
             hintText: hint,
-            hintStyle: TextStyle(
-                color: AppColors.brown.withOpacity(.30),
-                fontSize: 14.sp,
-                fontWeight: FontWeight.normal),
+            hintStyle: TextStyle(color: AppColors.brown.withOpacity(.30), fontSize: 14.sp, fontWeight: FontWeight.normal),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25.r),
               borderSide: BorderSide(color: AppColors.mainColor1),

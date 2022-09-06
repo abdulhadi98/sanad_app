@@ -29,35 +29,39 @@ Widget buildBottomNavBar(
                 Positioned(
                   top: -41.w,
                   right: width / 2 - 41.w,
-                  child: InkWell(
-                    onTap: () {
-                      Get.toNamed('/add-new-order-screen');
-                      print('asdasdasd');
-                    },
-                    child: Container(
-                      width: 82.w,
-                      height: 82.w,
-                      padding: EdgeInsets.all(11.w),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: AppColors.background,
-                      ),
+                  child: ClipOval(
+                    child: InkWell(
+                      onTap: () {
+                        // Get.toNamed(
+                        //   '/add-new-order-screen',
+                        //   arguments: {'role_name': sharedPreferences!.getInt('role') == 4 ? "موظف قسم المبيعات" : "مدير قسم المبيعات"},
+                        // );
+                        print('asdasdasd');
+                      },
                       child: Container(
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.mainColor1.withOpacity(0.5),
-                              spreadRadius: 0,
-                              blurRadius: 17,
-                              offset:
-                                  Offset(0, 10), // changes position of shadow
-                            ),
-                          ],
+                        width: 82.w,
+                        height: 82.w,
+                        padding: EdgeInsets.all(11.w),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.background,
                         ),
-                        width: 60.w,
-                        height: 60.w,
-                        child: SvgPicture.asset(
-                          'assets/icons/ic_add_order.svg',
+                        child: Container(
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.mainColor1.withOpacity(0.5),
+                                spreadRadius: 0,
+                                blurRadius: 17,
+                                offset: Offset(0, 10), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          width: 60.w,
+                          height: 60.w,
+                          child: SvgPicture.asset(
+                            'assets/icons/ic_add_order.svg',
+                          ),
                         ),
                       ),
                     ),
@@ -68,18 +72,15 @@ Widget buildBottomNavBar(
 
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 72.w),
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        buildBottomNavBarItem(
-                          false,
-                          'assets/icons/Icon Home Active.svg',
-                          'الرئيسية',
-                          () {},
-                        ),
-                        buildBottomNavBarItem(false,
-                            'assets/icons/Icon Search Dark.svg', 'بحث', () {}),
-                      ]),
+                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                    buildBottomNavBarItem(
+                      false,
+                      'assets/icons/Icon Home Active.svg',
+                      'الرئيسية',
+                      () {},
+                    ),
+                    buildBottomNavBarItem(false, 'assets/icons/Icon Search Dark.svg', 'بحث', () {}),
+                  ]),
                 ),
               ),
             ],
@@ -111,10 +112,7 @@ Widget buildBottomNavBarItem(isSelected, image, text, onTap, {size}) {
           ),
           Text(
             text,
-            style: TextStyle(
-                color: AppColors.mainColor1,
-                fontSize: 8.sp,
-                fontWeight: FontWeight.bold),
+            style: TextStyle(color: AppColors.mainColor1, fontSize: 8.sp, fontWeight: FontWeight.bold),
           )
 
           // Container(

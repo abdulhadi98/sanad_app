@@ -14,6 +14,8 @@ class UrlsContainer {
   static String getSalesEmployees = "$baseApiUrl/get-sales-employees";
 
   static String addNewOrder = "$baseApiUrl/add-new-order";
+  static String addOrderIdToDelegation = "$baseApiUrl/add-order-id-to-delegation";
+  
   static String getORders = "$baseApiUrl/get-orders";
   static String getOrderById = "$baseApiUrl/get-order";
 
@@ -23,6 +25,8 @@ class UrlsContainer {
   
   static String rejectDelegation = "$baseApiUrl/reject-delegation";
   static String getDelegationsOrders = "$baseApiUrl/get-delegation-orders";
+  static String getAssignedDelegations = "$baseApiUrl/get-assigned-delegations";
+  
   static String getDelegationById = "$baseApiUrl/get-delegation-by-id";
 
   //Movment Manger
@@ -40,4 +44,8 @@ class UrlsContainer {
 
   //Incpection Officer
   static String enterBoxesNumber = "$baseApiUrl/prepration-verified";
+
+  //Driver
+  static String orderIsStamped = "$baseApiUrl/order-is-stamped";
+
 }

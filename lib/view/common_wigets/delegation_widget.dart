@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
-import 'package:wits_app/view/sales/sales_manger/orders/order_from_salesperson_screen.dart';
-import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 
 class DelegationWidget extends StatelessWidget {
   final String? salesmanName;
@@ -25,10 +22,10 @@ class DelegationWidget extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return Padding(
-          padding: EdgeInsets.only(bottom: 5.0.h),
-          child: InkWell(
-            onTap: onTap,
+        return InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 5.0.h),
             child: Row(
               children: [
                 Container(

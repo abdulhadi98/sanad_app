@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wits_app/controller/sales/delegations_controller.dart';
+import 'package:wits_app/controller/sales/sales_employee/sales_employee_delegations_controller.dart';
 import 'package:wits_app/view/common_wigets/bottom_nav_bar.dart';
 import 'package:wits_app/view/common_wigets/delegation_widget.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
@@ -16,13 +17,13 @@ import '../../../../../controller/global_controller.dart';
 import '../../../../../helper/enums.dart';
 import '../../../../../helper/utils.dart';
 
-class DelegationsListSceen extends StatelessWidget {
+class DelegationsListSalesEmployeeScreen extends StatelessWidget {
   final GlobalController globalController = Get.find<GlobalController>();
-  final put = Get.put<DelegationsController>(
-    DelegationsController(),
-  );
 
-  final DelegationsController delegationsController = Get.find<DelegationsController>();
+  final put = Get.put<SalesEmployeeDelegationsController>(
+    SalesEmployeeDelegationsController(),
+  );
+  final SalesEmployeeDelegationsController delegationsController = Get.find<SalesEmployeeDelegationsController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -53,7 +54,7 @@ class DelegationsListSceen extends StatelessWidget {
                       HeaderWidget(
                         width: width,
                         employeeName: "اسم الموظف",
-                        title: "مدير قسم المبيعات",
+                        title: "موظف قسم المبيعات",
                         scaffoldKey: scaffoldKey,
                       ),
                       SizedBox(
@@ -84,25 +85,24 @@ class DelegationsListSceen extends StatelessWidget {
                                       itemCount: delegationsController.delegationsList.length,
                                       itemBuilder: (BuildContext context, int i) {
                                         return DelegationWidget(
-                                          salesmanName: delegationsController.delegationsList[i].delegationEmployeeName,
-                                          onTap: () {
-                                            
-                                            print(delegationsController.delegationsList[i].id);
+                                            salesmanName: delegationsController.delegationsList[i].delegationEmployeeName ?? "مدير المبيعات",
+                                            onTap: () {
+                                              print(delegationsController.delegationsList[i].id);
 
-                                            SalesmanOrderScreen.delegationId = delegationsController.delegationsList[i].id;
-                                            Get.toNamed('/order-from-salesperson-screen', arguments: {'delegation_id': delegationsController.delegationsList[i].id});
-                                          },
-                                          // title: ordersController
-                                          //     .delegationsList[i].name!,
-                                          // clientNumber: ordersController
-                                          //     .delegationsList[i].invoiceNumber!
-                                          //     .toString(),
-                                          // mainColor: ordersController
-                                          //     .delegationsList[i].status!.color,
-                                          // sideColor: ordersController
-                                          //     .delegationsList[i].status!.secondColor,
-                                          // type: 'delegation'
-                                        );
+                                              SalesmanOrderScreen.delegationId = delegationsController.delegationsList[i].id;
+                                              Get.toNamed('/add-order-from-delegation-sales-employee-screen', arguments: {'delegation_id': delegationsController.delegationsList[i].id});
+                                            }
+                                            // title: ordersController
+                                            //     .delegationsList[i].name!,
+                                            // clientNumber: ordersController
+                                            //     .delegationsList[i].invoiceNumber!
+                                            //     .toString(),
+                                            // mainColor: ordersController
+                                            //     .delegationsList[i].status!.color,
+                                            // sideColor: ordersController
+                                            //     .delegationsList[i].status!.secondColor,
+                                            // type: 'delegation'
+                                            );
                                       })
                                   : Center(child: Utils.errorText(text: 'لا يوجد طلبيات حالياً')),
                             );

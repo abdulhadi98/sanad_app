@@ -12,8 +12,7 @@ class LoginScreen extends StatelessWidget {
   var put = Get.lazyPut<LoginScreenController>(
     () => LoginScreenController(),
   ); // or optionally with tag
-  LoginScreenController loginScreenController =
-      Get.find<LoginScreenController>();
+  LoginScreenController loginScreenController = Get.find<LoginScreenController>();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -55,12 +54,7 @@ class LoginScreen extends StatelessWidget {
                       ),
                       Text(
                         'سند',
-                        style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 72.sp,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 2,
-                            height: 1),
+                        style: TextStyle(color: AppColors.white, fontSize: 72.sp, fontWeight: FontWeight.bold, letterSpacing: 2, height: 1),
                       ),
                       Padding(
                         padding: EdgeInsets.only(bottom: 32.h),
@@ -92,8 +86,8 @@ class LoginScreen extends StatelessWidget {
                               height: 70.h,
                             ),
                             TextFieldCustom(
-                              textEditingController:
-                                  loginScreenController.emailController,
+                              textDirection: TextDirection.ltr,
+                              textEditingController: loginScreenController.emailController,
                               hint: "اسم المستخدم",
                               onChanged: (val) {
                                 print(val);
@@ -103,8 +97,8 @@ class LoginScreen extends StatelessWidget {
                               height: 29.h,
                             ),
                             TextFieldCustom(
-                              textEditingController: loginScreenController
-                                  .passwordController.value,
+                              textDirection: TextDirection.ltr,
+                              textEditingController: loginScreenController.passwordController.value,
                               hint: "كلمة المرور",
                               isPassword: true,
                               onChanged: (val) {
@@ -119,8 +113,7 @@ class LoginScreen extends StatelessWidget {
                               height: 50.h,
                               width: 238.w,
                               onPressed: () async {
-                                dynamic status =
-                                    await loginScreenController.signIn();
+                                dynamic status = await loginScreenController.signIn();
                                 print(status);
                               },
                             ),
@@ -133,10 +126,10 @@ class LoginScreen extends StatelessWidget {
                                 Text(
                                   'نسيت كلمة المرور',
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w200,
-                                      color: AppColors.brown,
-                                      fontSize: 12.sp,
-                                      letterSpacing: 1.5),
+                                    fontWeight: FontWeight.w200,
+                                    color: AppColors.brown,
+                                    fontSize: 12.sp,
+                                  ),
                                 ),
                                 SizedBox(
                                   width: 2.w,
@@ -174,11 +167,7 @@ class LoginScreen extends StatelessWidget {
                   color: AppColors.brown,
                   child: Text(
                     '®WITS 2022 all right reserved',
-                    style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        color: Colors.white,
-                        fontSize: 9.sp,
-                        letterSpacing: 1.5),
+                    style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white, fontSize: 9.sp, letterSpacing: 1.5),
                   ),
                 ),
               ],

@@ -97,7 +97,7 @@ class OrdersScreentMovmentManger extends StatelessWidget {
                                                   "order_id": ordersController.ordersList[i].id.toString(),
                                                 },
                                               );
-                                            else if (Get.arguments['api'] == "/get-assign-driver-orders")
+                                            else if (Get.arguments['api'] == "/get-orders-need-driver")
                                               Get.toNamed(
                                                 '/assign-driver-screen',
                                                 arguments: {

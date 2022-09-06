@@ -1,33 +1,31 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:wits_app/controller/sales/add_new_order_screen_controller.dart';
-import 'package:wits_app/helper/app_colors.dart';
+import 'package:wits_app/controller/sales/sales_employee/delegation_details_sales_employee_controller.dart';
+import 'package:wits_app/controller/sales/sales_employee/get_delegation_details_and_add_order_from_delegation_controllrer.dart';
+import 'package:wits_app/controller/sales/sales_manger/add_order_from_delegation_screen_controller.dart';
+import 'package:wits_app/controller/sales/sales_manger/delegation_details_screen_controller.dart';
 import 'package:wits_app/helper/enums.dart';
 import 'package:wits_app/helper/utils.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 import 'package:wits_app/view/common_wigets/main_button.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
-import 'package:wits_app/view/common_wigets/textfield_search.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
-
 import '../../../../controller/global_controller.dart';
-import '../../../../main.dart';
-import '../../../common_wigets/bottom_nav_bar.dart';
-import '../../../common_wigets/header_widget.dart';
+import '../../common_wigets/bottom_nav_bar.dart';
+import '../../common_wigets/header_widget.dart';
 
-class AddNewOrderScreen extends StatelessWidget {
-  AddNewOrderScreen({Key? key}) : super(key: key);
+class AddOrderFromDelegationSalesEmployeeScreen extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   //TextEditingController myController = TextEditingController();
-  final put = Get.put<AddNewOrderScreenController>(
-    AddNewOrderScreenController(),
+  final put = Get.put<GetDelegationAndAddNewOrderFromDelegationScreenController>(
+    GetDelegationAndAddNewOrderFromDelegationScreenController(),
   ); // or optionally with tag
-  final AddNewOrderScreenController addNewOrderScreenController = Get.find<AddNewOrderScreenController>();
+  final GetDelegationAndAddNewOrderFromDelegationScreenController addOrderController = Get.find<GetDelegationAndAddNewOrderFromDelegationScreenController>();
+
   final GlobalController globalController = Get.find<GlobalController>();
+
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -57,11 +55,11 @@ class AddNewOrderScreen extends StatelessWidget {
                         HeaderWidget(
                           width: width,
                           employeeName: "اسم الموظف",
-                          title: Get.arguments['role_name'],
+                          title: "موظف قسم المبيعات",
                           scaffoldKey: scaffoldKey,
                         ),
                         Obx(() {
-                          switch (addNewOrderScreenController.status!.value) {
+                          switch (addOrderController.status!.value) {
                             case Status.LOADING:
                               return SizedBox(
                                 height: height / 1.5,
@@ -78,32 +76,21 @@ class AddNewOrderScreen extends StatelessWidget {
                                   SizedBox(
                                     height: 30.h,
                                   ),
-                                  Directionality(
-                                    textDirection: TextDirection.rtl,
-                                    child: Container(
-                                      height: 50.h,
-                                      width: 295.w,
-                                      child: TextFieldSearch(
-                                        textStyle: TextStyle(
-                                          color: AppColors.black.withOpacity(.70),
-                                          fontSize: 13.sp,
-                                        ),
-
-                                        decoration: inputDecoration,
-                                        // getSelectedValue: (b){print(b);},
-                                        initialList: addNewOrderScreenController.clientsList.map((client) => client.clientNumber).toList(),
-                                        label: addNewOrderScreenController.clientsList.isNotEmpty ? addNewOrderScreenController.clientsList.first.clientNumber! : ' ',
-                                        controller: addNewOrderScreenController.clientNumberController.value,
-                                      ),
-                                    ),
+                                  TextFieldCustom(
+                                    enabled: false,
+                                    keyboardType: TextInputType.number,
+                                    hint: 'اختر رقم العميل',
+                                    textEditingController: addOrderController.clientNumberController.value,
+                                    onChanged: (val) {},
                                   ),
                                   SizedBox(
                                     height: 30.h,
                                   ),
+                                  //Text(nullVal!),
                                   TextFieldCustom(
                                     keyboardType: TextInputType.number,
                                     hint: 'أدخل رقم الفاتورة',
-                                    textEditingController: addNewOrderScreenController.invoiceNumberController.value,
+                                    textEditingController: addOrderController.invoiceNumberController.value,
                                     onChanged: (val) {},
                                   ),
                                   SizedBox(
@@ -112,15 +99,16 @@ class AddNewOrderScreen extends StatelessWidget {
                                   TextFieldCustom(
                                     keyboardType: TextInputType.number,
                                     hint: 'أدخل عدد الأصناف',
-                                    textEditingController: addNewOrderScreenController.categoriesNumberController.value,
+                                    textEditingController: addOrderController.categoriesNumberController.value,
                                     onChanged: (val) {},
                                   ),
                                   SizedBox(
                                     height: 30.h,
                                   ),
                                   TextFieldTall(
+                                    enabled: false,
                                     hint: 'تفاصيل إضافية',
-                                    textEditingController: addNewOrderScreenController.detailsController.value,
+                                    textEditingController: addOrderController.detailsController.value,
                                     onChanged: (val) {},
                                   ),
                                   SizedBox(
@@ -133,13 +121,12 @@ class AddNewOrderScreen extends StatelessWidget {
                                       width: 178.w,
                                       height: 50.h,
                                       onPressed: () {
-                                        FocusScope.of(context).requestFocus(FocusNode());
+                                          FocusScope.of(context).requestFocus(FocusNode());
 
-                                        // addNewOrderScreenController
-                                        if (addNewOrderScreenController.validateInputs()) {
-                                          addNewOrderScreenController.setOrderModel();
-                                          // print(addNewOrderScreenController.orderModel);
-                                          Get.toNamed('/submit-order-screen', arguments: {'role_name': sharedPreferences!.getInt('role') == 4 ? "موظف قسم المبيعات" : "مدير قسم المبيعات"});
+                                        if (addOrderController.validateInputs()) {
+                                          addOrderController.setOrderModel();
+                                          // print(delegationDetailsController.orderModel);
+                                          Get.toNamed('/submit-order-delegation-sales-employee-screen', arguments: {'delegation_id': addOrderController.delegationModel!.id});
                                         }
                                       },
                                     ),
