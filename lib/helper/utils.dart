@@ -254,7 +254,7 @@ class Utils {
     String googleUrl = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
     try {
       print(googleUrl);
-      await launchURL(googleUrl);
+      await launch(googleUrl);
     } catch (e) {
       print(e.toString());
     }

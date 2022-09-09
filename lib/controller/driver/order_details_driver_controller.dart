@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/helper/utils.dart';
 import 'package:wits_app/main.dart';
@@ -21,23 +24,18 @@ class PrintOrderController extends GetxController {
     status!.value = s;
   }
 
-  Rx<TextEditingController> clientNumberController =
-      TextEditingController().obs;
-  Rx<TextEditingController> invoiceNumberController =
-      TextEditingController().obs;
-  Rx<TextEditingController> categoriesNumberController =
-      TextEditingController().obs;
+  Rx<TextEditingController> clientNumberController = TextEditingController().obs;
+  Rx<TextEditingController> invoiceNumberController = TextEditingController().obs;
+  Rx<TextEditingController> categoriesNumberController = TextEditingController().obs;
   Rx<TextEditingController> detailsController = TextEditingController().obs;
   Rx<TextEditingController> addressController = TextEditingController().obs;
 
+ 
   getOrderById() async {
     String? token = await sharedPreferences!.getString("token");
     setStatus(Status.LOADING);
     try {
-      dynamic response = await http.get(
-          Uri.parse(UrlsContainer.getOrderById +
-              '?order_id=${OrdersRootScreen.orderId}'),
-          headers: {'Authorization': 'Bearer $token'});
+      dynamic response = await http.get(Uri.parse(UrlsContainer.getOrderById + '?order_id=${OrdersRootScreen.orderId}'), headers: {'Authorization': 'Bearer $token'});
       Map body = jsonDecode(response.body);
       print(body);
       var data = body['data'];
@@ -63,13 +61,10 @@ class PrintOrderController extends GetxController {
   }
 
   setOrderDetails() {
-    
-    clientNumberController.value.text = '21312';//TODO why client num static??
+    clientNumberController.value.text = '21312'; //TODO why client num static??
     invoiceNumberController.value.text = orderModel!.invoiceNumber!;
-    categoriesNumberController.value.text =
-        orderModel!.categoriesNumber.toString();
-    addressController.value.text =
-        orderModel!.regionName! + ', ' + orderModel!.cityName!;
+    categoriesNumberController.value.text = orderModel!.categoriesNumber.toString();
+    addressController.value.text = orderModel!.regionName! + ', ' + orderModel!.cityName!;
     detailsController.value.text = orderModel!.details!;
   }
 
@@ -97,10 +92,7 @@ class PrintOrderController extends GetxController {
     } catch (e) {
       print(e);
       setStatus(Status.ERROR);
-      Utils.showGetXToast(
-          title: 'خطأ',
-          message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً',
-          toastColor: AppColors.red);
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
       return 'error';
     }
   }

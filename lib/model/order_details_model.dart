@@ -19,34 +19,34 @@
 // }
 
 class OrderDetailsModel {
-  OrderDetailsModel({
-    this.id,
-    this.commercialRecord,
-    this.creatorId,
-    this.invoiceNumber,
-    this.catsNumber,
-    this.boxNumber,
-    this.details,
-    this.warehouseId,
-    this.address,
-    this.isStampedBill,
-    this.returns,
-    this.returnsIsDelivered,
-    this.isPrinted,
-    this.isOk,
-    this.deleiverdType,
-    this.statusId,
-    this.createdAt,
-    this.updatedAt,
-    this.clientNumber,
-    this.clientRegion,
-    this.clientLongitude,
-    this.clientLatitude,
-    this.clientCity,
-    this.processes,
-    this.statusColor,
-    this.statusName,
-  });
+  OrderDetailsModel(
+      {this.id,
+      this.commercialRecord,
+      this.creatorId,
+      this.invoiceNumber,
+      this.catsNumber,
+      this.boxNumber,
+      this.details,
+      this.warehouseId,
+      this.address,
+      this.isStampedBill,
+      this.returns,
+      this.returnsIsDelivered,
+      this.isPrinted,
+      this.isOk,
+      this.deleiverdType,
+      this.statusId,
+      this.createdAt,
+      this.updatedAt,
+      this.clientNumber,
+      this.clientRegion,
+      this.clientLongitude,
+      this.clientLatitude,
+      this.clientCity,
+      this.processes,
+      this.statusColor,
+      this.statusName,
+      this.clientName});
 
   int? id;
   String? clientLatitude;
@@ -74,11 +74,13 @@ class OrderDetailsModel {
   String? clientCity;
   String? statusName;
   String? statusColor;
+  String? clientName;
 
   List<Process>? processes;
 
   factory OrderDetailsModel.fromJson(Map<String, dynamic> json) => OrderDetailsModel(
         id: json["id"] == null ? null : json["id"],
+        clientName: json["client_name"] == null ? null : json["client_name"],
         commercialRecord: json["commercial_record"] == null ? null : json["commercial_record"],
         creatorId: json["creator_id"] == null ? null : json["creator_id"],
         invoiceNumber: json["invoice_number"] == null ? null : json["invoice_number"],

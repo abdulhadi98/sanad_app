@@ -147,7 +147,7 @@ class LoadWillDeleviredScreen extends StatelessWidget {
                                     height: 30.h,
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.only(bottom: 20.h),
+                                    padding: EdgeInsets.only(bottom: 30.h),
                                     child: MainButton(
                                       text: 'تم الاستلام',
                                       width: 178.w,
@@ -218,8 +218,10 @@ class LoadWillDeleviredScreen extends StatelessWidget {
                                                         title: 'العميل',
                                                         type: '',
                                                         onTap: () {
+                                                          Get.back();
                                                           Get.toNamed(
                                                             'deliver-to-client-screen',
+                                                            arguments: {'order_id': orderDetailsController.orderDetailsModel!.id!},
                                                           );
                                                         },
                                                       ),
@@ -234,7 +236,14 @@ class LoadWillDeleviredScreen extends StatelessWidget {
                                                         sideColor: '0xFF1178BA',
                                                         title: 'سائق آخر',
                                                         type: '',
-                                                        onTap: () {},
+                                                        onTap: () {
+                                                          Get.back();
+
+                                                          Get.toNamed(
+                                                            'deliver-to-driver-screen',
+                                                            arguments: {'order_id': orderDetailsController.orderDetailsModel!.id!},
+                                                          );
+                                                        },
                                                       ),
                                                     )
                                                   ],
@@ -243,20 +252,6 @@ class LoadWillDeleviredScreen extends StatelessWidget {
                                             },
                                           ),
                                         );
-                                      },
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(bottom: 30.h),
-                                    child: MainButton(
-                                      text: 'إرسال',
-                                      width: 178.w,
-                                      height: 50.h,
-                                      onPressed: () async {
-                                        // if (driversController.driverId == null)
-                                        //   Utils.showGetXToast(title: 'تنبيه', message: 'يرجى تعيين سائق', toastColor: AppColors.red);
-                                        // else
-                                        //   await driversController.assignDriver();
                                       },
                                     ),
                                   ),

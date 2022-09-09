@@ -8,6 +8,7 @@ import 'package:wits_app/view/auth/login_screen.dart';
 import 'package:wits_app/view/driver/deliver_to_client_screen.dart';
 import 'package:wits_app/view/driver/driver_root_screen.dart';
 import 'package:wits_app/view/driver/load_will_delevired_to_screen.dart';
+import 'package:wits_app/view/driver/not_stamped_bill_screen.dart';
 import 'package:wits_app/view/driver/orders_driver_screen.dart';
 import 'package:wits_app/view/incpection_officer/enter_boxes_number_screen.dart';
 import 'package:wits_app/view/incpection_officer/incpection_officer_root_screen.dart';
@@ -46,6 +47,7 @@ import 'package:wits_app/view/warehouse_manger/orders_warehouse_manger.dart';
 import 'package:wits_app/view/warehouse_manger/warehouse_manger_root_screen.dart';
 
 import 'helper/app_colors.dart';
+import 'view/driver/deliver_to_driver_screen.dart';
 import 'view/sales/sales representative/salesman_root_screen.dart';
 import 'view/sales/sales_employee/sales_emplyee_root_screen.dart';
 import 'view/sales/sales_manger/delegations/delegations_list_screen.dart';
@@ -150,11 +152,13 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/orders-driver-screen', page: () => OrdersDriverScreen()),
         GetPage(name: '/load-will-delivered-screen', page: () => LoadWillDeleviredScreen()),
         GetPage(name: '/deliver-to-client-screen', page: () => DeliverToClientScreen()),
+        GetPage(name: '/deliver-to-driver-screen', page: () => DeliverToDriverScreen()),
 
         //Quality Supervisor
         GetPage(name: '/quality-supervisor-root-screen', page: () => QualitySupervisorRootScreen()),
         GetPage(name: '/orders-quality-supervisor-screen', page: () => OrdersQualitySupervisorScreent()),
         GetPage(name: '/recive-returns-screen', page: () => ReciveReturnsScreen()),
+        GetPage(name: '/not-stamped-bill-screen', page: () => NotStampedBillScreen()),
       ],
     );
   }

@@ -21,7 +21,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   shimmer: ^2.0.0
   permission_handler: ^8.1.2
-  image_picker: ^0.8.2
+  image_picker: ^0.8.5+3
   flutter_svg: ^0.21.0
   lottie: ^1.1.0
   carousel_slider: ^4.0.0
@@ -30,6 +30,7 @@ dependencies:
   timelines: ^0.1.0
   curved_nav_bar: ^0.0.2
   flutter_screenutil: ^5.5.3+2
+  geolocator: ^9.0.1
   get: ^4.6.5
 #  textfield_search: ^0.10.0
   firebase_core: 1.20.0

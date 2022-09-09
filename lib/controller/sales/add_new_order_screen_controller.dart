@@ -44,10 +44,10 @@ class AddNewOrderScreenController extends GetxController {
       List<dynamic> data = body['data'];
       clientsList = List<ClientModel>.from(
           data.map((x) => ClientModel.fromJson(x)).toList());
-      setStatus(Status.DATA);
+      
       String code = body['code'].toString();
       String message = body['message'];
-      Utils.getResponseCode(code, message);
+      Utils.getResponseCode(code, message);setStatus(Status.DATA);
       return code;
     } catch (e) {
       print(e);
