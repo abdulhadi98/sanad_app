@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:wits_app/controller/driver/add_returns_controller.dart';
 import 'package:wits_app/controller/driver/deliver_to_clients_controller.dart';
 import 'package:wits_app/controller/driver/deliver_to_driver_controller.dart';
 import 'package:wits_app/controller/incpection_officer/enter_box_number_controller.dart';
@@ -16,6 +19,7 @@ import 'package:wits_app/view/common_wigets/drawer.dart';
 import 'package:wits_app/view/common_wigets/main_button.dart';
 import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
+import 'package:wits_app/view/common_wigets/textfield_search.dart';
 import 'package:wits_app/view/common_wigets/title_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/worker_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
@@ -24,13 +28,10 @@ import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
 import 'package:geolocator/geolocator.dart';
 
-class DeliverToDriverScreen extends StatelessWidget {
-  final put = Get.lazyPut<DeliverToDriverController>(
-    () => DeliverToDriverController(),fenix:true,
+class AddReturnsScreen extends StatelessWidget {
+  final AddReturnsController addReturnsController = Get.put<AddReturnsController>(
+    AddReturnsController(),
   );
-  final DeliverToDriverController deliverToDriverController = Get.find<DeliverToDriverController>();
-  final OrderDetailsController orderDetailsController = Get.find<OrderDetailsController>();
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalController globalController = Get.find<GlobalController>();
 
@@ -61,13 +62,13 @@ class DeliverToDriverScreen extends StatelessWidget {
                       title: "السائق",
                       scaffoldKey: scaffoldKey,
                     ),
-                    TitleWidget(tilte: "التسليم إلى سائق آخر"),
+                    TitleWidget(tilte: "تفاصيل المرتجعات"),
                     Expanded(
                       child: SizedBox(
                         width: width,
                         child: SingleChildScrollView(
                           child: Obx(() {
-                            switch (deliverToDriverController.status!.value) {
+                            switch (addReturnsController.status!.value) {
                               case Status.LOADING:
                                 return SizedBox(
                                   height: height / 1.5,
@@ -85,122 +86,50 @@ class DeliverToDriverScreen extends StatelessWidget {
                               case Status.DATA:
                                 return Column(
                                   children: [
-                                    MainButton(
-                                      text: 'اختر السائق',
-                                      width: 295.w,
-                                      height: 50.h,
-                                      onPressed: () {
-                                        showDialogCustom(
-                                          height: height,
-                                          width: width,
-                                          context: context,
-                                          padding: EdgeInsets.zero,
-                                          dialogContent: StatefulBuilder(
-                                            builder: (context, setState) {
-                                              return Container(
-                                                color: AppColors.white,
-                                                height: height,
-                                                width: width,
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    Padding(
-                                                      padding: EdgeInsets.symmetric(
-                                                        horizontal: 15.w,
-                                                        vertical: 15.h,
-                                                      ),
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.end,
-                                                        children: [
-                                                          InkWell(
-                                                            onTap: () {
-                                                              Get.back();
-                                                            },
-                                                            child: SvgPicture.asset(
-                                                              'assets/icons/Icon Close Light-1.svg',
-                                                              width: 16.w,
-                                                              height: 16.w,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      'اختر  السائق',
-                                                      style: TextStyle(
-                                                        fontSize: 30.sp,
-                                                        fontWeight: FontWeight.bold,
-                                                        color: AppColors.textColorXDarkBlue,
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsets.only(bottom: 6.h),
-                                                      child: Divider(
-                                                        color: AppColors.textColorXDarkBlue,
-                                                        indent: width / 2.3,
-                                                        endIndent: width / 2.3,
-                                                        thickness: 1,
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      //   padding: EdgeInsets.symmetric(vertical: 5.),
-                                                      height: height / 1.3,
-                                                      width: width,
-                                                      child: ListView.builder(
-                                                          itemCount: deliverToDriverController.driversList.length,
-                                                          itemBuilder: (BuildContext context, int index) {
-                                                            return WorkerWidget(
-                                                                workerName: deliverToDriverController.driversList[index].name!,
-                                                                workerDepartment: '',
-                                                                onPressed: () {
-                                                                  deliverToDriverController.driverId = deliverToDriverController.driversList[index].id;
-                                                                  //  SalesMangerRootScreen.salesmanId = driversController.driversList[index].id;
-                                                                  print(deliverToDriverController.driverId);
-                                                                  Get.back();
-                                                                  // Get.toNamed(
-                                                                  //     '/send_order_to_sales_employee');
-                                                                  // Get.toNamed(
-                                                                  //     '/order-details-screen');
-                                                                });
-                                                          }),
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            },
+                                    Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: Container(
+                                        height: 50.h,
+                                        width: 295.w,
+                                        child: TextFieldSearch(
+                                          textStyle: TextStyle(
+                                            color: AppColors.black.withOpacity(.70),
+                                            fontSize: 13.sp,
                                           ),
-                                        );
-                                      },
+
+                                          decoration: inputDecoration,
+                                          // getSelectedValue: (b){print(b);},
+                                          initialList: addReturnsController.clientsList.map((client) => client.clientNumber).toList(),
+                                          label: addReturnsController.clientsList.isNotEmpty ? addReturnsController.clientsList.first.clientNumber! : ' ',
+                                          controller: addReturnsController.clientNumberController.value,
+                                        ),
+                                      ),
                                     ),
                                     SizedBox(
                                       height: 15.h,
                                     ),
-                                    MainButtonWithIcon(
-                                      loadingLocation: deliverToDriverController.locationSpinner.value,
-                                      text: 'تحديد الموقع تلقائياً',
-                                      width: 295.w,
-                                      height: 50.h,
-                                      onPressed: () async {
-                                        var postion = await deliverToDriverController.determinePosition();
-                                        print(postion.latitude.toString() + ', ' + postion.longitude.toString());
-                                      },
+                                    TextFieldTall(
+                                      hint: 'تفاصيل المرتجعات',
+                                      textEditingController: addReturnsController.returnsDetailsController.value,
+                                      onChanged: (val) {},
                                     ),
                                     SizedBox(
                                       height: 15.h,
                                     ),
                                     MainButton(
-                                      text: deliverToDriverController.selectedImages.length == 0 ? 'تصوير سيارة السائق' : 'إضافة صور أخرى',
+                                      text: addReturnsController.selectedImages.length == 0 ? 'تصوير المرتجعات' : 'إضافة صور أخرى',
                                       width: 295.w,
                                       height: 50.h,
                                       onPressed: () async {
-                                        deliverToDriverController.pickImage();
+                                        FocusScope.of(context).requestFocus(FocusNode());
+
+                                        addReturnsController.pickImage();
                                       },
                                     ),
                                     SizedBox(
                                       height: 15.h,
                                     ),
-                                    deliverToDriverController.selectedImages.length != 0
+                                    addReturnsController.selectedImages.length != 0
                                         ? Container(
                                             width: 295.w,
                                             height: 300.h,
@@ -216,7 +145,7 @@ class DeliverToDriverScreen extends StatelessWidget {
                                                 padding: EdgeInsets.zero,
                                                 gridDelegate:
                                                     SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 105.w, childAspectRatio: 1.05, crossAxisSpacing: 35.w, mainAxisSpacing: 20.h),
-                                                itemCount: deliverToDriverController.selectedImages.length,
+                                                itemCount: addReturnsController.selectedImages.length,
                                                 itemBuilder: (BuildContext ctx, index) {
                                                   return Container(
                                                     height: 91.h,
@@ -227,7 +156,7 @@ class DeliverToDriverScreen extends StatelessWidget {
                                                       fit: StackFit.expand,
                                                       children: [
                                                         Image.file(
-                                                          deliverToDriverController.selectedImages.value[index],
+                                                          addReturnsController.selectedImages.value[index],
                                                           fit: BoxFit.cover,
                                                         ),
                                                         Positioned(
@@ -235,9 +164,9 @@ class DeliverToDriverScreen extends StatelessWidget {
                                                           left: 3.w,
                                                           child: InkWell(
                                                             onTap: () {
-                                                              deliverToDriverController.selectedImages.removeAt(deliverToDriverController.selectedImages
-                                                                  .indexWhere((element) => element.path == deliverToDriverController.selectedImages.value[index].path));
-                                                              deliverToDriverController.selectedImages.forEach((element) {
+                                                              addReturnsController.selectedImages.removeAt(
+                                                                  addReturnsController.selectedImages.indexWhere((element) => element.path == addReturnsController.selectedImages.value[index].path));
+                                                              addReturnsController.selectedImages.forEach((element) {
                                                                 print(element.path);
                                                               });
 
@@ -256,11 +185,9 @@ class DeliverToDriverScreen extends StatelessWidget {
                                           )
                                         : SizedBox(),
                                     SizedBox(
-                                      height: 15.h,
+                                      height: 30,
                                     ),
-                                    SizedBox(
-                                      height: 50.h,
-                                    ),
+                                    SizedBox(height: addReturnsController.selectedImages.length != 0 ? 30.h : 80.h),
                                     Padding(
                                       padding: EdgeInsets.only(bottom: 30.0.h),
                                       child: MainButton(
@@ -268,14 +195,16 @@ class DeliverToDriverScreen extends StatelessWidget {
                                           width: 178.w,
                                           height: 50.h,
                                           onPressed: () async {
-                                            if (deliverToDriverController.validate()) {
-                                              var uploadImagesStatus = await deliverToDriverController.uploadDriverTruckImages();
+                                            FocusScope.of(context).requestFocus(FocusNode());
+
+                                            if (addReturnsController.validate()) {
+                                              var uploadImagesStatus = await addReturnsController.uploadReturnsImagesPaths();
                                               if (uploadImagesStatus == 'ok') {
                                                 print('okokokokkokokkkokookk');
 
-                                                var changeDriverStatus = await deliverToDriverController.changeDriver();
+                                                var addReturnsStatus = await addReturnsController.addReturns();
 
-                                                if (changeDriverStatus == '200')
+                                                if (addReturnsStatus == '200')
                                                   showDialogCustom(
                                                     height: height,
                                                     width: width,

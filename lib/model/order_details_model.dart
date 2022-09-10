@@ -46,7 +46,8 @@ class OrderDetailsModel {
       this.processes,
       this.statusColor,
       this.statusName,
-      this.clientName});
+      this.clientName,
+      this.clientStamp});
 
   int? id;
   String? clientLatitude;
@@ -72,15 +73,18 @@ class OrderDetailsModel {
   String? clientNumber;
   String? clientRegion;
   String? clientCity;
+  String? clientName;
+  String? clientStamp;
+
   String? statusName;
   String? statusColor;
-  String? clientName;
 
   List<Process>? processes;
 
   factory OrderDetailsModel.fromJson(Map<String, dynamic> json) => OrderDetailsModel(
         id: json["id"] == null ? null : json["id"],
         clientName: json["client_name"] == null ? null : json["client_name"],
+        clientStamp: json["client_stamp"] == null ? null : json["client_stamp"],
         commercialRecord: json["commercial_record"] == null ? null : json["commercial_record"],
         creatorId: json["creator_id"] == null ? null : json["creator_id"],
         invoiceNumber: json["invoice_number"] == null ? null : json["invoice_number"],

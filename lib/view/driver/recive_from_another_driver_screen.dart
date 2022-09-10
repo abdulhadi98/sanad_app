@@ -34,7 +34,7 @@ import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
 import 'dart:ui' as ui;
 
-class NotStampedBillScreen extends StatelessWidget {
+class ReciveFromAnotherDriver extends StatelessWidget {
   final orderDetailsController = Get.put<OrderDetailsController>(
     OrderDetailsController(),
   );
@@ -221,6 +221,30 @@ class NotStampedBillScreen extends StatelessWidget {
                                     ),
                                   SizedBox(
                                     height: 15.h,
+                                  ),
+                                  MainButton(
+                                    text: 'الفاتورة غير مختومة',
+                                    color: AppColors.red,
+                                    width: 295.w,
+                                    height: 50.h,
+                                    onPressed: () async {
+                                      dynamic status = await deliverToClientController.orderNotStamped();
+                                      if (status == '200')
+                                        showDialogCustom(
+                                          height: height,
+                                          width: width,
+                                          context: context,
+                                          padding: EdgeInsets.zero,
+                                          dialogContent: DialogContentThanks(
+                                            onTap: () {
+                                              Get.offAllNamed('/driver-root-screen');
+                                            },
+                                          ),
+                                        );
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: 30.h,
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(bottom: 30.0.h),

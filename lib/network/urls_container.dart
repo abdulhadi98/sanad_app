@@ -1,6 +1,8 @@
 class UrlsContainer {
   static final String baseUrl = "https://sanad.aratech.co";
   static final String baseApiUrl = "$baseUrl/api";
+  static final String imagesUrl = "$baseUrl/storage";
+  
 
   static String addImage = "$baseApiUrl/add-image";
   // Authentication's endpoints
@@ -50,6 +52,8 @@ class UrlsContainer {
   static String billIsStamped = "$baseApiUrl/bill-is-stamped";
   static String billNotStamped = "$baseApiUrl/bill-not-stamped";
   static String changeDriver = "$baseApiUrl/change-driver";
+  static String addReturns = "$baseApiUrl/add-returns";
+  
   
   
 

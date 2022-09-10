@@ -67,7 +67,7 @@ class DriverRootScreen extends StatelessWidget {
                           Get.toNamed(
                             '/orders-driver-screen',
                             arguments: {
-                              "api": "/get-returns",
+                              "api": "/get-driver-to-driver-orders",
                             },
                           );
                         },
@@ -97,7 +97,7 @@ class DriverRootScreen extends StatelessWidget {
                         height: 50.h,
                         onPressed: () {
                           Get.toNamed(
-                            '/orders-driver-screen',
+                            '/add-returns-screen',
                           );
                         },
                       ),

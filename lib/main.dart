@@ -5,11 +5,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wits_app/bindings/bindings.dart';
 import 'package:wits_app/middleware/auth_middleware.dart';
 import 'package:wits_app/view/auth/login_screen.dart';
+import 'package:wits_app/view/driver/add_returns_screen.dart';
 import 'package:wits_app/view/driver/deliver_to_client_screen.dart';
 import 'package:wits_app/view/driver/driver_root_screen.dart';
 import 'package:wits_app/view/driver/load_will_delevired_to_screen.dart';
 import 'package:wits_app/view/driver/not_stamped_bill_screen.dart';
 import 'package:wits_app/view/driver/orders_driver_screen.dart';
+import 'package:wits_app/view/driver/recive_from_another_driver_screen.dart';
 import 'package:wits_app/view/incpection_officer/enter_boxes_number_screen.dart';
 import 'package:wits_app/view/incpection_officer/incpection_officer_root_screen.dart';
 import 'package:wits_app/view/incpection_officer/orders_incpection_officer_screen.dart';
@@ -78,8 +80,6 @@ class MyApp extends StatelessWidget {
       //   initialBinding: GolbalBindings(),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-
-      // initialBinding: ,
       theme: ThemeData(
         fontFamily: 'Bahij',
         canvasColor: Colors.white,
@@ -153,12 +153,15 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/load-will-delivered-screen', page: () => LoadWillDeleviredScreen()),
         GetPage(name: '/deliver-to-client-screen', page: () => DeliverToClientScreen()),
         GetPage(name: '/deliver-to-driver-screen', page: () => DeliverToDriverScreen()),
+        GetPage(name: '/not-stamped-bill-screen', page: () => NotStampedBillScreen()),
+        GetPage(name: '/recive-from-another-driver-screen', page: () => ReciveFromAnotherDriver()),
+        GetPage(name: '/add-returns-screen', page: () => AddReturnsScreen()),
+
 
         //Quality Supervisor
         GetPage(name: '/quality-supervisor-root-screen', page: () => QualitySupervisorRootScreen()),
         GetPage(name: '/orders-quality-supervisor-screen', page: () => OrdersQualitySupervisorScreent()),
         GetPage(name: '/recive-returns-screen', page: () => ReciveReturnsScreen()),
-        GetPage(name: '/not-stamped-bill-screen', page: () => NotStampedBillScreen()),
       ],
     );
   }

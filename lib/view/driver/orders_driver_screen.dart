@@ -89,7 +89,7 @@ class OrdersDriverScreen extends StatelessWidget {
                                             OrdersRootScreen.orderId = ordersController.ordersList[i].id;
                                             if (Get.arguments['api'] == "/get-rejected-stamps")
                                               Get.toNamed(
-                                                '/',
+                                                '/not-stamped-bill-screen',
                                                 arguments: {
                                                   "order_id": ordersController.ordersList[i].id.toString(),
                                                 },
@@ -97,6 +97,13 @@ class OrdersDriverScreen extends StatelessWidget {
                                             else if (Get.arguments['api'] == "/get-driver-assigned-orders")
                                               Get.toNamed(
                                                 '/load-will-delivered-screen',
+                                                arguments: {
+                                                  "order_id": ordersController.ordersList[i].id.toString(),
+                                                },
+                                              );
+                                               else if (Get.arguments['api'] == "/get-driver-to-driver-orders")
+                                              Get.toNamed(
+                                                '/recive-from-another-driver-screen',
                                                 arguments: {
                                                   "order_id": ordersController.ordersList[i].id.toString(),
                                                 },
