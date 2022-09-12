@@ -88,9 +88,9 @@ class OrdersQualitySupervisorScreent extends StatelessWidget {
                                       return OrderWidget(
                                           onTap: () {
                                             OrdersRootScreen.orderId = ordersController.ordersList[i].id;
-                                            if (Get.arguments['api'] == "/get-assigned-preprations")
+                                            if (Get.arguments['api'] == "/get-stamped-orders")
                                               Get.toNamed(
-                                                '/preparation-done-screen',
+                                                '/check-order-screen',
                                                 arguments: {
                                                   "order_id": ordersController.ordersList[i].id.toString(),
                                                 },

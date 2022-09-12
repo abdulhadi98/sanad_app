@@ -12,6 +12,7 @@ import 'package:wits_app/view/driver/load_will_delevired_to_screen.dart';
 import 'package:wits_app/view/driver/not_stamped_bill_screen.dart';
 import 'package:wits_app/view/driver/orders_driver_screen.dart';
 import 'package:wits_app/view/driver/recive_from_another_driver_screen.dart';
+import 'package:wits_app/view/general_manager/general_manager_root_screen.dart';
 import 'package:wits_app/view/incpection_officer/enter_boxes_number_screen.dart';
 import 'package:wits_app/view/incpection_officer/incpection_officer_root_screen.dart';
 import 'package:wits_app/view/incpection_officer/orders_incpection_officer_screen.dart';
@@ -23,6 +24,7 @@ import 'package:wits_app/view/movment_manger/print_order_movment_manger_screen.d
 import 'package:wits_app/view/preparation_worker/orders_preparation_worker_screen.dart';
 import 'package:wits_app/view/preparation_worker/preparation_worker_root_screen.dart';
 import 'package:wits_app/view/preparation_worker/prepration_done_screen.dart';
+import 'package:wits_app/view/quality_supervisor/check_order_screen.dart';
 import 'package:wits_app/view/quality_supervisor/orders_quality_supervisor_screen.dart';
 import 'package:wits_app/view/quality_supervisor/quality_supervisor_root_screen.dart';
 import 'package:wits_app/view/returns_manger/orders_returns_manger_screen.dart';
@@ -157,11 +159,17 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/recive-from-another-driver-screen', page: () => ReciveFromAnotherDriver()),
         GetPage(name: '/add-returns-screen', page: () => AddReturnsScreen()),
 
-
         //Quality Supervisor
         GetPage(name: '/quality-supervisor-root-screen', page: () => QualitySupervisorRootScreen()),
         GetPage(name: '/orders-quality-supervisor-screen', page: () => OrdersQualitySupervisorScreent()),
+        GetPage(name: '/check-order-screen', page: () => CheckOrderScreen()),
+
+        //
         GetPage(name: '/recive-returns-screen', page: () => ReciveReturnsScreen()),
+
+        //General Manager
+        GetPage(name: '/general-manager-root-screen', page: () => GeneralManagerRootScreen()),
+        
       ],
     );
   }

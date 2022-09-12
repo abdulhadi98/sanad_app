@@ -139,7 +139,13 @@ class AddNewOrderScreen extends StatelessWidget {
                                         if (addNewOrderScreenController.validateInputs()) {
                                           addNewOrderScreenController.setOrderModel();
                                           // print(addNewOrderScreenController.orderModel);
-                                          Get.toNamed('/submit-order-screen', arguments: {'role_name': sharedPreferences!.getInt('role') == 4 ? "موظف قسم المبيعات" : "مدير قسم المبيعات"});
+                                          Get.toNamed('/submit-order-screen', arguments: {
+                                            'role_name': sharedPreferences!.getInt('role') == 4
+                                                ? "موظف قسم المبيعات"
+                                                : sharedPreferences!.getInt('role') == 11
+                                                    ? "المدير العام"
+                                                    : "مدير قسم المبيعات"
+                                          });
                                         }
                                       },
                                     ),

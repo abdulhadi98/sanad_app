@@ -2,7 +2,6 @@ class UrlsContainer {
   static final String baseUrl = "https://sanad.aratech.co";
   static final String baseApiUrl = "$baseUrl/api";
   static final String imagesUrl = "$baseUrl/storage";
-  
 
   static String addImage = "$baseApiUrl/add-image";
   // Authentication's endpoints
@@ -18,18 +17,18 @@ class UrlsContainer {
 
   static String addNewOrder = "$baseApiUrl/add-new-order";
   static String addOrderIdToDelegation = "$baseApiUrl/add-order-id-to-delegation";
-  
+
   static String getORders = "$baseApiUrl/get-orders";
   static String getOrderById = "$baseApiUrl/get-order";
 
   static String addDelegation = "$baseApiUrl/add-delegation-sales";
   static String addDelegationManger = "$baseApiUrl/add-delegation-manager";
   static String assignDelegationToEmployee = "$baseApiUrl/assign-delegation-to-employee";
-  
+
   static String rejectDelegation = "$baseApiUrl/reject-delegation";
   static String getDelegationsOrders = "$baseApiUrl/get-delegation-orders";
   static String getAssignedDelegations = "$baseApiUrl/get-assigned-delegations";
-  
+
   static String getDelegationById = "$baseApiUrl/get-delegation-by-id";
 
   //Movment Manger
@@ -53,10 +52,13 @@ class UrlsContainer {
   static String billNotStamped = "$baseApiUrl/bill-not-stamped";
   static String changeDriver = "$baseApiUrl/change-driver";
   static String addReturns = "$baseApiUrl/add-returns";
-  
-  
+
+  //Quality Supervisor
+  static String accecptStampedBill = "$baseApiUrl/accept-stamped-bill";
+  static String rejectStampedBill = "$baseApiUrl/reject-stamped-bill";
+
+  //General Manager
   
 
-  
 
 }

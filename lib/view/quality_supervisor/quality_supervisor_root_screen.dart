@@ -62,14 +62,14 @@ class QualitySupervisorRootScreen extends StatelessWidget {
                       // ),
 
                       MainButton(
-                        text: 'الطلبيات',
+                        text: 'طلبيات جديدة',
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
                           Get.toNamed(
                             '/orders-quality-supervisor-screen',
                             arguments: {
-                              "api": "/get-assigned-preprations",
+                              "api": "/get-stamped-orders",
                             },
                           );
                         },
