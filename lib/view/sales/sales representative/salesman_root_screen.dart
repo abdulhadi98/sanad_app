@@ -93,7 +93,7 @@ class SalesmanRootScreen extends StatelessWidget {
                                             fontSize: 13.sp,
                                           ),
 
-                                          decoration: inputDecoration,
+                                                 decoration: enabledK('رقم العميل'),
                                           // getSelectedValue: (b){print(b);},
                                           initialList: addDelegationController.clientsList.map((client) => client.clientNumber).toList(),
                                           label: addDelegationController.clientsList.isNotEmpty ? addDelegationController.clientsList.first.clientNumber! : ' ',

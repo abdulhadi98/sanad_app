@@ -76,7 +76,7 @@ class AddReturnsController extends GetxController {
       return code;
     } catch (e) {
       print(e);
-      setStatus(Status.DATA);
+      setStatus(Status.ERROR);
       Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
       return 'error';
     }

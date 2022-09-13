@@ -54,10 +54,18 @@ class HeaderWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SvgPicture.asset(
-                    'assets/icons/ic_orders_log_active.svg',
-                    width: 16.w,
-                    height: 17.w,
+                  IconButton(
+                    splashRadius: 1,
+                    padding: EdgeInsets.all(5.r),
+                    constraints: BoxConstraints(),
+                    onPressed: () {
+                      print('notification');
+                    },
+                    icon: SvgPicture.asset(
+                      'assets/icons/ic_orders_log_active.svg',
+                      width: 16.w,
+                      height: 17.w,
+                    ),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -82,11 +90,14 @@ class HeaderWidget extends StatelessWidget {
                       ),
                     ],
                   ),
-                  InkWell(
-                    onTap: () {
+                  IconButton(
+                    splashRadius: 1,
+                    padding: EdgeInsets.all(5.r),
+                    constraints: BoxConstraints(),
+                    onPressed: () {
                       globalController.openDrawer(scaffoldKey);
                     },
-                    child: SvgPicture.asset(
+                    icon: SvgPicture.asset(
                       'assets/icons/Icon Menu Dark.svg',
                       width: 15.w,
                       height: 16.w,

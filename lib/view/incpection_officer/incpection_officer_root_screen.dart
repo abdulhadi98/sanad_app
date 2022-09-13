@@ -14,7 +14,6 @@ class IncpectionOfficerRootScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    
 
     return ScreenUtilInit(
       designSize: const Size(375, 812),
@@ -45,7 +44,7 @@ class IncpectionOfficerRootScreen extends StatelessWidget {
                         height: 49.h,
                       ),
                       MainButton(
-                        text: 'إدخال عدد الصناديق',
+                        text: 'طلبيات جديدة',
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
@@ -60,7 +59,6 @@ class IncpectionOfficerRootScreen extends StatelessWidget {
                       SizedBox(
                         height: 30.h,
                       ),
-                     
                       MainButton(
                         text: 'طلبيات قيد التنفيذ',
                         width: 224.w,

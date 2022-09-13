@@ -156,7 +156,9 @@ class SubmitOrderScreen extends StatelessWidget {
                                                   onTap: () {
                                                     if (sharedPreferences!.getInt('role') == 5)
                                                       Get.offAllNamed('/sales-manger-root-screen');
-                                                    else if (sharedPreferences!.getInt('role') == 4) Get.offAllNamed('/sales-employee-root-screen');
+                                                    else if (sharedPreferences!.getInt('role') == 4)
+                                                      Get.offAllNamed('/sales-employee-root-screen');
+                                                    else if (sharedPreferences!.getInt('role') == 11) Get.offAllNamed('/general-manager-root-screen');
                                                   },
                                                 ),
                                               );

@@ -99,7 +99,7 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                                             color: AppColors.black.withOpacity(.70),
                                             fontSize: 13.sp,
                                           ),
-                                          decoration: inputDecoration,
+                                                   decoration: enabledK('رقم العميل'),
                                           // getSelectedValue: (b){print(b);},
                                           initialList: addDelegationSalesMangerController.clientsList.map((client) => client.clientNumber).toList(),
                                           label: addDelegationSalesMangerController.clientsList.isNotEmpty ? addDelegationSalesMangerController.clientsList.first.clientNumber! : ' ',

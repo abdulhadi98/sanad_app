@@ -56,21 +56,23 @@ class AppDrawer extends StatelessWidget {
                             ),
                             child: Row(
                               children: [
-                                InkWell(
-                                  onTap: () {
+                                IconButton(
+                                  padding: EdgeInsets.all(5.r),
+                                  constraints: BoxConstraints(),
+                                  onPressed: () {
                                     globalController.closeDrawer(scaffoldKey);
                                   },
-                                  child: SvgPicture.asset(
+                                  icon: SvgPicture.asset(
                                     'assets/icons/Icon Close Light-1.svg',
                                     width: 16.w,
                                     height: 16.w,
                                   ),
-                                ),
+                                )
                               ],
                             ),
                           ),
                           SizedBox(
-                            height: 45.h,
+                            height: 25.h,
                           ),
                           Center(
                             child: Text(

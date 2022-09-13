@@ -55,10 +55,49 @@ class TextFieldCustom extends StatelessWidget {
   }
 }
 
-InputDecoration enabledK(hint) => InputDecoration(
+InputDecoration enabledTall(hint) => InputDecoration(
+      alignLabelWithHint: true,
+      label: Text(
+        hint,
+        style: TextStyle(
+          color: AppColors.mainColor1,
+          fontSize: 13.sp,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
       contentPadding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.w),
-      hintText: hint,
-      hintStyle: TextStyle(color: AppColors.brown.withOpacity(.30), fontSize: 14.sp, fontWeight: FontWeight.normal),
+      //  hintText: hint,
+      // hintStyle: TextStyle(color: AppColors.brown.withOpacity(.30), fontSize: 14.sp, fontWeight: FontWeight.normal),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25.r),
+        borderSide: BorderSide(color: AppColors.mainColor1),
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25.r),
+        borderSide: BorderSide(color: AppColors.mainColor1),
+      ),
+      disabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25.r),
+        borderSide: BorderSide(color: AppColors.mainColor1, width: 1.5),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(25.r),
+        borderSide: BorderSide(color: AppColors.mainColor1, width: 1.5),
+      ),
+    );
+
+InputDecoration enabledK(hint) => InputDecoration(
+      label: Text(
+        hint,
+        style: TextStyle(
+          color: AppColors.mainColor1,
+          fontSize: 13.sp,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
+      contentPadding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.w),
+      //  hintText: hint,
+      // hintStyle: TextStyle(color: AppColors.brown.withOpacity(.30), fontSize: 14.sp, fontWeight: FontWeight.normal),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(25.r),
         borderSide: BorderSide(color: AppColors.mainColor1),
@@ -171,7 +210,7 @@ class TextFieldTall extends StatelessWidget {
           focusNode: focusNode,
           enabled: enabled ?? true,
           style: TextStyle(color: AppColors.black.withOpacity(.70), fontSize: 14.sp),
-          decoration: enabled == false ? notEnabled(hint) : enabledK(hint),
+          decoration: enabled == false ? notEnabled(hint) : enabledTall(hint),
         ),
       ),
     );

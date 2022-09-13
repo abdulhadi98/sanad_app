@@ -138,7 +138,7 @@ class PrepartionDoneSceeen extends StatelessWidget {
                                     Padding(
                                       padding: EdgeInsets.only(bottom: 30.h),
                                       child: MainButton(
-                                        text: 'تمت التحضير',
+                                        text: 'تم التحضير',
                                         width: 178.w,
                                         height: 50.h,
                                         onPressed: () async {

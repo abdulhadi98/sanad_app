@@ -97,7 +97,7 @@ class AddReturnsScreen extends StatelessWidget {
                                             fontSize: 13.sp,
                                           ),
 
-                                          decoration: inputDecoration,
+                                          decoration: enabledK('رقم العميل'),
                                           // getSelectedValue: (b){print(b);},
                                           initialList: addReturnsController.clientsList.map((client) => client.clientNumber).toList(),
                                           label: addReturnsController.clientsList.isNotEmpty ? addReturnsController.clientsList.first.clientNumber! : ' ',

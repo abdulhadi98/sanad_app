@@ -37,7 +37,6 @@ class UrlsContainer {
   static String assignDriver = "$baseApiUrl/assign-driver";
 
   //Warehouse Manger
-  static String receiveReturns = "$baseApiUrl/returns-delevired";
   static String getPerperators = "$baseApiUrl/get-preparators";
   static String assignPerperator = "$baseApiUrl/assign-preparator";
 
@@ -57,8 +56,14 @@ class UrlsContainer {
   static String accecptStampedBill = "$baseApiUrl/accept-stamped-bill";
   static String rejectStampedBill = "$baseApiUrl/reject-stamped-bill";
 
+  //Returns Manager
+    static String getReturnById = "$baseApiUrl/get-returns-by-id";
+  static String receiveReturns = "$baseApiUrl/returns-delevired";
+
+
+
   //General Manager
-  
+
 
 
 }

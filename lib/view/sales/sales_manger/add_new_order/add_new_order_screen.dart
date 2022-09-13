@@ -89,7 +89,7 @@ class AddNewOrderScreen extends StatelessWidget {
                                           fontSize: 13.sp,
                                         ),
 
-                                        decoration: inputDecoration,
+                                        decoration: enabledK('رقم العميل'),
                                         // getSelectedValue: (b){print(b);},
                                         initialList: addNewOrderScreenController.clientsList.map((client) => client.clientNumber).toList(),
                                         label: addNewOrderScreenController.clientsList.isNotEmpty ? addNewOrderScreenController.clientsList.first.clientNumber! : ' ',

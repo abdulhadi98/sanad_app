@@ -3,9 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wits_app/controller/incpection_officer/enter_box_number_controller.dart';
 import 'package:wits_app/controller/returns_manger/receive_returns_controller.dart';
+import 'package:wits_app/controller/returns_manger/return_details_controller.dart';
+import 'package:wits_app/helper/app_colors.dart';
 
 import 'package:wits_app/helper/enums.dart';
 import 'package:wits_app/helper/utils.dart';
+import 'package:wits_app/network/urls_container.dart';
 import 'package:wits_app/view/common_wigets/dilog_custom.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 import 'package:wits_app/view/common_wigets/main_button.dart';
@@ -18,10 +21,7 @@ import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
 
 class ReciveReturnsScreen extends StatelessWidget {
-  final put = Get.lazyPut<ReciveReturnsController>(
-    () => ReciveReturnsController(),
-  );
-  final ReciveReturnsController reciveReturnsController = Get.find<ReciveReturnsController>();
+  final returnDetailsController = Get.put<ReturnDetailsController>(ReturnDetailsController());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalController globalController = Get.find<GlobalController>();
 
@@ -57,7 +57,7 @@ class ReciveReturnsScreen extends StatelessWidget {
                         width: width,
                         child: SingleChildScrollView(
                           child: Obx(() {
-                            switch (reciveReturnsController.status!.value) {
+                            switch (returnDetailsController.status!.value) {
                               case Status.LOADING:
                                 return SizedBox(
                                   height: height / 1.5,
@@ -79,36 +79,7 @@ class ReciveReturnsScreen extends StatelessWidget {
                                     TextFieldCustom(
                                       enabled: false,
                                       hint: 'رقم العميل',
-                                      textEditingController: reciveReturnsController.clientNumberController.value,
-                                      onChanged: (val) {},
-                                    ),
-                                    SizedBox(
-                                      height: 12.h,
-                                    ),
-                                    TextFieldCustom(
-                                      enabled: false,
-                                      textEditingController: reciveReturnsController.invoiceNumberController.value,
-                                      hint: 'رقم الفاتورة',
-                                      onChanged: (val) {},
-                                    ),
-                                    SizedBox(
-                                      height: 12.h,
-                                    ),
-                                    TextFieldCustom(
-                                      enabled: false,
-                                      hint: 'عدد الأصناف',
-                                      textEditingController: reciveReturnsController.categoriesNumberController.value,
-                                      onChanged: (val) {},
-                                    ),
-                                    SizedBox(
-                                      height: 12.h,
-                                    ),
-                                    TextFieldTall(
-                                      enabled: false, height: 158.h,
-
-                                      //focusNode: focusNode,
-                                      hint: 'عنوان العميل',
-                                      textEditingController: reciveReturnsController.addressController.value,
+                                      textEditingController: returnDetailsController.clientNumberController.value,
                                       onChanged: (val) {},
                                     ),
                                     SizedBox(
@@ -117,19 +88,55 @@ class ReciveReturnsScreen extends StatelessWidget {
                                     TextFieldTall(
                                       enabled: false,
                                       height: 158.h,
-                                      textEditingController: reciveReturnsController.detailsController.value,
-                                      hint: 'تفاصيل إضافية',
+                                      textEditingController: returnDetailsController.detailsController.value,
+                                      hint: 'تفاصيل المرتجعات',
                                       onChanged: (val) {},
                                     ),
                                     SizedBox(
-                                      height: 23.h,
+                                      height: 20.h,
                                     ),
-                                    TextFieldCustom(
-                                      enabled: false,
-                                      hint: 'عدد الصناديق',
-                                      keyboardType: TextInputType.number,
-                                      textEditingController: reciveReturnsController.boxesNumberController.value,
-                                      onChanged: (val) {},
+                                    SizedBox(
+                                      width: 295.w,
+                                      child: Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          ':صور المرتجعات',
+                                          style: TextStyle(color: AppColors.textColorXDarkBlue, fontSize: 15.sp, fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    ),
+                                    returnDetailsController.returnsImages.length != 0
+                                        ? Container(
+                                            width: 295.w,
+                                            height: 300.h,
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(25.r),
+                                                border: Border.all(
+                                                  color: AppColors.mainColor2,
+                                                )),
+                                            padding: EdgeInsets.all(25.r),
+                                            alignment: Alignment.topCenter,
+                                            child: GridView.builder(
+                                                shrinkWrap: true,
+                                                padding: EdgeInsets.zero,
+                                                gridDelegate:
+                                                    SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 105.w, childAspectRatio: 1.05, crossAxisSpacing: 35.w, mainAxisSpacing: 20.h),
+                                                itemCount: returnDetailsController.returnsImages.length,
+                                                itemBuilder: (BuildContext ctx, index) {
+                                                  return Container(
+                                                    height: 91.h,
+                                                    width: 106.w,
+                                                    color: Colors.amber,
+                                                    child: Image.network(
+                                                      UrlsContainer.imagesUrl + '/' + returnDetailsController.returnsImages[index],
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  );
+                                                }),
+                                          )
+                                        : SizedBox(),
+                                    SizedBox(
+                                      height: 10.h,
                                     ),
                                     SizedBox(
                                       height: 23.h,
@@ -141,7 +148,7 @@ class ReciveReturnsScreen extends StatelessWidget {
                                         width: 232.w,
                                         height: 50.h,
                                         onPressed: () async {
-                                          dynamic status = await reciveReturnsController.reciveReturns();
+                                          dynamic status = await returnDetailsController.reciveReturns();
                                           // if (status == '777')
                                           //   Utils.showGetXToast(
                                           //       message: status);
