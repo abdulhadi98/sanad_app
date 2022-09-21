@@ -46,6 +46,11 @@ class DriversController extends GetxController {
     }
   }
 
+  RxString driverName = ''.obs;
+  setDriverName(int driverId) {
+    driverName.value = driversList.firstWhere((element) => element.id == driverId).name!;
+  }
+
   assignDriver() async {
     dynamic response;
     print(OrdersRootScreen.orderId.toString() + '  ' + driverId.toString() + ' ' + UrlsContainer.assignDriver);

@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wits_app/bindings/bindings.dart';
 import 'package:wits_app/middleware/auth_middleware.dart';
 import 'package:wits_app/view/auth/login_screen.dart';
+import 'package:wits_app/view/driver/add_returns_after_deliver_screen.dart';
 import 'package:wits_app/view/driver/add_returns_screen.dart';
 import 'package:wits_app/view/driver/deliver_to_client_screen.dart';
 import 'package:wits_app/view/driver/driver_root_screen.dart';
@@ -161,6 +162,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/not-stamped-bill-screen', page: () => NotStampedBillScreen()),
         GetPage(name: '/recive-from-another-driver-screen', page: () => ReciveFromAnotherDriver()),
         GetPage(name: '/add-returns-screen', page: () => AddReturnsScreen()),
+        GetPage(name: '/add-returns-after-deliver-screen', page: () => AddReturnsAfterDeliverScreen()),
+
 
         //Quality Supervisor
         GetPage(name: '/quality-supervisor-root-screen', page: () => QualitySupervisorRootScreen()),

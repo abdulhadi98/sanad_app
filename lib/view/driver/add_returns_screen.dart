@@ -116,6 +116,50 @@ class AddReturnsScreen extends StatelessWidget {
                                     SizedBox(
                                       height: 15.h,
                                     ),
+                                    TextFieldCustom(
+                                      // enabled: false,
+                                      textEditingController: addReturnsController.invoiceNumberController.value,
+                                      hint: 'رقم فاتورة المرتجعات',
+                                      onChanged: (val) {},
+                                    ),
+                                    SizedBox(
+                                      height: 15.h,
+                                    ),
+                                    MainButton(
+                                      text: 'تصوير فاتورة المرتجعات',
+                                      width: 295.w,
+                                      height: 50.h,
+                                      onPressed: () async {
+                                        addReturnsController.pickReturnImage();
+                                      },
+                                    ),
+                                    SizedBox(
+                                      height: 15.h,
+                                    ),
+                                    addReturnsController.selectedImage!.value.path != 'null'
+                                        ? Obx(
+                                            () => Padding(
+                                              padding: EdgeInsets.only(bottom: 15.h),
+                                              child: Container(
+                                                width: 243.w,
+                                                height: 220.h,
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(25.r),
+                                                    border: Border.all(
+                                                      color: AppColors.mainColor2,
+                                                    )),
+                                                padding: EdgeInsets.all(19.r),
+                                                child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(10.r),
+                                                  child: Image.file(
+                                                    addReturnsController.selectedImage!.value,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        : SizedBox(),
                                     MainButton(
                                       text: addReturnsController.selectedImages.length == 0 ? 'تصوير المرتجعات' : 'إضافة صور أخرى',
                                       width: 295.w,
@@ -187,9 +231,8 @@ class AddReturnsScreen extends StatelessWidget {
                                     SizedBox(
                                       height: 30,
                                     ),
-                                    SizedBox(height: addReturnsController.selectedImages.length != 0 ? 30.h : 80.h),
                                     Padding(
-                                      padding: EdgeInsets.only(bottom: 30.0.h),
+                                      padding: EdgeInsets.only(bottom: 20.0.h),
                                       child: MainButton(
                                           text: 'إرسال',
                                           width: 178.w,
@@ -199,6 +242,7 @@ class AddReturnsScreen extends StatelessWidget {
 
                                             if (addReturnsController.validate()) {
                                               var uploadImagesStatus = await addReturnsController.uploadReturnsImagesPaths();
+
                                               if (uploadImagesStatus == 'ok') {
                                                 print('okokokokkokokkkokookk');
 
@@ -220,7 +264,8 @@ class AddReturnsScreen extends StatelessWidget {
                                               }
                                             }
                                           }),
-                                    )
+                                    ),
+                                    //     Text(addReturnsController.response1.toString())
                                   ],
                                 );
                             }

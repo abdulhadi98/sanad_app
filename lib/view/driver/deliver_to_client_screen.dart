@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:wits_app/controller/driver/deliver_to_clients_controller.dart';
 import 'package:wits_app/controller/incpection_officer/enter_box_number_controller.dart';
@@ -12,6 +13,8 @@ import 'package:wits_app/helper/utils.dart';
 import 'package:wits_app/view/common_wigets/dilog_custom.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 import 'package:wits_app/view/common_wigets/main_button.dart';
+import 'package:wits_app/view/common_wigets/order_widget.dart';
+import 'package:wits_app/view/common_wigets/showdialog_are_you_sure.dart';
 import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
 import 'package:wits_app/view/common_wigets/title_widget.dart';
@@ -151,19 +154,26 @@ class DeliverToClientScreen extends StatelessWidget {
                                         width: 295.w,
                                         height: 50.h,
                                         onPressed: () async {
-                                          dynamic status = await deliverToClientController.orderNotStamped();
-                                          if (status == '200')
-                                            showDialogCustom(
-                                              height: height,
-                                              width: width,
-                                              context: context,
-                                              padding: EdgeInsets.zero,
-                                              dialogContent: DialogContentThanks(
-                                                onTap: () {
-                                                  Get.offAllNamed('/driver-root-screen');
-                                                },
-                                              ),
-                                            );
+                                          showDialogCustom(
+                                            height: height,
+                                            width: width,
+                                            context: context,
+                                            padding: EdgeInsets.zero,
+                                            dialogContent: DialogContentAreYouSure(
+                                              onYes: () async {
+                                                dynamic status = await deliverToClientController.orderNotStamped();
+
+                                                if (status == '200') {
+                                                  showDialogCustom(
+                                                      height: height,
+                                                      width: width,
+                                                      context: context,
+                                                      padding: EdgeInsets.zero,
+                                                      dialogContent: IsThereReturns(height: height, width: width, orderDetailsController: orderDetailsController));
+                                                }
+                                              },
+                                            ),
+                                          );
                                         },
                                       ),
                                     ),
@@ -185,19 +195,13 @@ class DeliverToClientScreen extends StatelessWidget {
 
                                             if (uploadImageStatus == '200') {
                                               var stampedStatus = await deliverToClientController.orderIsStamped();
-
                                               if (stampedStatus == '200') {
                                                 showDialogCustom(
-                                                  height: height,
-                                                  width: width,
-                                                  context: context,
-                                                  padding: EdgeInsets.zero,
-                                                  dialogContent: DialogContentThanks(
-                                                    onTap: () {
-                                                      Get.offAllNamed('/driver-root-screen');
-                                                    },
-                                                  ),
-                                                );
+                                                    height: height,
+                                                    width: width,
+                                                    context: context,
+                                                    padding: EdgeInsets.zero,
+                                                    dialogContent: IsThereReturns(height: height, width: width, orderDetailsController: orderDetailsController));
                                               }
                                             }
                                           }),
@@ -231,6 +235,116 @@ class DeliverToClientScreen extends StatelessWidget {
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class IsThereReturns extends StatelessWidget {
+  const IsThereReturns({
+    Key? key,
+    required this.height,
+    required this.width,
+    required this.orderDetailsController,
+  }) : super(key: key);
+
+  final double height;
+  final double width;
+  final OrderDetailsController orderDetailsController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: AppColors.white,
+      height: height,
+      width: width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 15.w,
+              vertical: 15.h,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: SvgPicture.asset(
+                    'assets/icons/Icon Close Light-1.svg',
+                    width: 16.w,
+                    height: 16.w,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Text(
+            'هل يوجد مرتجعات',
+            style: TextStyle(
+              fontSize: 30.sp,
+              fontWeight: FontWeight.bold,
+              color: AppColors.textColorXDarkBlue,
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 6.h),
+            child: Divider(
+              color: AppColors.textColorXDarkBlue,
+              indent: width / 2.3,
+              endIndent: width / 2.3,
+              thickness: 1,
+            ),
+          ),
+          SizedBox(
+            height: 30.h,
+          ),
+          Container(
+            //   padding: EdgeInsets.symmetric(vertical: 5.),
+            child: OrderWidget(
+              mainColor: '0xFF0194DB',
+              sideColor: '0xFF1178BA',
+              title: 'إدخال تفاصيل المرتجعات',
+              type: '',
+              onTap: () {
+                Get.back(); //exit the dialog
+                Get.toNamed(
+                  '/add-returns-after-deliver-screen',
+                  arguments: {'client_number': orderDetailsController.orderDetailsModel!.clientNumber!},
+                );
+              },
+            ),
+          ),
+          SizedBox(
+            height: 10.h,
+          ),
+          Container(
+            //   padding: EdgeInsets.symmetric(vertical: 5.),
+            child: OrderWidget(
+              mainColor: '0xFF0194DB',
+              sideColor: '0xFF1178BA',
+              title: 'لا يوجد',
+              type: '',
+              onTap: () {
+                showDialogCustom(
+                  height: height,
+                  width: width,
+                  context: context,
+                  padding: EdgeInsets.zero,
+                  dialogContent: DialogContentThanks(
+                    onTap: () {
+                      Get.offAllNamed('/driver-root-screen');
+                    },
+                  ),
+                );
+              },
+            ),
+          )
+        ],
       ),
     );
   }

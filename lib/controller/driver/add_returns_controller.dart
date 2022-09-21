@@ -20,6 +20,7 @@ import 'package:flutter/services.dart';
 class AddReturnsController extends GetxController {
   Rx<Status>? status = Status.DATA.obs;
   Rx<TextEditingController> clientNumberController = TextEditingController().obs;
+  Rx<TextEditingController> invoiceNumberController = TextEditingController().obs;
 
   Rx<TextEditingController> returnsDetailsController = TextEditingController().obs;
 
@@ -53,6 +54,41 @@ class AddReturnsController extends GetxController {
     status!.value = s;
   }
 
+  Rx<File>? selectedImage = File('null').obs;
+
+  uploadReturnBillImage() async {
+    dynamic response;
+    setStatus(Status.LOADING);
+    List<int> imageBytes = selectedImage!.value.readAsBytesSync();
+    print(imageBytes);
+    String base64Image = base64Encode(imageBytes);
+
+    try {
+      //  print(orderModel!.toJson());
+      String? token = await sharedPreferences!.getString("token");
+      response = await http.post(
+        Uri.parse(
+          UrlsContainer.addImage,
+        ),
+        body: {'order_id': Get.arguments['order_id'].toString(), 'type': 'bill', 'image': base64Image},
+        headers: {'Authorization': 'Bearer $token'},
+      );
+      dynamic body = jsonDecode(response.body);
+      print(body);
+      String code = body['code'].toString();
+      String message = body['message'];
+      Utils.getResponseCode(code, message);
+      setStatus(Status.DATA);
+      return code;
+    } catch (e) {
+      print(e);
+      setStatus(Status.ERROR);
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
+      return 'error';
+    }
+  }
+
+  String? response1;
   addReturns() async {
     dynamic response;
     setStatus(Status.LOADING);
@@ -63,10 +99,18 @@ class AddReturnsController extends GetxController {
         Uri.parse(
           UrlsContainer.addReturns,
         ),
-        body: {'details': returnsDetailsController.value.text, "client_number": clientNumberController.value.text, 'images': jsonEncode(pathsList)},
+        body: {
+          'details': returnsDetailsController.value.text,
+          "client_number": clientNumberController.value.text,
+          'invoice_number': invoiceNumberController.value.text,
+          'invoice_images': jsonEncode(returnBillBase64),
+          'images': jsonEncode(pathsList)
+        },
         headers: {'Authorization': 'Bearer $token'},
       );
+      response1 = response.body;
       dynamic body = jsonDecode(response.body);
+
       print(body);
       String code = body['code'].toString();
       String message = body['message'];
@@ -76,7 +120,44 @@ class AddReturnsController extends GetxController {
       return code;
     } catch (e) {
       print(e);
-      setStatus(Status.ERROR);
+      setStatus(Status.DATA);
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
+      return 'error';
+    }
+  }
+
+  addReturnsAfterDeliver() async {
+    dynamic response;
+    setStatus(Status.LOADING);
+    print(pathsList.length);
+    try {
+      String? token = await sharedPreferences!.getString("token");
+      response = await http.post(
+        Uri.parse(
+          UrlsContainer.addReturns,
+        ),
+        body: {
+          'details': returnsDetailsController.value.text,
+          "client_number": clientNumberController.value.text,
+          'invoice_number': invoiceNumberController.value.text,
+          'invoice_images': jsonEncode(returnBillBase64),
+          'images': jsonEncode(pathsList)
+        },
+        headers: {'Authorization': 'Bearer $token'},
+      );
+      response1 = response.body;
+      dynamic body = jsonDecode(response.body);
+
+      print(body);
+      String code = body['code'].toString();
+      String message = body['message'];
+
+      Utils.getResponseCode(code, message);
+      setStatus(Status.DATA);
+      return code;
+    } catch (e) {
+      print(e);
+      setStatus(Status.DATA);
       Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
       return 'error';
     }
@@ -94,13 +175,29 @@ class AddReturnsController extends GetxController {
     }
   }
 
-  bool validate() {
-    if (clientNumberController.value.text.isEmpty) {
-      Utils.showGetXToast(title: 'تنبيه', message: 'يرجى اختيار رقم العميل', toastColor: AppColors.red);
-      return false;
+  Future pickReturnImage() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      if (image == null) return;
+      final imageTemp = File(image.path);
+      selectedImage!.value = imageTemp;
+      // selectedImages.value = imageTemp;
+    } on PlatformException catch (e) {
+      print(e.toString());
     }
+  }
+
+  bool validate() {
     if (returnsDetailsController.value.text.isEmpty) {
       Utils.showGetXToast(title: 'تنبيه', message: 'يرجى إدخال تفاصيل المرتجعات', toastColor: AppColors.red);
+      return false;
+    }
+    if (invoiceNumberController.value.text.isEmpty) {
+      Utils.showGetXToast(title: 'تنبيه', message: 'يرجى إدخال رقم الفاتورة', toastColor: AppColors.red);
+      return false;
+    }
+    if (selectedImage!.value.path == 'null') {
+      Utils.showGetXToast(title: 'تنبيه', message: 'يرجى تصوير المرتجعات', toastColor: AppColors.red);
       return false;
     }
     if (selectedImages.isEmpty) {
@@ -128,10 +225,12 @@ class AddReturnsController extends GetxController {
   //     return;
   //   }
   // }
-
+  String? returnBillBase64;
   uploadReturnsImagesPaths() async {
     pathsList.clear();
+    List<int> imageBytes = selectedImage!.value.readAsBytesSync();
 
+    returnBillBase64 = base64Encode(imageBytes);
     try {
       for (int i = 0; i < selectedImages.length; i++) {
         List<int> imageBytes = selectedImages[i].readAsBytesSync();
@@ -189,7 +288,8 @@ class AddReturnsController extends GetxController {
   @override
   void onInit() {
     // getDrivers();
-    //addressController.value.text = 'address';
+    clientNumberController.value.text = Get.arguments['client_number'];
+    print(clientNumberController.value.text);
     getClientsInfo();
     super.onInit();
     //setStatus(Status.LOADING);

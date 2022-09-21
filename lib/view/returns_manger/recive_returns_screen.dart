@@ -85,6 +85,15 @@ class ReciveReturnsScreen extends StatelessWidget {
                                     SizedBox(
                                       height: 12.h,
                                     ),
+                                    TextFieldCustom(
+                                      enabled: false,
+                                      hint: 'رقم الفاتورة',
+                                      textEditingController: returnDetailsController.invoiceNumberController.value,
+                                      onChanged: (val) {},
+                                    ),
+                                    SizedBox(
+                                      height: 12.h,
+                                    ),
                                     TextFieldTall(
                                       enabled: false,
                                       height: 158.h,
@@ -93,22 +102,24 @@ class ReciveReturnsScreen extends StatelessWidget {
                                       onChanged: (val) {},
                                     ),
                                     SizedBox(
-                                      height: 20.h,
+                                      height: 15.h,
                                     ),
-                                    SizedBox(
-                                      width: 295.w,
-                                      child: Align(
-                                        alignment: Alignment.centerRight,
-                                        child: Text(
-                                          ':صور المرتجعات',
-                                          style: TextStyle(color: AppColors.textColorXDarkBlue, fontSize: 15.sp, fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    ),
-                                    returnDetailsController.returnsImages.length != 0
-                                        ? Container(
+                                    if (returnDetailsController.returnsImages.length != 0)
+                                      Column(
+                                        children: [
+                                          SizedBox(
                                             width: 295.w,
-                                            height: 300.h,
+                                            child: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                ':صور المرتجعات',
+                                                style: TextStyle(color: AppColors.textColorXDarkBlue, fontSize: 15.sp, fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 305.w,
+                                            height: returnDetailsController.returnsImages.length > 2 ? 300.h : 170.h,
                                             decoration: BoxDecoration(
                                                 borderRadius: BorderRadius.circular(25.r),
                                                 border: Border.all(
@@ -133,13 +144,46 @@ class ReciveReturnsScreen extends StatelessWidget {
                                                     ),
                                                   );
                                                 }),
-                                          )
-                                        : SizedBox(),
+                                          ),
+                                        ],
+                                      ),
                                     SizedBox(
-                                      height: 10.h,
+                                      height: 15.h,
                                     ),
+                                    if (returnDetailsController.invoiceImage.isNotEmpty)
+                                      Column(
+                                        children: [
+                                          SizedBox(
+                                            width: 295.w,
+                                            child: Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                ':صورة فاتورة المرتجعات',
+                                                style: TextStyle(color: AppColors.textColorXDarkBlue, fontSize: 15.sp, fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 295.w,
+                                            height: 220.h,
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(25.r),
+                                                border: Border.all(
+                                                  color: AppColors.mainColor1,
+                                                )),
+                                            padding: EdgeInsets.all(19.r),
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(10.r),
+                                              child: Image.network(
+                                                '${UrlsContainer.imagesUrl}\/${returnDetailsController.invoiceImage.first}',
+                                                fit: BoxFit.contain,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     SizedBox(
-                                      height: 23.h,
+                                      height: 30.h,
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(bottom: 30.h),

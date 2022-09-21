@@ -44,7 +44,6 @@ class OrderDetailsController extends GetxController {
       print(body);
       //List<dynamic> data = body['data'];
       var data = body['data'];
-
       orderDetailsModel = OrderDetailsModel.fromJson(data);
       setOrderDetails();
       print(OrderDetailsModel.fromJson(data));

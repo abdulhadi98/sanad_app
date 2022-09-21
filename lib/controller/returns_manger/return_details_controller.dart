@@ -23,6 +23,7 @@ class ReturnDetailsController extends GetxController {
   Rx<TextEditingController> clientNumberController = TextEditingController().obs;
 
   Rx<TextEditingController> detailsController = TextEditingController().obs;
+  Rx<TextEditingController> invoiceNumberController = TextEditingController().obs;
 
   List<ClientModel> clientsList = [];
   ReturnDetailsModel? returnDetailsModel;
@@ -33,6 +34,7 @@ class ReturnDetailsController extends GetxController {
   }
 
   List<String> returnsImages = [];
+  List<String> invoiceImage = [];
 
   reciveReturns() async {
     dynamic response;
@@ -78,6 +80,7 @@ class ReturnDetailsController extends GetxController {
       returnDetailsModel = ReturnDetailsModel.fromJson(data);
       setReturnDetials();
       setReturnsImages();
+      setInvoiceImages();
 
       String code = body['code'].toString();
       String message = body['message'];
@@ -97,11 +100,20 @@ class ReturnDetailsController extends GetxController {
     returnDetailsModel!.images!.forEach((element) {
       returnsImages.add(element.path!);
     });
+    print('aaaaa' + returnsImages.toString());
+  }
+
+  setInvoiceImages() async {
+    returnDetailsModel!.invoiceImage!.forEach((element) {
+      invoiceImage.add(element.path!);
+    });
+    print('sdsdf' + invoiceImage.toString());
   }
 
   setReturnDetials() {
     clientNumberController.value.text = returnDetailsModel!.clientNumber!.toString();
     detailsController.value.text = returnDetailsModel!.details ?? 'لا توجد تفاصيل';
+    invoiceNumberController.value.text = returnDetailsModel!.invoiceNumber.toString();
   }
 
   RxBool spinner = false.obs;

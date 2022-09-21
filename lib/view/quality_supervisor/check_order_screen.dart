@@ -187,6 +187,7 @@ class CheckOrderScreen extends StatelessWidget {
                                   SizedBox(
                                     height: 20.h,
                                   ),
+                                  
                                   SizedBox(
                                     width: 295.w,
                                     child: Align(

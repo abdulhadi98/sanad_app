@@ -15,6 +15,7 @@ import 'package:wits_app/view/common_wigets/drawer.dart';
 
 import 'package:wits_app/view/common_wigets/main_button.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
+import 'package:wits_app/view/common_wigets/worker_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/worker_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 
@@ -143,8 +144,11 @@ class AssignPreperatorScreen extends StatelessWidget {
                                   //   hint: "عدد الصناديق",
                                   //   onChanged: (val) {},
                                   // ),
+
+                                  if (perperatorController.preparatorId != null)
+                                    WorkerName(name: perperatorController.preparatorsList.firstWhere((element) => element.id == perperatorController.preparatorId).name!),
                                   SizedBox(
-                                    height: 30.h,
+                                    height: 15.h,
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(bottom: 20.h),
@@ -220,6 +224,10 @@ class AssignPreperatorScreen extends StatelessWidget {
                                                                 onPressed: () {
                                                                   perperatorController.preparatorId = perperatorController.preparatorsList[index].id;
                                                                   print(perperatorController.preparatorId);
+
+                                                                  perperatorController.setStatus(Status.LOADING);
+                                                                  perperatorController.setStatus(Status.DATA);
+
                                                                   Get.back();
                                                                   // Get.toNamed(
                                                                   //     '/send_order_to_sales_employee');
@@ -237,6 +245,7 @@ class AssignPreperatorScreen extends StatelessWidget {
                                       },
                                     ),
                                   ),
+
                                   Padding(
                                     padding: EdgeInsets.only(bottom: 30.h),
                                     child: MainButton(

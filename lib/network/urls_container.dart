@@ -57,12 +57,11 @@ class UrlsContainer {
   static String rejectStampedBill = "$baseApiUrl/reject-stamped-bill";
 
   //Returns Manager
-    static String getReturnById = "$baseApiUrl/get-returns-by-id";
+  static String getReturnById = "$baseApiUrl/get-returns-by-id";
   static String receiveReturns = "$baseApiUrl/returns-delevired";
 
-
-
   //General Manager
+  
 
 
 

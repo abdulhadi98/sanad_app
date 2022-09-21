@@ -172,7 +172,7 @@ class GeneralManagerRootScreen extends StatelessWidget {
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
-                          Get.toNamed('/orders-root-screen', arguments: {'api': "/get-orders"});
+                          Get.toNamed('/add-review-screen');
                         },
                       ),
                     ],

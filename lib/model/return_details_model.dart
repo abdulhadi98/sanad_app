@@ -9,19 +9,19 @@ ReturnDetailsModel returnDetailsModelFromJson(String str) => ReturnDetailsModel.
 String returnDetailsModelToJson(ReturnDetailsModel data) => json.encode(data.toJson());
 
 class ReturnDetailsModel {
-  ReturnDetailsModel({
-    this.id,
-    this.commercialRecord,
-    this.creatorId,
-    this.warehouseId,
-    this.details,
-    this.returnsIsDelivered,
-    this.createdAt,
-    this.updatedAt,
-    this.images,
-    this.clientNumber,
-    this.clientName,
-  });
+  ReturnDetailsModel(
+      {this.id,
+      this.commercialRecord,
+      this.creatorId,
+      this.warehouseId,
+      this.details,
+      this.returnsIsDelivered,
+      this.createdAt,
+      this.updatedAt,
+      this.images,
+      this.clientNumber,
+      this.clientName,
+      this.invoiceImage,this.invoiceNumber});
 
   int? id;
   String? commercialRecord;
@@ -33,10 +33,13 @@ class ReturnDetailsModel {
   DateTime? updatedAt;
   String? clientNumber;
   List<ImageModel>? images;
+  List<ImageModel>? invoiceImage;
+  int? invoiceNumber;
+
   String? clientName;
   factory ReturnDetailsModel.fromJson(Map<String, dynamic> json) => ReturnDetailsModel(
         id: json["id"] == null ? null : json["id"],
-                clientName: json["client_name"] == null ? null : json["client_name"],
+        clientName: json["client_name"] == null ? null : json["client_name"],
         commercialRecord: json["commercial_record"] == null ? null : json["commercial_record"],
         creatorId: json["creator_id"] == null ? null : json["creator_id"],
         warehouseId: json["warehouse_id"] == null ? null : json["warehouse_id"],
@@ -44,13 +47,16 @@ class ReturnDetailsModel {
         returnsIsDelivered: json["returns_is_delivered"] == null ? null : json["returns_is_delivered"],
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-        images: json["images"] == null ? null : List<ImageModel>.from(json["images"].map((x) => ImageModel.fromJson(x))),
+        images: json["returns_images"] == null ? null : List<ImageModel>.from(json["returns_images"].map((x) => ImageModel.fromJson(x))),
         clientNumber: json["client_number"] == null ? null : json["client_number"],
+        invoiceNumber: json["invoice_number"] == null ? null : json["invoice_number"],
+
+        invoiceImage: json["returns_invoice_images"] == null ? null : List<ImageModel>.from(json["returns_invoice_images"].map((x) => ImageModel.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,
-        'client_name':clientName==null?null:clientName,
+        'client_name': clientName == null ? null : clientName,
         "commercial_record": commercialRecord == null ? null : commercialRecord,
         "creator_id": creatorId == null ? null : creatorId,
         "warehouse_id": warehouseId == null ? null : warehouseId,
@@ -58,7 +64,7 @@ class ReturnDetailsModel {
         "returns_is_delivered": returnsIsDelivered == null ? null : returnsIsDelivered,
         "created_at": createdAt == null ? null : createdAt?.toIso8601String(),
         "updated_at": updatedAt == null ? null : updatedAt?.toIso8601String(),
-        "images": images == null ? null : List<dynamic>.from(images!.map((x) => x.toJson())),
+        "returns_images": images == null ? null : List<dynamic>.from(images!.map((x) => x.toJson())),
         "client_number": clientNumber == null ? null : clientNumber,
       };
 }

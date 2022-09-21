@@ -21,6 +21,7 @@ import 'package:wits_app/view/common_wigets/main_button.dart';
 import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
 import 'package:wits_app/view/common_wigets/title_widget.dart';
+import 'package:wits_app/view/common_wigets/worker_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/worker_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 
@@ -81,7 +82,7 @@ class AssignDriverScreen extends StatelessWidget {
                           child: Obx(() {
                             if (orderDetailsController.status!.value == Status.LOADING || driversController.status!.value == Status.LOADING)
                               return SizedBox(
-                                height: height / 1.5,
+                                height: height / 1.8,
                                 child: Center(
                                   child: CircularProgressIndicator(),
                                 ),
@@ -151,8 +152,9 @@ class AssignDriverScreen extends StatelessWidget {
                                     hint: "عدد الصناديق",
                                     onChanged: (val) {},
                                   ),
+                                  if (driversController.driverName.value.isNotEmpty) WorkerName(name: driversController.driverName.value),
                                   SizedBox(
-                                    height: 30.h,
+                                    height: 15.h,
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(bottom: 20.h),
@@ -227,6 +229,8 @@ class AssignDriverScreen extends StatelessWidget {
                                                                 workerDepartment: '',
                                                                 onPressed: () {
                                                                   driversController.driverId = driversController.driversList[index].id;
+                                                                  driversController.setDriverName(driversController.driverId!);
+
                                                                   //  SalesMangerRootScreen.salesmanId = driversController.driversList[index].id;
                                                                   print(driversController.driverId);
                                                                   Get.back();
@@ -289,62 +293,6 @@ class AssignDriverScreen extends StatelessWidget {
           );
         },
       ),
-    );
-  }
-}
-
-class Processes extends StatelessWidget {
-  Processes({this.processesList});
-  final List<Process>? processesList;
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: processesList!.length,
-        shrinkWrap: true,
-        itemBuilder: (builder, index) {
-          return ProcessWidget(
-            processName: processesList![index].statusName!,
-            processCreateDate: processesList![index].createdAt == null ? null : processesList![index].createdAt!.toLocal(),
-          );
-        });
-  }
-}
-
-class ProcessWidget extends StatelessWidget {
-  ProcessWidget({this.onDetailsPressed, this.processCreateDate, required this.processName});
-  final String processName;
-  final DateTime? processCreateDate;
-  final Function? onDetailsPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      textDirection: ui.TextDirection.rtl,
-      children: [
-        Column(
-          children: [
-            Text(
-              processCreateDate == null ? '' : Utils.formatProcessTime(processCreateDate!),
-              textAlign: TextAlign.start,
-            ),
-            FutureBuilder<String>(
-              future: Utils.formatProcessDate(processCreateDate ?? 'null'), // async work
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                    return Text('Loading....');
-                  default:
-                    if (snapshot.hasError)
-                      return Text('Error');
-                    else
-                      return Text(snapshot.data!);
-                }
-              },
-            )
-          ],
-        ),
-      ],
     );
   }
 }
