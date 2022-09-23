@@ -61,8 +61,9 @@ class UrlsContainer {
   static String receiveReturns = "$baseApiUrl/returns-delevired";
 
   //General Manager
-  
-
-
-
+  static String addReviewById = "$baseApiUrl/add-review-by-order";
+  static String getEmployeesByOrder = "$baseApiUrl/get-employees-by-order";
+  static String getRoles = "$baseApiUrl/get-roles";
+  static String getEmployeesByRole = "$baseApiUrl/get-employees-by-role";
+  static String addReviewByRole = "$baseApiUrl/add-review-by-role";
 }

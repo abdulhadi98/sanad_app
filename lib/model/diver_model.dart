@@ -1,33 +1,33 @@
 class DriverModel {
-    DriverModel({
-        this.id,
-        this.name,
-        this.email,
-        this.emailVerifiedAt,
-        this.imagePorofile,
-        this.active,
-        this.warehouseId,
-        this.roleId,
-        this.createdAt,
-        this.updatedAt,
-        this.deviceToken,
-        this.deviceKey,
-    });
+  DriverModel({
+    this.id,
+    this.name,
+    this.email,
+    this.emailVerifiedAt,
+    this.imagePorofile,
+    this.active,
+    this.warehouseId,
+    this.roleId,
+    this.createdAt,
+    this.updatedAt,
+    this.deviceToken,
+    this.deviceKey,
+  });
 
-       int?  id;
-    String? name;
-    String? email;
-      bool? emailVerifiedAt;
-    String? imagePorofile;
-       int? active;
-       int? warehouseId;
-       int? roleId;
+  int? id;
+  String? name;
+  String? email;
+  String? emailVerifiedAt;
+  String? imagePorofile;
+  int? active;
+  int? warehouseId;
+  int? roleId;
   DateTime? createdAt;
   DateTime? updatedAt;
-    String? deviceToken;
-    String? deviceKey;
+  String? deviceToken;
+  String? deviceKey;
 
-    factory DriverModel.fromJson(Map<String, dynamic> json) => DriverModel(
+  factory DriverModel.fromJson(Map<String, dynamic> json) => DriverModel(
         id: json["id"] == null ? null : json["id"],
         name: json["name"] == null ? null : json["name"],
         email: json["email"] == null ? null : json["email"],
@@ -40,9 +40,9 @@ class DriverModel {
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
         deviceToken: json["device_token"] == null ? null : json["device_token"],
         deviceKey: json["device_key"] == null ? null : json["device_key"],
-    );
+      );
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,
         "name": name == null ? null : name,
         "email": email == null ? null : email,
@@ -55,5 +55,5 @@ class DriverModel {
         "updated_at": updatedAt == null ? null : updatedAt?.toIso8601String(),
         "device_token": deviceToken == null ? null : deviceToken,
         "device_key": deviceKey == null ? null : deviceKey,
-    };
+      };
 }

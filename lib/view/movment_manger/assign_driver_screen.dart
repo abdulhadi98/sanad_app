@@ -230,7 +230,6 @@ class AssignDriverScreen extends StatelessWidget {
                                                                 onPressed: () {
                                                                   driversController.driverId = driversController.driversList[index].id;
                                                                   driversController.setDriverName(driversController.driverId!);
-
                                                                   //  SalesMangerRootScreen.salesmanId = driversController.driversList[index].id;
                                                                   print(driversController.driverId);
                                                                   Get.back();

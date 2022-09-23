@@ -1,9 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
-
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/helper/utils.dart';
 import 'package:wits_app/main.dart';

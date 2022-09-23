@@ -174,63 +174,68 @@ class AddReturnsScreen extends StatelessWidget {
                                       height: 15.h,
                                     ),
                                     addReturnsController.selectedImages.length != 0
-                                        ? Container(
-                                            width: 295.w,
-                                            height: 300.h,
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(25.r),
-                                                border: Border.all(
-                                                  color: AppColors.mainColor2,
-                                                )),
-                                            padding: EdgeInsets.all(25.r),
-                                            alignment: Alignment.topCenter,
-                                            child: GridView.builder(
-                                                shrinkWrap: true,
-                                                padding: EdgeInsets.zero,
-                                                gridDelegate:
-                                                    SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 105.w, childAspectRatio: 1.05, crossAxisSpacing: 35.w, mainAxisSpacing: 20.h),
-                                                itemCount: addReturnsController.selectedImages.length,
-                                                itemBuilder: (BuildContext ctx, index) {
-                                                  return Container(
-                                                    height: 91.h,
-                                                    width: 106.w,
-                                                    color: Colors.amber,
-                                                    child: Stack(
-                                                      clipBehavior: Clip.none,
-                                                      fit: StackFit.expand,
-                                                      children: [
-                                                        Image.file(
-                                                          addReturnsController.selectedImages.value[index],
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                        Positioned(
-                                                          top: 3.h,
-                                                          left: 3.w,
-                                                          child: InkWell(
-                                                            onTap: () {
-                                                              addReturnsController.selectedImages.removeAt(
-                                                                  addReturnsController.selectedImages.indexWhere((element) => element.path == addReturnsController.selectedImages.value[index].path));
-                                                              addReturnsController.selectedImages.forEach((element) {
-                                                                print(element.path);
-                                                              });
-
-                                                              print('asd');
-                                                            },
-                                                            child: Icon(
-                                                              Icons.close_rounded,
-                                                              color: Colors.white,
+                                        ? Column(
+                                            children: [
+                                              Container(
+                                                width: 295.w,
+                                                height: 300.h,
+                                                decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(25.r),
+                                                    border: Border.all(
+                                                      color: AppColors.mainColor2,
+                                                    )),
+                                                padding: EdgeInsets.all(25.r),
+                                                alignment: Alignment.topCenter,
+                                                child: GridView.builder(
+                                                    shrinkWrap: true,
+                                                    padding: EdgeInsets.zero,
+                                                    gridDelegate:
+                                                        SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 105.w, childAspectRatio: 1.05, crossAxisSpacing: 35.w, mainAxisSpacing: 20.h),
+                                                    itemCount: addReturnsController.selectedImages.length,
+                                                    itemBuilder: (BuildContext ctx, index) {
+                                                      return Container(
+                                                        height: 91.h,
+                                                        width: 106.w,
+                                                        color: Colors.amber,
+                                                        child: Stack(
+                                                          clipBehavior: Clip.none,
+                                                          fit: StackFit.expand,
+                                                          children: [
+                                                            Image.file(
+                                                              addReturnsController.selectedImages.value[index],
+                                                              fit: BoxFit.cover,
                                                             ),
-                                                          ),
+                                                            Positioned(
+                                                              top: 3.h,
+                                                              left: 3.w,
+                                                              child: InkWell(
+                                                                onTap: () {
+                                                                  addReturnsController.selectedImages.removeAt(addReturnsController.selectedImages
+                                                                      .indexWhere((element) => element.path == addReturnsController.selectedImages.value[index].path));
+                                                                  addReturnsController.selectedImages.forEach((element) {
+                                                                    print(element.path);
+                                                                  });
+
+                                                                  print('asd');
+                                                                },
+                                                                child: Icon(
+                                                                  Icons.close_rounded,
+                                                                  color: Colors.white,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                      ],
-                                                    ),
-                                                  );
-                                                }),
+                                                      );
+                                                    }),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                            ],
                                           )
                                         : SizedBox(),
-                                    SizedBox(
-                                      height: 30,
-                                    ),
+
                                     Padding(
                                       padding: EdgeInsets.only(bottom: 20.0.h),
                                       child: MainButton(
@@ -239,13 +244,10 @@ class AddReturnsScreen extends StatelessWidget {
                                           height: 50.h,
                                           onPressed: () async {
                                             FocusScope.of(context).requestFocus(FocusNode());
-
                                             if (addReturnsController.validate()) {
                                               var uploadImagesStatus = await addReturnsController.uploadReturnsImagesPaths();
-
                                               if (uploadImagesStatus == 'ok') {
                                                 print('okokokokkokokkkokookk');
-
                                                 var addReturnsStatus = await addReturnsController.addReturns();
 
                                                 if (addReturnsStatus == '200')

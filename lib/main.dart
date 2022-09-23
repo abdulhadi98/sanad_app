@@ -13,7 +13,10 @@ import 'package:wits_app/view/driver/load_will_delevired_to_screen.dart';
 import 'package:wits_app/view/driver/not_stamped_bill_screen.dart';
 import 'package:wits_app/view/driver/orders_driver_screen.dart';
 import 'package:wits_app/view/driver/recive_from_another_driver_screen.dart';
+import 'package:wits_app/view/general_manager/choose_review_type_screen.dart';
 import 'package:wits_app/view/general_manager/general_manager_root_screen.dart';
+import 'package:wits_app/view/general_manager/review_by_department_screen.dart';
+import 'package:wits_app/view/general_manager/review_by_order_screen.dart';
 import 'package:wits_app/view/incpection_officer/enter_boxes_number_screen.dart';
 import 'package:wits_app/view/incpection_officer/incpection_officer_root_screen.dart';
 import 'package:wits_app/view/incpection_officer/orders_incpection_officer_screen.dart';
@@ -73,11 +76,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarBrightness: Brightness.dark,
-      
       statusBarIconBrightness: Brightness.dark,
     ));
     return GetMaterialApp(
@@ -164,7 +165,6 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/add-returns-screen', page: () => AddReturnsScreen()),
         GetPage(name: '/add-returns-after-deliver-screen', page: () => AddReturnsAfterDeliverScreen()),
 
-
         //Quality Supervisor
         GetPage(name: '/quality-supervisor-root-screen', page: () => QualitySupervisorRootScreen()),
         GetPage(name: '/orders-quality-supervisor-screen', page: () => OrdersQualitySupervisorScreent()),
@@ -175,6 +175,10 @@ class MyApp extends StatelessWidget {
 
         //General Manager
         GetPage(name: '/general-manager-root-screen', page: () => GeneralManagerRootScreen()),
+        GetPage(name: '/choose-review-type-screen', page: () => ChooseReviewTypeScreen()),
+        GetPage(name: '/review-by-order-screen', page: () => ReviewByOrderScreen()),
+        GetPage(name: '/review-by-department-screen', page: () => ReviewByDepartmentScreen()),
+
       ],
     );
   }

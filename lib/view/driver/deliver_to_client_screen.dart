@@ -118,67 +118,71 @@ class DeliverToClientScreen extends StatelessWidget {
                                         deliverToClientController.pickImage();
                                       },
                                     ),
-                                    if (deliverToClientController.selectedImage!.value.path != 'null')
-                                      SizedBox(
-                                        height: 15.h,
-                                      ),
                                     deliverToClientController.selectedImage!.value.path != 'null'
                                         ? Obx(
-                                            () => Container(
-                                              width: 243.w,
-                                              height: 220.h,
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(25.r),
-                                                  border: Border.all(
-                                                    color: AppColors.mainColor2,
-                                                  )),
-                                              padding: EdgeInsets.all(19.r),
-                                              child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(10.r),
-                                                child: Image.file(
-                                                  deliverToClientController.selectedImage!.value,
-                                                  fit: BoxFit.cover,
+                                            () => Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 15.h,
                                                 ),
-                                              ),
+                                                Container(
+                                                  width: 243.w,
+                                                  height: 220.h,
+                                                  decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(25.r),
+                                                      border: Border.all(
+                                                        color: AppColors.mainColor2,
+                                                      )),
+                                                  padding: EdgeInsets.all(19.r),
+                                                  child: ClipRRect(
+                                                    borderRadius: BorderRadius.circular(10.r),
+                                                    child: Image.file(
+                                                      deliverToClientController.selectedImage!.value,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           )
                                         : SizedBox(),
                                     SizedBox(
                                       height: 15.h,
                                     ),
-                                    Padding(
-                                      padding: EdgeInsets.only(bottom: 30.h),
-                                      child: MainButton(
-                                        text: 'الفاتورة غير مختومة',
-                                        color: AppColors.red,
-                                        width: 295.w,
-                                        height: 50.h,
-                                        onPressed: () async {
-                                          showDialogCustom(
-                                            height: height,
-                                            width: width,
-                                            context: context,
-                                            padding: EdgeInsets.zero,
-                                            dialogContent: DialogContentAreYouSure(
-                                              onYes: () async {
-                                                dynamic status = await deliverToClientController.orderNotStamped();
+                                    if (deliverToClientController.selectedImage!.value.path == 'null')
+                                      Padding(
+                                        padding: EdgeInsets.only(bottom: 30.h),
+                                        child: MainButton(
+                                          text: 'الفاتورة غير مختومة',
+                                          color: AppColors.red,
+                                          width: 295.w,
+                                          height: 50.h,
+                                          onPressed: () async {
+                                            showDialogCustom(
+                                              height: height,
+                                              width: width,
+                                              context: context,
+                                              padding: EdgeInsets.zero,
+                                              dialogContent: DialogContentAreYouSure(
+                                                onYes: () async {
+                                                  dynamic status = await deliverToClientController.orderNotStamped();
 
-                                                if (status == '200') {
-                                                  showDialogCustom(
-                                                      height: height,
-                                                      width: width,
-                                                      context: context,
-                                                      padding: EdgeInsets.zero,
-                                                      dialogContent: IsThereReturns(height: height, width: width, orderDetailsController: orderDetailsController));
-                                                }
-                                              },
-                                            ),
-                                          );
-                                        },
+                                                  if (status == '200') {
+                                                    showDialogCustom(
+                                                        height: height,
+                                                        width: width,
+                                                        context: context,
+                                                        padding: EdgeInsets.zero,
+                                                        dialogContent: IsThereReturns(height: height, width: width, orderDetailsController: orderDetailsController));
+                                                  }
+                                                },
+                                              ),
+                                            );
+                                          },
+                                        ),
                                       ),
-                                    ),
                                     SizedBox(
-                                      height: 40.h,
+                                      height: 20.h,
                                     ),
                                     Padding(
                                       padding: EdgeInsets.only(bottom: 30.0.h),

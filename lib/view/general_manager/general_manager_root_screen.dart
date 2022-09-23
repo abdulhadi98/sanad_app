@@ -172,7 +172,7 @@ class GeneralManagerRootScreen extends StatelessWidget {
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
-                          Get.toNamed('/add-review-screen');
+                          Get.toNamed('/choose-review-type-screen');
                         },
                       ),
                     ],

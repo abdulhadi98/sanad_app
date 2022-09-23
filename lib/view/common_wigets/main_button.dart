@@ -61,11 +61,13 @@ class MainButtonWithIcon extends StatelessWidget {
   final double? height;
   final double width;
   final Color? color;
+  final IconData? icon;
 
   final Function() onPressed;
 
   bool loadingLocation;
   MainButtonWithIcon({
+    this.icon,
     Key? key,
     required this.loadingLocation,
     required this.text,
@@ -93,6 +95,7 @@ class MainButtonWithIcon extends StatelessWidget {
           ],
         ),
         child: MaterialButton(
+          
           splashColor: color == null ? AppColors.mainColor2.withOpacity(0.5) : Colors.redAccent[800],
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25.r),
@@ -106,7 +109,7 @@ class MainButtonWithIcon extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 !loadingLocation
-                    ? Icon(Icons.location_on_sharp)
+                    ? Icon(icon ?? Icons.location_on_sharp)
                     : SizedBox(
                         width: 15.r,
                         height: 15.r,

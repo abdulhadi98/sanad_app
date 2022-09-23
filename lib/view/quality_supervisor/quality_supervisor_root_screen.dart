@@ -74,6 +74,7 @@ class QualitySupervisorRootScreen extends StatelessWidget {
                           );
                         },
                       ),
+                      
                     ],
                   ),
                 ),

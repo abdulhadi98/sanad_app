@@ -15,9 +15,7 @@ import '../common_wigets/header_widget.dart';
 
 class ChooseReviewTypeScreen extends StatelessWidget {
   //final GlobalController globalController = Get.find<GlobalController>();
-  final salesEmployeeController = Get.put<SalesEmployeeController>(
-    SalesEmployeeController(),
-  ); // or optionally with tag
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -58,7 +56,7 @@ class ChooseReviewTypeScreen extends StatelessWidget {
                           width: 224.w,
                           height: 50.h,
                           onPressed: () {
-                            Get.toNamed('/review-by-department');
+                            Get.toNamed('/review-by-department-screen');
                           }),
                       SizedBox(
                         height: 30.h,
@@ -68,7 +66,7 @@ class ChooseReviewTypeScreen extends StatelessWidget {
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
-                          Get.toNamed('/review-by-order');
+                          Get.toNamed('/review-by-order-screen');
                         },
                       ),
                     ],

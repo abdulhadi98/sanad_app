@@ -170,22 +170,20 @@ class ReciveFromAnotherDriver extends StatelessWidget {
                                     height: 20.h,
                                   ),
                                   Container(
+                                    padding: EdgeInsets.only(right: 10.w),
                                     width: 295.w,
-                                    height: 220.h,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(25.r),
-                                        border: Border.all(
-                                          color: AppColors.mainColor2,
-                                        )),
-                                    padding: EdgeInsets.all(19.r),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10.r),
-                                      child: Image.network(
-                                        '${UrlsContainer.imagesUrl}\/${orderDetailsController.orderDetailsModel!.clientStamp!}',
-                                        fit: BoxFit.contain,
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        ':ختم العميل',
+                                        style: TextStyle(color: AppColors.textColorXDarkBlue, fontSize: 15.sp, fontWeight: FontWeight.bold),
                                       ),
                                     ),
-                                  ),Container(
+                                  ),
+                                  SizedBox(
+                                    height: 5.h,
+                                  ),
+                                  Container(
                                     width: 295.w,
                                     height: 220.h,
                                     decoration: BoxDecoration(
@@ -214,51 +212,55 @@ class ReciveFromAnotherDriver extends StatelessWidget {
                                     },
                                   ),
                                   if (deliverToClientController.selectedImage!.value.path != 'null')
-                                    SizedBox(
-                                      height: 15.h,
-                                    ),
-                                  if (deliverToClientController.selectedImage!.value.path != 'null')
-                                    Container(
-                                      width: 243.w,
-                                      height: 220.h,
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(25.r),
-                                          border: Border.all(
-                                            color: AppColors.mainColor2,
-                                          )),
-                                      padding: EdgeInsets.all(19.r),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10.r),
-                                        child: Image.file(
-                                          deliverToClientController.selectedImage!.value,
-                                          fit: BoxFit.cover,
+                                    Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 15.h,
                                         ),
-                                      ),
+                                        Container(
+                                          width: 243.w,
+                                          height: 220.h,
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(25.r),
+                                              border: Border.all(
+                                                color: AppColors.mainColor2,
+                                              )),
+                                          padding: EdgeInsets.all(19.r),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(10.r),
+                                            child: Image.file(
+                                              deliverToClientController.selectedImage!.value,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   SizedBox(
                                     height: 15.h,
                                   ),
-                                  MainButton(
-                                    text: 'الفاتورة غير مختومة',
-                                    color: AppColors.red,
-                                    width: 295.w,
-                                    height: 50.h,
-                                    onPressed: () async {
-                                      dynamic status = await deliverToClientController.orderNotStamped();
-                                      if (status == '200')
-                                        showDialogCustom(
-                                          height: height,
-                                          width: width,
-                                          context: context,
-                                          padding: EdgeInsets.zero,
-                                          dialogContent: DialogContentThanks(
-                                            onTap: () {
-                                              Get.offAllNamed('/driver-root-screen');
-                                            },
-                                          ),
-                                        );
-                                    },
-                                  ),
+                                  if (deliverToClientController.selectedImage!.value.path == 'null') //if we add an image then the not stamped bill button snhould be hidden
+                                    MainButton(
+                                      text: 'الفاتورة غير مختومة',
+                                      color: AppColors.red,
+                                      width: 295.w,
+                                      height: 50.h,
+                                      onPressed: () async {
+                                        dynamic status = await deliverToClientController.orderNotStamped();
+                                        if (status == '200')
+                                          showDialogCustom(
+                                            height: height,
+                                            width: width,
+                                            context: context,
+                                            padding: EdgeInsets.zero,
+                                            dialogContent: DialogContentThanks(
+                                              onTap: () {
+                                                Get.offAllNamed('/driver-root-screen');
+                                              },
+                                            ),
+                                          );
+                                      },
+                                    ),
                                   SizedBox(
                                     height: 30.h,
                                   ),

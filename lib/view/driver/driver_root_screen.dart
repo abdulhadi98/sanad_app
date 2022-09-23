@@ -96,9 +96,7 @@ class DriverRootScreen extends StatelessWidget {
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
-                          Get.toNamed(
-                            '/add-returns-screen',
-                          );
+                          Get.toNamed('/add-returns-screen', arguments: {'client_number': ''});
                         },
                       ),
                     ],

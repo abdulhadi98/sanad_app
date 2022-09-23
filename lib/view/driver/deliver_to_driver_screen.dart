@@ -90,87 +90,87 @@ class DeliverToDriverScreen extends StatelessWidget {
                                       width: 295.w,
                                       height: 50.h,
                                       onPressed: () {
-                                        showDialogCustom(
-                                          height: height,
-                                          width: width,
-                                          context: context,
-                                          padding: EdgeInsets.zero,
-                                          dialogContent: StatefulBuilder(
-                                            builder: (context, setState) {
-                                              return Container(
-                                                color: AppColors.white,
-                                                height: height,
-                                                width: width,
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    Padding(
-                                                      padding: EdgeInsets.symmetric(
-                                                        horizontal: 15.w,
-                                                        vertical: 15.h,
-                                                      ),
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.end,
-                                                        children: [
-                                                          InkWell(
-                                                            onTap: () {
-                                                              Get.back();
-                                                            },
-                                                            child: SvgPicture.asset(
-                                                              'assets/icons/Icon Close Light-1.svg',
-                                                              width: 16.w,
-                                                              height: 16.w,
+                                          showDialogCustom(
+                                            height: height,
+                                            width: width,
+                                            context: context,
+                                            padding: EdgeInsets.zero,
+                                            dialogContent: StatefulBuilder(
+                                              builder: (context, setState) {
+                                                return Container(
+                                                  color: AppColors.white,
+                                                  height: height,
+                                                  width: width,
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    mainAxisAlignment: MainAxisAlignment.start,
+                                                    children: [
+                                                      Padding(
+                                                        padding: EdgeInsets.symmetric(
+                                                          horizontal: 15.w,
+                                                          vertical: 15.h,
+                                                        ),
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.end,
+                                                          children: [
+                                                            InkWell(
+                                                              onTap: () {
+                                                                Get.back();
+                                                              },
+                                                              child: SvgPicture.asset(
+                                                                'assets/icons/Icon Close Light-1.svg',
+                                                                width: 16.w,
+                                                                height: 16.w,
+                                                              ),
                                                             ),
-                                                          ),
-                                                        ],
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Text(
-                                                      'اختر  السائق',
-                                                      style: TextStyle(
-                                                        fontSize: 30.sp,
-                                                        fontWeight: FontWeight.bold,
-                                                        color: AppColors.textColorXDarkBlue,
+                                                      Text(
+                                                        'اختر  السائق',
+                                                        style: TextStyle(
+                                                          fontSize: 30.sp,
+                                                          fontWeight: FontWeight.bold,
+                                                          color: AppColors.textColorXDarkBlue,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsets.only(bottom: 6.h),
-                                                      child: Divider(
-                                                        color: AppColors.textColorXDarkBlue,
-                                                        indent: width / 2.3,
-                                                        endIndent: width / 2.3,
-                                                        thickness: 1,
+                                                      Padding(
+                                                        padding: EdgeInsets.only(bottom: 6.h),
+                                                        child: Divider(
+                                                          color: AppColors.textColorXDarkBlue,
+                                                          indent: width / 2.3,
+                                                          endIndent: width / 2.3,
+                                                          thickness: 1,
+                                                        ),
                                                       ),
-                                                    ),
-                                                    Container(
-                                                      //   padding: EdgeInsets.symmetric(vertical: 5.),
-                                                      height: height / 1.3,
-                                                      width: width,
-                                                      child: ListView.builder(
-                                                          itemCount: deliverToDriverController.driversList.length,
-                                                          itemBuilder: (BuildContext context, int index) {
-                                                            return WorkerWidget(
-                                                                workerName: deliverToDriverController.driversList[index].name!,
-                                                                workerDepartment: '',
-                                                                onPressed: () {
-                                                                  deliverToDriverController.driverId = deliverToDriverController.driversList[index].id;
-                                                                  //  SalesMangerRootScreen.salesmanId = driversController.driversList[index].id;
-                                                                  print(deliverToDriverController.driverId);
-                                                                  Get.back();
-                                                                  // Get.toNamed(
-                                                                  //     '/send_order_to_sales_employee');
-                                                                  // Get.toNamed(
-                                                                  //     '/order-details-screen');
-                                                                });
-                                                          }),
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        );
+                                                      Container(
+                                                        //   padding: EdgeInsets.symmetric(vertical: 5.),
+                                                        height: height / 1.3,
+                                                        width: width,
+                                                        child: ListView.builder(
+                                                            itemCount: deliverToDriverController.driversList.length,
+                                                            itemBuilder: (BuildContext context, int index) {
+                                                              return WorkerWidget(
+                                                                  workerName: deliverToDriverController.driversList[index].name!,
+                                                                  workerDepartment: '',
+                                                                  onPressed: () {
+                                                                    deliverToDriverController.driverId = deliverToDriverController.driversList[index].id;
+                                                                    //  SalesMangerRootScreen.salesmanId = driversController.driversList[index].id;
+                                                                    print(deliverToDriverController.driverId);
+                                                                    Get.back();
+                                                                    // Get.toNamed(
+                                                                    //     '/send_order_to_sales_employee');
+                                                                    // Get.toNamed(
+                                                                    //     '/order-details-screen');
+                                                                  });
+                                                            }),
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          );
                                       },
                                     ),
                                     SizedBox(
