@@ -58,33 +58,66 @@ class AddDelegationSalesMangerController extends GetxController {
     dynamic response;
     spinner.value = true;
 
-    // try {
-    // print(delegationModel!.toJsonMangerFromScratch());
-    String? token = await sharedPreferences!.getString("token");
-    response = await http.post(
-        Uri.parse(
-          UrlsContainer.addDelegationManger,
-        ),
-        body: delegationModel!.toJsonMangerFromScratch(), //This one for adding delegation from the start(from the sales manger root screen -assign sales employee- and it doesn't need delegation id)
-        headers: {'Authorization': 'Bearer $token'});
+    try {
+      print(delegationModel!
+          .toJsonMangerFromScratch()); //warehouse id not requaired in salesmanger and general manager but we added it to the delegation model for super manager (addDelegationSuperManger).
+      String? token = await sharedPreferences!.getString("token");
+      response = await http.post(
+          Uri.parse(
+            UrlsContainer.addDelegationManger,
+          ),
+          body: delegationModel!.toJsonMangerFromScratch(), //This one for adding delegation from the start(from the sales manger root screen -assign sales employee- and it doesn't need delegation id)
+          headers: {'Authorization': 'Bearer $token'});
 
-    dynamic body = jsonDecode(response.body);
-    print(body);
-    spinner.value = false;
-    String code = body['code'].toString();
-    String message = body['message'];
+      dynamic body = jsonDecode(response.body);
+      print(body);
+      spinner.value = false;
+      String code = body['code'].toString();
+      String message = body['message'];
 
-    Utils.getResponseCode(code, message, onData: () {
+      Utils.getResponseCode(code, message, onData: () {
+        employeeId = null;
+      });
       employeeId = null;
-    });
-    employeeId = null;
-    return code;
-    // } catch (e) {
-    //   print(e);
-    //   spinner.value = false;
-    //   Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
-    //   return 'error';
-    //  }
+      return code;
+    } catch (e) {
+      print(e);
+      spinner.value = false;
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
+      return 'error';
+    }
+  }
+
+  addDelegationSuperManger() async {
+    dynamic response;
+    spinner.value = true;
+    try {
+      print(delegationModel!.toJsonMangerFromScratch());
+      String? token = await sharedPreferences!.getString("token");
+      response = await http.post(
+          Uri.parse(
+            UrlsContainer.addDelegationSuperManager,  //here we need warehouse id because super manager can manage all warehouses.
+          ),
+          body: delegationModel!.toJsonMangerFromScratch(), //This one for adding delegation from the start(from the sales manger root screen -assign sales employee- and it doesn't need delegation id)
+          headers: {'Authorization': 'Bearer $token'});
+
+      dynamic body = jsonDecode(response.body);
+      print(body);
+      spinner.value = false;
+      String code = body['code'].toString();
+      String message = body['message'];
+
+      Utils.getResponseCode(code, message, onData: () {
+        employeeId = null;
+      });
+      employeeId = null;
+      return code;
+    } catch (e) {
+      print(e);
+      spinner.value = false;
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
+      return 'error';
+    }
   }
 
   bool validateInputs() {
@@ -116,15 +149,16 @@ class AddDelegationSalesMangerController extends GetxController {
         clientNumber: clientNumberController.value.text,
         creatorId: sharedPreferences!.getInt('user_id').toString(),
         details: detailsController.value.text.isEmpty ? ' ' : detailsController.value.text,
-        employeeId: employeeId);
+        employeeId: employeeId,
+        warehouseId: sharedPreferences!.getInt('warehouse_id'));
   }
 
   @override
   void onInit() {
+    getUsersInfo();
     //addressController.value.text = 'address';
     super.onInit();
     //  setStatus(Status.LOADING);
-    getUsersInfo();
   }
 
   @override

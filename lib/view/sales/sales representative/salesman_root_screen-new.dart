@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
+import 'package:wits_app/controller/sales/sales_employee_controller.dart';
+import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 import 'package:wits_app/view/common_wigets/main_button.dart';
 
-import '../common_wigets/bottom_nav_bar.dart';
-import '../common_wigets/header_widget.dart';
+import '../../common_wigets/bottom_nav_bar.dart';
+import '../../common_wigets/dilog_custom.dart';
+import '../../common_wigets/header_widget.dart';
 
-class QualitySupervisorRootScreen extends StatelessWidget {
+class SalesMangerRootScreenNew extends StatelessWidget {
+  static var salesmanId;
+  //final GlobalController globalController = Get.find<GlobalController>();
+  // or optionally with tag
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -39,61 +45,37 @@ class QualitySupervisorRootScreen extends StatelessWidget {
                         scaffoldKey: scaffoldKey,
                         width: width,
                         employeeName: 'اسم الموظف',
-                        title: 'مراقب الجودة',
+                        title: 'مندوب المبيعات',
                       ),
                       SizedBox(
                         height: 49.h,
                       ),
-                      // MainButton(
-                      //   text: 'استلام المرتجعات',
-                      //   width: 224.w,
-                      //   height: 50.h,
-                      //   onPressed: () {
-                      //     Get.toNamed(
-                      //       '/orders-screen-warehouse-manger',
-                      //       arguments: {
-                      //         "api": "/get-returns",
-                      //       },
-                      //     );
-                      //   },
-                      // ),
-                      // SizedBox(
-                      //   height: 30.h,
-                      // ),
-
                       MainButton(
-                        text: 'طلبيات جديدة',
+                        text: 'أضف طلبية جديدة',
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
-                          Get.toNamed(
-                            '/orders-quality-supervisor-screen',
-                            arguments: {
-                              "api": "/get-stamped-orders",
-                            },
-                          );
+                          Get.toNamed('/salesman-root-screen');
                         },
                       ),
                       SizedBox(
                         height: 30.h,
                       ),
                       MainButton(
-                        text: 'طلبيات قيد التنفيذ',
+                        text: 'طلبيات مرفوضة',
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
-                          Get.toNamed(
-                            '/orders-quality-supervisor-screen',
-                            arguments: {
-                              "api": "/get-orders",
-                            },
-                          );
+                          Get.toNamed('/rejected_delegations_screen');
                         },
+                      ),
+                      SizedBox(
+                        height: 30.h,
                       ),
                     ],
                   ),
                 ),
-                buildBottomNavBar(width, height, false, () {}),
+                buildBottomNavBar(width, height, true, () {}),
               ],
             ),
           ),

@@ -9,8 +9,10 @@ class WorkerWidget extends StatelessWidget {
   String workerName;
   String workerDepartment;
   Function? onPressed;
+  String imageUrl;
 
   WorkerWidget({
+    required this.imageUrl,
     required this.onPressed,
     required this.workerName,
     required this.workerDepartment,
@@ -45,8 +47,7 @@ class WorkerWidget extends StatelessWidget {
                               color: AppColors.mainColor1.withOpacity(0.5),
                               spreadRadius: 0,
                               blurRadius: 10,
-                              offset:
-                                  Offset(0, 7), // changes position of shadow
+                              offset: Offset(0, 7), // changes position of shadow
                             ),
                           ],
                           borderRadius: BorderRadius.circular(17.r),
@@ -75,8 +76,7 @@ class WorkerWidget extends StatelessWidget {
                                   color: AppColors.mainColor1.withOpacity(0.5),
                                   spreadRadius: 0,
                                   blurRadius: 10,
-                                  offset: Offset(
-                                      0, 5), // changes position of shadow
+                                  offset: Offset(0, 5), // changes position of shadow
                                 ),
                               ],
                               shape: BoxShape.circle,
@@ -85,10 +85,7 @@ class WorkerWidget extends StatelessWidget {
                                 width: 6,
                               ),
                             ),
-                            child: Utils.buildImage(
-                                url: 'assets/images/worker1.png',
-                                width: 100.65.w,
-                                height: 100.65.h),
+                            child: Utils.buildImage(url: imageUrl, width: 100.65.w, height: 100.65.h),
                           ),
                           SizedBox(
                             height: 5.h,

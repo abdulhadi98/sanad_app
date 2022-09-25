@@ -65,7 +65,7 @@ class MainButtonWithIcon extends StatelessWidget {
 
   final Function() onPressed;
 
-  bool loadingLocation;
+  final bool loadingLocation;
   MainButtonWithIcon({
     this.icon,
     Key? key,

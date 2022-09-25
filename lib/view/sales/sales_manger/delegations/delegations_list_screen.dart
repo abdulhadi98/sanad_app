@@ -84,9 +84,8 @@ class DelegationsListSceen extends StatelessWidget {
                                       itemCount: delegationsController.delegationsList.length,
                                       itemBuilder: (BuildContext context, int i) {
                                         return DelegationWidget(
-                                          salesmanName: delegationsController.delegationsList[i].delegationEmployeeName,
+                                          salesmanName: delegationsController.delegationsList[i].creatorId.toString(),
                                           onTap: () {
-                                            
                                             print(delegationsController.delegationsList[i].id);
 
                                             SalesmanOrderScreen.delegationId = delegationsController.delegationsList[i].id;

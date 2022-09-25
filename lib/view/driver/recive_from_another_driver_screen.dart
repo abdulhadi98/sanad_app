@@ -279,7 +279,6 @@ class ReciveFromAnotherDriver extends StatelessWidget {
 
                                           if (uploadImageStatus == '200') {
                                             var stampedStatus = await deliverToClientController.orderIsStamped();
-
                                             if (stampedStatus == '200') {
                                               showDialogCustom(
                                                 height: height,

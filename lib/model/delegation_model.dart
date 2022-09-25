@@ -61,6 +61,7 @@ class DelegationModel {
         "details": details == null ? null : details,
         "creator_id": creatorId == null ? null : creatorId,
         "employee_id": employeeId == null ? null : employeeId.toString(),
+        "warehouse_id": warehouseId == null ? null : warehouseId.toString()
       };
 
   //This one for accepting delegation from the salesman(from the delegations screen after we select one delegation and press accept and assign salesman) and it needs delegation id that we take from delegation details controller)

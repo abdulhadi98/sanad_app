@@ -6,7 +6,10 @@ class UrlsContainer {
   static String addImage = "$baseApiUrl/add-image";
   // Authentication's endpoints
   static String emailLogin = "$baseApiUrl/login";
+
   static String addDeviceToken = "$baseApiUrl/add-device-token";
+  static String removeDeviceToken = "$baseApiUrl/remove-device-token";
+  
   static String getUser = "$baseApiUrl/get-user";
   static String forgotPassword = "$baseApiUrl/forgot-password";
   static String resetPassword = "$baseApiUrl/reset-password";
@@ -28,6 +31,8 @@ class UrlsContainer {
   static String rejectDelegation = "$baseApiUrl/reject-delegation";
   static String getDelegationsOrders = "$baseApiUrl/get-delegation-orders";
   static String getAssignedDelegations = "$baseApiUrl/get-assigned-delegations";
+  static String getRejectedDelegations = "$baseApiUrl/get-rejected-delegations";
+  
 
   static String getDelegationById = "$baseApiUrl/get-delegation-by-id";
 
@@ -66,4 +71,14 @@ class UrlsContainer {
   static String getRoles = "$baseApiUrl/get-roles";
   static String getEmployeesByRole = "$baseApiUrl/get-employees-by-role";
   static String addReviewByRole = "$baseApiUrl/add-review-by-role";
+
+  //Super Manager
+  static String getWarehouses = "$baseApiUrl/get-warehouses";
+  static String getOrdersByWareHouse = "$baseApiUrl/get-warehouse-orders";
+  
+  static String addNewOrderSuperManager = "$baseApiUrl/add-order-super";
+  static String addDelegationSuperManager = "$baseApiUrl/add-delegation-super";
+
+
+
 }

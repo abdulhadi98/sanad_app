@@ -193,7 +193,7 @@ class _ChooseRoleScreenState extends State<ChooseRoleScreen> {
                             width: 295.w,
                             //    height: 50.h,
                             onPressed: () {
-                              Get.toNamed('/salesman-root-screen');
+                              Get.toNamed('/salesman-root-screen-new');
                             },
                           ),
                           SizedBox(

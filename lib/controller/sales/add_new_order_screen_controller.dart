@@ -14,12 +14,9 @@ import 'package:wits_app/network/urls_container.dart';
 import '../../helper/enums.dart';
 
 class AddNewOrderScreenController extends GetxController {
-  Rx<TextEditingController> clientNumberController =
-      TextEditingController().obs;
-  Rx<TextEditingController> invoiceNumberController =
-      TextEditingController().obs;
-  Rx<TextEditingController> categoriesNumberController =
-      TextEditingController().obs;
+  Rx<TextEditingController> clientNumberController = TextEditingController().obs;
+  Rx<TextEditingController> invoiceNumberController = TextEditingController().obs;
+  Rx<TextEditingController> categoriesNumberController = TextEditingController().obs;
   Rx<TextEditingController> detailsController = TextEditingController().obs;
   Rx<TextEditingController> addressController = TextEditingController().obs;
 
@@ -37,26 +34,22 @@ class AddNewOrderScreenController extends GetxController {
     String? token = await sharedPreferences!.getString("token");
     setStatus(Status.LOADING);
     try {
-      dynamic response = await http.get(Uri.parse(UrlsContainer.getClientsInfo),
-          headers: {'Authorization': 'Bearer $token'});
+      dynamic response = await http.get(Uri.parse(UrlsContainer.getClientsInfo), headers: {'Authorization': 'Bearer $token'});
       Map body = jsonDecode(response.body);
       print(body);
       List<dynamic> data = body['data'];
-      clientsList = List<ClientModel>.from(
-          data.map((x) => ClientModel.fromJson(x)).toList());
-      
+      clientsList = List<ClientModel>.from(data.map((x) => ClientModel.fromJson(x)).toList());
+
       String code = body['code'].toString();
       String message = body['message'];
-      Utils.getResponseCode(code, message);setStatus(Status.DATA);
+      Utils.getResponseCode(code, message);
+      setStatus(Status.DATA);
       return code;
     } catch (e) {
       print(e);
       setStatus(Status.ERROR);
       // spinner.value = false;
-      Utils.showGetXToast(
-          title: 'خطأ',
-          message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً',
-          toastColor: AppColors.red);
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
       return 'error';
     }
   }
@@ -85,34 +78,50 @@ class AddNewOrderScreenController extends GetxController {
     } catch (e) {
       print(e);
       spinner.value = false;
-      Utils.showGetXToast(
-          title: 'خطأ',
-          message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً',
-          toastColor: AppColors.red);
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
+      return 'error';
+    }
+  }
+   addNewOrderSuperManager() async {
+    dynamic response;
+    spinner.value = true;
+
+    try {
+      print(orderModel!.toJson());
+      String? token = await sharedPreferences!.getString("token");
+      response = await http.post(
+          Uri.parse(
+            UrlsContainer.addNewOrderSuperManager,
+          ),
+          body: orderModel!.toJson(),
+          headers: {'Authorization': 'Bearer $token'});
+      dynamic body = jsonDecode(response.body);
+      print(body);
+      spinner.value = false;
+      String code = body['code'].toString();
+      String message = body['message'];
+
+      Utils.getResponseCode(code, message);
+      return code;
+    } catch (e) {
+      print(e);
+      spinner.value = false;
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
       return 'error';
     }
   }
 
   bool validateInputs() {
     if (clientNumberController.value.text.isEmpty) {
-      Utils.showGetXToast(
-          title: 'تنبيه',
-          message: 'يرجى أختيار رقم العميل',
-          toastColor: AppColors.mainColor1);
+      Utils.showGetXToast(title: 'تنبيه', message: 'يرجى أختيار رقم العميل', toastColor: AppColors.mainColor1);
       return false;
     }
     if (invoiceNumberController.value.text.isEmpty) {
-      Utils.showGetXToast(
-          title: 'تنبيه',
-          message: 'يرجى إدخال رقم الفاتورة',
-          toastColor: AppColors.mainColor1);
+      Utils.showGetXToast(title: 'تنبيه', message: 'يرجى إدخال رقم الفاتورة', toastColor: AppColors.mainColor1);
       return false;
     }
     if (categoriesNumberController.value.text.isEmpty) {
-      Utils.showGetXToast(
-          title: 'تنبيه',
-          message: 'يرجى إدخال عدد الأصناف',
-          toastColor: AppColors.mainColor1);
+      Utils.showGetXToast(title: 'تنبيه', message: 'يرجى إدخال عدد الأصناف', toastColor: AppColors.mainColor1);
       return false;
     }
     return true;
@@ -122,32 +131,20 @@ class AddNewOrderScreenController extends GetxController {
 
   setOrderModel() async {
     print(await sharedPreferences!.getInt('user_id').toString());
-    addressController.value.text = clientsList
-            .firstWhere((element) =>
-                element.clientNumber.toString() ==
-                clientNumberController.value.text)
-            .regionName
-            .toString() +
+    addressController.value.text = clientsList.firstWhere((element) => element.clientNumber.toString() == clientNumberController.value.text).regionName.toString() +
         ', ' +
-        clientsList
-            .firstWhere((element) =>
-                element.clientNumber.toString() ==
-                clientNumberController.value.text)
-            .cityName
-            .toString();
+        clientsList.firstWhere((element) => element.clientNumber.toString() == clientNumberController.value.text).cityName.toString();
     print(clientsList.first.clientNumber);
     print(clientNumberController.value.text);
     orderModel = OrderModel(
-      clientNumber: clientNumberController.value.text,
-      creatorId: await sharedPreferences!.getInt('user_id'),
-      commercialRecord: clientNumberController.value.text,
-      address: addressController.value.text,
-      invoiceNumber: invoiceNumberController.value.text,
-      categoriesNumber: categoriesNumberController.value.text,
-      details: detailsController.value.text.isEmpty
-          ? ' '
-          : detailsController.value.text,
-    );
+        clientNumber: clientNumberController.value.text,
+        creatorId: await sharedPreferences!.getInt('user_id'),
+        commercialRecord: clientNumberController.value.text,
+        address: addressController.value.text,
+        invoiceNumber: invoiceNumberController.value.text,
+        categoriesNumber: categoriesNumberController.value.text,
+        details: detailsController.value.text.isEmpty ? ' ' : detailsController.value.text,
+        warehouseId: sharedPreferences!.getInt('warehouse_id'));
   }
 
   @override

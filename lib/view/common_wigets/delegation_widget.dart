@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:wits_app/helper/utils.dart';
 
 class DelegationWidget extends StatelessWidget {
   final String? salesmanName;
@@ -10,8 +11,7 @@ class DelegationWidget extends StatelessWidget {
   // final String type;
   final Function() onTap;
 
-  const DelegationWidget({Key? key, required this.onTap, this.salesmanName})
-      : super(key: key);
+  const DelegationWidget({Key? key, required this.onTap, this.salesmanName}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class DelegationWidget extends StatelessWidget {
                   height: 70.h,
                   color: Color(0xFF366A8E),
                   child: Text(
-                    "طلبية من $salesmanName",
+                    "طلبية من ${Utils.getDelegationCreator(salesmanName.toString())}",//salesman name id creator id but I can't edit it now
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14.sp,

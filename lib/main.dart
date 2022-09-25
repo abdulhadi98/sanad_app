@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wits_app/bindings/bindings.dart';
+import 'package:wits_app/controller/sales/sales_man/rejected_delegations_controller.dart';
 import 'package:wits_app/middleware/auth_middleware.dart';
 import 'package:wits_app/view/auth/login_screen.dart';
 import 'package:wits_app/view/driver/add_returns_after_deliver_screen.dart';
@@ -36,6 +37,9 @@ import 'package:wits_app/view/returns_manger/recive_returns_screen.dart';
 import 'package:wits_app/view/returns_manger/returns_manger_root_screen.dart';
 import 'package:wits_app/view/root/choose_role_screen.dart';
 import 'package:wits_app/view/root_screen.dart';
+import 'package:wits_app/view/sales/sales%20representative/rejected_delegation_details_screen.dart';
+import 'package:wits_app/view/sales/sales%20representative/rejected_delegations_screen.dart';
+import 'package:wits_app/view/sales/sales%20representative/salesman_root_screen-new.dart';
 import 'package:wits_app/view/sales/sales_employee/add_order_from_delegation_sales_employee_screen.dart';
 import 'package:wits_app/view/sales/sales_employee/delegations_list_sales_employee_screen.dart';
 import 'package:wits_app/view/sales/sales_employee/submit_order_delegation_sales_employee_screen.dart';
@@ -50,13 +54,20 @@ import 'package:wits_app/view/sales/sales_manger/delegations/submit_order_delega
 import 'package:wits_app/view/sales/sales_manger/orders/orders_root_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 import 'package:get/get.dart';
+import 'package:wits_app/view/super_manager/add_new_order_super_manager_screen.dart';
+import 'package:wits_app/view/super_manager/choose_review_type_supermanager_screen.dart';
+import 'package:wits_app/view/super_manager/choose_warehouse_screen.dart';
+import 'package:wits_app/view/super_manager/orders_super_manger_screen.dart';
+import 'package:wits_app/view/super_manager/review_by_department_supermanager_screen.dart';
+import 'package:wits_app/view/super_manager/review_by_order_supermanager_screen.dart';
+import 'package:wits_app/view/super_manager/supermanager_root_screen.dart';
 import 'package:wits_app/view/warehouse_manger/assign_preparator_screen.dart';
 import 'package:wits_app/view/warehouse_manger/orders_warehouse_manger.dart';
 import 'package:wits_app/view/warehouse_manger/warehouse_manger_root_screen.dart';
 
 import 'helper/app_colors.dart';
 import 'view/driver/deliver_to_driver_screen.dart';
-import 'view/sales/sales representative/salesman_root_screen.dart';
+import 'view/sales/sales representative/salesman_root_screen(add-delegation).dart';
 import 'view/sales/sales_employee/sales_emplyee_root_screen.dart';
 import 'view/sales/sales_manger/delegations/delegations_list_screen.dart';
 import 'view/sales/sales_manger/orders/order_from_salesperson_screen.dart';
@@ -115,6 +126,10 @@ class MyApp extends StatelessWidget {
         //Sales Employee
         GetPage(name: '/sales-employee-root-screen', page: () => SalesEmployeeRootScreen()),
         GetPage(name: '/delegations_list_sales_employee_screen', page: () => DelegationsListSalesEmployeeScreen()),
+        GetPage(name: '/rejected_delegations_screen', page: () => RejectedDelegationsScreen()),
+        GetPage(name: '/rejected-delegation-details-screen', page: () => RejectedDelegationDetailsScreen()),
+        
+
         GetPage(name: '/add-order-from-delegation-sales-employee-screen', page: () => AddOrderFromDelegationSalesEmployeeScreen()),
         GetPage(name: '/submit-order-delegation-sales-employee-screen', page: () => SubmitOrderDelegationSalesEmployeeScreen()),
 
@@ -123,7 +138,10 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/orders-root-screen', page: () => OrdersRootScreen()),
         GetPage(name: '/order-from-salesperson-screen', page: () => SalesmanOrderScreen()),
         GetPage(name: '/salesman-root-screen', page: () => SalesmanRootScreen()),
+        GetPage(name: '/salesman-root-screen-new', page: () => SalesMangerRootScreenNew()),
+
         GetPage(name: '/reject-delegation-screen', page: () => RejectDelegationScreen()),
+
         GetPage(name: '/choose-role-screen', page: () => ChooseRoleScreen()),
         GetPage(name: '/add-order-from-delegation-screen', page: () => AddOrderFromDelegationScreen()),
         GetPage(name: '/submit-order-delegation-screen', page: () => SubmitOrderDelegationScreen()),
@@ -179,6 +197,16 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/review-by-order-screen', page: () => ReviewByOrderScreen()),
         GetPage(name: '/review-by-department-screen', page: () => ReviewByDepartmentScreen()),
 
+        //Super Manager
+        GetPage(name: '/choose-warehouse-screen', page: () => ChooseWarehouseScreen()),
+        GetPage(name: '/super-manager-root-screen', page: () => SuperManagerRootScreen()),
+        GetPage(name: '/add-new-order-super-manager-screen', page: () => AddNewOrderSuperManagerScreen()),
+
+        GetPage(name: '/super-manager-orders-screen', page: () => SuperManagerOrdersScreen()),
+        GetPage(name: '/choose-review-type-screen', page: () => ChooseReviewTypeScreen()),
+        GetPage(name: '/review-by-order-supermanager-screen', page: () => ReviewByOrderSupermanagerScreen()),
+        GetPage(name: '/review-by-department-supermanager-screen', page: () => ReviewByDepartmentSuperManagerScreen()),
+        GetPage(name: '/choose-review-type-supermanager-screen', page: () => ChooseReviewTypeSupermanagerScreen()),
       ],
     );
   }

@@ -14,7 +14,6 @@ class ReturnsMangerRootScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    
 
     return ScreenUtilInit(
       designSize: const Size(375, 812),
@@ -60,14 +59,13 @@ class ReturnsMangerRootScreen extends StatelessWidget {
                       SizedBox(
                         height: 30.h,
                       ),
-                     
                       MainButton(
                         text: 'طلبيات قيد التنفيذ',
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
                           Get.toNamed(
-                            '/orders-screen-returns-manger',
+                            '/orders-quality-supervisor-screen',//here if you go to returns orders screen then all the orders will show in black color because the order will use the returns widget
                             arguments: {
                               "api": "/get-orders",
                             },

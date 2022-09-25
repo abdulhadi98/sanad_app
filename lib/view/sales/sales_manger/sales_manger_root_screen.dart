@@ -133,6 +133,7 @@ class SalesMangerRootScreen extends StatelessWidget {
                                             itemCount: salesEmployeeController.salesEmployeesList.length,
                                             itemBuilder: (BuildContext context, int index) {
                                               return WorkerWidget(
+                                                  imageUrl: salesEmployeeController.salesEmployeesList[index].imagePorofile ?? 'assets/images/worker1.png',
                                                   workerName: salesEmployeeController.salesEmployeesList[index].name!,
                                                   workerDepartment: 'قسم المبيعات',
                                                   onPressed: () {

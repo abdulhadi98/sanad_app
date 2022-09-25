@@ -93,7 +93,7 @@ class SalesmanRootScreen extends StatelessWidget {
                                             fontSize: 13.sp,
                                           ),
 
-                                                 decoration: enabledK('رقم العميل'),
+                                          decoration: enabledK('رقم العميل'),
                                           // getSelectedValue: (b){print(b);},
                                           initialList: addDelegationController.clientsList.map((client) => client.clientNumber).toList(),
                                           label: addDelegationController.clientsList.isNotEmpty ? addDelegationController.clientsList.first.clientNumber! : ' ',
@@ -121,7 +121,7 @@ class SalesmanRootScreen extends StatelessWidget {
                                       width: 178.w,
                                       height: 50.h,
                                       onPressed: () async {
-                                          FocusScope.of(context).requestFocus(FocusNode());
+                                        FocusScope.of(context).requestFocus(FocusNode());
                                         // addNewOrderScreenController
                                         if (addDelegationController.validateInputs()) {
                                           //if all fields not empty
@@ -142,7 +142,7 @@ class SalesmanRootScreen extends StatelessWidget {
                                                       context: context,
                                                       padding: EdgeInsets.zero,
                                                       dialogContent: DialogContentThanks(onTap: () {
-                                                        Get.offAllNamed('/salesman-root-screen');
+                                                        Get.offAllNamed('/salesman-root-screen-new');
                                                       }));
                                               },
                                             ),

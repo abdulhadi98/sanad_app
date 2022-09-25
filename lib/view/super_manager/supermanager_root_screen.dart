@@ -13,13 +13,12 @@ import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/dilog_custom.dart';
 import '../common_wigets/header_widget.dart';
 
-class GeneralManagerRootScreen extends StatelessWidget {
+class SuperManagerRootScreen extends StatelessWidget {
   static var salesmanId;
   //final GlobalController globalController = Get.find<GlobalController>();
-  final put = Get.put<SalesEmployeeController>(
+  final salesEmployeeController = Get.put<SalesEmployeeController>(
     SalesEmployeeController(),
   ); // or optionally with tag
-  final SalesEmployeeController salesEmployeeController = Get.find<SalesEmployeeController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -50,7 +49,7 @@ class GeneralManagerRootScreen extends StatelessWidget {
                         scaffoldKey: scaffoldKey,
                         width: width,
                         employeeName: 'اسم الموظف',
-                        title: 'المدير العام',
+                        title: 'مسؤول التحكم',
                       ),
                       SizedBox(
                         height: 49.h,
@@ -60,7 +59,7 @@ class GeneralManagerRootScreen extends StatelessWidget {
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
-                          Get.toNamed('/add-new-order-screen', arguments: {'role_name': "المدير العام"});
+                          Get.toNamed('/add-new-order-super-manager-screen', arguments: {'role_name': "مسؤول التحكم"});
                         },
                       ),
                       SizedBox(
@@ -134,7 +133,6 @@ class GeneralManagerRootScreen extends StatelessWidget {
                                             itemBuilder: (BuildContext context, int index) {
                                               return WorkerWidget(
                                                   imageUrl: salesEmployeeController.salesEmployeesList[index].imagePorofile ?? 'assets/images/worker1.png',
-
                                                   workerName: salesEmployeeController.salesEmployeesList[index].name!,
                                                   workerDepartment: 'قسم المبيعات',
                                                   onPressed: () {
@@ -163,7 +161,7 @@ class GeneralManagerRootScreen extends StatelessWidget {
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
-                          Get.toNamed('/orders-root-screen', arguments: {'api': "/get-orders"});
+                          Get.toNamed('/super-manager-orders-screen', arguments: {'api': "/get-orders"});
                         },
                       ),
                       SizedBox(
@@ -174,7 +172,7 @@ class GeneralManagerRootScreen extends StatelessWidget {
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
-                          Get.toNamed('/choose-review-type-screen');
+                          Get.toNamed('/choose-review-type-supermanager-screen');
                         },
                       ),
                     ],

@@ -22,10 +22,9 @@ class OrdersRootScreen extends StatelessWidget {
   OrdersRootScreen({Key? key}) : super(key: key);
   static int? orderId;
   final GlobalController globalController = Get.find<GlobalController>();
-  final put = Get.put<OrdersController>(
+  final ordersController = Get.put<OrdersController>(
     OrdersController(),
   );
-  final OrdersController ordersController = Get.find<OrdersController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {

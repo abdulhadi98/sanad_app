@@ -109,5 +109,6 @@ class OrderModel {
         "details": details == null ? null : details.toString(),
         "cats_number": categoriesNumber == null ? null : categoriesNumber,
         "creator_id": creatorId == null ? null : creatorId.toString(),
+        "warehouse_id":warehouseId==null? null: warehouseId.toString()
       };
 }

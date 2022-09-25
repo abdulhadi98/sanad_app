@@ -182,6 +182,8 @@ class ReviewByOrderScreen extends StatelessWidget {
                                                         itemCount: reviewByOrderController.employeeList.length,
                                                         itemBuilder: (BuildContext context, int index) {
                                                           return WorkerWidget(
+                                                                                                              imageUrl: reviewByOrderController.employeeList[index].imagePorofile ?? 'assets/images/worker1.png',
+
                                                               workerName: reviewByOrderController.employeeList[index].name!,
                                                               workerDepartment: '',
                                                               onPressed: () {

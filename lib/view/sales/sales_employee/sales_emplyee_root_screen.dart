@@ -71,11 +71,13 @@ class _SalesEmployeeRootScreenState extends State<SalesEmployeeRootScreen> {
                         height: 30.h,
                       ),
                       MainButton(
-                        text: 'طلبيات من المدير العام',
+                        text: 'طلبيات جديدة',
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
-                          Get.toNamed('/delegations_list_sales_employee_screen', );
+                          Get.toNamed(
+                            '/delegations_list_sales_employee_screen',
+                          );
                         },
                       ),
                     ],

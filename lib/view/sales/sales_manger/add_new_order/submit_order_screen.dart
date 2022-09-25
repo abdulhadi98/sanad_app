@@ -142,7 +142,7 @@ class SubmitOrderScreen extends StatelessWidget {
                                           onPressed: () async {
                                             // FocusScope.of(context).requestFocus(FocusNode());
 
-                                            dynamic status = await addNewOrderScreenController.addNewOrder();
+                                            dynamic status = await addNewOrderScreenController.addNewOrderSuperManager(); //the diffirance heree is the warehouse id
                                             // if (status == '777')
                                             //   Utils.showGetXToast(
                                             //       message: status);
@@ -158,7 +158,9 @@ class SubmitOrderScreen extends StatelessWidget {
                                                       Get.offAllNamed('/sales-manger-root-screen');
                                                     else if (sharedPreferences!.getInt('role') == 4)
                                                       Get.offAllNamed('/sales-employee-root-screen');
-                                                    else if (sharedPreferences!.getInt('role') == 11) Get.offAllNamed('/general-manager-root-screen');
+                                                    else if (sharedPreferences!.getInt('role') == 11)
+                                                      Get.offAllNamed('/general-manager-root-screen');
+                                                    else if (sharedPreferences!.getInt('role') == 13) Get.offAllNamed('/choose-warehouse-screen');
                                                   },
                                                 ),
                                               );

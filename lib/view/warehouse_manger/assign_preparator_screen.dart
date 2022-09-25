@@ -219,6 +219,8 @@ class AssignPreperatorScreen extends StatelessWidget {
                                                           itemCount: perperatorController.preparatorsList.length,
                                                           itemBuilder: (BuildContext context, int index) {
                                                             return WorkerWidget(
+                                                  imageUrl: perperatorController.preparatorsList[index].imagePorofile ?? 'assets/images/worker1.png',
+
                                                                 workerName: perperatorController.preparatorsList[index].name!,
                                                                 workerDepartment: 'قسم التحضير',
                                                                 onPressed: () {

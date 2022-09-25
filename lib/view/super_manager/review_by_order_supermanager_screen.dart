@@ -4,12 +4,10 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:wits_app/controller/general_manager/add_review_by_order_controller.dart';
-import 'package:wits_app/controller/general_manager/review_by_department_controller.dart';
 
 import 'package:wits_app/controller/order_details_controller.dart';
 import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/helper/utils.dart';
-import 'package:wits_app/view/common_wigets/RoleWidget.dart';
 import 'package:wits_app/view/common_wigets/dilog_custom.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 
@@ -27,9 +25,9 @@ import '../../helper/enums.dart';
 import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
 
-class ReviewByDepartmentScreen extends StatelessWidget {
-  final ReviewByDepartmentController reviewByDepartmentController = Get.put<ReviewByDepartmentController>(
-    ReviewByDepartmentController(),
+class ReviewByOrderSupermanagerScreen extends StatelessWidget {
+  final ReviewByOrderController reviewByOrderController = Get.put<ReviewByOrderController>(
+    ReviewByOrderController(),
   );
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -57,23 +55,23 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                     HeaderWidget(
                       width: width,
                       employeeName: "اسم الموظف",
-                      title: "المدير العام",
+                      title: "مسؤول التحكم",
                       scaffoldKey: scaffoldKey,
                     ),
-                    TitleWidget(tilte: 'أضف ملاحظة'),
+                    TitleWidget(tilte: 'إضافة ملاحظة'),
                     Expanded(
                       child: SizedBox(
                         width: width,
                         child: SingleChildScrollView(
                           child: Obx(() {
-                            if (reviewByDepartmentController.status!.value == Status.LOADING)
+                            if (reviewByOrderController.status!.value == Status.LOADING)
                               return SizedBox(
                                 height: height / 1.5,
                                 child: Center(
                                   child: CircularProgressIndicator(),
                                 ),
                               );
-                            else if (reviewByDepartmentController.status!.value == Status.ERROR)
+                            else if (reviewByOrderController.status!.value == Status.ERROR)
                               return SizedBox(
                                 height: height / 1.5,
                                 child: Center(
@@ -83,112 +81,44 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                             else
                               return Column(
                                 children: [
-                                  MainButton(
-                                    text: 'اختر القسم',
-                                    width: 295.w,
-                                    height: 50.h,
-                                    onPressed: () async {
-                                      FocusScope.of(context).requestFocus(FocusNode());
-
-                                      //  reviewByDepartmentController.getOrderId(reviewByDepartmentController.invoiceNumberController.value.text);
-
-                                      //    await reviewByDepartmentController.getDepartments();
-
-                                      //    await driversController.getDrivers();
-                                      showDialogCustom(
-                                        height: height,
-                                        width: width,
-                                        context: context,
-                                        padding: EdgeInsets.zero,
-                                        dialogContent: StatefulBuilder(
-                                          builder: (context, setState) {
-                                            return Container(
-                                              color: AppColors.white,
-                                              height: height,
-                                              width: width,
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.center,
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  Padding(
-                                                    padding: EdgeInsets.symmetric(
-                                                      horizontal: 15.w,
-                                                      vertical: 15.h,
-                                                    ),
-                                                    child: Row(
-                                                      mainAxisAlignment: MainAxisAlignment.end,
-                                                      children: [
-                                                        InkWell(
-                                                          onTap: () {
-                                                            Get.back();
-                                                          },
-                                                          child: SvgPicture.asset(
-                                                            'assets/icons/Icon Close Light-1.svg',
-                                                            width: 16.w,
-                                                            height: 16.w,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    'اختر قسم',
-                                                    style: TextStyle(
-                                                      fontSize: 30.sp,
-                                                      fontWeight: FontWeight.bold,
-                                                      color: AppColors.textColorXDarkBlue,
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: EdgeInsets.only(bottom: 6.h),
-                                                    child: Divider(
-                                                      color: AppColors.textColorXDarkBlue,
-                                                      indent: width / 2.3,
-                                                      endIndent: width / 2.3,
-                                                      thickness: 1,
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    //   padding: EdgeInsets.symmetric(vertical: 5.),
-                                                    height: height / 1.3,
-                                                    width: width,
-                                                    child: ListView.builder(
-                                                        itemCount: reviewByDepartmentController.rolesList.length,
-                                                        itemBuilder: (BuildContext context, int index) {
-                                                          return RoleWidget(
-                                                            roleName: reviewByDepartmentController.rolesList[index].role,
-                                                            onTap: () {
-                                                              reviewByDepartmentController.roleId = reviewByDepartmentController.rolesList[index].id;
-                                                              Get.back();
-                                                            },
-                                                          );
-                                                        }),
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          },
+                                  Directionality(
+                                    textDirection: TextDirection.rtl,
+                                    child: Container(
+                                      height: 50.h,
+                                      width: 295.w,
+                                      child: TextFieldSearch(
+                                        textStyle: TextStyle(
+                                          color: AppColors.black.withOpacity(.70),
+                                          fontSize: 13.sp,
                                         ),
-                                      );
-                                    },
+                                        decoration: enabledK('اختر رقم الفاتورة'),
+                                        // getSelectedValue: (b){print(b);},
+
+                                        initialList: reviewByOrderController.ordersList.map((order) => order.invoiceNumber).toList(),
+                                        label: reviewByOrderController.ordersList.isNotEmpty ? reviewByOrderController.ordersList.first.invoiceNumber! : ' ',
+                                        controller: reviewByOrderController.invoiceNumberController.value,
+                                      ),
+                                    ),
                                   ),
                                   SizedBox(
-                                    height: 20.h,
+                                    height: 12.h,
                                   ),
                                   MainButtonWithIcon(
                                     icon: Icons.person,
-                                    loadingLocation: reviewByDepartmentController.employeesSpinner.value,
+                                    loadingLocation: reviewByOrderController.employeesSpinner.value,
                                     text: 'اختر موظف',
                                     width: 295.w,
                                     height: 50.h,
                                     onPressed: () async {
                                       FocusScope.of(context).requestFocus(FocusNode());
-                                      if (reviewByDepartmentController.roleId == null) {
-                                        Utils.showGetXToast(title: 'تنبيه', message: 'يرجى اختيار القسم', toastColor: AppColors.red);
+                                      if (reviewByOrderController.invoiceNumberController.value.text.isEmpty) {
+                                        Utils.showGetXToast(title: 'تنبيه', message: 'يرجى اختيار رقم الفاتورة', toastColor: AppColors.red);
                                         return;
                                       }
 
-                                      await reviewByDepartmentController.getEmployeesByDepartment();
+                                      reviewByOrderController.getOrderId(reviewByOrderController.invoiceNumberController.value.text);
+
+                                      await reviewByOrderController.getEmployeesByOrder();
 
                                       //    await driversController.getDrivers();
                                       showDialogCustom(
@@ -249,17 +179,17 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                                                     height: height / 1.3,
                                                     width: width,
                                                     child: ListView.builder(
-                                                        itemCount: reviewByDepartmentController.employeeList.length,
+                                                        itemCount: reviewByOrderController.employeeList.length,
                                                         itemBuilder: (BuildContext context, int index) {
                                                           return WorkerWidget(
-                                                  imageUrl: reviewByDepartmentController.employeeList[index].imagePorofile ?? 'assets/images/worker1.png',
+                                                                                                              imageUrl: reviewByOrderController.employeeList[index].imagePorofile ?? 'assets/images/worker1.png',
 
-                                                              workerName: reviewByDepartmentController.employeeList[index].name!,
+                                                              workerName: reviewByOrderController.employeeList[index].name!,
                                                               workerDepartment: '',
                                                               onPressed: () {
-                                                                reviewByDepartmentController.employeeId = reviewByDepartmentController.employeeList[index].id;
+                                                                reviewByOrderController.employeeId = reviewByOrderController.employeeList[index].id;
                                                                 //  SalesMangerRootScreen.salesmanId = driversController.driversList[index].id;
-                                                                print(reviewByDepartmentController.employeeId);
+                                                                print(reviewByOrderController.employeeId);
                                                                 Get.back();
                                                                 // Get.toNamed(
                                                                 //     '/send_order_to_sales_employee');
@@ -282,7 +212,7 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                                   TextFieldTall(
                                     hint: 'أضف الملاحظة',
                                     onChanged: (val) {},
-                                    textEditingController: reviewByDepartmentController.reviewController.value,
+                                    textEditingController: reviewByOrderController.reviewController.value,
                                   ),
                                   SizedBox(
                                     height: 90.h,
@@ -293,8 +223,8 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                                       height: 50.h,
                                       onPressed: () async {
                                         FocusScope.of(context).requestFocus(FocusNode());
-                                        if (reviewByDepartmentController.validate()) {
-                                          var addReturnsStatus = await reviewByDepartmentController.addReview();
+                                        if (reviewByOrderController.validate()) {
+                                          var addReturnsStatus = await reviewByOrderController.addReview();
                                           if (addReturnsStatus == '200')
                                             showDialogCustom(
                                               height: height,
@@ -303,7 +233,7 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                                               padding: EdgeInsets.zero,
                                               dialogContent: DialogContentThanks(
                                                 onTap: () {
-                                                  Get.offAllNamed('/general-manager-root-screen');
+                                                  Get.offAllNamed('/choose-warehouse-screen');
                                                 },
                                               ),
                                             );

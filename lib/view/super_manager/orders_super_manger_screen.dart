@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:wits_app/controller/orders_controller.dart';
+import 'package:wits_app/controller/super_manager/get_orders_supermanager_controlller.dart';
 import 'package:wits_app/view/common_wigets/bottom_nav_bar.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 import 'package:wits_app/view/common_wigets/header_widget.dart';
@@ -15,12 +16,11 @@ import '../../../../controller/global_controller.dart';
 import '../../../../helper/enums.dart';
 import '../../../../helper/utils.dart';
 
-class OrdersQualitySupervisorScreent extends StatelessWidget {
+class SuperManagerOrdersScreen extends StatelessWidget {
   final GlobalController globalController = Get.find<GlobalController>();
-  final put = Get.put<OrdersController>(
-    OrdersController(),
+  final ordersController = Get.put<GetOrdersSuperManagerController>(
+    GetOrdersSuperManagerController(),
   );
-  final OrdersController ordersController = Get.find<OrdersController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -51,7 +51,7 @@ class OrdersQualitySupervisorScreent extends StatelessWidget {
                       HeaderWidget(
                         width: width,
                         employeeName: "اسم الموظف",
-                        title: "مراقب الجودة",
+                        title: "مسؤول التحكم",
                         scaffoldKey: scaffoldKey,
                       ),
                       SizedBox(
@@ -83,20 +83,34 @@ class OrdersQualitySupervisorScreent extends StatelessWidget {
                                       return OrderWidget(
                                           onTap: () {
                                             OrdersRootScreen.orderId = ordersController.ordersList[i].id;
-                                            if (Get.arguments['api'] == "/get-stamped-orders")
-                                              Get.toNamed(
-                                                '/check-order-screen',
-                                                arguments: {
-                                                  "order_id": ordersController.ordersList[i].id.toString(),
-                                                },
-                                              );
-                                            else if (Get.arguments['api'] == "/get-orders")
+                                            if (Get.arguments['api'] == "/get-orders")
                                               Get.toNamed(
                                                 '/Order-details-movament-manger-screen',
                                                 arguments: {
                                                   "order_id": ordersController.ordersList[i].id.toString(),
                                                 },
                                               );
+
+                                            // OrdersRootScreen.orderId = ordersController.ordersList[i].id;
+                                            // switch (ordersController.ordersList[i].status!.status) {
+                                            //   case 'استلام طلب جديد':
+                                            //     {
+                                            //       if (ordersController.ordersList[i].isPrinted == 1)
+                                            //         Get.toNamed('/order-details-screen');
+                                            //       else
+                                            //         Get.toNamed('/print-order-movament-manger-screen');
+                                            //       break;
+                                            //     }
+                                            //   case 'تم التحضير':
+                                            //     {
+                                            //       OrdersRootScreen.orderId = ordersController.ordersList[i].id;
+                                            //       Get.toNamed('/Order-details-movament-manger-screen');
+                                            //       break;
+                                            //     }
+                                            //   default:
+                                            //     Get.toNamed('order-details-screen');
+                                            //     break;
+                                            // }
                                           },
                                           title: ordersController.ordersList[i].name ?? 'null',
                                           clientNumber: ordersController.ordersList[i].invoiceNumber!.toString(),

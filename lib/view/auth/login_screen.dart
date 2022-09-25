@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:wits_app/controller/login_screen_controller.dart';
 import 'package:wits_app/helper/app_colors.dart';
+import 'package:wits_app/helper/utils.dart';
 import '../common_wigets/main_button.dart';
 import '../common_wigets/textfield_custom.dart';
 
@@ -50,25 +51,9 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 10.h + MediaQuery.of(context).padding.top,
+                        height: MediaQuery.of(context).padding.top,
                       ),
-                      Text(
-                        'سند',
-                        style: TextStyle(color: AppColors.white, fontSize: 72.sp, fontWeight: FontWeight.bold, letterSpacing: 2, height: 1),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 32.h),
-                        child: Text(
-                          'تطبيق تتبع طلبات المستودعات من WITS',
-                          textDirection: TextDirection.rtl,
-                          style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                            // letterSpacing: 2.2,
-                          ),
-                        ),
-                      ),
+                      Utils.buildImage(url: 'assets/icons/header_logo.svg', height: 140.h)
                     ],
                   ),
                 ),

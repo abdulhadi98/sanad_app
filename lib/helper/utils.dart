@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
@@ -17,7 +18,7 @@ import 'dart:ui' as ui;
 import 'app_colors.dart';
 
 class Utils {
-  static Widget buildImage({required String? url, double? width, double? height, BoxFit fit = BoxFit.contain}) {
+  static Widget buildImage({required String? url, double? width, double? height, BoxFit fit = BoxFit.contain, Color? color}) {
     Widget assetImage(
       resPath,
     ) {
@@ -34,7 +35,14 @@ class Utils {
         'assets/images/placeholder.jpg',
       );
     }
-
+    if (url.endsWith("svg")) {
+      return SvgPicture.asset(
+        url,
+        color: color ?? Colors.white,
+        height: height,
+        width: width,
+      );
+    }
     if (url.startsWith("http")) {
       return FadeInImage.assetNetwork(
         imageErrorBuilder: (context, error, stackTrace) => assetImage(
@@ -48,6 +56,21 @@ class Utils {
       );
     } else {
       return assetImage(url);
+    }
+  }
+
+  static getDelegationCreator(creatorId) {
+    switch (creatorId) {
+      case '6':
+        return 'مدير المبيعات';
+      case '21':
+        return 'المدير العام';
+      case '23':
+        return 'مسؤول التحكم';
+      case '8':
+        return 'مندوب المبيعات';
+
+      default:
     }
   }
 
@@ -99,7 +122,7 @@ class Utils {
         return '/driver-root-screen';
 
       case 3:
-        return '/salesman-root-screen';
+        return '/salesman-root-screen-new';
 
       case 4:
         return '/sales-employee-root-screen';

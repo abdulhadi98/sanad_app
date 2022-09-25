@@ -99,7 +99,7 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                                             color: AppColors.black.withOpacity(.70),
                                             fontSize: 13.sp,
                                           ),
-                                                   decoration: enabledK('رقم العميل'),
+                                          decoration: enabledK('رقم العميل'),
                                           // getSelectedValue: (b){print(b);},
                                           initialList: addDelegationSalesMangerController.clientsList.map((client) => client.clientNumber).toList(),
                                           label: addDelegationSalesMangerController.clientsList.isNotEmpty ? addDelegationSalesMangerController.clientsList.first.clientNumber! : ' ',
@@ -114,7 +114,6 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                                       //    enabled: false,
                                       height: 158.h,
                                       textEditingController: addDelegationSalesMangerController.detailsController.value,
-
                                       hint: 'تفاصيل إضافية',
                                       onChanged: (val) {},
                                     ),
@@ -127,7 +126,7 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                                       width: 178.w,
                                       height: 50.h,
                                       onPressed: () async {
-                                          FocusScope.of(context).requestFocus(FocusNode());
+                                        FocusScope.of(context).requestFocus(FocusNode());
 
                                         // addNewOrderScreenController
                                         if (addDelegationSalesMangerController.validateInputs()) {
@@ -140,14 +139,13 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                                             padding: EdgeInsets.zero,
                                             dialogContent: DialogContentAreYouSure(
                                               onYes: () async {
-                                                
                                                 FocusScope.of(context).requestFocus(FocusNode());
                                                 addDelegationSalesMangerController.setDelegationManger(
                                                   Get.arguments['sales_employee_id'],
                                                 );
                                                 // addDelegationController
                                                 //         .setDelegationInfo()
-                                                dynamic status = await addDelegationSalesMangerController.addDelegationManger();
+                                                dynamic status = await addDelegationSalesMangerController.addDelegationSuperManger();
                                                 if (status == '200')
                                                   showDialogCustom(
                                                       height: height,

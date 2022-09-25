@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
+import 'package:wits_app/controller/sales/sales_employee_controller.dart';
+import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 import 'package:wits_app/view/common_wigets/main_button.dart';
+import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/worker_widget.dart';
+import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 
 import '../common_wigets/bottom_nav_bar.dart';
+import '../common_wigets/dilog_custom.dart';
 import '../common_wigets/header_widget.dart';
 
-class QualitySupervisorRootScreen extends StatelessWidget {
+class ChooseReviewTypeSupermanagerScreen extends StatelessWidget {
+  //final GlobalController globalController = Get.find<GlobalController>();
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -39,61 +46,33 @@ class QualitySupervisorRootScreen extends StatelessWidget {
                         scaffoldKey: scaffoldKey,
                         width: width,
                         employeeName: 'اسم الموظف',
-                        title: 'مراقب الجودة',
+                        title: 'مسؤول التحكم',
                       ),
                       SizedBox(
                         height: 49.h,
                       ),
-                      // MainButton(
-                      //   text: 'استلام المرتجعات',
-                      //   width: 224.w,
-                      //   height: 50.h,
-                      //   onPressed: () {
-                      //     Get.toNamed(
-                      //       '/orders-screen-warehouse-manger',
-                      //       arguments: {
-                      //         "api": "/get-returns",
-                      //       },
-                      //     );
-                      //   },
-                      // ),
-                      // SizedBox(
-                      //   height: 30.h,
-                      // ),
-
                       MainButton(
-                        text: 'طلبيات جديدة',
-                        width: 224.w,
-                        height: 50.h,
-                        onPressed: () {
-                          Get.toNamed(
-                            '/orders-quality-supervisor-screen',
-                            arguments: {
-                              "api": "/get-stamped-orders",
-                            },
-                          );
-                        },
-                      ),
+                          text: 'تقييم موظف',
+                          width: 224.w,
+                          height: 50.h,
+                          onPressed: () {
+                            Get.toNamed('/review-by-department-supermanager-screen');
+                          }),
                       SizedBox(
                         height: 30.h,
                       ),
                       MainButton(
-                        text: 'طلبيات قيد التنفيذ',
+                        text: 'تقييم حسب طلبية معينة',
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
-                          Get.toNamed(
-                            '/orders-quality-supervisor-screen',
-                            arguments: {
-                              "api": "/get-orders",
-                            },
-                          );
+                          Get.toNamed('/review-by-order-supermanager-screen');
                         },
                       ),
                     ],
                   ),
                 ),
-                buildBottomNavBar(width, height, false, () {}),
+                buildBottomNavBar(width, height, true, () {}),
               ],
             ),
           ),

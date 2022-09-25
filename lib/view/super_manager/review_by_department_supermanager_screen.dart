@@ -27,7 +27,7 @@ import '../../helper/enums.dart';
 import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
 
-class ReviewByDepartmentScreen extends StatelessWidget {
+class ReviewByDepartmentSuperManagerScreen extends StatelessWidget {
   final ReviewByDepartmentController reviewByDepartmentController = Get.put<ReviewByDepartmentController>(
     ReviewByDepartmentController(),
   );
@@ -57,7 +57,7 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                     HeaderWidget(
                       width: width,
                       employeeName: "اسم الموظف",
-                      title: "المدير العام",
+                      title: "مسؤول التحكم",
                       scaffoldKey: scaffoldKey,
                     ),
                     TitleWidget(tilte: 'أضف ملاحظة'),
@@ -252,8 +252,7 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                                                         itemCount: reviewByDepartmentController.employeeList.length,
                                                         itemBuilder: (BuildContext context, int index) {
                                                           return WorkerWidget(
-                                                  imageUrl: reviewByDepartmentController.employeeList[index].imagePorofile ?? 'assets/images/worker1.png',
-
+                                                              imageUrl: reviewByDepartmentController.employeeList[index].imagePorofile ?? 'assets/images/worker1.png',
                                                               workerName: reviewByDepartmentController.employeeList[index].name!,
                                                               workerDepartment: '',
                                                               onPressed: () {
@@ -303,13 +302,11 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                                               padding: EdgeInsets.zero,
                                               dialogContent: DialogContentThanks(
                                                 onTap: () {
-                                                  Get.offAllNamed('/general-manager-root-screen');
+                                                  Get.offAllNamed('/choose-warehouse-screen');
                                                 },
                                               ),
                                             );
-                                          // }
-
-                                        }
+                                         }
                                       }),
                                 ],
                               );
