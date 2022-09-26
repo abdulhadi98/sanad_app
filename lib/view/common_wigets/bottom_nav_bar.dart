@@ -32,10 +32,19 @@ Widget buildBottomNavBar(
                   child: ClipOval(
                     child: InkWell(
                       onTap: () {
-                        // Get.toNamed(
-                        //   '/add-new-order-screen',
-                        //   arguments: {'role_name': sharedPreferences!.getInt('role') == 4 ? "موظف قسم المبيعات" : "مدير قسم المبيعات"},
-                        // );
+                        if (sharedPreferences!.getInt('role') == 13)
+                          Get.toNamed('/add-new-order-super-manager-screen');
+                        else
+                          Get.toNamed(
+                            '/add-new-order-screen',
+                            arguments: {
+                              'role_name': sharedPreferences!.getInt('role') == 4
+                                  ? "موظف قسم المبيعات"
+                                  : sharedPreferences!.getInt('role') == 11
+                                      ? "المدير العام"
+                                      : "مدير قسم المبيعات"
+                            },
+                          );
                         print('asdasdasd');
                       },
                       child: Container(
@@ -73,11 +82,22 @@ Widget buildBottomNavBar(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 72.w),
                   child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                    if (!isAddAvalible)
+                      buildBottomNavBarItem(false, 'assets/icons/Icon Back Light.svg', 'رجوع', () {
+                        print(Get.currentRoute);
+                        String route = Utils.getRouteFromRole();
+                        if (Get.currentRoute != route) Get.back();
+                      }),
                     buildBottomNavBarItem(
                       false,
                       'assets/icons/Icon Home Active.svg',
                       'الرئيسية',
-                      () {},
+                      () {
+                        print('sds');
+                        print(Get.currentRoute);
+                        String route = Utils.getRouteFromRole();
+                        if (Get.currentRoute != route) Get.offAllNamed(route);
+                      },
                     ),
                     buildBottomNavBarItem(false, 'assets/icons/Icon Search Dark.svg', 'بحث', () {}),
                   ]),
@@ -91,10 +111,7 @@ Widget buildBottomNavBar(
 
 Widget buildBottomNavBarItem(isSelected, image, text, onTap, {size}) {
   return GestureDetector(
-    onTap: () {
-      String route = Utils.getRouteFromRole();
-      if (Get.currentRoute != route) Get.offAllNamed(route);
-    },
+    onTap: onTap,
     child: Container(
       height: 70.h,
       child: Column(

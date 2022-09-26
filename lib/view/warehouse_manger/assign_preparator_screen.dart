@@ -15,6 +15,7 @@ import 'package:wits_app/view/common_wigets/drawer.dart';
 
 import 'package:wits_app/view/common_wigets/main_button.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
+import 'package:wits_app/view/common_wigets/title_widget.dart';
 import 'package:wits_app/view/common_wigets/worker_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/worker_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
@@ -67,7 +68,7 @@ class AssignPreperatorScreen extends StatelessWidget {
                       title: "مدير المستودع",
                       scaffoldKey: scaffoldKey,
                     ),
-                    //      TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
+                    TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
                     Expanded(
                       child: SizedBox(
                         width: width,
@@ -219,8 +220,7 @@ class AssignPreperatorScreen extends StatelessWidget {
                                                           itemCount: perperatorController.preparatorsList.length,
                                                           itemBuilder: (BuildContext context, int index) {
                                                             return WorkerWidget(
-                                                  imageUrl: perperatorController.preparatorsList[index].imagePorofile ?? 'assets/images/worker1.png',
-
+                                                                imageUrl: perperatorController.preparatorsList[index].imagePorofile ?? 'assets/images/worker1.png',
                                                                 workerName: perperatorController.preparatorsList[index].name!,
                                                                 workerDepartment: 'قسم التحضير',
                                                                 onPressed: () {
@@ -256,7 +256,7 @@ class AssignPreperatorScreen extends StatelessWidget {
                                       height: 50.h,
                                       onPressed: () async {
                                         if (perperatorController.preparatorId == null)
-                                          Utils.showGetXToast(title: 'تنبيه', message: 'يرجى تعيين عامل تحضير', toastColor: AppColors.red);
+                                          Utils.showGetXToast(title: 'تنبيه', message: 'يرجى تعيين عامل تحضير', toastColor: AppColors.red); //TODO are you sure and thanks dialog
                                         else
                                           await perperatorController.assignPerperator();
                                       },

@@ -55,7 +55,7 @@ class AddNewOrderSuperManagerScreen extends StatelessWidget {
                         HeaderWidget(
                           width: width,
                           employeeName: "اسم الموظف",
-                          title: Get.arguments['role_name'],
+                          title: 'مسؤول التحكم',
                           scaffoldKey: scaffoldKey,
                         ),
                         Obx(() {

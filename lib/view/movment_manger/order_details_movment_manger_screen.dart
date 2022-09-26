@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,20 +10,15 @@ import 'package:wits_app/controller/movment_manger/assign_driver_controller.dart
 import 'package:wits_app/controller/order_details_controller.dart';
 import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/helper/utils.dart';
-import 'package:wits_app/main.dart';
 import 'package:wits_app/model/order_details_model.dart';
 import 'package:wits_app/view/common_wigets/dilog_custom.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 
 import 'package:wits_app/view/common_wigets/main_button.dart';
-import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
-import 'package:wits_app/view/common_wigets/title_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/worker_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
-
 import '../../../../controller/global_controller.dart';
-import '../../../../controller/sales/add_new_order_screen_controller.dart';
 import '../../helper/enums.dart';
 import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
@@ -71,7 +64,7 @@ class OrderDetailsMovmentMangerScreen extends StatelessWidget {
                     HeaderWidget(
                       width: width,
                       employeeName: "اسم الموظف",
-                      title: "مدير قسم المبيعات",
+                      title: "",
                       scaffoldKey: scaffoldKey,
                     ),
                     //      TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
@@ -97,89 +90,72 @@ class OrderDetailsMovmentMangerScreen extends StatelessWidget {
                             else
                               return Column(
                                 children: [
-                                  MaterialButton(
-                                    onPressed: () async {
-                                      await initializeDateFormatting("ar_SA", '');
-                                      var now = orderDetailsController.orderDetailsModel!.processes!.first.createdAt;
-                                      //    print(Utils.convertToArabicNumber(now!.hour.toString()));
-                                      var formatter = DateFormat.yMMMMd('ar_SA');
-                                      var formatterTime = DateFormat.HOUR24_MINUTE_SECOND;
-                                      //print(formatter.locale);
-                                      String formatted = formatter.format(now!);
-                                      // print(formatted);
-
-                                      //        print(now.toLocal());
-
-                                      var d = DateFormat('hh:mm a').format(now);
-                                      //  print(d);
-
-                                      var x = Utils.formatProcessTime(now);
-                                    },
-                                    child: Text('adsa'),
-                                    color: Colors.blue,
+                                  OrderStatusWidget(
+                                    color: orderDetailsController.orderDetailsModel!.statusColor!,
+                                    statusName: orderDetailsController.orderDetailsModel!.statusName!,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 18.0.h),
-                                    child: Row(
-                                      textDirection: ui.TextDirection.rtl,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          ":حالة الطلبية",
-                                          style: TextStyle(color: AppColors.textColorXDarkBlue, fontSize: 15.sp, fontWeight: FontWeight.bold, fontFamily: ('Bahij')),
-                                        ),
-                                        SizedBox(
-                                          width: 40.w,
-                                        ),
-                                        Container(
-                                            alignment: Alignment.center,
-                                            width: 174.w,
-                                            height: 29.h,
-                                            decoration: BoxDecoration(
-                                              color: Color(int.parse(orderDetailsController.orderDetailsModel!.statusColor!)),
-                                              borderRadius: BorderRadius.circular(8.r),
+                                  Container(
+                                    //  color: Colors.red,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(right: 40.0.w),
+                                      child: Row(
+                                        textDirection: ui.TextDirection.rtl,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(top: 15.0.h),
+                                            child: StepsIndicator(
+                                              selectedStep: orderDetailsController.orderDetailsModel!.statusId! == 8 || orderDetailsController.orderDetailsModel!.statusId! == 5
+                                                  ? 4
+                                                  : orderDetailsController.orderDetailsModel!.statusId! - 1,
+                                              nbSteps: 6,
+                                              doneLineColor: Colors.green, //line
+                                              doneStepColor: Colors.green,
+                                              undoneLineColor: Color(0xFFE5E5E5), //line
+                                              selectedStepColorIn: Colors.orange,
+
+                                              selectedStepColorOut: Color(0xFFE5E5E5),
+                                              unselectedStepColorIn: Colors.transparent,
+                                              unselectedStepColorOut: Color(0xFFE5E5E5),
+
+                                              //  undoneLineThickness: .5,
+                                              isHorizontal: false,
+                                              lineLength: 32.h,
+                                              lineLengthCustomStep: [
+                                                StepsIndicatorCustomLine(
+                                                  nbStep: 1,
+                                                  length: 40,
+                                                )
+                                              ],
+                                              enableLineAnimation: true,
+                                              enableStepAnimation: true,
                                             ),
-                                            child: Text(
-                                              orderDetailsController.orderDetailsModel!.statusName!,
-                                              style: TextStyle(
-                                                color: AppColors.white,
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                            )),
-                                      ],
+                                          ),
+                                          SizedBox(height: 270.h, width: 100.w, child: Processes(processesList: orderDetailsController.orderDetailsModel!.processes!)),
+                                          Container(
+                                            // color: Colors.red,
+                                            child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: List<Widget>.from(orderDetailsController.processesNamesList.map(
+                                                  (e) => Padding(
+                                                    padding: EdgeInsets.only(bottom: 15.0.h, left: 12.w, top: 8.h),
+                                                    child: Text(
+                                                      e, //TODO
+                                                      textAlign: TextAlign.start,
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      style: TextStyle(color: AppColors.textColorXDarkBlue, fontSize: 14.sp, fontWeight: FontWeight.w200),
+                                                    ),
+                                                  ),
+                                                ))),
+                                          ),
+                                          DetailsButtons(orderDetailsController.orderDetailsModel!.statusId!)
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                  Row(
-                                    textDirection: ui.TextDirection.rtl,
-                                    children: [
-                                      StepsIndicator(
-                                        selectedStep: orderDetailsController.orderDetailsModel!.statusId! == 8 || orderDetailsController.orderDetailsModel!.statusId! == 5
-                                            ? 4
-                                            : orderDetailsController.orderDetailsModel!.statusId! - 1,
-                                        nbSteps: 7,
-                                        doneLineColor: Colors.green, //line
-                                        doneStepColor: Colors.green,
-                                        undoneLineColor: Color(0xFFE5E5E5), //line
-                                        selectedStepColorIn: Colors.orange,
-                                        selectedStepColorOut: Color(0xFFE5E5E5),
-                                        unselectedStepColorIn: Colors.transparent,
-                                        unselectedStepColorOut: Color(0xFFE5E5E5),
-
-                                        //  undoneLineThickness: .5,
-                                        isHorizontal: false,
-                                        lineLength: 20,
-                                        lineLengthCustomStep: [
-                                          StepsIndicatorCustomLine(
-                                            nbStep: 1,
-                                            length: 40,
-                                          )
-                                        ],
-                                        enableLineAnimation: true,
-                                        enableStepAnimation: true,
-                                      ),
-                                      SizedBox(height: 310.h, width: width / 1.5, child: Processes(processesList: orderDetailsController.orderDetailsModel!.processes!)),
-                                    ],
+                                  SizedBox(
+                                    height: 15.h,
                                   ),
                                   TextFieldCustom(
                                     enabled: false,
@@ -229,120 +205,24 @@ class OrderDetailsMovmentMangerScreen extends StatelessWidget {
                                   SizedBox(
                                     height: 12.h,
                                   ),
-                                  TextFieldCustom(
-                                    enabled: false,
-                                    textEditingController: orderDetailsController.boxNumberController.value,
-                                    hint: "عدد الصناديق",
-                                    onChanged: (val) {},
-                                  ),
+                                  if (orderDetailsController.boxNumberController.value.text != 'null')
+                                    TextFieldCustom(
+                                      enabled: false,
+                                      textEditingController: orderDetailsController.boxNumberController.value,
+                                      hint: "عدد الصناديق",
+                                      onChanged: (val) {},
+                                    ),
                                   SizedBox(
                                     height: 30.h,
                                   ),
                                   Padding(
-                                    padding: EdgeInsets.only(bottom: 20.h),
-                                    child: MainButton(
-                                      text: 'تعيين السائق',
-                                      width: 178.w,
-                                      height: 50.h,
-                                      onPressed: () async {
-                                        await driversController.getDrivers();
-                                        showDialogCustom(
-                                          height: height,
-                                          width: width,
-                                          context: context,
-                                          padding: EdgeInsets.zero,
-                                          dialogContent: StatefulBuilder(
-                                            builder: (context, setState) {
-                                              return Container(
-                                                color: AppColors.white,
-                                                height: height,
-                                                width: width,
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    Padding(
-                                                      padding: EdgeInsets.symmetric(
-                                                        horizontal: 15.w,
-                                                        vertical: 15.h,
-                                                      ),
-                                                      child: Row(
-                                                        mainAxisAlignment: MainAxisAlignment.end,
-                                                        children: [
-                                                          InkWell(
-                                                            onTap: () {
-                                                              Get.back();
-                                                            },
-                                                            child: SvgPicture.asset(
-                                                              'assets/icons/Icon Close Light-1.svg',
-                                                              width: 16.w,
-                                                              height: 16.w,
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      'تعيين موظف المبيعات',
-                                                      style: TextStyle(
-                                                        fontSize: 30.sp,
-                                                        fontWeight: FontWeight.bold,
-                                                        color: AppColors.textColorXDarkBlue,
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsets.only(bottom: 6.h),
-                                                      child: Divider(
-                                                        color: AppColors.textColorXDarkBlue,
-                                                        indent: width / 2.3,
-                                                        endIndent: width / 2.3,
-                                                        thickness: 1,
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      //   padding: EdgeInsets.symmetric(vertical: 5.),
-                                                      height: height / 1.3,
-                                                      width: width,
-                                                      child: ListView.builder(
-                                                          itemCount: driversController.driversList.length,
-                                                          itemBuilder: (BuildContext context, int index) {
-                                                            return WorkerWidget(
-                                                  imageUrl:driversController.driversList[index].imagePorofile ?? 'assets/images/worker1.png',
-
-                                                                workerName: driversController.driversList[index].name!,
-                                                                workerDepartment: 'قسم المبيعات',
-                                                                onPressed: () {
-                                                                  driversController.driverId = driversController.driversList[index].id;
-                                                                  //  SalesMangerRootScreen.salesmanId = driversController.driversList[index].id;
-                                                                  print(driversController.driverId);
-                                                                  Get.back();
-                                                                  // Get.toNamed(
-                                                                  //     '/send_order_to_sales_employee');
-                                                                  // Get.toNamed(
-                                                                  //     '/order-details-screen');
-                                                                });
-                                                          }),
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  Padding(
                                     padding: EdgeInsets.only(bottom: 30.h),
                                     child: MainButton(
-                                      text: 'إرسال',
+                                      text: 'عودة',
                                       width: 178.w,
                                       height: 50.h,
                                       onPressed: () async {
-                                        if (driversController.driverId == null)
-                                          Utils.showGetXToast(title: 'تنبيه', message: 'يرجى تعيين سائق', toastColor: AppColors.red);
-                                        else
-                                          await driversController.assignDriver();
+                                        Get.back();
                                       },
                                     ),
                                   ),
@@ -377,6 +257,84 @@ class OrderDetailsMovmentMangerScreen extends StatelessWidget {
       ),
     );
   }
+
+  Column DetailsButtons(int statusId) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 4.h,
+        ),
+        DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: statusId > 0),
+        SizedBox(
+          height: 15.h,
+        ),
+        DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: statusId > 1),
+        SizedBox(
+          height: 15.h,
+        ),
+        DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: statusId > 2),
+        SizedBox(
+          height: 15.h,
+        ),
+        DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: statusId > 3),
+        SizedBox(
+          height: 15.h,
+        ),
+        DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: (statusId > 4 || statusId == 8)),
+        SizedBox(
+          height: 15.h,
+        ),
+        DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: (statusId > 5 && statusId != 8)),
+      ],
+    );
+  }
+}
+
+class OrderStatusWidget extends StatelessWidget {
+  const OrderStatusWidget({
+    required this.statusName,
+    required this.color,
+  });
+
+  final String color;
+  final String statusName;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 22.0.h),
+      child: Row(
+        textDirection: ui.TextDirection.rtl,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            ":حالة الطلبية",
+            style: TextStyle(color: AppColors.textColorXDarkBlue, fontSize: 15.sp, fontWeight: FontWeight.bold, fontFamily: ('Bahij')),
+          ),
+          SizedBox(
+            width: 40.w,
+          ),
+          Container(
+              alignment: Alignment.center,
+              width: 174.w,
+              height: 29.h,
+              decoration: BoxDecoration(
+                color: Color(int.parse(color)),
+                borderRadius: BorderRadius.circular(8.r),
+              ),
+              child: Text(
+                statusName,
+                style: TextStyle(
+                  color: AppColors.white,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.normal,
+                ),
+              )),
+        ],
+      ),
+    );
+  }
 }
 
 class Processes extends StatelessWidget {
@@ -385,6 +343,8 @@ class Processes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.zero,
         itemCount: processesList!.length,
         shrinkWrap: true,
         itemBuilder: (builder, index) {
@@ -404,33 +364,95 @@ class ProcessWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      textDirection: ui.TextDirection.rtl,
-      children: [
-        Column(
-          children: [
-            Text(
-              processCreateDate == null ? '' : Utils.formatProcessTime(processCreateDate!),
-              textAlign: TextAlign.start,
-            ),
-            FutureBuilder<String>(
-              future: Utils.formatProcessDate(processCreateDate ?? 'null'), // async work
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                    return Text('Loading....');
-                  default:
-                    if (snapshot.hasError)
-                      return Text('Error');
-                    else
-                      return Text(snapshot.data!);
-                }
-              },
-            )
-          ],
-        ),
-      ],
+    return Padding(
+      padding: EdgeInsets.only(bottom: 10.h),
+      child: Row(
+        textDirection: ui.TextDirection.rtl,
+        children: [
+          SizedBox(
+            width: 15.w,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                //  alignment: Alignment.centerRight,
+                //   width: 100.w,
+                child: Text(
+                  processCreateDate == null ? '' : Utils.formatProcessTime(processCreateDate!),
+                  textAlign: TextAlign.start,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: Color(0xFF798186), fontSize: 10.sp, fontWeight: FontWeight.w200),
+                ),
+              ),
+              FutureBuilder<String>(
+                future: Utils.formatProcessDate(processCreateDate ?? 'null'), // async work
+                builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
+                      return Text('');
+                    default:
+                      if (snapshot.hasError)
+                        return Text('Error');
+                      else
+                        return Text(
+                          snapshot.data!,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(color: Color(0xFF798186), fontSize: 12.sp, fontWeight: FontWeight.w200),
+                        );
+                  }
+                },
+              )
+            ],
+          ),
+          SizedBox(
+            width: 10.w,
+          ),
+        ],
+      ),
     );
+  }
+}
+
+class DetailsButton extends StatelessWidget {
+  final String text;
+  final bool isEnabeld;
+  double? height;
+  final double width;
+  final Color? color;
+  final Function() onPressed;
+  DetailsButton({
+    required this.isEnabeld,
+    Key? key,
+    required this.text,
+    required this.width,
+    required this.height,
+    required this.onPressed,
+    this.color,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return isEnabeld
+        ? SizedBox(
+            width: width,
+            height: height,
+            child: MaterialButton(
+              splashColor: color == null ? AppColors.mainColor2.withOpacity(0.5) : Colors.redAccent[800],
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(7.r),
+              ),
+              color: isEnabeld ? AppColors.mainColor1 : AppColors.gray,
+              child: Text(
+                text,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.sp, letterSpacing: 0),
+              ),
+              textColor: Colors.white,
+              onPressed: onPressed,
+            ),
+          )
+        : SizedBox();
   }
 }

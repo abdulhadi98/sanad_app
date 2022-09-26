@@ -32,8 +32,9 @@ import 'package:wits_app/view/preparation_worker/prepration_done_screen.dart';
 import 'package:wits_app/view/quality_supervisor/check_order_screen.dart';
 import 'package:wits_app/view/quality_supervisor/orders_quality_supervisor_screen.dart';
 import 'package:wits_app/view/quality_supervisor/quality_supervisor_root_screen.dart';
-import 'package:wits_app/view/returns_manger/orders_returns_manger_screen.dart';
+import 'package:wits_app/view/returns_manger/orders_returns_manager_screen.dart';
 import 'package:wits_app/view/returns_manger/recive_returns_screen.dart';
+import 'package:wits_app/view/returns_manger/returns_list_screen.dart';
 import 'package:wits_app/view/returns_manger/returns_manger_root_screen.dart';
 import 'package:wits_app/view/root/choose_role_screen.dart';
 import 'package:wits_app/view/root_screen.dart';
@@ -128,7 +129,6 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/delegations_list_sales_employee_screen', page: () => DelegationsListSalesEmployeeScreen()),
         GetPage(name: '/rejected_delegations_screen', page: () => RejectedDelegationsScreen()),
         GetPage(name: '/rejected-delegation-details-screen', page: () => RejectedDelegationDetailsScreen()),
-        
 
         GetPage(name: '/add-order-from-delegation-sales-employee-screen', page: () => AddOrderFromDelegationSalesEmployeeScreen()),
         GetPage(name: '/submit-order-delegation-sales-employee-screen', page: () => SubmitOrderDelegationSalesEmployeeScreen()),
@@ -171,6 +171,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/orders-screen-returns-manger', page: () => OrdersScreentReturnsManger()),
         GetPage(name: '/recive-returns-screen', page: () => ReciveReturnsScreen()),
         GetPage(name: '/return-manger-root-screen', page: () => ReturnsMangerRootScreen()),
+        GetPage(name: '/all-orders-returns-manager-screen', page: () => OrderAllRetrunsManagerScreen()),
 
         //Driver
         GetPage(name: '/driver-root-screen', page: () => DriverRootScreen()),

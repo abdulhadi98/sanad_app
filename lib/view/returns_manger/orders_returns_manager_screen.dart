@@ -8,12 +8,13 @@ import 'package:wits_app/view/common_wigets/main_button.dart';
 import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
 
-class ReturnsMangerRootScreen extends StatelessWidget {
+class OrderAllRetrunsManagerScreen extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    //
 
     return ScreenUtilInit(
       designSize: const Size(375, 812),
@@ -38,20 +39,37 @@ class ReturnsMangerRootScreen extends StatelessWidget {
                         scaffoldKey: scaffoldKey,
                         width: width,
                         employeeName: 'اسم الموظف',
-                        title: 'مسؤول المرتجعات',
+                        title: 'مدير المرتجعات',
                       ),
                       SizedBox(
                         height: 49.h,
                       ),
+                      // MainButton(
+                      //   text: 'استلام المرتجعات',
+                      //   width: 224.w,
+                      //   height: 50.h,
+                      //   onPressed: () {
+                      //     Get.toNamed(
+                      //       '/orders-screen-warehouse-manger',
+                      //       arguments: {
+                      //         "api": "/get-returns",
+                      //       },
+                      //     );
+                      //   },
+                      // ),
+                      // SizedBox(
+                      //   height: 30.h,
+                      // ),
+
                       MainButton(
-                        text: 'استلام المرتجعات',
+                        text: 'طلبيات جديدة',
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
                           Get.toNamed(
-                            '/orders-screen-returns-manger',
+                            '/orders-quality-supervisor-screen',
                             arguments: {
-                              "api": "/get-returns",
+                              "api": "/get-stamped-orders",
                             },
                           );
                         },
@@ -65,7 +83,7 @@ class ReturnsMangerRootScreen extends StatelessWidget {
                         height: 50.h,
                         onPressed: () {
                           Get.toNamed(
-                            '/all-orders-returns-manager-screen', //here if you go to returns orders screen then all the orders will show in black color because the order will use the returns widget
+                            '/orders-quality-supervisor-screen',
                             arguments: {
                               "api": "/get-orders",
                             },

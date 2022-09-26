@@ -34,6 +34,15 @@ class OrderDetailsController extends GetxController {
     await Utils.formatProcessDate(date!);
   }
 
+  List<Text> statusesNames = [];
+  List<String> processesNamesList = [
+    'استلام طلب جديد',
+    'قيد التحضير',
+    'تم التحضير',
+    'قيد التسليم',
+    'غير مختومة',
+    'تم التسليم',
+  ];
   getOrderById() async {
     setStatus(Status.LOADING);
     print('order_id=${Get.arguments['order_id']}');
@@ -45,6 +54,7 @@ class OrderDetailsController extends GetxController {
       //List<dynamic> data = body['data'];
       var data = body['data'];
       orderDetailsModel = OrderDetailsModel.fromJson(data);
+
       setOrderDetails();
       print(OrderDetailsModel.fromJson(data));
 

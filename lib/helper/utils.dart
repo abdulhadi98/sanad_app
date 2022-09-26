@@ -133,7 +133,25 @@ class Utils {
       case 6:
         return '/movment-manger-root-screen';
       case 7:
+        return '/warehouse-manger-root-screen';
+
+      case 8:
         return '/prepertion-worker-root-screen';
+
+      case 9:
+        return '/incpection-officer-root-screen';
+
+      case 10:
+        return '/quality-supervisor-root-screen';
+
+      case 11:
+        return '/general-manager-root-screen';
+
+      case 13:
+        return '/super-manager-root-screen';
+
+      case 17:
+        return '/return-manger-root-screen';
 
       default:
         'null';
@@ -246,8 +264,8 @@ class Utils {
 
     final arabics = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
 
-    number = number.replaceFirst('PM', 'مساءً');
-    number = number.replaceFirst('AM', 'ًصباحاً');
+    number = number.replaceFirst('PM', 'مساءً ');
+    number = number.replaceFirst('AM', 'صباحاً');
     print(number);
     number.characters.forEach((element) {
       var check = int.tryParse(element);

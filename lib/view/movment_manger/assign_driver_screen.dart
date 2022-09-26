@@ -75,6 +75,7 @@ class AssignDriverScreen extends StatelessWidget {
                       title: "مدير الحركة ",
                       scaffoldKey: scaffoldKey,
                     ),
+                    TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
                     Expanded(
                       child: SizedBox(
                         width: width,
@@ -97,7 +98,6 @@ class AssignDriverScreen extends StatelessWidget {
                             else
                               return Column(
                                 children: [
-                                  TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
                                   TextFieldCustom(
                                     enabled: false,
                                     hint: 'رقم العميل',
@@ -225,8 +225,7 @@ class AssignDriverScreen extends StatelessWidget {
                                                           itemCount: driversController.driversList.length,
                                                           itemBuilder: (BuildContext context, int index) {
                                                             return WorkerWidget(
-                                                  imageUrl: driversController.driversList[index].imagePorofile ?? 'assets/images/worker1.png',
-
+                                                                imageUrl: driversController.driversList[index].imagePorofile ?? 'assets/images/worker1.png',
                                                                 workerName: driversController.driversList[index].name!,
                                                                 workerDepartment: '',
                                                                 onPressed: () {
