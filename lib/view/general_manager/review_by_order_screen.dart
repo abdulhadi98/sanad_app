@@ -58,7 +58,6 @@ class ReviewByOrderScreen extends StatelessWidget {
                       title: "المدير العام",
                       scaffoldKey: scaffoldKey,
                     ),
-                    TitleWidget(tilte: 'إضافة ملاحظة'),
                     Expanded(
                       child: SizedBox(
                         width: width,
@@ -81,6 +80,7 @@ class ReviewByOrderScreen extends StatelessWidget {
                             else
                               return Column(
                                 children: [
+                                  TitleWidget(tilte: 'إضافة ملاحظة'),
                                   Directionality(
                                     textDirection: TextDirection.rtl,
                                     child: Container(
@@ -182,8 +182,7 @@ class ReviewByOrderScreen extends StatelessWidget {
                                                         itemCount: reviewByOrderController.employeeList.length,
                                                         itemBuilder: (BuildContext context, int index) {
                                                           return WorkerWidget(
-                                                                                                              imageUrl: reviewByOrderController.employeeList[index].imagePorofile ?? 'assets/images/worker1.png',
-
+                                                              imageUrl: reviewByOrderController.employeeList[index].imagePorofile ?? 'assets/images/worker1.png',
                                                               workerName: reviewByOrderController.employeeList[index].name!,
                                                               workerDepartment: '',
                                                               onPressed: () {

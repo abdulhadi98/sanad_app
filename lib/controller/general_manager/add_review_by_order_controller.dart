@@ -66,14 +66,16 @@ class ReviewByOrderController extends GetxController {
     }
   }
 
-  getOrders() async {
+  getOrdersSuperManager() async {
     ordersList.clear();
     String? token = await sharedPreferences!.getString("token");
+    int? warehouseId = await sharedPreferences!.getInt("warehouse_id") ?? 9;
+    print(Uri.parse(UrlsContainer.getOrdersByWareHouse + '?warehouse_id=$warehouseId'));
     print(token);
-    print(Uri.parse(UrlsContainer.baseApiUrl + '/get-orders'));
+    print(Uri.parse(UrlsContainer.getOrdersByWareHouse + '?warehouse_id=${warehouseId}'));
     setStatus(Status.LOADING);
     try {
-      dynamic response = await http.get(Uri.parse(UrlsContainer.baseApiUrl + '/get-orders'), headers: {'Authorization': 'Bearer $token'});
+      dynamic response = await http.get(Uri.parse(UrlsContainer.getOrdersByWareHouse + '?warehouse_id=${warehouseId}'), headers: {'Authorization': 'Bearer $token'});
       Map body = jsonDecode(response.body);
       print(body);
       List<dynamic> data = body['data'];
@@ -145,10 +147,9 @@ class ReviewByOrderController extends GetxController {
 
   @override
   void onInit() {
-    getOrders();
-    // getDrivers();
-    //addressController.value.text = 'address';
     super.onInit();
+    getOrdersSuperManager();
+
     //setStatus(Status.LOADING);
   }
 

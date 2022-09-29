@@ -119,6 +119,39 @@ class ReviewByDepartmentController extends GetxController {
     // }
   }
 
+  getEmployeesByDepartmentWithWareHouse() async {
+    employeeList.clear();
+    print(employeesSpinner.value);
+    int? warehouseId = await sharedPreferences!.getInt("warehouse_id");
+    print(UrlsContainer.getEmployeesByRoleSuper + '?role_id=$roleId' + '&?warehouse_id=$warehouseId');
+
+    String? token = await sharedPreferences!.getString("token");
+
+    employeesSpinner.value = true;
+    print(employeesSpinner.value);
+    //  try {
+    dynamic response = await http.get(Uri.parse(UrlsContainer.getEmployeesByRoleSuper + '?role_id=$roleId' + '&warehouse_id=$warehouseId'), headers: {'Authorization': 'Bearer $token'});
+    dynamic body = jsonDecode(response.body);
+    print(response.body);
+    var data = body['data']; //body['data']
+    employeeList = List<DriverModel>.from(data.map((x) => DriverModel.fromJson(x)).toList());
+
+    String code = body['code'].toString();
+    String message = body['message'];
+    Utils.getResponseCode(code, message);
+    employeesSpinner = false.obs;
+    print(employeesSpinner.value);
+
+    return code;
+    // } catch (e) {
+    //   print(e);
+    //   employeesSpinner = false.obs;
+    //   // spinner.value = false;
+    //   Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
+    //   return 'error';
+    // }
+  }
+
   bool validate() {
     if (roleId == null) {
       Utils.showGetXToast(title: 'تنبيه', message: 'يرجى اختيار القسم', toastColor: AppColors.red);

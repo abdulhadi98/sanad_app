@@ -42,7 +42,7 @@ class GlobalController extends GetxController {
 
   Future<String?> pushFCMtoken() async {
     String? deviceToken = await messaging.getToken();
-    print(deviceToken);
+    print(";;;;;;;" + deviceToken!);
     return deviceToken;
   }
 
@@ -58,6 +58,7 @@ class GlobalController extends GetxController {
     var iosDetails = IOSNotificationDetails();
     var generalNotificationDetails = NotificationDetails(android: androidDetails, iOS: iosDetails);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       if (notification != null && android != null) {
@@ -85,7 +86,7 @@ class GlobalController extends GetxController {
           Uri.parse(
             UrlsContainer.removeDeviceToken,
           ),
-          body: {'user_id':'' },
+          body: {'user_id': ''},
           headers: {'Authorization': 'Bearer $token'});
       dynamic body = jsonDecode(response.body);
       print(body);
@@ -93,20 +94,28 @@ class GlobalController extends GetxController {
       String message = body['message'];
 
       Utils.getResponseCode(code, message);
-         logoutSpinner.value = false;
+      logoutSpinner.value = false;
 
       return code;
     } catch (e) {
       print(e);
-        logoutSpinner.value = false;
+      logoutSpinner.value = false;
 
       Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
       return 'error';
     }
   }
 
+  bool? isManager;
+  isRoleManager() async {
+    var roleId = await sharedPreferences!.getInt('role_id');
+    if (roleId == 2 || roleId == 3 || roleId == 4 || roleId == 8) return false;
+    return true;
+  }
+
   @override
   void onInit() {
+    print('qweqweqweqweqweqweqweqweqweqwe' + Utils.isThisRoleManager.toString());
     getUser();
     pushFCMtoken();
     initMessaging();

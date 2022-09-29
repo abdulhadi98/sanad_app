@@ -1,15 +1,20 @@
 class UrlsContainer {
   static final String baseUrl = "https://sanad.aratech.co";
-  static final String baseApiUrl = "$baseUrl/api";
+  static final String baseApiUrl = "$baseUrl/api/v1";
   static final String imagesUrl = "$baseUrl/storage";
 
   static String addImage = "$baseApiUrl/add-image";
   // Authentication's endpoints
   static String emailLogin = "$baseApiUrl/login";
+  static String getImages = "$baseApiUrl/get-images";
+
+  static String getNotifications = "$baseApiUrl/get-notifications";
+  static String getReviews = "$baseApiUrl/get-reviews";
+  static String getReviewsById = "$baseApiUrl/get-review-by-id";
 
   static String addDeviceToken = "$baseApiUrl/add-device-token";
   static String removeDeviceToken = "$baseApiUrl/remove-device-token";
-  
+
   static String getUser = "$baseApiUrl/get-user";
   static String forgotPassword = "$baseApiUrl/forgot-password";
   static String resetPassword = "$baseApiUrl/reset-password";
@@ -32,7 +37,6 @@ class UrlsContainer {
   static String getDelegationsOrders = "$baseApiUrl/get-delegation-orders";
   static String getAssignedDelegations = "$baseApiUrl/get-assigned-delegations";
   static String getRejectedDelegations = "$baseApiUrl/get-rejected-delegations";
-  
 
   static String getDelegationById = "$baseApiUrl/get-delegation-by-id";
 
@@ -63,7 +67,7 @@ class UrlsContainer {
 
   //Returns Manager
   static String getReturnById = "$baseApiUrl/get-returns-by-id";
-  static String receiveReturns = "$baseApiUrl/returns-delevired";
+  static String receiveReturns = "$baseApiUrl/returns-delivered";
 
   //General Manager
   static String addReviewById = "$baseApiUrl/add-review-by-order";
@@ -75,10 +79,8 @@ class UrlsContainer {
   //Super Manager
   static String getWarehouses = "$baseApiUrl/get-warehouses";
   static String getOrdersByWareHouse = "$baseApiUrl/get-warehouse-orders";
-  
+  static String getEmployeesByRoleSuper = "$baseApiUrl/get-employees-by-role-super";
+
   static String addNewOrderSuperManager = "$baseApiUrl/add-order-super";
   static String addDelegationSuperManager = "$baseApiUrl/add-delegation-super";
-
-
-
 }

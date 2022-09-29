@@ -12,8 +12,7 @@ import '../../helper/enums.dart';
 import '../../model/delegation_model.dart';
 
 class AddDelegationController extends GetxController {
-  Rx<TextEditingController> clientNumberController =
-      TextEditingController().obs;
+  Rx<TextEditingController> clientNumberController = TextEditingController().obs;
 
   Rx<TextEditingController> detailsController = TextEditingController().obs;
 
@@ -24,24 +23,23 @@ class AddDelegationController extends GetxController {
   }
 
   String? accessToken;
-  
+
   setDelegationInfo({clienNumber, details}) {
     clientNumberController.value.text = clienNumber;
     detailsController.value.text = details;
   }
-List<ClientModel> clientsList = [];
+
+  List<ClientModel> clientsList = [];
   getUsersInfo() async {
     clientsList.clear();
     String? token = await sharedPreferences!.getString("token");
     setStatus(Status.LOADING);
     try {
-      dynamic response = await http.get(Uri.parse(UrlsContainer.getClientsInfo),
-          headers: {'Authorization': 'Bearer $token'});
+      dynamic response = await http.get(Uri.parse(UrlsContainer.getClientsInfo), headers: {'Authorization': 'Bearer $token'});
       Map body = jsonDecode(response.body);
       print(body);
       List<dynamic> data = body['data'];
-      clientsList = List<ClientModel>.from(
-          data.map((x) => ClientModel.fromJson(x)).toList());
+      clientsList = List<ClientModel>.from(data.map((x) => ClientModel.fromJson(x)).toList());
       setStatus(Status.DATA);
       String code = body['code'].toString();
       String message = body['message'];
@@ -51,10 +49,7 @@ List<ClientModel> clientsList = [];
       print(e);
       setStatus(Status.ERROR);
       // spinner.value = false;
-      Utils.showGetXToast(
-          title: 'خطأ',
-          message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً',
-          toastColor: AppColors.red);
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
       return 'error';
     }
   }
@@ -87,10 +82,7 @@ List<ClientModel> clientsList = [];
     } catch (e) {
       print(e);
       spinner.value = false;
-      Utils.showGetXToast(
-          title: 'خطأ',
-          message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً',
-          toastColor: AppColors.red);
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
       return 'error';
     }
   }
@@ -119,27 +111,47 @@ List<ClientModel> clientsList = [];
     } catch (e) {
       print(e);
       spinner.value = false;
-      Utils.showGetXToast(
-          title: 'خطأ',
-          message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً',
-          toastColor: AppColors.red);
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
+      return 'error';
+    }
+  }
+
+  addDelegationSuperManager() async {
+    dynamic response;
+    spinner.value = true;
+
+    try {
+      print(delegationModel!.toJsonSuperMangerFromScratch());
+      String? token = await sharedPreferences!.getString("token");
+      response = await http.post(
+          Uri.parse(
+            UrlsContainer.addDelegationSuperManager,
+          ),
+          body: delegationModel!.toJsonSuperMangerFromScratch(),
+          headers: {'Authorization': 'Bearer $token'});
+      dynamic body = jsonDecode(response.body);
+      print(body);
+      spinner.value = false;
+      String code = body['code'].toString();
+      String message = body['message'];
+
+      Utils.getResponseCode(code, message);
+      return code;
+    } catch (e) {
+      print(e);
+      spinner.value = false;
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
       return 'error';
     }
   }
 
   bool validateInputs() {
     if (clientNumberController.value.text.isEmpty) {
-      Utils.showGetXToast(
-          title: 'تنبيه',
-          message: 'يرجى أختيار رقم العميل',
-          toastColor: AppColors.mainColor1);
+      Utils.showGetXToast(title: 'تنبيه', message: 'يرجى أختيار رقم العميل', toastColor: AppColors.mainColor1);
       return false;
     }
     if (detailsController.value.text.isEmpty) {
-      Utils.showGetXToast(
-          title: 'تنبيه',
-          message: 'يرجى إدخال تفاصيل الطلبية',
-          toastColor: AppColors.mainColor1);
+      Utils.showGetXToast(title: 'تنبيه', message: 'يرجى إدخال تفاصيل الطلبية', toastColor: AppColors.mainColor1);
       return false;
     }
 
@@ -152,10 +164,17 @@ List<ClientModel> clientsList = [];
     delegationModel = DelegationModel(
       clientNumber: clientNumberController.value.text,
       creatorId: await sharedPreferences!.getInt('user_id').toString(),
-      details: detailsController.value.text.isEmpty
-          ? ' '
-          : detailsController.value.text,
+      details: detailsController.value.text.isEmpty ? ' ' : detailsController.value.text,
     );
+  }
+
+  setDelegationSuperManager() async {
+    var warehouseId = await sharedPreferences!.getInt('warehouse_id');
+    delegationModel = DelegationModel(
+        clientNumber: clientNumberController.value.text,
+        creatorId: await sharedPreferences!.getInt('user_id').toString(),
+        details: detailsController.value.text.isEmpty ? ' ' : detailsController.value.text,
+        warehouseId: warehouseId);
   }
 
   int? employeeId;
@@ -163,9 +182,7 @@ List<ClientModel> clientsList = [];
     delegationModel = DelegationModel(
         clientNumber: clientNumberController.value.text,
         creatorId: await sharedPreferences!.getInt('user_id').toString(),
-        details: detailsController.value.text.isEmpty
-            ? ' '
-            : detailsController.value.text,
+        details: detailsController.value.text.isEmpty ? ' ' : detailsController.value.text,
         employeeId: employeeId);
   }
 

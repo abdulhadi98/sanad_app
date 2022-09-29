@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:wits_app/controller/global_controller.dart';
+import 'package:wits_app/main.dart';
 
 import 'package:wits_app/view/common_wigets/drawer.dart';
 import 'package:wits_app/view/common_wigets/main_button.dart';
@@ -9,6 +11,7 @@ import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
 
 class WarehouseMangerRootScreen extends StatelessWidget {
+  var x = Get.put<GlobalController>(GlobalController());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -48,17 +51,12 @@ class WarehouseMangerRootScreen extends StatelessWidget {
                       //   text: 'استلام المرتجعات',
                       //   width: 224.w,
                       //   height: 50.h,
-                      //   onPressed: () {
-                      //     Get.toNamed(
-                      //       '/orders-screen-warehouse-manger',
-                      //       arguments: {
-                      //         "api": "/get-returns",
-                      //       },
-                      //     );
+                      //   onPressed: () async {
+                      //     await sharedPreferences!.clear();
+                      //     print(sharedPreferences!.getInt('role').toString());
+                      //     Get.offAllNamed('/');
+                      //     print('logout ok');
                       //   },
-                      // ),
-                      // SizedBox(
-                      //   height: 30.h,
                       // ),
                       MainButton(
                         text: 'تعيين عامل تحضير',

@@ -60,7 +60,7 @@ class AddReturnsController extends GetxController {
     dynamic response;
     setStatus(Status.LOADING);
     List<int> imageBytes = selectedImage!.value.readAsBytesSync();
-    print(imageBytes);
+    //print(imageBytes);
     String base64Image = base64Encode(imageBytes);
 
     try {

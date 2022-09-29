@@ -4,8 +4,7 @@
 
 import 'dart:convert';
 
-ClientModel clientModelFromJson(String str) =>
-    ClientModel.fromJson(json.decode(str));
+ClientModel clientModelFromJson(String str) => ClientModel.fromJson(json.decode(str));
 
 String clientModelToJson(ClientModel data) => json.encode(data.toJson());
 
@@ -48,13 +47,9 @@ class ClientModel {
   factory ClientModel.fromJson(Map<String, dynamic> json) => ClientModel(
         cityName: json["city_name"] == null ? null : json["city_name"],
         regionName: json["region_name"] == null ? null : json["region_name"],
-
-        commercialRecord: json["commercial_record"] == null
-            ? null
-            : json["commercial_record"],
+        commercialRecord: json["commercial_record"] == null ? null : json["commercial_record"],
         name: json["name"] == null ? null : json["name"],
-        clientNumber:
-            json["client_number"] == null ? null : json["client_number"],
+        clientNumber: json["client_number"] == null ? null : json["client_number"],
         stamp: json["stamp"],
         telephone: json["telephone"] == null ? null : json["telephone"],
         longitude: json["longitude"] == null ? null : json["longitude"],
@@ -63,12 +58,8 @@ class ClientModel {
         oldSystemReference: json["old_system_reference"],
         cityId: json["city_id"] == null ? null : json["city_id"],
         regionId: json["region_id"] == null ? null : json["region_id"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {

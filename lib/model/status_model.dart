@@ -21,12 +21,8 @@ class Status {
         status: json["status"] == null ? null : json["status"],
         color: json["color"] == null ? null : json["color"],
         secondColor: json["second_color"] == null ? null : json["second_color"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {

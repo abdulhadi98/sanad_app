@@ -18,6 +18,8 @@
 //     };
 // }
 
+import 'package:wits_app/model/return_details_model.dart';
+
 class OrderDetailsModel {
   OrderDetailsModel(
       {this.id,
@@ -47,7 +49,9 @@ class OrderDetailsModel {
       this.statusColor,
       this.statusName,
       this.clientName,
-      this.clientStamp});
+      this.clientStamp,
+      this.billImage,
+      this.truckImages});
 
   int? id;
   String? clientLatitude;
@@ -75,9 +79,10 @@ class OrderDetailsModel {
   String? clientCity;
   String? clientName;
   String? clientStamp;
-
+  String? billImage;
   String? statusName;
   String? statusColor;
+  List<ImageModel>? truckImages;
 
   List<Process>? processes;
 
@@ -109,6 +114,8 @@ class OrderDetailsModel {
         clientLongitude: json["client_longitude"] == null ? null : json["client_longitude"],
         statusColor: json["order_status_color"] == null ? null : json["order_status_color"],
         statusName: json["order_status_name"] == null ? null : json["order_status_name"],
+        billImage: json["bill_image"] == null ? null : json["bill_image"],
+        truckImages: json["truck_images"] == null ? null : List<ImageModel>.from(json["truck_images"].map((x) => ImageModel.fromJson(x))),
         processes: json["processes"] == null ? null : List<Process>.from(json["processes"].map((x) => Process.fromJson(x))),
       );
 

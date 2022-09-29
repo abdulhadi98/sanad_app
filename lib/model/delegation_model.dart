@@ -32,7 +32,7 @@ class DelegationModel {
   dynamic creatorId;
 
   String? commercialRecord;
-  int? warehouseId;
+  dynamic? warehouseId;
   int? orderId;
   int? accepted;
   String? acceptedDetails;
@@ -41,7 +41,7 @@ class DelegationModel {
   factory DelegationModel.fromJson(Map<String, dynamic> json) => DelegationModel(
         clientNumber: json["client_number"] == null ? null : json["client_number"],
         id: json["id"] == null ? null : json["id"],
-        delegationEmployeeName: json["delegation_employee_name"] == null ? null : json["delegation_employee_name"],
+        delegationEmployeeName: json["creator_name"] == null ? null : json["creator_name"],
         commercialRecord: json["commercial_record"] == null ? null : json["commercial_record"],
         creatorId: json["creator_id"] == null ? null : json["creator_id"],
         warehouseId: json["warehouse_id"] == null ? null : json["warehouse_id"],
@@ -61,7 +61,7 @@ class DelegationModel {
         "details": details == null ? null : details,
         "creator_id": creatorId == null ? null : creatorId,
         "employee_id": employeeId == null ? null : employeeId.toString(),
-        "warehouse_id": warehouseId == null ? null : warehouseId.toString()
+        "warehouse_id": warehouseId == null ? null : warehouseId.toString(),
       };
 
   //This one for accepting delegation from the salesman(from the delegations screen after we select one delegation and press accept and assign salesman) and it needs delegation id that we take from delegation details controller)
@@ -76,5 +76,12 @@ class DelegationModel {
         "client_number": clientNumber == null ? null : clientNumber,
         "details": details == null ? null : details,
         "creator_id": creatorId == null ? null : creatorId,
+      };
+  Map<String, dynamic> toJsonSuperMangerFromScratch() => {
+        // 'delegation_id': id == null ? null : id,
+        "client_number": clientNumber == null ? null : clientNumber,
+        "details": details == null ? null : details,
+        "creator_id": creatorId == null ? null : creatorId,
+        "warehouse_id": warehouseId == null ? null : warehouseId.toString(),
       };
 }

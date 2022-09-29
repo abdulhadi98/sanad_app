@@ -69,9 +69,7 @@ class DriversController extends GetxController {
       String code = body['code'].toString();
       String message = body['message'];
 
-      Utils.getResponseCode(code, message, onData: () {
-        Get.offAllNamed('/movment-manger-root-screen');
-      });
+      Utils.getResponseCode(code, message);
       setStatus(Status.DATA);
       return code;
     } catch (e) {

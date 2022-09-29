@@ -85,7 +85,7 @@ class WorkerWidget extends StatelessWidget {
                                 width: 6,
                               ),
                             ),
-                            child: Utils.buildImage(url: imageUrl, width: 100.65.w, height: 100.65.h),
+                            child: Utils.buildImage(url: imageUrl, width: 100.65.w, height: 100.65.w),
                           ),
                           SizedBox(
                             height: 5.h,

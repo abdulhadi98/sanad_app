@@ -183,13 +183,16 @@ class ReviewByDepartmentSuperManagerScreen extends StatelessWidget {
                                     height: 50.h,
                                     onPressed: () async {
                                       FocusScope.of(context).requestFocus(FocusNode());
+
                                       if (reviewByDepartmentController.roleId == null) {
                                         Utils.showGetXToast(title: 'تنبيه', message: 'يرجى اختيار القسم', toastColor: AppColors.red);
                                         return;
                                       }
-
-                                      await reviewByDepartmentController.getEmployeesByDepartment();
-
+                                      await reviewByDepartmentController.getEmployeesByDepartmentWithWareHouse();
+                                      if (reviewByDepartmentController.employeeList.length == 0) {
+                                        Utils.showGetXToast(title: 'تنبيه', message: 'لا يوجد موظفين', toastColor: AppColors.red);
+                                        return;
+                                      }
                                       //    await driversController.getDrivers();
                                       showDialogCustom(
                                         height: height,
@@ -306,7 +309,7 @@ class ReviewByDepartmentSuperManagerScreen extends StatelessWidget {
                                                 },
                                               ),
                                             );
-                                         }
+                                        }
                                       }),
                                 ],
                               );

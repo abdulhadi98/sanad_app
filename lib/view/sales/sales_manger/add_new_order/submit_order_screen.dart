@@ -58,7 +58,6 @@ class SubmitOrderScreen extends StatelessWidget {
                       title: Get.arguments['role_name'],
                       scaffoldKey: scaffoldKey,
                     ),
-                    TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
                     Expanded(
                       child: SizedBox(
                         width: width,
@@ -73,6 +72,7 @@ class SubmitOrderScreen extends StatelessWidget {
                                   )
                                 : Column(
                                     children: [
+                                      TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
                                       TextFieldCustom(
                                         enabled: false,
                                         hint: 'رقم العميل',
@@ -142,7 +142,7 @@ class SubmitOrderScreen extends StatelessWidget {
                                           onPressed: () async {
                                             // FocusScope.of(context).requestFocus(FocusNode());
 
-                                            dynamic status = await addNewOrderScreenController.addNewOrderSuperManager(); //the diffirance heree is the warehouse id
+                                            dynamic status = await addNewOrderScreenController.addNewOrder(); //the diffirance heree is the warehouse id
                                             // if (status == '777')
                                             //   Utils.showGetXToast(
                                             //       message: status);

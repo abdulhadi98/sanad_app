@@ -55,102 +55,11 @@ class SuperManagerRootScreen extends StatelessWidget {
                         height: 49.h,
                       ),
                       MainButton(
-                        text: 'أضف طلبية جديدة',
+                        text: 'طلبية إلى مدير المبيعات',
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
-                          Get.toNamed('/add-new-order-super-manager-screen', arguments: {'role_name': "مسؤول التحكم"});
-                        },
-                      ),
-                      SizedBox(
-                        height: 30.h,
-                      ),
-                      MainButton(
-                        text: 'تعيين موظف مبيعات',
-                        width: 224.w,
-                        height: 50.h,
-                        onPressed: () async {
-                          await salesEmployeeController.getSalesEmployees();
-                          showDialogCustom(
-                            height: height,
-                            width: width,
-                            context: context,
-                            padding: EdgeInsets.zero,
-                            dialogContent: StatefulBuilder(
-                              builder: (context, setState) {
-                                return Container(
-                                  color: AppColors.white,
-                                  height: height,
-                                  width: width,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: 15.w,
-                                          vertical: 15.h,
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
-                                            InkWell(
-                                              onTap: () {
-                                                Get.back();
-                                              },
-                                              child: SvgPicture.asset(
-                                                'assets/icons/Icon Close Light-1.svg',
-                                                width: 16.w,
-                                                height: 16.w,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Text(
-                                        'تعيين موظف المبيعات',
-                                        style: TextStyle(
-                                          fontSize: 30.sp,
-                                          fontWeight: FontWeight.bold,
-                                          color: AppColors.textColorXDarkBlue,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(bottom: 6.h),
-                                        child: Divider(
-                                          color: AppColors.textColorXDarkBlue,
-                                          indent: width / 2.3,
-                                          endIndent: width / 2.3,
-                                          thickness: 1,
-                                        ),
-                                      ),
-                                      Container(
-                                        //   padding: EdgeInsets.symmetric(vertical: 5.),
-                                        height: height / 1.3,
-                                        width: width,
-                                        child: ListView.builder(
-                                            itemCount: salesEmployeeController.salesEmployeesList.length,
-                                            itemBuilder: (BuildContext context, int index) {
-                                              return WorkerWidget(
-                                                  imageUrl: salesEmployeeController.salesEmployeesList[index].imagePorofile ?? 'assets/images/worker1.png',
-                                                  workerName: salesEmployeeController.salesEmployeesList[index].name!,
-                                                  workerDepartment: 'قسم المبيعات',
-                                                  onPressed: () {
-                                                    salesEmployeeController.employeeId = salesEmployeeController.salesEmployeesList[index].id;
-                                                    SalesMangerRootScreen.salesmanId = salesEmployeeController.salesEmployeesList[index].id;
-                                                    print(salesEmployeeController.employeeId);
-                                                    Get.toNamed('/send_order_to_sales_employee', arguments: {'sales_employee_id': salesEmployeeController.salesEmployeesList[index].id});
-                                                    // Get.toNamed(
-                                                    //     '/order-details-screen');
-                                                  });
-                                            }),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          );
+                          Get.toNamed('/add-delegation-super-manager-screen');
                         },
                       ),
                       SizedBox(
@@ -161,7 +70,9 @@ class SuperManagerRootScreen extends StatelessWidget {
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
-                          Get.toNamed('/super-manager-orders-screen', arguments: {'api': "/get-orders"});
+                          Get.toNamed('/super-manager-orders-screen', arguments: {
+                            'api': "/get-warehouse-orders",
+                          }); //TODO get-warehouse-orders
                         },
                       ),
                       SizedBox(
@@ -178,7 +89,7 @@ class SuperManagerRootScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                buildBottomNavBar(width, height, true, () {}),
+                buildBottomNavBar(width, height, false, () {}),
               ],
             ),
           ),

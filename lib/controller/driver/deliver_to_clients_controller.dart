@@ -66,7 +66,7 @@ class DeliverToClientController extends GetxController {
 
   printX() {
     List<int> imageBytes = selectedImage!.value.readAsBytesSync();
-    print(imageBytes);
+    // print(imageBytes);
     String base64Image = base64Encode(imageBytes);
     print(base64Image);
   }
@@ -75,7 +75,7 @@ class DeliverToClientController extends GetxController {
     dynamic response;
     setStatus(Status.LOADING);
     List<int> imageBytes = selectedImage!.value.readAsBytesSync();
-    print(imageBytes);
+    //print(imageBytes);
     String base64Image = base64Encode(imageBytes);
 
     try {
@@ -106,7 +106,8 @@ class DeliverToClientController extends GetxController {
   orderNotStamped() async {
     dynamic response;
     setStatus(Status.LOADING);
-
+    print(UrlsContainer.billNotStamped);
+    print(Get.arguments['order_id'].toString());
     try {
       //  print(orderModel!.toJson());
       String? token = await sharedPreferences!.getString("token");

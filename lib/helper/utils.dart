@@ -46,9 +46,9 @@ class Utils {
     if (url.startsWith("http")) {
       return FadeInImage.assetNetwork(
         imageErrorBuilder: (context, error, stackTrace) => assetImage(
-          'assets/images/placeholder_error.jpg',
+          'assets/icons/placeholder.svg',
         ),
-        placeholder: 'assets/images/placeholder.jpg',
+        placeholder: 'assets/icons/placeholder.svg',
         image: url,
         fit: fit,
         width: width,
@@ -157,6 +157,60 @@ class Utils {
         'null';
     }
     return '??';
+  }
+
+  static Future<bool> isThisRoleManager() async {
+    var roleId = await sharedPreferences!.getInt('role');
+    print(roleId);
+    if (roleId == 2 || roleId == 3 || roleId == 4 || roleId == 8) return false;
+    return true;
+  }
+
+  static bool getApiFromRole() {
+    var roleId = sharedPreferences!.getInt('role');
+    if (roleId == 2 || roleId == 3 || roleId == 4 || roleId == 8) return false;
+    return true;
+  }
+
+  static String getRouteFromNotificationOrder(action) {
+    if (action == 'print')
+      return '/print-order-movament-manger-screen';
+    else if (action == 'assign-pre')
+      return '/assign-perperator-screen';
+    else if (action == 'rejected-stamp')
+      return '/not-stamped-bill-screen';
+    else if (action == 'pre-done')
+      return '/preparation-done-screen';
+    else if (action == 'enter-boxes')
+      return '/enter-boxes-number-screen';
+    else if (action == 'assign-driver')
+      return '/assign-driver-screen';
+    else if (action == 'recive-order')
+      return '/load-will-delivered-screen';
+    else if (action == 'deliver-to-another-driver')
+      return '/recive-from-another-driver-screen';
+    else if (action == 'quality-check')
+      return '/check-order-screen';
+    else if (action == 'returns-recived')
+      return '/recive-returns-screen'; //TODO return id
+    else if (action == 'order-from-sales-man')
+      return '/order-from-salesperson-screen';
+    else if (action == 'recive-order') return '/load-will-delivered-screen';
+    // else if (action == 'deliver-to-another-driver') return '/';
+
+    return '/';
+  }
+
+  static String getRouteFromNotificationDelegation(action) {
+    if (action == 'info') //firas
+      return 'ok';
+    else if (action == 'rejected-dele') //firas
+      return 'ok';
+    else if (action == 'order-from-sales-manager')
+      return '/add-order-from-delegation-sales-employee-screen';
+    else if (action == 'order-from-sales-man') return '/order-from-salesperson-screen';
+
+    return '/';
   }
 
   static Text errorText({String text = "يوجد خطأ, يرجى المحاولة لاحقاً"}) {

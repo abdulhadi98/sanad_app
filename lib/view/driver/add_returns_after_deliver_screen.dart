@@ -79,7 +79,6 @@ class AddReturnsAfterDeliverScreen extends StatelessWidget {
                         title: "السائق",
                         scaffoldKey: scaffoldKey,
                       ),
-                      TitleWidget(tilte: "تفاصيل المرتجعات"),
                       Expanded(
                         child: SizedBox(
                           width: width,
@@ -103,6 +102,8 @@ class AddReturnsAfterDeliverScreen extends StatelessWidget {
                                 case Status.DATA:
                                   return Column(
                                     children: [
+                                      TitleWidget(tilte: "تفاصيل المرتجعات"),
+
                                       TextFieldCustom(
                                         enabled: false,
                                         hint: '',
@@ -123,8 +124,25 @@ class AddReturnsAfterDeliverScreen extends StatelessWidget {
                                       TextFieldCustom(
                                         // enabled: false,
                                         textEditingController: addReturnsController.invoiceNumberController.value,
+                                        keyboardType: TextInputType.number,
                                         hint: 'رقم فاتورة المرتجعات',
                                         onChanged: (val) {},
+                                      ),
+                                      SizedBox(
+                                        height: 15.h,
+                                      ),
+                                      MainButton(
+                                        text: 'تصوير فاتورة المرتجعات',
+                                        width: 295.w,
+                                        height: 50.h,
+                                        onPressed: () async {
+                                          // await showDialog(
+                                          //         // Your Dialog Code
+                                          //         )
+                                          //     .then((val) {
+                                          //   Navigator.pop(_context);
+                                          // });
+                                        },
                                       ),
                                       SizedBox(
                                         height: 15.h,
@@ -251,6 +269,9 @@ class AddReturnsAfterDeliverScreen extends StatelessWidget {
                                                   print('okokokokkokokkkokookk');
                                                   var addReturnsStatus = await addReturnsController.addReturns();
 
+//
+
+//
                                                   if (addReturnsStatus == '200')
                                                     showDialogCustom(
                                                       height: height,

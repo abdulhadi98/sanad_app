@@ -4,34 +4,34 @@ import 'package:get/get.dart';
 import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/helper/utils.dart';
 import 'package:wits_app/main.dart';
+import 'package:wits_app/model/notification_model.dart';
 import 'package:wits_app/model/order_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:wits_app/network/urls_container.dart';
-import '../../helper/enums.dart';
+import '../../../helper/enums.dart';
 
-class GetOrdersSuperManagerController extends GetxController {
+class NotificationsController extends GetxController {
   RxBool spinner = false.obs;
   Rx<Status>? status = Status.DATA.obs;
   setStatus(Status s) {
     status!.value = s;
   }
 
-  List<OrderModel> ordersList = [];
+  List<Notification> notifiationsList = [];
 
-  getOrdersSuperManager() async {
-    ordersList.clear();
+  getNotification() async {
+    notifiationsList.clear();
     String? token = await sharedPreferences!.getString("token");
-    int? warehouseId = await sharedPreferences!.getInt("warehouse_id") ?? 9;
-    print(Uri.parse(UrlsContainer.getOrdersByWareHouse + '?warehouse_id=$warehouseId'));
-    print(token);
-    print(Uri.parse(UrlsContainer.getOrdersByWareHouse + '?warehouse_id=${warehouseId}'));
+    //print(token);
+    // print(Uri.parse(UrlsContainer.baseApiUrl + Get.arguments['api']!));
     setStatus(Status.LOADING);
     try {
-      dynamic response = await http.get(Uri.parse(UrlsContainer.getOrdersByWareHouse + '?warehouse_id=${warehouseId}'), headers: {'Authorization': 'Bearer $token'});
+      dynamic response = await http.get(Uri.parse(UrlsContainer.getNotifications), headers: {'Authorization': 'Bearer $token'});
       Map body = jsonDecode(response.body);
       print(body);
       List<dynamic> data = body['data'];
-      ordersList = List<OrderModel>.from(data.map((x) => OrderModel.fromJson(x)).toList());
+      notifiationsList = List<Notification>.from(data.map((x) => Notification.fromJson(x)).toList());
+      notifiationsList.removeWhere((element) => element.isDone == 1);
       setStatus(Status.DATA);
       String code = body['code'].toString();
       String message = body['message'];
@@ -49,7 +49,7 @@ class GetOrdersSuperManagerController extends GetxController {
   @override
   void onInit() {
     //addressController.value.text = 'address';
-    getOrdersSuperManager();
+    getNotification();
     super.onInit();
     //setStatus(Status.LOADING);
   }

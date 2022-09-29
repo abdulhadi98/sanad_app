@@ -14,6 +14,8 @@ import 'package:wits_app/view/common_wigets/dilog_custom.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 
 import 'package:wits_app/view/common_wigets/main_button.dart';
+import 'package:wits_app/view/common_wigets/showdialog_are_you_sure.dart';
+import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
 import 'package:wits_app/view/common_wigets/title_widget.dart';
 import 'package:wits_app/view/common_wigets/worker_widget.dart';
@@ -68,7 +70,6 @@ class AssignPreperatorScreen extends StatelessWidget {
                       title: "مدير المستودع",
                       scaffoldKey: scaffoldKey,
                     ),
-                    TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
                     Expanded(
                       child: SizedBox(
                         width: width,
@@ -91,6 +92,7 @@ class AssignPreperatorScreen extends StatelessWidget {
                             else
                               return Column(
                                 children: [
+                                  TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
                                   TextFieldCustom(
                                     enabled: false,
                                     hint: 'رقم العميل',
@@ -247,7 +249,7 @@ class AssignPreperatorScreen extends StatelessWidget {
                                       },
                                     ),
                                   ),
-
+                                  SizedBox(height: 15.h),
                                   Padding(
                                     padding: EdgeInsets.only(bottom: 30.h),
                                     child: MainButton(
@@ -257,8 +259,29 @@ class AssignPreperatorScreen extends StatelessWidget {
                                       onPressed: () async {
                                         if (perperatorController.preparatorId == null)
                                           Utils.showGetXToast(title: 'تنبيه', message: 'يرجى تعيين عامل تحضير', toastColor: AppColors.red); //TODO are you sure and thanks dialog
-                                        else
-                                          await perperatorController.assignPerperator();
+                                        else {
+                                          showDialogCustom(
+                                            height: height,
+                                            width: width,
+                                            context: context,
+                                            padding: EdgeInsets.zero,
+                                            dialogContent: DialogContentAreYouSure(
+                                              onYes: () async {
+                                                dynamic status = await perperatorController.assignPerperator();
+                                                if (status == '200')
+                                                  showDialogCustom(
+                                                      height: height,
+                                                      width: width,
+                                                      context: context,
+                                                      padding: EdgeInsets.zero,
+                                                      dialogContent: DialogContentThanks(onTap: () {
+                                                        Get.offAllNamed('/warehouse-manager-root-screen');
+                                                      }));
+                                              },
+                                            ),
+                                          );
+                                        }
+                                        // await perperatorController.assignPerperator();
                                       },
                                     ),
                                   ),

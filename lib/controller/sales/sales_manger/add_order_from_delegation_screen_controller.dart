@@ -53,26 +53,26 @@ class AddNewOrderFromDelegationScreenController extends GetxController {
   addNewOrder() async {
     dynamic response;
     setStatus(Status.LOADING);
-    try {
-      print(orderModel!.toJson());
-      String? token = await sharedPreferences!.getString("token");
-      response = await http.post(
-          Uri.parse(
-            UrlsContainer.addNewOrder,
-          ),
-          body: orderModel!.toJson(),
-          headers: {'Authorization': 'Bearer $token'});
-      dynamic body = jsonDecode(response.body);
-      print(body);
-      returnOrderID = body['data']['id'].toString();
+     try {
+    print(orderModel!.toJson());
+    String? token = await sharedPreferences!.getString("token");
+    response = await http.post(
+        Uri.parse(
+          UrlsContainer.addNewOrder,
+        ),
+        body: orderModel!.toJson(),
+        headers: {'Authorization': 'Bearer $token'});
+    dynamic body = jsonDecode(response.body);
+    print(body);
+    returnOrderID = body['data']['id'].toString();
 
-      String code = body['code'].toString();
-      String message = body['message'];
+    String code = body['code'].toString();
+    String message = body['message'];
 
-      Utils.getResponseCode(code, message);
-      setStatus(Status.DATA);
+    Utils.getResponseCode(code, message);
+    setStatus(Status.DATA);
 
-      return code;
+    return code;
     } catch (e) {
       print(e);
       setStatus(Status.ERROR);
@@ -135,14 +135,14 @@ class AddNewOrderFromDelegationScreenController extends GetxController {
     print(clientsList.first.clientNumber);
     print(clientNumberController.value.text);
     orderModel = OrderModel(
-      clientNumber: clientNumber,
-      creatorId: salesmanId, //it's not the sales manger id but the sales man id that create the order
-      commercialRecord: clientNumberController.value.text,
-      address: addressController.value.text,
-      invoiceNumber: invoiceNumberController.value.text,
-      categoriesNumber: categoriesNumberController.value.text,
-      details: details == null ? 'لايوجد تفاصيل' : details,
-    );
+        clientNumber: clientNumber,
+        creatorId: salesmanId, //it's not the sales manger id but the sales man id that create the order
+        commercialRecord: clientNumberController.value.text,
+        address: addressController.value.text,
+        invoiceNumber: invoiceNumberController.value.text,
+        categoriesNumber: categoriesNumberController.value.text,
+        details: details == null ? 'لايوجد تفاصيل' : details,
+        warehouseId: '99');
   }
 
   @override

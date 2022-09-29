@@ -1,46 +1,44 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:wits_app/controller/movment_manger/print_order_movment_manger_controller.dart';
+import 'package:wits_app/controller/sales/add_delegation_controller.dart';
 import 'package:wits_app/helper/app_colors.dart';
-import 'package:wits_app/helper/enums.dart';
-import 'package:wits_app/helper/utils.dart';
-import 'package:wits_app/main.dart';
+import 'package:wits_app/view/common_wigets/bottom_nav_bar.dart';
 import 'package:wits_app/view/common_wigets/dilog_custom.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
+import 'package:wits_app/view/common_wigets/header_widget.dart';
 
 import 'package:wits_app/view/common_wigets/main_button.dart';
 import 'package:wits_app/view/common_wigets/showdialog_are_you_sure.dart';
 import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
+import 'package:wits_app/view/common_wigets/textfield_search.dart';
 import 'package:wits_app/view/common_wigets/title_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/add_new_order/add_new_order_screen.dart';
+import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/order_details_screen.dart';
+import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/worker_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 
-import '../../../../controller/global_controller.dart';
-import '../../../../controller/sales/add_new_order_screen_controller.dart';
-import '../common_wigets/bottom_nav_bar.dart';
-import '../common_wigets/header_widget.dart';
+import '../../../helper/enums.dart';
+import '../../../helper/utils.dart';
 
-class PrintOrderMovmentMangerScreen extends StatelessWidget {
-  PrintOrderMovmentMangerScreen({Key? key}) : super(key: key);
-
-  var put = Get.lazyPut<PrintOrderController>(
-    () => PrintOrderController(),
-  );
-  final PrintOrderController printOrderController = Get.find<PrintOrderController>();
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-  final GlobalController globalController = Get.find<GlobalController>();
-
-//  FocusNode focusNode = FocusNode();
+class AddDelegationSuperManagerScreen extends StatelessWidget {
+  final put = Get.put<AddDelegationController>(
+    AddDelegationController(),
+  ); // or optionally with tag
+  final AddDelegationController addDelegationController = Get.find<AddDelegationController>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
+    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    //   statusBarColor: AppColors.mainColor1,
+    //   statusBarBrightness: Brightness.dark,
+    // ));
     double width = MediaQuery.of(context).size.width;
+    //
+
     bool isKeyboardShowing = MediaQuery.of(context).viewInsets.vertical > 0;
 
     return Scaffold(
@@ -60,7 +58,7 @@ class PrintOrderMovmentMangerScreen extends StatelessWidget {
                     HeaderWidget(
                       width: width,
                       employeeName: "اسم الموظف",
-                      title: "مدير الحركة",
+                      title: "مسؤول التحكم",
                       scaffoldKey: scaffoldKey,
                     ),
                     Expanded(
@@ -68,80 +66,66 @@ class PrintOrderMovmentMangerScreen extends StatelessWidget {
                         width: width,
                         child: SingleChildScrollView(
                           child: Obx(() {
-                            switch (printOrderController.status!.value) {
+                            switch (addDelegationController.status!.value) {
                               case Status.LOADING:
                                 return SizedBox(
-                                  height: height / 1.5,
+                                  height: height / 2,
                                   child: Center(
                                     child: CircularProgressIndicator(),
                                   ),
                                 );
                               case Status.ERROR:
-                                return SizedBox(
-                                  height: height / 1.5,
-                                  child: Center(
-                                    child: Utils.errorText(),
-                                  ),
-                                );
+                                return Utils.errorText();
+
                               case Status.DATA:
                                 return Column(
                                   children: [
-                                    TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
-                                    TextFieldCustom(
-                                      enabled: false,
-                                      hint: 'رقم العميل',
-                                      textEditingController: printOrderController.clientNumberController.value,
-                                      onChanged: (val) {},
-                                    ),
-                                    SizedBox(
-                                      height: 12.h,
-                                    ),
-                                    TextFieldCustom(
-                                      enabled: false,
-                                      textEditingController: printOrderController.invoiceNumberController.value,
-                                      hint: 'رقم الفاتورة',
-                                      onChanged: (val) {},
-                                    ),
-                                    SizedBox(
-                                      height: 12.h,
-                                    ),
-                                    TextFieldCustom(
-                                      enabled: false,
-                                      hint: 'عدد الأصناف',
-                                      textEditingController: printOrderController.categoriesNumberController.value,
-                                      onChanged: (val) {},
-                                    ),
-                                    SizedBox(
-                                      height: 12.h,
-                                    ),
-                                    TextFieldTall(
-                                      enabled: false, height: 158.h,
+                                    TitleWidget(tilte: 'إرسال طلب إلى مدير المبيعات \n لبدء طلبية جديدة'),
+                                    Directionality(
+                                      textDirection: TextDirection.rtl,
+                                      child: Container(
+                                        height: 50.h,
+                                        width: 295.w,
+                                        child: TextFieldSearch(
+                                          textStyle: TextStyle(
+                                            color: AppColors.black.withOpacity(.70),
+                                            fontSize: 13.sp,
+                                          ),
 
-                                      //focusNode: focusNode,
-                                      hint: 'عنوان العميل',
-                                      textEditingController: printOrderController.addressController.value,
-                                      onChanged: (val) {},
+                                          decoration: enabledK('رقم العميل'),
+                                          // getSelectedValue: (b){print(b);},
+                                          initialList: addDelegationController.clientsList.map((client) => client.clientNumber).toList(),
+                                          label: addDelegationController.clientsList.isNotEmpty ? addDelegationController.clientsList.first.clientNumber! : ' ',
+                                          controller: addDelegationController.clientNumberController.value,
+                                        ),
+                                      ),
                                     ),
                                     SizedBox(
-                                      height: 12.h,
+                                      height: 15.h,
                                     ),
                                     TextFieldTall(
-                                      enabled: false,
+                                      //    enabled: false,
                                       height: 158.h,
-                                      textEditingController: printOrderController.detailsController.value,
+                                      textEditingController: addDelegationController.detailsController.value,
+
                                       hint: 'تفاصيل إضافية',
                                       onChanged: (val) {},
                                     ),
                                     SizedBox(
-                                      height: 23.h,
+                                      height: 30.h,
                                     ),
-                                    Padding(
-                                      padding: EdgeInsets.only(bottom: 30.h),
-                                      child: MainButton(
-                                        text: 'تمت الطباعة',
-                                        width: 178.w,
-                                        height: 50.h,
-                                        onPressed: () async {
+                                    MainButton(
+                                      text: 'إرسال',
+                                      color: AppColors.mainColor1,
+                                      width: 178.w,
+                                      height: 50.h,
+                                      onPressed: () async {
+                                        FocusScope.of(context).requestFocus(FocusNode());
+                                        // addNewOrderScreenController
+                                        if (addDelegationController.validateInputs()) {
+                                          //if all fields not empty
+
+                                          addDelegationController.setDelegationSuperManager();
                                           showDialogCustom(
                                             height: height,
                                             width: width,
@@ -149,7 +133,7 @@ class PrintOrderMovmentMangerScreen extends StatelessWidget {
                                             padding: EdgeInsets.zero,
                                             dialogContent: DialogContentAreYouSure(
                                               onYes: () async {
-                                                dynamic status = await printOrderController.printOder();
+                                                dynamic status = await addDelegationController.addDelegationSuperManager();
                                                 if (status == '200')
                                                   showDialogCustom(
                                                       height: height,
@@ -157,16 +141,13 @@ class PrintOrderMovmentMangerScreen extends StatelessWidget {
                                                       context: context,
                                                       padding: EdgeInsets.zero,
                                                       dialogContent: DialogContentThanks(onTap: () {
-                                                        Get.offAllNamed('/movment-manger-root-screen');
+                                                        Get.offAllNamed('/choose-warehouse-screen');
                                                       }));
                                               },
                                             ),
                                           );
-                                          // if (status == '777')
-                                          //   Utils.showGetXToast(
-                                          //       message: status);
-                                        },
-                                      ),
+                                        }
+                                      },
                                     ),
                                   ],
                                 );

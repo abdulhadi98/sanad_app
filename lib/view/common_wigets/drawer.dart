@@ -47,9 +47,11 @@ class AppDrawer extends StatelessWidget {
                       sigmaY: 4.0,
                     ),
                     child: Drawer(
-                      child: ListView(
-                        shrinkWrap: true,
+                      child: Column(
                         children: [
+                          SizedBox(
+                            height: MediaQuery.of(context).padding.top,
+                          ),
                           Padding(
                             padding: EdgeInsets.symmetric(
                               horizontal: 15.w,
@@ -109,71 +111,85 @@ class AppDrawer extends StatelessWidget {
                               print('ad');
                             },
                           ),
-                          DrawerButton(
-                            iconPath: 'assets/icons/ic_orders_log_active.svg',
-                            title: "سجل الطلبات",
-                            onTap: () {
-                              print('ad');
-                            },
-                          ),
+                          // DrawerButton(
+                          //   iconPath: 'assets/icons/ic_orders_log_active.svg',
+                          //   title: "سجل الطلبات",
+                          //   onTap: () {
+                          //     print('ad');
+                          //   },
+                          // ),
+                          // if (Utils.isThisRoleManager())
                           DrawerButton(
                             iconPath: 'assets/icons/ic_order_doing_active.svg',
                             title: "طلبات قيد التنفيذ",
-                            onTap: () {
-                              print('ad');
+                            onTap: () async {
+                              bool isManager = await Utils.isThisRoleManager();
+                              print(isManager);
+                              if (isManager)
+                                Get.toNamed(
+                                  '/doing-orders-manager-side-menu-screen',
+                                  arguments: {
+                                    "api": "/get-orders",
+                                  },
+                                );
+                              else
+                                print('not managetr');
                             },
                           ),
+                          //  if (globalController.isRoleManager())
                           DrawerButton(
                             iconPath: 'assets/icons/ic_order_done_active.svg',
                             title: "طلبيات منفذة",
-                            onTap: () {
-                              print('ad');
+                            onTap: () async {
+                              var isManager = await Utils.isThisRoleManager();
+                              if (isManager)
+                                Get.toNamed('/orders-sidemenu-manager-screen', arguments: {'api': ''});
+                              else
+                                Get.toNamed('/orders-sidemenu-employee-screen', arguments: {'api': ''});
                             },
                           ),
                           DrawerButton(
-                            iconPath: 'assets/icons/Icon Like Active.svg',
-                            title: "التقييمات",
-                            onTap: () {
-                              print('ad');
-                            },
-                          ),
-                          DrawerButton(
-                            iconPath: 'assets/icons/Icon Home Active.svg',
+                            iconPath: 'assets/icons/ic_notes_active.svg',
                             title: "الملاحظات",
                             onTap: () {
+                              Get.toNamed('/notes-list-screen');
                               print('ad');
                             },
                           ),
                           DrawerButton(
-                            iconPath: 'assets/icons/Icon Home Active.svg',
+                            iconPath: 'assets/icons/ic_notification_active.svg',
                             title: "إشعارات",
                             onTap: () {
-                              print('ad');
+                              Get.toNamed('notifications_screen');
                             },
                           ),
-                          //  SizedBox(height: .h),
+
                           SizedBox(
                             height: 10.h,
                           ),
+                          Spacer(),
                           Obx(
-                            () => Align(
-                              alignment: Alignment.center,
-                              child: LogoutButton(
-                                text: 'تسجيل الخروج',
-                                width: 178.w,
-                                height: 50.h,
-                                color: Colors.white,
-                                onPressed: () async {
-                                  var status = await globalController.removeDeviceToken();
-                                  if (status == '200') {
-                                
-                                    await sharedPreferences!.clear();
-                                    print(sharedPreferences!.getInt('role').toString());
-                                    Get.offAllNamed('/');    print('logout ok');
-                                  }
-                                },
-                                loadingLocation: globalController.logoutSpinner.value,
-                                icon: Icons.login_rounded,
+                            () => Padding(
+                              padding: EdgeInsets.only(bottom: 30.h),
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: LogoutButton(
+                                  text: 'تسجيل الخروج',
+                                  width: 178.w,
+                                  height: 50.h,
+                                  color: Colors.white,
+                                  onPressed: () async {
+                                    var status = await globalController.removeDeviceToken();
+                                    if (status == '200') {
+                                      await sharedPreferences!.clear();
+                                      print(sharedPreferences!.getInt('role').toString());
+                                      Get.offAllNamed('/');
+                                      print('logout ok');
+                                    }
+                                  },
+                                  loadingLocation: globalController.logoutSpinner.value,
+                                  icon: Icons.login_rounded,
+                                ),
                               ),
                             ),
                           )

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -11,6 +13,7 @@ import 'package:wits_app/controller/order_details_controller.dart';
 import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/helper/utils.dart';
 import 'package:wits_app/model/order_details_model.dart';
+import 'package:wits_app/network/urls_container.dart';
 import 'package:wits_app/view/common_wigets/dilog_custom.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 
@@ -97,7 +100,7 @@ class OrderDetailsMovmentMangerScreen extends StatelessWidget {
                                   Container(
                                     //  color: Colors.red,
                                     child: Padding(
-                                      padding: EdgeInsets.only(right: 40.0.w),
+                                      padding: EdgeInsets.only(right: 34.0.w),
                                       child: Row(
                                         textDirection: ui.TextDirection.rtl,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,7 +123,7 @@ class OrderDetailsMovmentMangerScreen extends StatelessWidget {
 
                                               //  undoneLineThickness: .5,
                                               isHorizontal: false,
-                                              lineLength: 32.h,
+                                              lineLength: 38.h,
                                               lineLengthCustomStep: [
                                                 StepsIndicatorCustomLine(
                                                   nbStep: 1,
@@ -149,7 +152,231 @@ class OrderDetailsMovmentMangerScreen extends StatelessWidget {
                                                   ),
                                                 ))),
                                           ),
-                                          DetailsButtons(orderDetailsController.orderDetailsModel!.statusId!)
+                                          Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              SizedBox(
+                                                height: 4.h,
+                                              ),
+                                              //   DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: statusId > 0),
+                                              SizedBox(
+                                                height: 29.h,
+                                              ),
+                                              SizedBox(
+                                                height: 23.h,
+                                              ),
+
+                                              SizedBox(
+                                                height: 15.h,
+                                              ),
+                                              // DetailsButton(
+                                              //     text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: orderDetailsController.orderDetailsModel!.statusId! > 1), //قيد التحضير
+                                              SizedBox(
+                                                height: 29.h,
+                                              ),
+
+                                              // DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: statusId > 2),
+                                              SizedBox(
+                                                height: 29.h,
+                                              ),
+                                              SizedBox(
+                                                height: 15.h,
+                                              ),
+                                              DetailsButton(
+                                                  text: 'تفاصيل',
+                                                  width: 76.w,
+                                                  height: 29.h,
+                                                  onPressed: () {
+                                                    showDialogCustom(
+                                                      height: height,
+                                                      width: width,
+                                                      context: context,
+                                                      padding: EdgeInsets.zero,
+                                                      dialogContent: StatefulBuilder(
+                                                        builder: (context, setState) {
+                                                          return Container(
+                                                            padding: EdgeInsets.all(15.r),
+                                                            color: AppColors.white,
+                                                            child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: EdgeInsets.symmetric(
+                                                                    horizontal: 15.w,
+                                                                    vertical: 15.h,
+                                                                  ),
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                                    children: [
+                                                                      InkWell(
+                                                                        onTap: () {
+                                                                          Get.back();
+                                                                        },
+                                                                        child: SvgPicture.asset(
+                                                                          'assets/icons/Icon Close Light-1.svg',
+                                                                          width: 16.w,
+                                                                          height: 16.w,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  'صور السائقين',
+                                                                  style: TextStyle(
+                                                                    fontSize: 25.sp,
+                                                                    fontWeight: FontWeight.bold,
+                                                                    color: AppColors.textColorXDarkBlue,
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsets.only(bottom: 6.h),
+                                                                  child: Divider(
+                                                                    color: AppColors.textColorXDarkBlue,
+                                                                    indent: width / 2.3,
+                                                                    endIndent: width / 2.3,
+                                                                    thickness: 1,
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  //   padding: EdgeInsets.symmetric(vertical: 5.),
+
+                                                                  width: width,
+                                                                  child: Container(
+                                                                    width: 305.w,
+                                                                    height: orderDetailsController.orderDetailsModel!.truckImages!.length > 2 ? 300.h : 170.h,
+                                                                    decoration: BoxDecoration(
+                                                                        borderRadius: BorderRadius.circular(25.r),
+                                                                        border: Border.all(
+                                                                          color: AppColors.mainColor2,
+                                                                        )),
+                                                                    padding: EdgeInsets.all(25.r),
+                                                                    alignment: Alignment.topCenter,
+                                                                    child: GridView.builder(
+                                                                        shrinkWrap: true,
+                                                                        padding: EdgeInsets.zero,
+                                                                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                                                                            maxCrossAxisExtent: 105.w, childAspectRatio: 1.05, crossAxisSpacing: 35.w, mainAxisSpacing: 20.h),
+                                                                        itemCount: orderDetailsController.orderDetailsModel!.truckImages!.length,
+                                                                        itemBuilder: (BuildContext ctx, index) {
+                                                                          return Container(
+                                                                            height: 91.h,
+                                                                            width: 106.w,
+                                                                            //  color: Colors.amber,
+                                                                            child: Image.network(
+                                                                              UrlsContainer.imagesUrl + '/' + orderDetailsController.orderDetailsModel!.truckImages![index].path!,
+                                                                              fit: BoxFit.fill,
+                                                                            ),
+                                                                          );
+                                                                        }),
+                                                                  ),
+                                                                )
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    );
+                                                  },
+                                                  isEnabeld: orderDetailsController.orderDetailsModel!.statusId! > 3), //قيد التسليم صور الشاحنة
+                                              SizedBox(
+                                                height: 15.h,
+                                              ),
+                                              SizedBox(
+                                                height: 29.h,
+                                              ),
+                                              SizedBox(
+                                                height: 15.h,
+                                              ),
+                                              SizedBox(
+                                                height: 8.h,
+                                              ),
+                                              DetailsButton(
+                                                  text: 'تفاصيل',
+                                                  width: 76.w,
+                                                  height: 29.h,
+                                                  onPressed: () {
+                                                    showDialogCustom(
+                                                      height: height,
+                                                      width: width,
+                                                      context: context,
+                                                      padding: EdgeInsets.zero,
+                                                      dialogContent: StatefulBuilder(
+                                                        builder: (context, setState) {
+                                                          return Container(
+                                                            padding: EdgeInsets.all(15.r),
+                                                            color: AppColors.white,
+                                                            child: Column(
+                                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                                              mainAxisAlignment: MainAxisAlignment.start,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: EdgeInsets.symmetric(
+                                                                    horizontal: 15.w,
+                                                                    vertical: 15.h,
+                                                                  ),
+                                                                  child: Row(
+                                                                    mainAxisAlignment: MainAxisAlignment.end,
+                                                                    children: [
+                                                                      InkWell(
+                                                                        onTap: () {
+                                                                          Get.back();
+                                                                        },
+                                                                        child: SvgPicture.asset(
+                                                                          'assets/icons/Icon Close Light-1.svg',
+                                                                          width: 16.w,
+                                                                          height: 16.w,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  'صورة الفاتورة المختومة',
+                                                                  style: TextStyle(
+                                                                    fontSize: 22.sp,
+                                                                    fontWeight: FontWeight.bold,
+                                                                    color: AppColors.textColorXDarkBlue,
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsets.only(bottom: 6.h),
+                                                                  child: Divider(
+                                                                    color: AppColors.textColorXDarkBlue,
+                                                                    indent: width / 2.3,
+                                                                    endIndent: width / 2.3,
+                                                                    thickness: 1,
+                                                                  ),
+                                                                ),
+                                                                Container(
+                                                                  width: 295.w,
+                                                                  height: 220.h,
+                                                                  decoration: BoxDecoration(
+                                                                      borderRadius: BorderRadius.circular(25.r),
+                                                                      border: Border.all(
+                                                                        color: AppColors.mainColor2,
+                                                                      )),
+                                                                  padding: EdgeInsets.all(19.r),
+                                                                  child: ClipRRect(
+                                                                    borderRadius: BorderRadius.circular(10.r),
+                                                                    child: Image.network(
+                                                                      '${UrlsContainer.imagesUrl}\/${orderDetailsController.orderDetailsModel!.billImage!}',
+                                                                      fit: BoxFit.contain,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
+                                                        },
+                                                      ),
+                                                    );
+                                                  },
+                                                  isEnabeld: (orderDetailsController.orderDetailsModel!.statusId! > 5 && orderDetailsController.orderDetailsModel!.statusId! != 8)), // تم التسليم
+                                            ],
+                                          )
                                         ],
                                       ),
                                     ),
@@ -186,7 +413,6 @@ class OrderDetailsMovmentMangerScreen extends StatelessWidget {
                                   ),
                                   TextFieldTall(
                                     enabled: false, height: 158.h,
-
                                     //focusNode: focusNode,
                                     hint: 'عنوان العميل',
                                     textEditingController: orderDetailsController.addressController.value,
@@ -213,10 +439,87 @@ class OrderDetailsMovmentMangerScreen extends StatelessWidget {
                                       onChanged: (val) {},
                                     ),
                                   SizedBox(
-                                    height: 30.h,
+                                    height: 20.h,
                                   ),
+                                  //
+                                  if (orderDetailsController.orderDetailsModel!.truckImages!.length != 0)
+                                    Column(
+                                      children: [
+                                        SizedBox(
+                                          width: 295.w,
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(
+                                              ':صور السائقين',
+                                              style: TextStyle(color: AppColors.textColorXDarkBlue, fontSize: 15.sp, fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 305.w,
+                                          height: orderDetailsController.orderDetailsModel!.truckImages!.length > 2 ? 300.h : 170.h,
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(25.r),
+                                              border: Border.all(
+                                                color: AppColors.mainColor2,
+                                              )),
+                                          padding: EdgeInsets.all(25.r),
+                                          alignment: Alignment.topCenter,
+                                          child: GridView.builder(
+                                              shrinkWrap: true,
+                                              padding: EdgeInsets.zero,
+                                              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 105.w, childAspectRatio: 1.05, crossAxisSpacing: 35.w, mainAxisSpacing: 20.h),
+                                              itemCount: orderDetailsController.orderDetailsModel!.truckImages!.length,
+                                              itemBuilder: (BuildContext ctx, index) {
+                                                return Container(
+                                                  height: 91.h,
+                                                  width: 106.w,
+                                                  color: Colors.amber,
+                                                  child: Image.network(
+                                                    UrlsContainer.imagesUrl + '/' + orderDetailsController.orderDetailsModel!.truckImages![index].path!,
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                );
+                                              }),
+                                        ),
+                                      ],
+                                    ),
+                                  if (orderDetailsController.orderDetailsModel!.billImage != null)
+                                    Column(
+                                      children: [
+                                        SizedBox(height: 15.h),
+                                        SizedBox(
+                                          width: 295.w,
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: Text(
+                                              ':صورة الفاتورة المختومة',
+                                              style: TextStyle(color: AppColors.textColorXDarkBlue, fontSize: 15.sp, fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: 295.w,
+                                          height: 220.h,
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(25.r),
+                                              border: Border.all(
+                                                color: AppColors.mainColor2,
+                                              )),
+                                          padding: EdgeInsets.all(19.r),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(10.r),
+                                            child: Image.network(
+                                              '${UrlsContainer.imagesUrl}\/${orderDetailsController.orderDetailsModel!.billImage!}',
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+
                                   Padding(
-                                    padding: EdgeInsets.only(bottom: 30.h),
+                                    padding: EdgeInsets.only(bottom: 30.h, top: 30.h),
                                     child: MainButton(
                                       text: 'عودة',
                                       width: 178.w,
@@ -266,27 +569,33 @@ class OrderDetailsMovmentMangerScreen extends StatelessWidget {
         SizedBox(
           height: 4.h,
         ),
-        DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: statusId > 0),
+        //   DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: statusId > 0),
+        SizedBox(
+          height: 29.h,
+        ),
         SizedBox(
           height: 15.h,
         ),
-        DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: statusId > 1),
+        DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: statusId > 1), //قيد التحضير
         SizedBox(
           height: 15.h,
         ),
-        DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: statusId > 2),
+        // DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: statusId > 2),
+        SizedBox(
+          height: 29.h,
+        ),
         SizedBox(
           height: 15.h,
         ),
-        DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: statusId > 3),
+        DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: statusId > 3), //قيد التسليم صور الشاحنة
         SizedBox(
           height: 15.h,
         ),
-        DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: (statusId > 4 || statusId == 8)),
+        DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: (statusId > 4 || statusId == 8)), // غير مختومة
         SizedBox(
           height: 15.h,
         ),
-        DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: (statusId > 5 && statusId != 8)),
+        DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: (statusId > 5 && statusId != 8)), // تم التسليم
       ],
     );
   }
@@ -370,7 +679,7 @@ class ProcessWidget extends StatelessWidget {
         textDirection: ui.TextDirection.rtl,
         children: [
           SizedBox(
-            width: 15.w,
+            width: 9.w,
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,

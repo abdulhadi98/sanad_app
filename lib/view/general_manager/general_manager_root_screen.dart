@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:wits_app/controller/sales/sales_employee_controller.dart';
 import 'package:wits_app/helper/app_colors.dart';
+import 'package:wits_app/main.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 import 'package:wits_app/view/common_wigets/main_button.dart';
 import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/worker_widget.dart';
@@ -63,6 +64,17 @@ class GeneralManagerRootScreen extends StatelessWidget {
                           Get.toNamed('/add-new-order-screen', arguments: {'role_name': "المدير العام"});
                         },
                       ),
+                      // MainButton(
+                      //   text: 'تسجيل دخول',
+                      //   width: 224.w,
+                      //   height: 50.h,
+                      //   onPressed: () async {
+                      //     await sharedPreferences!.clear();
+                      //     print(sharedPreferences!.getInt('role').toString());
+                      //     Get.offAllNamed('/');
+                      //     print('logout ok');
+                      //   },
+                      // ),
                       SizedBox(
                         height: 30.h,
                       ),
@@ -134,7 +146,6 @@ class GeneralManagerRootScreen extends StatelessWidget {
                                             itemBuilder: (BuildContext context, int index) {
                                               return WorkerWidget(
                                                   imageUrl: salesEmployeeController.salesEmployeesList[index].imagePorofile ?? 'assets/images/worker1.png',
-
                                                   workerName: salesEmployeeController.salesEmployeesList[index].name!,
                                                   workerDepartment: 'قسم المبيعات',
                                                   onPressed: () {

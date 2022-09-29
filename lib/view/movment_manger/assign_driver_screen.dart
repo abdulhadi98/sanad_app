@@ -14,10 +14,12 @@ import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/helper/utils.dart';
 import 'package:wits_app/main.dart';
 import 'package:wits_app/model/order_details_model.dart';
+import 'package:wits_app/network/urls_container.dart';
 import 'package:wits_app/view/common_wigets/dilog_custom.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 
 import 'package:wits_app/view/common_wigets/main_button.dart';
+import 'package:wits_app/view/common_wigets/showdialog_are_you_sure.dart';
 import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
 import 'package:wits_app/view/common_wigets/title_widget.dart';
@@ -75,7 +77,6 @@ class AssignDriverScreen extends StatelessWidget {
                       title: "مدير الحركة ",
                       scaffoldKey: scaffoldKey,
                     ),
-                    TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
                     Expanded(
                       child: SizedBox(
                         width: width,
@@ -98,6 +99,7 @@ class AssignDriverScreen extends StatelessWidget {
                             else
                               return Column(
                                 children: [
+                                  TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
                                   TextFieldCustom(
                                     enabled: false,
                                     hint: 'رقم العميل',
@@ -225,7 +227,9 @@ class AssignDriverScreen extends StatelessWidget {
                                                           itemCount: driversController.driversList.length,
                                                           itemBuilder: (BuildContext context, int index) {
                                                             return WorkerWidget(
-                                                                imageUrl: driversController.driversList[index].imagePorofile ?? 'assets/images/worker1.png',
+                                                                imageUrl: driversController.driversList[index].imagePorofile != null
+                                                                    ? UrlsContainer.imagesUrl + '/' + driversController.driversList[index].imagePorofile!
+                                                                    : 'assets/images/worker1.png',
                                                                 workerName: driversController.driversList[index].name!,
                                                                 workerDepartment: '',
                                                                 onPressed: () {
@@ -260,7 +264,29 @@ class AssignDriverScreen extends StatelessWidget {
                                         if (driversController.driverId == null)
                                           Utils.showGetXToast(title: 'تنبيه', message: 'يرجى تعيين سائق', toastColor: AppColors.red);
                                         else
-                                          await driversController.assignDriver();
+                                          showDialogCustom(
+                                            height: height,
+                                            width: width,
+                                            context: context,
+                                            padding: EdgeInsets.zero,
+                                            dialogContent: DialogContentAreYouSure(
+                                              onYes: () async {
+                                                dynamic status = await driversController.assignDriver();
+                                                if (status == '200')
+                                                  showDialogCustom(
+                                                    height: height,
+                                                    width: width,
+                                                    context: context,
+                                                    padding: EdgeInsets.zero,
+                                                    dialogContent: DialogContentThanks(
+                                                      onTap: () {
+                                                        Get.offAllNamed('/movment-manger-root-screen');
+                                                      },
+                                                    ),
+                                                  );
+                                              },
+                                            ),
+                                          );
                                       },
                                     ),
                                   ),

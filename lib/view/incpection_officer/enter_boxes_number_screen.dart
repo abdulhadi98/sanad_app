@@ -16,6 +16,7 @@ import 'package:wits_app/view/common_wigets/dilog_custom.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 
 import 'package:wits_app/view/common_wigets/main_button.dart';
+import 'package:wits_app/view/common_wigets/showdialog_are_you_sure.dart';
 import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
 import 'package:wits_app/view/common_wigets/title_widget.dart';
@@ -154,22 +155,44 @@ class EnterBoxesNumberScreen extends StatelessWidget {
                                           FocusScope.of(context).requestFocus(FocusNode());
 
                                           if (enterBoxNumberController.validateInputs()) {
-                                            dynamic status = await enterBoxNumberController.enterBoxesNumber();
-                                            // if (status == '777')
-                                            //   Utils.showGetXToast(
-                                            //       message: status);
-                                            if (status == '200')
-                                              showDialogCustom(
-                                                height: height,
-                                                width: width,
-                                                context: context,
-                                                padding: EdgeInsets.zero,
-                                                dialogContent: DialogContentThanks(
-                                                  onTap: () {
-                                                    Get.offAllNamed('/incpection-officer-root-screen');
-                                                  },
-                                                ),
-                                              );
+                                            showDialogCustom(
+                                              height: height,
+                                              width: width,
+                                              context: context,
+                                              padding: EdgeInsets.zero,
+                                              dialogContent: DialogContentAreYouSure(
+                                                onYes: () async {
+                                                  dynamic status = await enterBoxNumberController.enterBoxesNumber();
+                                                  if (status == '200')
+                                                    showDialogCustom(
+                                                        height: height,
+                                                        width: width,
+                                                        context: context,
+                                                        padding: EdgeInsets.zero,
+                                                        dialogContent: DialogContentThanks(onTap: () {
+                                                          Get.offAllNamed('/incpection-officer-root-screen');
+                                                        }));
+                                                },
+                                              ),
+                                            );
+                                            // dynamic status = await enterBoxNumberController.enterBoxesNumber();
+                                            // // if (status == '777')
+                                            // //   Utils.showGetXToast(
+                                            // //       message: status);
+                                            // if (status == '200')
+                                            //   showDialogCustom(
+                                            //     height: height,
+                                            //     width: width,
+                                            //     context: context,
+                                            //     padding: EdgeInsets.zero,
+                                            //     dialogContent: DialogContentThanks(
+                                            //       onTap: () {
+                                            //    Get.offAllNamed('/incpection-officer-root-screen');
+
+                                            // },
+
+                                            //     ),
+                                            //   );
                                           }
                                         },
                                       ),

@@ -1,34 +1,32 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:wits_app/controller/sales/add_order_from_delegation_controller.dart';
-import 'package:wits_app/controller/sales/delegation_details_controller.dart';
+import 'package:wits_app/controller/general/note_details_controller.dart';
+import 'package:wits_app/controller/general/notes_controller.dart';
+import 'package:wits_app/controller/sales/sales_employee/delegation_details_sales_employee_controller.dart';
+import 'package:wits_app/controller/sales/sales_employee/get_delegation_details_and_add_order_from_delegation_controllrer.dart';
+import 'package:wits_app/controller/sales/sales_man/rejected_delegation_details_controller.dart';
 import 'package:wits_app/controller/sales/sales_manger/add_order_from_delegation_screen_controller.dart';
 import 'package:wits_app/controller/sales/sales_manger/delegation_details_screen_controller.dart';
-import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/helper/enums.dart';
 import 'package:wits_app/helper/utils.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 import 'package:wits_app/view/common_wigets/main_button.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
-import 'package:wits_app/view/common_wigets/textfield_search.dart';
+import 'package:wits_app/view/common_wigets/title_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 import '../../../../controller/global_controller.dart';
-import '../../../common_wigets/bottom_nav_bar.dart';
-import '../../../common_wigets/header_widget.dart';
+import '../../common_wigets/bottom_nav_bar.dart';
+import '../../common_wigets/header_widget.dart';
 
-class AddOrderFromDelegationScreen extends StatelessWidget {
+class NoteDetailsScreen extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   //TextEditingController myController = TextEditingController();
-  final put = Get.put<AddNewOrderFromDelegationScreenController>(
-    AddNewOrderFromDelegationScreenController(),
+  final NoteDetailsController notesController = Get.put<NoteDetailsController>(
+    NoteDetailsController(),
   ); // or optionally with tag
-  final AddNewOrderFromDelegationScreenController addNewOrderFromDelegationScreenController = Get.find<AddNewOrderFromDelegationScreenController>();
 
-  final DelegationDetailsScreenController delegationDetailsController = Get.find<DelegationDetailsScreenController>();
   final GlobalController globalController = Get.find<GlobalController>();
 
   @override
@@ -60,11 +58,12 @@ class AddOrderFromDelegationScreen extends StatelessWidget {
                         HeaderWidget(
                           width: width,
                           employeeName: "اسم الموظف",
-                          title: "مدير قسم المبيعات",
+                          title: "",
                           scaffoldKey: scaffoldKey,
                         ),
+                        //  Obx(() => ),
                         Obx(() {
-                          switch (addNewOrderFromDelegationScreenController.status!.value) {
+                          switch (notesController.status!.value) {
                             case Status.LOADING:
                               return SizedBox(
                                 height: height / 1.5,
@@ -78,63 +77,31 @@ class AddOrderFromDelegationScreen extends StatelessWidget {
                             case Status.DATA:
                               return Column(
                                 children: [
+                                  TitleWidget(tilte: '“ ${notesController.managerName.value} ”'),
                                   SizedBox(
-                                    height: 30.h,
-                                  ),
-                                  TextFieldCustom(
-                                    enabled: false,
-                                    keyboardType: TextInputType.number,
-                                    hint: 'اختر رقم العميل',
-                                    textEditingController: delegationDetailsController.clientNumberController.value,
-                                    onChanged: (val) {},
-                                  ),
-                                  SizedBox(
-                                    height: 30.h,
+                                    height: 15.h,
                                   ),
                                   //Text(nullVal!),
-                                  TextFieldCustom(
-                                    keyboardType: TextInputType.number,
-                                    hint: 'أدخل رقم الفاتورة',
-                                    textEditingController: addNewOrderFromDelegationScreenController.invoiceNumberController.value,
-                                    onChanged: (val) {},
-                                  ),
-                                  SizedBox(
-                                    height: 30.h,
-                                  ),
-                                  TextFieldCustom(
-                                    keyboardType: TextInputType.number,
-                                    hint: 'أدخل عدد الأصناف',
-                                    textEditingController: addNewOrderFromDelegationScreenController.categoriesNumberController.value,
-                                    onChanged: (val) {},
-                                  ),
-                                  SizedBox(
-                                    height: 30.h,
-                                  ),
+
                                   TextFieldTall(
                                     enabled: false,
-                                    hint: 'تفاصيل إضافية',
-                                    textEditingController: delegationDetailsController.detailsController.value,
+                                    height: 158.h,
+                                    textEditingController: notesController.noteController,
+                                    hint: 'الملاحظة',
                                     onChanged: (val) {},
                                   ),
+
                                   SizedBox(
-                                    height: 30.h,
+                                    height: 230.h,
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(bottom: 10.h),
                                     child: MainButton(
-                                      text: 'إرسال',
+                                      text: 'عودة',
                                       width: 178.w,
                                       height: 50.h,
                                       onPressed: () {
-                                        if (addNewOrderFromDelegationScreenController.validateInputs()) {
-                                          addNewOrderFromDelegationScreenController.setOrderModel(
-                                            details: delegationDetailsController.detailsController.value.text,
-                                            clientNumber: delegationDetailsController.clientNumberController.value.text,
-                                            salesmanId: delegationDetailsController.delegationModel!.creatorId!,
-                                          );
-                                          // print(delegationDetailsController.orderModel);
-                                          Get.toNamed('/submit-order-delegation-screen', arguments: {'delegation_id': delegationDetailsController.delegationModel!.id});
-                                        }
+                                        Get.back();
                                       },
                                     ),
                                   ),

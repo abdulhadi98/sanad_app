@@ -9,10 +9,9 @@ import '../../helper/app_colors.dart';
 
 class HeaderWidget extends StatelessWidget {
   final scaffoldKey;
-  final put = Get.put<GlobalController>(
+  final globalController = Get.put<GlobalController>(
     GlobalController(),
   ); // or optionally with tag
-  final GlobalController globalController = Get.find<GlobalController>();
   HeaderWidget({
     Key? key,
     // required this.scaffoldKey,
@@ -60,6 +59,7 @@ class HeaderWidget extends StatelessWidget {
                     constraints: BoxConstraints(),
                     onPressed: () {
                       print('notification');
+                      Get.toNamed('/notifications_screen');
                     },
                     icon: SvgPicture.asset(
                       'assets/icons/ic_orders_log_active.svg',

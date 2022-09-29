@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:wits_app/controller/driver/deliver_to_clients_controller.dart';
 import 'package:wits_app/controller/driver/deliver_to_driver_controller.dart';
-import 'package:wits_app/controller/incpection_officer/enter_box_number_controller.dart';
 import 'package:wits_app/controller/order_details_controller.dart';
-import 'package:wits_app/controller/returns_manger/receive_returns_controller.dart';
 import 'package:wits_app/helper/app_colors.dart';
 
 import 'package:wits_app/helper/enums.dart';
@@ -15,14 +12,12 @@ import 'package:wits_app/view/common_wigets/dilog_custom.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 import 'package:wits_app/view/common_wigets/main_button.dart';
 import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
-import 'package:wits_app/view/common_wigets/textfield_custom.dart';
 import 'package:wits_app/view/common_wigets/title_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/worker_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 import '../../../../controller/global_controller.dart';
 import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
-import 'package:geolocator/geolocator.dart';
 
 class DeliverToDriverScreen extends StatelessWidget {
   final put = Get.lazyPut<DeliverToDriverController>(
@@ -62,7 +57,6 @@ class DeliverToDriverScreen extends StatelessWidget {
                       title: "السائق",
                       scaffoldKey: scaffoldKey,
                     ),
-                    TitleWidget(tilte: "التسليم إلى سائق آخر"),
                     Expanded(
                       child: SizedBox(
                         width: width,
@@ -86,6 +80,7 @@ class DeliverToDriverScreen extends StatelessWidget {
                               case Status.DATA:
                                 return Column(
                                   children: [
+                                    TitleWidget(tilte: "التسليم إلى سائق آخر"),
                                     MainButton(
                                       text: 'اختر السائق',
                                       width: 295.w,

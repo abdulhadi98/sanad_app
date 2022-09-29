@@ -71,7 +71,6 @@ class NotStampedBillScreen extends StatelessWidget {
                       title: "السائق",
                       scaffoldKey: scaffoldKey,
                     ),
-                    TitleWidget(tilte: 'تفاصيل الحمولة'),
                     Expanded(
                       child: SizedBox(
                         width: width,
@@ -94,6 +93,7 @@ class NotStampedBillScreen extends StatelessWidget {
                             else
                               return Column(
                                 children: [
+                                  TitleWidget(tilte: 'تفاصيل الحمولة'),
                                   SizedBox(
                                     height: 10.h,
                                   ),

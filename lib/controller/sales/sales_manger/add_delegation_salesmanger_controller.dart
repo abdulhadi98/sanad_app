@@ -96,7 +96,7 @@ class AddDelegationSalesMangerController extends GetxController {
       String? token = await sharedPreferences!.getString("token");
       response = await http.post(
           Uri.parse(
-            UrlsContainer.addDelegationSuperManager,  //here we need warehouse id because super manager can manage all warehouses.
+            UrlsContainer.addDelegationSuperManager, //here we need warehouse id because super manager can manage all warehouses.
           ),
           body: delegationModel!.toJsonMangerFromScratch(), //This one for adding delegation from the start(from the sales manger root screen -assign sales employee- and it doesn't need delegation id)
           headers: {'Authorization': 'Bearer $token'});
@@ -150,7 +150,7 @@ class AddDelegationSalesMangerController extends GetxController {
         creatorId: sharedPreferences!.getInt('user_id').toString(),
         details: detailsController.value.text.isEmpty ? ' ' : detailsController.value.text,
         employeeId: employeeId,
-        warehouseId: sharedPreferences!.getInt('warehouse_id'));
+        warehouseId: sharedPreferences!.getInt('warehouse_id').toString());
   }
 
   @override

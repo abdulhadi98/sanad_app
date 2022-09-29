@@ -3,32 +3,30 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:wits_app/controller/sales/delegations_controller.dart';
+import 'package:wits_app/controller/orders_controller.dart';
 import 'package:wits_app/view/common_wigets/bottom_nav_bar.dart';
-import 'package:wits_app/view/common_wigets/delegation_widget.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 import 'package:wits_app/view/common_wigets/header_widget.dart';
-import 'package:wits_app/view/sales/sales_manger/orders/order_from_salesperson_screen.dart';
-
+import 'package:wits_app/view/common_wigets/order_widget.dart';
+import 'package:wits_app/view/common_wigets/textfield_custom.dart';
+import 'package:wits_app/view/sales/sales_manger/orders/orders_root_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 
-import '../../../../../controller/global_controller.dart';
-import '../../../../../helper/enums.dart';
-import '../../../../../helper/utils.dart';
+import '../../../../controller/global_controller.dart';
+import '../../../../helper/enums.dart';
+import '../../../../helper/utils.dart';
 
-class DelegationsListSceen extends StatelessWidget {
+class DoingOrdersManagerSideMenuScreen extends StatelessWidget {
   final GlobalController globalController = Get.find<GlobalController>();
-  final put = Get.put<DelegationsController>(
-    DelegationsController(),
+  final put = Get.put<OrdersController>(
+    OrdersController(),
   );
-
-  final DelegationsController delegationsController = Get.find<DelegationsController>();
+  final OrdersController ordersController = Get.find<OrdersController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    //
 
     bool isKeyboardShowing = MediaQuery.of(context).viewInsets.vertical > 0;
 
@@ -53,14 +51,14 @@ class DelegationsListSceen extends StatelessWidget {
                       HeaderWidget(
                         width: width,
                         employeeName: "اسم الموظف",
-                        title: "مدير قسم المبيعات",
+                        title: "",
                         scaffoldKey: scaffoldKey,
                       ),
                       SizedBox(
                         height: 3.h,
                       ),
                       Expanded(child: Obx(() {
-                        switch (delegationsController.status!.value) {
+                        switch (ordersController.status!.value) {
                           case Status.LOADING:
                             return SizedBox(
                               height: height / 1.5,
@@ -77,33 +75,38 @@ class DelegationsListSceen extends StatelessWidget {
                             );
 
                           case Status.DATA:
-                            return Container(
-                              child: delegationsController.delegationsList.length > 0
-                                  ? ListView.builder(
-                                      padding: EdgeInsets.zero,
-                                      itemCount: delegationsController.delegationsList.length,
-                                      itemBuilder: (BuildContext context, int i) {
-                                        return DelegationWidget(
-                                          salesmanName: delegationsController.delegationsList[i].creatorId.toString(),
-                                          onTap: () {
-                                            print(delegationsController.delegationsList[i].id);
-                                            SalesmanOrderScreen.delegationId = delegationsController.delegationsList[i].id;
-                                            Get.toNamed('/order-from-salesperson-screen', arguments: {'delegation_id': delegationsController.delegationsList[i].id});
-                                          },
-                                          // title: ordersController
-                                          //     .delegationsList[i].name!,
-                                          // clientNumber: ordersController
-                                          //     .delegationsList[i].invoiceNumber!
-                                          //     .toString(),
-                                          // mainColor: ordersController
-                                          //     .delegationsList[i].status!.color,
-                                          // sideColor: ordersController
-                                          //     .delegationsList[i].status!.secondColor,
-                                          // type: 'delegation'
-                                        );
-                                      })
-                                  : Center(child: Utils.errorText(text: 'لا يوجد طلبيات حالياً')),
-                            );
+                            return ordersController.ordersList.length > 0
+                                ? Column(
+                                    children: [
+                                      TextFieldCustom(hint: 'ابحث', onChanged: (val) {},
+                                      
+                                      ),
+                                      Expanded(
+                                        child: ListView.builder(
+                                            padding: EdgeInsets.zero,
+                                            itemCount: ordersController.ordersList.length,
+                                            itemBuilder: (BuildContext context, int i) {
+                                              return OrderWidget(
+                                                  onTap: () {
+                                                    OrdersRootScreen.orderId = ordersController.ordersList[i].id;
+                                                    if (Get.arguments['api'] == "/get-orders")
+                                                      Get.toNamed(
+                                                        '/Order-details-movament-manger-screen',
+                                                        arguments: {
+                                                          "order_id": ordersController.ordersList[i].id.toString(),
+                                                        },
+                                                      );
+                                                  },
+                                                  title: ordersController.ordersList[i].name ?? 'null',
+                                                  clientNumber: ordersController.ordersList[i].invoiceNumber!.toString(),
+                                                  mainColor: ordersController.ordersList[i].status!.color,
+                                                  sideColor: ordersController.ordersList[i].status!.secondColor,
+                                                  type: 'delegation');
+                                            }),
+                                      ),
+                                    ],
+                                  )
+                                : Center(child: Utils.errorText(text: 'لا يوجد طلبيات حالياً'));
                         }
                       })),
                     ],

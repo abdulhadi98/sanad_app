@@ -1,14 +1,18 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'package:wits_app/controller/orders_controller.dart';
-import 'package:wits_app/controller/super_manager/get_orders_supermanager_controlller.dart';
+import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/view/common_wigets/bottom_nav_bar.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 import 'package:wits_app/view/common_wigets/header_widget.dart';
 
+import 'package:wits_app/view/common_wigets/main_button.dart';
 import 'package:wits_app/view/common_wigets/order_widget.dart';
+import 'package:wits_app/view/common_wigets/textfield_custom.dart';
 import 'package:wits_app/view/sales/sales_manger/orders/orders_root_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 
@@ -16,11 +20,13 @@ import '../../../../controller/global_controller.dart';
 import '../../../../helper/enums.dart';
 import '../../../../helper/utils.dart';
 
-class SuperManagerOrdersScreen extends StatelessWidget {
+class OrdersSideMenuScreen extends StatelessWidget {
+
   final GlobalController globalController = Get.find<GlobalController>();
-  final ordersController = Get.put<GetOrdersSuperManagerController>(
-    GetOrdersSuperManagerController(),
+  final put = Get.put<OrdersController>(
+    OrdersController(),
   );
+  final OrdersController ordersController = Get.find<OrdersController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -51,7 +57,7 @@ class SuperManagerOrdersScreen extends StatelessWidget {
                       HeaderWidget(
                         width: width,
                         employeeName: "اسم الموظف",
-                        title: "مسؤول التحكم",
+                        title: "",
                         scaffoldKey: scaffoldKey,
                       ),
                       SizedBox(
@@ -83,14 +89,27 @@ class SuperManagerOrdersScreen extends StatelessWidget {
                                       return OrderWidget(
                                           onTap: () {
                                             OrdersRootScreen.orderId = ordersController.ordersList[i].id;
-                                            if (Get.arguments['api'] == "/get-warehouse-orders")
+                                            if (Get.arguments['api'] == "/get-orders")
                                               Get.toNamed(
                                                 '/Order-details-movament-manger-screen',
                                                 arguments: {
                                                   "order_id": ordersController.ordersList[i].id.toString(),
                                                 },
                                               );
-
+                                            else if (Get.arguments['api'] == "/get-orders-need-driver")
+                                              Get.toNamed(
+                                                '/assign-driver-screen',
+                                                arguments: {
+                                                  "order_id": ordersController.ordersList[i].id.toString(),
+                                                },
+                                              );
+                                            else if (Get.arguments['api'] == "/get-unprinted-orders")
+                                              Get.toNamed(
+                                                '/print-order-movament-manger-screen',
+                                                arguments: {
+                                                  "order_id": ordersController.ordersList[i].id.toString(),
+                                                },
+                                              );
                                             // OrdersRootScreen.orderId = ordersController.ordersList[i].id;
                                             // switch (ordersController.ordersList[i].status!.status) {
                                             //   case 'استلام طلب جديد':

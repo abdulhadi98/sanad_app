@@ -14,6 +14,11 @@ import 'package:wits_app/view/driver/load_will_delevired_to_screen.dart';
 import 'package:wits_app/view/driver/not_stamped_bill_screen.dart';
 import 'package:wits_app/view/driver/orders_driver_screen.dart';
 import 'package:wits_app/view/driver/recive_from_another_driver_screen.dart';
+import 'package:wits_app/view/general/doing_orders_manager_screen.dart';
+import 'package:wits_app/view/general/done_orders_manager_side_menu_screen.dart';
+import 'package:wits_app/view/general/notes/note_details_screen.dart';
+import 'package:wits_app/view/general/notes/notes_list_screen.dart';
+import 'package:wits_app/view/general/orders_side_menu_screen.dart';
 import 'package:wits_app/view/general_manager/choose_review_type_screen.dart';
 import 'package:wits_app/view/general_manager/general_manager_root_screen.dart';
 import 'package:wits_app/view/general_manager/review_by_department_screen.dart';
@@ -26,6 +31,7 @@ import 'package:wits_app/view/movment_manger/movment_manger_root_screen.dart';
 import 'package:wits_app/view/movment_manger/orders_movement_manger_screen.dart';
 import 'package:wits_app/view/movment_manger/order_details_movment_manger_screen.dart';
 import 'package:wits_app/view/movment_manger/print_order_movment_manger_screen.dart';
+import 'package:wits_app/view/general/notifications/notifications_screen.dart';
 import 'package:wits_app/view/preparation_worker/orders_preparation_worker_screen.dart';
 import 'package:wits_app/view/preparation_worker/preparation_worker_root_screen.dart';
 import 'package:wits_app/view/preparation_worker/prepration_done_screen.dart';
@@ -55,6 +61,7 @@ import 'package:wits_app/view/sales/sales_manger/delegations/submit_order_delega
 import 'package:wits_app/view/sales/sales_manger/orders/orders_root_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 import 'package:get/get.dart';
+import 'package:wits_app/view/super_manager/add_delegation_to_sales_manager_screen.dart';
 import 'package:wits_app/view/super_manager/add_new_order_super_manager_screen.dart';
 import 'package:wits_app/view/super_manager/choose_review_type_supermanager_screen.dart';
 import 'package:wits_app/view/super_manager/choose_warehouse_screen.dart';
@@ -124,8 +131,16 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/order-details-screen', page: () => OrderDetailsScreen()),
         GetPage(name: '/accept-and-assign-sales-employee', page: () => AcceptAndAssignSalesEmployee()),
 
+        // General
+        GetPage(name: '/notifications_screen', page: () => NotificationsScreen()),
+        GetPage(name: '/notes-list-screen', page: () => NotesScreen()),
+        GetPage(name: '/note-detials-screen', page: () => NoteDetailsScreen()),
+        GetPage(name: '/orders-sidemenu-screen', page: () => OrdersSideMenuScreen()),
+        GetPage(name: '/done-orders-manager-side-menu-screen', page: () => DoneOrdersManagerSideMenuScreen()),
+        GetPage(name: '/doing-orders-manager-side-menu-screen', page: () => DoingOrdersManagerSideMenuScreen()),
+
         //Sales Employee
-        GetPage(name: '/sales-employee-root-screen', page: () => SalesEmployeeRootScreen()),
+        GetPage(name: '/sales-employee-root-screen', page: () => SalesEmployeeRootScreen(), binding: GolbalBindings()),
         GetPage(name: '/delegations_list_sales_employee_screen', page: () => DelegationsListSalesEmployeeScreen()),
         GetPage(name: '/rejected_delegations_screen', page: () => RejectedDelegationsScreen()),
         GetPage(name: '/rejected-delegation-details-screen', page: () => RejectedDelegationDetailsScreen()),
@@ -137,8 +152,8 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/delegations-list-screen', page: () => DelegationsListSceen()),
         GetPage(name: '/orders-root-screen', page: () => OrdersRootScreen()),
         GetPage(name: '/order-from-salesperson-screen', page: () => SalesmanOrderScreen()),
-        GetPage(name: '/salesman-root-screen', page: () => SalesmanRootScreen()),
-        GetPage(name: '/salesman-root-screen-new', page: () => SalesMangerRootScreenNew()),
+        GetPage(name: '/salesman-root-screen', page: () => SalesmanRootScreen(), binding: GolbalBindings()),
+        GetPage(name: '/salesman-root-screen-new', page: () => SalesMangerRootScreenNew(), binding: GolbalBindings()),
 
         GetPage(name: '/reject-delegation-screen', page: () => RejectDelegationScreen()),
 
@@ -153,28 +168,28 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/assign-driver-screen', page: () => AssignDriverScreen()),
 
         //WareHouse Section
-        GetPage(name: '/warehouse-manger-root-screen', page: () => WarehouseMangerRootScreen()),
+        GetPage(name: '/warehouse-manger-root-screen', page: () => WarehouseMangerRootScreen(), binding: GolbalBindings()),
         GetPage(name: '/orders-screen-warehouse-manger', page: () => OrdersWarehouseMangerScreen()),
         GetPage(name: '/assign-perperator-screen', page: () => AssignPreperatorScreen()),
 
         //Preparation Worker
         GetPage(name: '/orders-preparation-worker-screen', page: () => OrdersPreparationWorkerScreent()),
         GetPage(name: '/preparation-done-screen', page: () => PrepartionDoneSceeen()),
-        GetPage(name: '/prepartion-worker-root-screen', page: () => PreparationWorkerRootScreen()),
+        GetPage(name: '/prepartion-worker-root-screen', page: () => PreparationWorkerRootScreen(), binding: GolbalBindings()),
 
         //Incpection Officer
         GetPage(name: '/orders-screen-incpection_officer', page: () => OrdersScreentIncpectionOfficer()),
         GetPage(name: '/enter-boxes-number-screen', page: () => EnterBoxesNumberScreen()),
-        GetPage(name: '/incpection-officer-root-screen', page: () => IncpectionOfficerRootScreen()),
+        GetPage(name: '/incpection-officer-root-screen', page: () => IncpectionOfficerRootScreen(), binding: GolbalBindings()),
 
         //Returns Manger
         GetPage(name: '/orders-screen-returns-manger', page: () => OrdersScreentReturnsManger()),
         GetPage(name: '/recive-returns-screen', page: () => ReciveReturnsScreen()),
-        GetPage(name: '/return-manger-root-screen', page: () => ReturnsMangerRootScreen()),
+        GetPage(name: '/return-manger-root-screen', page: () => ReturnsMangerRootScreen(), binding: GolbalBindings()),
         GetPage(name: '/all-orders-returns-manager-screen', page: () => OrderAllRetrunsManagerScreen()),
 
         //Driver
-        GetPage(name: '/driver-root-screen', page: () => DriverRootScreen()),
+        GetPage(name: '/driver-root-screen', page: () => DriverRootScreen(), binding: GolbalBindings()),
         GetPage(name: '/orders-driver-screen', page: () => OrdersDriverScreen()),
         GetPage(name: '/load-will-delivered-screen', page: () => LoadWillDeleviredScreen()),
         GetPage(name: '/deliver-to-client-screen', page: () => DeliverToClientScreen()),
@@ -185,7 +200,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/add-returns-after-deliver-screen', page: () => AddReturnsAfterDeliverScreen()),
 
         //Quality Supervisor
-        GetPage(name: '/quality-supervisor-root-screen', page: () => QualitySupervisorRootScreen()),
+        GetPage(name: '/quality-supervisor-root-screen', page: () => QualitySupervisorRootScreen(), binding: GolbalBindings()),
         GetPage(name: '/orders-quality-supervisor-screen', page: () => OrdersQualitySupervisorScreent()),
         GetPage(name: '/check-order-screen', page: () => CheckOrderScreen()),
 
@@ -193,15 +208,16 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/recive-returns-screen', page: () => ReciveReturnsScreen()),
 
         //General Manager
-        GetPage(name: '/general-manager-root-screen', page: () => GeneralManagerRootScreen()),
+        GetPage(name: '/general-manager-root-screen', page: () => GeneralManagerRootScreen(), binding: GolbalBindings()),
         GetPage(name: '/choose-review-type-screen', page: () => ChooseReviewTypeScreen()),
         GetPage(name: '/review-by-order-screen', page: () => ReviewByOrderScreen()),
         GetPage(name: '/review-by-department-screen', page: () => ReviewByDepartmentScreen()),
 
         //Super Manager
-        GetPage(name: '/choose-warehouse-screen', page: () => ChooseWarehouseScreen()),
-        GetPage(name: '/super-manager-root-screen', page: () => SuperManagerRootScreen()),
+        GetPage(name: '/choose-warehouse-screen', page: () => ChooseWarehouseScreen(), binding: GolbalBindings()),
+        GetPage(name: '/super-manager-root-screen', page: () => SuperManagerRootScreen(), binding: GolbalBindings()),
         GetPage(name: '/add-new-order-super-manager-screen', page: () => AddNewOrderSuperManagerScreen()),
+        GetPage(name: '/add-delegation-super-manager-screen', page: () => AddDelegationSuperManagerScreen()),
 
         GetPage(name: '/super-manager-orders-screen', page: () => SuperManagerOrdersScreen()),
         GetPage(name: '/choose-review-type-screen', page: () => ChooseReviewTypeScreen()),

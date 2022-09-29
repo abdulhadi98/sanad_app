@@ -25,7 +25,7 @@ class PerperatorController extends GetxController {
     preparatorsList.clear();
     String? token = await sharedPreferences!.getString("token");
     setStatus(Status.LOADING);
-    // try {
+     try {
     dynamic response = await http.get(Uri.parse(UrlsContainer.getPerperators), headers: {'Authorization': 'Bearer $token'});
     dynamic body = jsonDecode(response.body);
     print(response.body);
@@ -38,13 +38,13 @@ class PerperatorController extends GetxController {
 
     setStatus(Status.DATA);
     return 'code';
-    // } catch (e) {
-    //   print(e);
-    //   setStatus(Status.ERROR);
-    //   // spinner.value = false;
-    //   Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
-    //   return 'error';
-    // }
+  } catch (e) {
+    print(e);
+    setStatus(Status.ERROR);
+    // spinner.value = false;
+    Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
+    return 'error';
+  }
   }
 
   assignPerperator() async {
@@ -65,9 +65,7 @@ class PerperatorController extends GetxController {
       String code = body['code'].toString();
       String message = body['message'];
 
-      Utils.getResponseCode(code, message, onData: () {
-        Get.offAllNamed('/warehouse-manger-root-screen');
-      });
+      Utils.getResponseCode(code, message);
       setStatus(Status.DATA);
       return code;
     } catch (e) {

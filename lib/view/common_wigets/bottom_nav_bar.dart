@@ -110,7 +110,7 @@ Widget buildBottomNavBar(
 }
 
 Widget buildBottomNavBarItem(isSelected, image, text, onTap, {size}) {
-  return GestureDetector(
+  return InkWell(
     onTap: onTap,
     child: Container(
       height: 70.h,

@@ -58,31 +58,32 @@ class AddNewOrderScreenController extends GetxController {
     dynamic response;
     spinner.value = true;
 
-    try {
-      print(orderModel!.toJson());
-      String? token = await sharedPreferences!.getString("token");
-      response = await http.post(
-          Uri.parse(
-            UrlsContainer.addNewOrder,
-          ),
-          body: orderModel!.toJson(),
-          headers: {'Authorization': 'Bearer $token'});
-      dynamic body = jsonDecode(response.body);
-      print(body);
-      spinner.value = false;
-      String code = body['code'].toString();
-      String message = body['message'];
+     try {
+    print(orderModel!.toJson());
+    String? token = await sharedPreferences!.getString("token");
+    response = await http.post(
+        Uri.parse(
+          UrlsContainer.addNewOrder,
+        ),
+        body: orderModel!.toJson(),
+        headers: {'Authorization': 'Bearer $token'});
+    dynamic body = jsonDecode(response.body);
+    print(body);
+    spinner.value = false;
+    String code = body['code'].toString();
+    String message = body['message'];
 
-      Utils.getResponseCode(code, message);
-      return code;
-    } catch (e) {
-      print(e);
-      spinner.value = false;
-      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
-      return 'error';
-    }
+    Utils.getResponseCode(code, message);
+    return code;
+     } catch (e) {
+       print(e);
+       spinner.value = false;
+       Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
+       return 'error';
+     }
   }
-   addNewOrderSuperManager() async {
+
+  addNewOrderSuperManager() async {
     dynamic response;
     spinner.value = true;
 
@@ -144,7 +145,7 @@ class AddNewOrderScreenController extends GetxController {
         invoiceNumber: invoiceNumberController.value.text,
         categoriesNumber: categoriesNumberController.value.text,
         details: detailsController.value.text.isEmpty ? ' ' : detailsController.value.text,
-        warehouseId: sharedPreferences!.getInt('warehouse_id'));
+        warehouseId: sharedPreferences!.getInt('warehouse_id') == null ? '0' : sharedPreferences!.getInt('warehouse_id').toString());
   }
 
   @override

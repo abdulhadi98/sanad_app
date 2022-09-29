@@ -60,7 +60,6 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                       title: "المدير العام",
                       scaffoldKey: scaffoldKey,
                     ),
-                    TitleWidget(tilte: 'أضف ملاحظة'),
                     Expanded(
                       child: SizedBox(
                         width: width,
@@ -83,6 +82,7 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                             else
                               return Column(
                                 children: [
+                                  TitleWidget(tilte: 'أضف ملاحظة'),
                                   MainButton(
                                     text: 'اختر القسم',
                                     width: 295.w,
@@ -252,8 +252,7 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                                                         itemCount: reviewByDepartmentController.employeeList.length,
                                                         itemBuilder: (BuildContext context, int index) {
                                                           return WorkerWidget(
-                                                  imageUrl: reviewByDepartmentController.employeeList[index].imagePorofile ?? 'assets/images/worker1.png',
-
+                                                              imageUrl: reviewByDepartmentController.employeeList[index].imagePorofile ?? 'assets/images/worker1.png',
                                                               workerName: reviewByDepartmentController.employeeList[index].name!,
                                                               workerDepartment: '',
                                                               onPressed: () {

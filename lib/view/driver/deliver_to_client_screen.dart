@@ -196,19 +196,43 @@ class DeliverToClientScreen extends StatelessWidget {
                                               Utils.showGetXToast(title: 'تنبيه', message: 'يرجى تصوير الفاتورة قبل الإرسال', toastColor: AppColors.red);
                                               return;
                                             }
-                                            var uploadImageStatus = await deliverToClientController.uploadBillImage();
+                                            showDialogCustom(
+                                              height: height,
+                                              width: width,
+                                              context: context,
+                                              padding: EdgeInsets.zero,
+                                              dialogContent: DialogContentAreYouSure(
+                                                onYes: () async {
+                                                  var uploadImageStatus = await deliverToClientController.uploadBillImage();
+                                                  if (uploadImageStatus == '200') {
+                                                    var stampedStatus = await deliverToClientController.orderIsStamped();
+                                                    if (stampedStatus == '200')
+                                                      showDialogCustom(
+                                                        height: height,
+                                                        width: width,
+                                                        context: context,
+                                                        padding: EdgeInsets.zero,
+                                                        dialogContent: IsThereReturns(height: height, width: width, orderDetailsController: orderDetailsController),
+                                                      );
+                                                  }
+                                                },
+                                              ),
+                                            );
 
-                                            if (uploadImageStatus == '200') {
-                                              var stampedStatus = await deliverToClientController.orderIsStamped();
-                                              if (stampedStatus == '200') {
-                                                showDialogCustom(
-                                                    height: height,
-                                                    width: width,
-                                                    context: context,
-                                                    padding: EdgeInsets.zero,
-                                                    dialogContent: IsThereReturns(height: height, width: width, orderDetailsController: orderDetailsController));
-                                              }
-                                            }
+                                            // var uploadImageStatus = await deliverToClientController.uploadBillImage();
+
+                                            // if (uploadImageStatus == '200') {
+                                            //   var stampedStatus = await deliverToClientController.orderIsStamped();
+                                            //   if (stampedStatus == '200') {
+                                            //     showDialogCustom(
+                                            //       height: height,
+                                            //       width: width,
+                                            //       context: context,
+                                            //       padding: EdgeInsets.zero,
+                                            //       dialogContent: IsThereReturns(height: height, width: width, orderDetailsController: orderDetailsController),
+                                            //     );
+                                            //   }
+                                            //}
                                           },
                                         ),
                                       )
