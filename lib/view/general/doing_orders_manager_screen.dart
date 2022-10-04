@@ -78,30 +78,31 @@ class DoingOrdersManagerSideMenuScreen extends StatelessWidget {
                             return ordersController.ordersList.length > 0
                                 ? Column(
                                     children: [
-                                      TextFieldCustom(hint: 'ابحث', onChanged: (val) {},
-                                      
-                                      ),
+                                      // TextFieldCustom(hint: 'ابحث', onChanged: (val) {},
+
+                                      // ),
                                       Expanded(
                                         child: ListView.builder(
                                             padding: EdgeInsets.zero,
                                             itemCount: ordersController.ordersList.length,
                                             itemBuilder: (BuildContext context, int i) {
                                               return OrderWidget(
-                                                  onTap: () {
-                                                    OrdersRootScreen.orderId = ordersController.ordersList[i].id;
-                                                    if (Get.arguments['api'] == "/get-orders")
-                                                      Get.toNamed(
-                                                        '/Order-details-movament-manger-screen',
-                                                        arguments: {
-                                                          "order_id": ordersController.ordersList[i].id.toString(),
-                                                        },
-                                                      );
-                                                  },
-                                                  title: ordersController.ordersList[i].name ?? 'null',
-                                                  clientNumber: ordersController.ordersList[i].invoiceNumber!.toString(),
-                                                  mainColor: ordersController.ordersList[i].status!.color,
-                                                  sideColor: ordersController.ordersList[i].status!.secondColor,
-                                                  type: 'delegation');
+                                                onTap: () {
+                                                  OrdersRootScreen.orderId = ordersController.ordersList[i].id;
+                                                  if (Get.arguments['api'] == "/get-orders")
+                                                    Get.toNamed(
+                                                      '/Order-details-movament-manger-screen',
+                                                      arguments: {
+                                                        "order_id": ordersController.ordersList[i].id.toString(),
+                                                      },
+                                                    );
+                                                },
+                                                title: ordersController.ordersList[i].name ?? 'null',
+                                                clientNumber: ordersController.ordersList[i].invoiceNumber!.toString(),
+                                                mainColor: ordersController.ordersList[i].status!.color,
+                                                sideColor: ordersController.ordersList[i].status!.secondColor,
+                                                type: 'delegation',
+                                              );
                                             }),
                                       ),
                                     ],

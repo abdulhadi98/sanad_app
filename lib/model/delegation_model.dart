@@ -48,7 +48,7 @@ class DelegationModel {
         orderId: json["order_id"] == null ? null : json["order_id"],
         details: json["details"] == null ? null : json["details"],
         accepted: json["accepted"] == null ? null : json["accepted"],
-        acceptedDetails: json["accepted_details"] == null ? null : json["accepted_details"],
+        acceptedDetails: json["rejection_details"] == null ? null : json["rejection_details"],
         createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
         employeeId: json["employee_id"] == null ? null : json["employee_id"],

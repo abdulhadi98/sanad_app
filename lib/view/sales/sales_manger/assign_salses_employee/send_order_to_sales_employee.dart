@@ -66,10 +66,9 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                     HeaderWidget(
                       width: width,
                       employeeName: "اسم الموظف",
-                      title: "مدير قسم المبيعات",
+                      title: "",
                       scaffoldKey: scaffoldKey,
                     ),
-                    TitleWidget(tilte: 'تفاصيل الطلب'),
                     Expanded(
                       child: SizedBox(
                         width: width,
@@ -89,6 +88,7 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                               case Status.DATA:
                                 return Column(
                                   children: [
+                                    TitleWidget(tilte: 'تفاصيل الطلب'),
                                     Directionality(
                                       textDirection: TextDirection.rtl,
                                       child: Container(
@@ -145,7 +145,7 @@ class SendOrderToSalesEmployee extends StatelessWidget {
                                                 );
                                                 // addDelegationController
                                                 //         .setDelegationInfo()
-                                                dynamic status = await addDelegationSalesMangerController.addDelegationSuperManger();
+                                                dynamic status = await addDelegationSalesMangerController.addDelegationManger();
                                                 if (status == '200')
                                                   showDialogCustom(
                                                       height: height,

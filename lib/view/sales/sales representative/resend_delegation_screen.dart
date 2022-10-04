@@ -20,7 +20,7 @@ import '../../../../controller/global_controller.dart';
 import '../../common_wigets/bottom_nav_bar.dart';
 import '../../common_wigets/header_widget.dart';
 
-class RejectedDelegationDetailsScreen extends StatelessWidget {
+class ResendDelegationScreen extends StatelessWidget {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   //TextEditingController myController = TextEditingController();
@@ -93,7 +93,6 @@ class RejectedDelegationDetailsScreen extends StatelessWidget {
                                   //Text(nullVal!),
 
                                   TextFieldTall(
-                                    enabled: false,
                                     hint: 'تفاصيل إضافية',
                                     textEditingController: rejectDelegationDetailsController.detailsController.value,
                                     onChanged: (val) {},
@@ -101,20 +100,16 @@ class RejectedDelegationDetailsScreen extends StatelessWidget {
                                   SizedBox(
                                     height: 15.h,
                                   ),
-                                  TextFieldTall(
-                                    enabled: false,
-                                    hint: 'تفاصيل الرفض',
-                                    textEditingController: rejectDelegationDetailsController.rejectDetailsController.value,
-                                    onChanged: (val) {},
-                                  ),
+
                                   SizedBox(
                                     height: 20.h,
                                   ),
+
                                   MainButton(
-                                    text: 'إلغاء الطلبية',
+                                    text: 'إرسال',
                                     width: 178.w,
                                     height: 50.h,
-                                    color: AppColors.red,
+                                    // color: AppColors.mainColor1,
                                     onPressed: () async {
                                       showDialogCustom(
                                         height: height,
@@ -123,7 +118,7 @@ class RejectedDelegationDetailsScreen extends StatelessWidget {
                                         padding: EdgeInsets.zero,
                                         dialogContent: DialogContentAreYouSure(
                                           onYes: () async {
-                                            dynamic status = await rejectDelegationDetailsController.deleteDelegation();
+                                            dynamic status = await rejectDelegationDetailsController.resendDelegation();
                                             if (status == '200')
                                               showDialogCustom(
                                                 height: height,
@@ -139,18 +134,6 @@ class RejectedDelegationDetailsScreen extends StatelessWidget {
                                           },
                                         ),
                                       );
-                                    },
-                                  ),
-                                  SizedBox(
-                                    height: 20.h,
-                                  ),
-                                  MainButton(
-                                    text: 'تعديل الطلبية',
-                                    width: 178.w,
-                                    height: 50.h,
-                                    color: AppColors.mainColor1,
-                                    onPressed: () async {
-                                      Get.toNamed('/resend-delegation-screen', arguments: {'delegation_id': Get.arguments['delegation_id']});
                                     },
                                   ),
                                 ],

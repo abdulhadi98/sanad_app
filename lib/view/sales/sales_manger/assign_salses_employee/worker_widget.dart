@@ -59,7 +59,7 @@ class WorkerWidget extends StatelessWidget {
                     Positioned(
                         bottom: 0,
                         child: MainButton(
-                            text: 'تعيين',
+                            text: 'تحديد',
                             width: 178.w,
                             height: 50.h,
                             onPressed: () {

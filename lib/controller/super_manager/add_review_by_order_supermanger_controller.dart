@@ -15,7 +15,7 @@ import 'package:http/http.dart' as http;
 import 'package:wits_app/network/urls_container.dart';
 import '../../helper/enums.dart';
 
-class ReviewByOrderController extends GetxController {
+class ReviewByOrderSuperManagerController extends GetxController {
   Rx<Status>? status = Status.DATA.obs;
 
   OrderModel? orderModel;
@@ -66,14 +66,16 @@ class ReviewByOrderController extends GetxController {
     }
   }
 
-  getOrders() async {
+  getOrdersSuperManager() async {
     ordersList.clear();
     String? token = await sharedPreferences!.getString("token");
+    int? warehouseId = await sharedPreferences!.getInt("warehouse_id") ?? 9;
+    print(Uri.parse(UrlsContainer.getOrdersByWareHouse + '?warehouse_id=$warehouseId'));
     print(token);
-    print(Uri.parse(UrlsContainer.baseApiUrl + Get.arguments['api']!));
+    print(Uri.parse(UrlsContainer.getOrdersByWareHouse + '?warehouse_id=${warehouseId}'));
     setStatus(Status.LOADING);
     try {
-      dynamic response = await http.get(Uri.parse(UrlsContainer.baseApiUrl + Get.arguments['api']!), headers: {'Authorization': 'Bearer $token'});
+      dynamic response = await http.get(Uri.parse(UrlsContainer.getOrdersByWareHouse + '?warehouse_id=${warehouseId}'), headers: {'Authorization': 'Bearer $token'});
       Map body = jsonDecode(response.body);
       print(body);
       List<dynamic> data = body['data'];
@@ -95,11 +97,11 @@ class ReviewByOrderController extends GetxController {
   int? employeeId;
   List<DriverModel> employeeList = [];
   RxBool employeesSpinner = false.obs;
-
-RxString employeeName = ''.obs;
+  RxString employeeName = ''.obs;
   setEmployeeName(int empId) {
     employeeName.value = employeeList.firstWhere((element) => element.id == empId).name!;
   }
+
   getEmployeesByOrder() async {
     print(employeesSpinner.value);
     print(UrlsContainer.getEmployeesByOrder + '?order_id=$orderId');
@@ -150,7 +152,7 @@ RxString employeeName = ''.obs;
   @override
   void onInit() {
     super.onInit();
-    getOrders();
+    getOrdersSuperManager();
 
     //setStatus(Status.LOADING);
   }

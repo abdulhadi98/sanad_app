@@ -64,7 +64,6 @@ class SubmitOrderDelegationScreen extends StatelessWidget {
                       title: "مدير قسم المبيعات",
                       scaffoldKey: scaffoldKey,
                     ),
-                    // TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
                     Expanded(
                       child: SizedBox(
                         width: width,
@@ -89,6 +88,7 @@ class SubmitOrderDelegationScreen extends StatelessWidget {
                               case Status.DATA:
                                 return Column(
                                   children: [
+                                    TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
                                     TextFieldCustom(
                                       enabled: false,
                                       hint: 'رقم العميل',
@@ -160,21 +160,23 @@ class SubmitOrderDelegationScreen extends StatelessWidget {
                                           // if (status == '777')
                                           //   Utils.showGetXToast(
                                           //       message: status);
-                                          if (status == '200') dynamic status = await addNewOrderFromDelegationScreenController.addOrderIdToDelegation();
-
-                                          showDialogCustom(
-                                            height: height,
-                                            width: width,
-                                            context: context,
-                                            padding: EdgeInsets.zero,
-                                            dialogContent: DialogContentThanks(
-                                              onTap: () {
-                                                if (sharedPreferences!.getInt('role') == 5)
-                                                  Get.offAllNamed('/sales-manger-root-screen');
-                                                else if (sharedPreferences!.getInt('role') == 4) Get.offAllNamed('/sales-employee-root-screen');
-                                              },
-                                            ),
-                                          );
+                                          if (status == '200') {
+                                            dynamic statuss = await addNewOrderFromDelegationScreenController.addOrderIdToDelegation();
+                                            if (statuss == '200')
+                                              showDialogCustom(
+                                                height: height,
+                                                width: width,
+                                                context: context,
+                                                padding: EdgeInsets.zero,
+                                                dialogContent: DialogContentThanks(
+                                                  onTap: () {
+                                                    if (sharedPreferences!.getInt('role') == 5)
+                                                      Get.offAllNamed('/sales-manger-root-screen');
+                                                    else if (sharedPreferences!.getInt('role') == 4) Get.offAllNamed('/sales-employee-root-screen');
+                                                  },
+                                                ),
+                                              );
+                                          }
                                         },
                                       ),
                                     ),

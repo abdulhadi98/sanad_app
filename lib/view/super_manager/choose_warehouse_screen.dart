@@ -10,11 +10,8 @@ import 'package:wits_app/helper/app_constant.dart';
 import 'package:wits_app/helper/enums.dart';
 import 'package:wits_app/helper/utils.dart';
 import 'package:wits_app/main.dart';
-import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/worker_widget.dart';
-import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 
 import '../common_wigets/main_button.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 
 class ChooseWarehouseScreen extends StatelessWidget {
   ChooseWarehouseScreen({Key? key}) : super(key: key);
@@ -59,7 +56,10 @@ class ChooseWarehouseScreen extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.of(context).padding.top,
                       ),
-                      Utils.buildImage(url: 'assets/icons/header_logo.svg', height: 140.h)
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10.h),
+                        child: Utils.buildImage(url: 'assets/icons/header_logo.svg', height: 120.w, width: 120.w),
+                      )
                     ],
                   ),
                 ),

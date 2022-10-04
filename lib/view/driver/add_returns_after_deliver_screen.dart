@@ -128,22 +128,7 @@ class AddReturnsAfterDeliverScreen extends StatelessWidget {
                                         hint: 'رقم فاتورة المرتجعات',
                                         onChanged: (val) {},
                                       ),
-                                      SizedBox(
-                                        height: 15.h,
-                                      ),
-                                      MainButton(
-                                        text: 'تصوير فاتورة المرتجعات',
-                                        width: 295.w,
-                                        height: 50.h,
-                                        onPressed: () async {
-                                          // await showDialog(
-                                          //         // Your Dialog Code
-                                          //         )
-                                          //     .then((val) {
-                                          //   Navigator.pop(_context);
-                                          // });
-                                        },
-                                      ),
+
                                       SizedBox(
                                         height: 15.h,
                                       ),

@@ -95,10 +95,11 @@ class OrdersController extends GetxController {
 
   @override
   void onInit() {
+     getOrders();
     //addressController.value.text = 'address';
     super.onInit();
     //setStatus(Status.LOADING);
-    getOrders();
+   
   }
 
   @override

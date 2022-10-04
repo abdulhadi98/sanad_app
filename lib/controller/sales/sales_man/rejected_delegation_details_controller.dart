@@ -25,6 +25,62 @@ class RejectDelegationDetailsController extends GetxController {
   String? accessToken;
   List<ClientModel> clientsList = [];
 
+  resendDelegation() async {
+    dynamic response;
+    setStatus(Status.LOADING);
+    try {
+      // print(orderModel!.toJson());
+      String? token = await sharedPreferences!.getString("token");
+      response = await http.post(
+          Uri.parse(
+            UrlsContainer.resendDelegation,
+          ),
+          body: {'delegation_id': Get.arguments['delegation_id'].toString(), "details": detailsController.value.text},
+          headers: {'Authorization': 'Bearer $token'});
+      dynamic body = jsonDecode(response.body);
+      print(body);
+      String code = body['code'].toString();
+      String message = body['message'];
+
+      Utils.getResponseCode(code, message);
+      setStatus(Status.DATA);
+      return code;
+    } catch (e) {
+      print(e);
+      setStatus(Status.ERROR);
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
+      return 'error';
+    }
+  }
+
+  deleteDelegation() async {
+    dynamic response;
+    setStatus(Status.LOADING);
+    try {
+      // print(orderModel!.toJson());
+      String? token = await sharedPreferences!.getString("token");
+      response = await http.post(
+          Uri.parse(
+            UrlsContainer.deleteDelegation,
+          ),
+          body: {'delegation_id': Get.arguments['delegation_id'].toString()},
+          headers: {'Authorization': 'Bearer $token'});
+      dynamic body = jsonDecode(response.body);
+      print(body);
+      String code = body['code'].toString();
+      String message = body['message'];
+
+      Utils.getResponseCode(code, message);
+      setStatus(Status.DATA);
+      return code;
+    } catch (e) {
+      print(e);
+      setStatus(Status.ERROR);
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
+      return 'error';
+    }
+  }
+
   DelegationModel? delegationModel;
 
   RxString employeeName = ' '.obs;
@@ -38,29 +94,29 @@ class RejectDelegationDetailsController extends GetxController {
     print('delegationId= #$id');
     setStatus(Status.LOADING);
 
-    try {
-      dynamic response = await http.get(Uri.parse(UrlsContainer.getDelegationById + '?delegation_id=$id'), headers: {'Authorization': 'Bearer $token'});
-      dynamic body = jsonDecode(response.body);
-      print(body);
-      //List<dynamic> data = body['data'];
-      var data = body['data'];
-      salesmanId = data['creator_id'];
+    // try {
+    dynamic response = await http.get(Uri.parse(UrlsContainer.getDelegationById + '?delegation_id=$id'), headers: {'Authorization': 'Bearer $token'});
+    dynamic body = jsonDecode(response.body);
+    print(body);
+    //List<dynamic> data = body['data'];
+    var data = body['data'];
+    salesmanId = data['creator_id'];
 
-      delegationModel = DelegationModel.fromJson(data);
-      setDelegationInitailInfo();
+    delegationModel = DelegationModel.fromJson(data);
+    setDelegationInitailInfo();
 
-      String code = body['code'].toString();
-      String message = body['message'];
-      Utils.getResponseCode(code, message);
-      setStatus(Status.DATA);
-      return code; //return code;
-    } catch (e) {
-      print(e);
-      setStatus(Status.ERROR);
-      // spinner.value = false;
-      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
-      return 'error';
-    }
+    String code = body['code'].toString();
+    String message = body['message'];
+    Utils.getResponseCode(code, message);
+    setStatus(Status.DATA);
+    return code; //return code;
+    // } catch (e) {
+    //   print(e);
+    //   setStatus(Status.ERROR);
+    //   // spinner.value = false;
+    //   Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
+    //   return 'error';
+    // }
   }
 
   setDelegationInitailInfo() {

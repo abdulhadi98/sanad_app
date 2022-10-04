@@ -123,36 +123,26 @@ class Utils {
 
       case 3:
         return '/salesman-root-screen-new';
-
       case 4:
         return '/sales-employee-root-screen';
-
       case 5:
         return '/sales-manger-root-screen';
-
       case 6:
         return '/movment-manger-root-screen';
       case 7:
         return '/warehouse-manger-root-screen';
-
       case 8:
         return '/prepertion-worker-root-screen';
-
       case 9:
         return '/incpection-officer-root-screen';
-
       case 10:
         return '/quality-supervisor-root-screen';
-
       case 11:
         return '/general-manager-root-screen';
-
       case 13:
         return '/super-manager-root-screen';
-
       case 17:
         return '/return-manger-root-screen';
-
       default:
         'null';
     }

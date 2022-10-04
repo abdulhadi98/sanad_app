@@ -58,7 +58,6 @@ class GlobalController extends GetxController {
     var iosDetails = IOSNotificationDetails();
     var generalNotificationDetails = NotificationDetails(android: androidDetails, iOS: iosDetails);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
       if (notification != null && android != null) {
@@ -108,15 +107,22 @@ class GlobalController extends GetxController {
 
   bool? isManager;
   isRoleManager() async {
-    var roleId = await sharedPreferences!.getInt('role_id');
-    if (roleId == 2 || roleId == 3 || roleId == 4 || roleId == 8) return false;
-    return true;
+    var roleId = await sharedPreferences!.getInt('role');
+    print('yuiyuiyuiyui ' + roleId.toString());
+
+    if (roleId == 2 || roleId == 3 || roleId == 4 || roleId == 8) {
+      isManager = false;
+      return isManager;
+    }
+    isManager = true;
+    return isManager;
   }
 
   @override
   void onInit() {
-    print('qweqweqweqweqweqweqweqweqweqwe' + Utils.isThisRoleManager.toString());
+    // print('qweqweqweqweqweqweqweqweqweqwe' + isRoleManager().toString());
     getUser();
+    print(isRoleManager());
     pushFCMtoken();
     initMessaging();
     super.onInit();

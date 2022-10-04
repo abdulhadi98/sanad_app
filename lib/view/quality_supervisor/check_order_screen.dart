@@ -187,7 +187,6 @@ class CheckOrderScreen extends StatelessWidget {
                                   SizedBox(
                                     height: 20.h,
                                   ),
-                                  
                                   SizedBox(
                                     width: 295.w,
                                     child: Align(
@@ -213,7 +212,7 @@ class CheckOrderScreen extends StatelessWidget {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10.r),
                                       child: Image.network(
-                                        '${UrlsContainer.imagesUrl}\/${orderDetailsController.orderDetailsModel!.clientStamp!}',
+                                        '${UrlsContainer.imagesUrl}\/${orderDetailsController.orderDetailsModel!.billImage!}',
                                         fit: BoxFit.contain,
                                       ),
                                     ),

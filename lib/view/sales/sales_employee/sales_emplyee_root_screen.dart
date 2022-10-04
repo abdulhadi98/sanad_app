@@ -71,7 +71,7 @@ class _SalesEmployeeRootScreenState extends State<SalesEmployeeRootScreen> {
                         height: 30.h,
                       ),
                       MainButton(
-                        text: 'طلبيات جديدة',
+                        text: 'طلبيات مسندة إليك',
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {

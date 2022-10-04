@@ -8,6 +8,11 @@ class UrlsContainer {
   static String emailLogin = "$baseApiUrl/login";
   static String getImages = "$baseApiUrl/get-images";
 
+  //Sales Man
+  static String deleteDelegation = "$baseApiUrl/delete-delegation";
+  static String resendDelegation = "$baseApiUrl/resend-delegation";
+  
+
   static String getNotifications = "$baseApiUrl/get-notifications";
   static String getReviews = "$baseApiUrl/get-reviews";
   static String getReviewsById = "$baseApiUrl/get-review-by-id";

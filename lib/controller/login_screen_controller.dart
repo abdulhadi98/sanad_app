@@ -55,7 +55,6 @@ class LoginScreenController extends GetxController {
       print(body);
       UserModel userModel = UserModel.fromJson(jsonDecode(response.body)['data']);
       //  print(userModel.accessToken);
-
       String code = body['code'].toString();
       String message = body['message'];
 
@@ -65,10 +64,10 @@ class LoginScreenController extends GetxController {
         onData: () async {
           sharedPreferences!.setInt('role', userModel.roleId ?? 999);
           sharedPreferences!.setString('user_name', userModel.name ?? '-');
+          sharedPreferences!.setInt('warehouseId', userModel.wareHouseId ?? 999);
           sharedPreferences!.setString('token', userModel.accessToken ?? 'null');
           sharedPreferences!.setInt('user_id', userModel.id ?? 999);
           var addToken = await addDeviceToken(userModel.accessToken);
-
           Get.offAllNamed('/root_screen');
         },
       );

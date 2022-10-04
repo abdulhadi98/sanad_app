@@ -96,12 +96,19 @@ class AppDrawer extends StatelessWidget {
                           //     ),
                           //   ),
                           // ),
-                          Center(child: Utils.buildImage(url: 'assets/icons/header_logo.svg', height: 140.h, color: AppColors.mainColor1)),
+                          Center(
+                              child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10.h),
+                            child: Utils.buildImage(url: 'assets/icons/header_logo.svg', height: 120.w, width: 120.w, color: AppColors.mainColor1),
+                          )),
                           DrawerButton(
                             iconPath: 'assets/icons/Icon Home Active.svg',
                             title: "الرئيسية",
                             onTap: () {
-                              print('ad');
+                              print('sds');
+                              print(Get.currentRoute);
+                              String route = Utils.getRouteFromRole();
+                              if (Get.currentRoute != route) Get.offAllNamed(route);
                             },
                           ),
                           DrawerButton(
@@ -119,23 +126,24 @@ class AppDrawer extends StatelessWidget {
                           //   },
                           // ),
                           // if (Utils.isThisRoleManager())
-                          DrawerButton(
-                            iconPath: 'assets/icons/ic_order_doing_active.svg',
-                            title: "طلبات قيد التنفيذ",
-                            onTap: () async {
-                              bool isManager = await Utils.isThisRoleManager();
-                              print(isManager);
-                              if (isManager)
-                                Get.toNamed(
-                                  '/doing-orders-manager-side-menu-screen',
-                                  arguments: {
-                                    "api": "/get-orders",
-                                  },
-                                );
-                              else
-                                print('not managetr');
-                            },
-                          ),
+                          if (globalController.isManager!)
+                            DrawerButton(
+                              iconPath: 'assets/icons/ic_order_doing_active.svg',
+                              title: "طلبات قيد التنفيذ",
+                              onTap: () async {
+                                bool isManager = await Utils.isThisRoleManager();
+                                print(isManager);
+                                if (isManager)
+                                  Get.toNamed(
+                                    '/doing-orders-manager-side-menu-screen',
+                                    arguments: {
+                                      "api": "/get-orders",
+                                    },
+                                  );
+                                else
+                                  print('not manager');
+                              },
+                            ),
                           //  if (globalController.isRoleManager())
                           DrawerButton(
                             iconPath: 'assets/icons/ic_order_done_active.svg',
@@ -143,9 +151,15 @@ class AppDrawer extends StatelessWidget {
                             onTap: () async {
                               var isManager = await Utils.isThisRoleManager();
                               if (isManager)
-                                Get.toNamed('/orders-sidemenu-manager-screen', arguments: {'api': ''});
-                              else
-                                Get.toNamed('/orders-sidemenu-employee-screen', arguments: {'api': ''});
+                                Get.toNamed('/done-orders-manager-side-menu-screen', arguments: {'api': '/get-warehouse-finished-orders'});
+                              else {
+                                var roleId = await sharedPreferences!.getInt('role');
+                                if (roleId == 2)
+                                  Get.toNamed('/done-orders-employee-side-menu-screen', arguments: {'api': '/get-driver-finished-orders'});
+                                else if (roleId == 4)
+                                  Get.toNamed('/done-orders-employee-side-menu-screen', arguments: {'api': '/get-sales-employee-finished-orders'});
+                                else if (roleId == 8) Get.toNamed('/done-orders-employee-side-menu-screen', arguments: {'api': '/get-preprator-finished-orders'});
+                              }
                             },
                           ),
                           DrawerButton(

@@ -53,7 +53,10 @@ class LoginScreen extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.of(context).padding.top,
                       ),
-                      Utils.buildImage(url: 'assets/icons/header_logo.svg', height: 140.h)
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 10.h),
+                        child: Utils.buildImage(url: 'assets/icons/header_logo.svg', height: 120.w, width: 120.w),
+                      )
                     ],
                   ),
                 ),

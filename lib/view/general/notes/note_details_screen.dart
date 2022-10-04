@@ -92,7 +92,7 @@ class NoteDetailsScreen extends StatelessWidget {
                                   ),
 
                                   SizedBox(
-                                    height: 230.h,
+                                    height: 25.h,
                                   ),
                                   Padding(
                                     padding: EdgeInsets.only(bottom: 10.h),

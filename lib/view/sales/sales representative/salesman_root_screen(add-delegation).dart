@@ -62,7 +62,6 @@ class SalesmanRootScreen extends StatelessWidget {
                       title: "مندوب المبيعات",
                       scaffoldKey: scaffoldKey,
                     ),
-                    TitleWidget(tilte: 'إرسال طلب إلى مدير المبيعات \n لبدء طلبية جديدة'),
                     Expanded(
                       child: SizedBox(
                         width: width,
@@ -82,6 +81,7 @@ class SalesmanRootScreen extends StatelessWidget {
                               case Status.DATA:
                                 return Column(
                                   children: [
+                                    TitleWidget(tilte: 'إرسال طلب إلى مدير المبيعات \n لبدء طلبية جديدة'),
                                     Directionality(
                                       textDirection: TextDirection.rtl,
                                       child: Container(

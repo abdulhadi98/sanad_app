@@ -54,32 +54,32 @@ class GetDelegationAndAddNewOrderFromDelegationScreenController extends GetxCont
   addNewOrder() async {
     dynamic response;
     setStatus(Status.LOADING);
-    try {
-      print(orderModel!.toJson());
-      String? token = await sharedPreferences!.getString("token");
-      response = await http.post(
-          Uri.parse(
-            UrlsContainer.addNewOrder,
-          ),
-          body: orderModel!.toJson(),
-          headers: {'Authorization': 'Bearer $token'});
-      dynamic body = jsonDecode(response.body);
-      print(body);
-      returnOrderID = body['data']['id'].toString();
+    //try {
+    print(orderModel!.toJson());
+    String? token = await sharedPreferences!.getString("token");
+    response = await http.post(
+        Uri.parse(
+          UrlsContainer.addNewOrder,
+        ),
+        body: orderModel!.toJson(),
+        headers: {'Authorization': 'Bearer $token'});
+    dynamic body = jsonDecode(response.body);
+    print(body);
+    returnOrderID = body['data']['id'].toString();
 
-      String code = body['code'].toString();
-      String message = body['message'];
+    String code = body['code'].toString();
+    String message = body['message'];
 
-      Utils.getResponseCode(code, message);
-      setStatus(Status.DATA);
+    Utils.getResponseCode(code, message);
+    setStatus(Status.DATA);
 
-      return code;
-    } catch (e) {
-      print(e);
-      setStatus(Status.ERROR);
-      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
-      return 'error';
-    }
+    return code;
+    // } catch (e) {
+    //   print(e);
+    //   setStatus(Status.ERROR);
+    //   Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
+    //   return 'error';
+    // }
   }
 
   addOrderIdToDelegation() async {
@@ -130,7 +130,7 @@ class GetDelegationAndAddNewOrderFromDelegationScreenController extends GetxCont
   getDelegationById() async {
     String? token = await sharedPreferences!.getString("token");
     // int? id = SalesmanOrderScreen.delegationId;
-    int? id = Get.arguments['delegation_id'];
+    var id = Get.arguments['delegation_id'].toString();
 
     print('delegationId= #$id');
     setStatus(Status.LOADING);
@@ -192,18 +192,17 @@ class GetDelegationAndAddNewOrderFromDelegationScreenController extends GetxCont
     print(clientsList.first.clientNumber);
     print(clientNumberController.value.text);
     orderModel = OrderModel(
-      clientNumber: clientNumberController.value.text,
-      creatorId: salesmanId, //it's not the sales manger id but the sales man id that create the order
+        clientNumber: clientNumberController.value.text,
+        creatorId: salesmanId, //it's not the sales manger id but the sales man id that create the order
 
-      //  creatorId: await sharedPreferences!.getInt('user_id'),
+        //  creatorId: await sharedPreferences!.getInt('user_id'),
 
-      commercialRecord: clientNumberController.value.text,
-
-      address: addressController.value.text,
-      invoiceNumber: invoiceNumberController.value.text,
-      categoriesNumber: categoriesNumberController.value.text,
-      details: clientNumberController.value.text == null ? 'لايوجد تفاصيل' : clientNumberController.value.text,
-    );
+        commercialRecord: clientNumberController.value.text,
+        address: addressController.value.text,
+        invoiceNumber: invoiceNumberController.value.text,
+        categoriesNumber: categoriesNumberController.value.text,
+        details: clientNumberController.value.text == null ? 'لايوجد تفاصيل' : clientNumberController.value.text,
+        warehouseId: '0');
   }
 
   @override

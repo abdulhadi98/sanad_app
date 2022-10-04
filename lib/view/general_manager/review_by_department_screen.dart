@@ -19,6 +19,7 @@ import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
 import 'package:wits_app/view/common_wigets/textfield_search.dart';
 import 'package:wits_app/view/common_wigets/title_widget.dart';
+import 'package:wits_app/view/common_wigets/worker_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/worker_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 
@@ -158,6 +159,8 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                                                           return RoleWidget(
                                                             roleName: reviewByDepartmentController.rolesList[index].role,
                                                             onTap: () {
+                                                              reviewByDepartmentController.setDepartmentName(reviewByDepartmentController.rolesList[index].id!);
+
                                                               reviewByDepartmentController.roleId = reviewByDepartmentController.rolesList[index].id;
                                                               Get.back();
                                                             },
@@ -172,6 +175,7 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                                       );
                                     },
                                   ),
+                                  if (reviewByDepartmentController.departmentName.value.isNotEmpty) WorkerDepartment(name: reviewByDepartmentController.departmentName.value),
                                   SizedBox(
                                     height: 20.h,
                                   ),
@@ -189,7 +193,10 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                                       }
 
                                       await reviewByDepartmentController.getEmployeesByDepartment();
-
+                                      if (reviewByDepartmentController.employeeList.length == 0) {
+                                        Utils.showGetXToast(title: 'تنبيه', message: 'لا يوجد موظفين', toastColor: AppColors.red);
+                                        return;
+                                      }
                                       //    await driversController.getDrivers();
                                       showDialogCustom(
                                         height: height,
@@ -256,6 +263,7 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                                                               workerName: reviewByDepartmentController.employeeList[index].name!,
                                                               workerDepartment: '',
                                                               onPressed: () {
+                                                                reviewByDepartmentController.setEmployeeName(reviewByDepartmentController.employeeList[index].id!);
                                                                 reviewByDepartmentController.employeeId = reviewByDepartmentController.employeeList[index].id;
                                                                 //  SalesMangerRootScreen.salesmanId = driversController.driversList[index].id;
                                                                 print(reviewByDepartmentController.employeeId);
@@ -266,7 +274,7 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                                                                 //     '/order-details-screen');
                                                               });
                                                         }),
-                                                  )
+                                                  ),
                                                 ],
                                               ),
                                             );
@@ -275,6 +283,7 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                                       );
                                     },
                                   ),
+                                  if (reviewByDepartmentController.employeeName.value.isNotEmpty) WorkerName(name: reviewByDepartmentController.employeeName.value),
                                   SizedBox(
                                     height: 20.h,
                                   ),
@@ -284,7 +293,7 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                                     textEditingController: reviewByDepartmentController.reviewController.value,
                                   ),
                                   SizedBox(
-                                    height: 90.h,
+                                    height: 20.h,
                                   ),
                                   MainButton(
                                       text: 'إرسال',

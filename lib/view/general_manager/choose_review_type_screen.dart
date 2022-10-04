@@ -66,7 +66,7 @@ class ChooseReviewTypeScreen extends StatelessWidget {
                         width: 224.w,
                         height: 50.h,
                         onPressed: () {
-                          Get.toNamed('/review-by-order-screen');
+                          Get.toNamed('/review-by-order-screen', arguments: {'api': "/get-orders"});
                         },
                       ),
                     ],

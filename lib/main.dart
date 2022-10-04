@@ -15,9 +15,11 @@ import 'package:wits_app/view/driver/not_stamped_bill_screen.dart';
 import 'package:wits_app/view/driver/orders_driver_screen.dart';
 import 'package:wits_app/view/driver/recive_from_another_driver_screen.dart';
 import 'package:wits_app/view/general/doing_orders_manager_screen.dart';
+import 'package:wits_app/view/general/done_orders_employees_screen.dart';
 import 'package:wits_app/view/general/done_orders_manager_side_menu_screen.dart';
 import 'package:wits_app/view/general/notes/note_details_screen.dart';
 import 'package:wits_app/view/general/notes/notes_list_screen.dart';
+import 'package:wits_app/view/general/order_details_for_employee_screen.dart';
 import 'package:wits_app/view/general/orders_side_menu_screen.dart';
 import 'package:wits_app/view/general_manager/choose_review_type_screen.dart';
 import 'package:wits_app/view/general_manager/general_manager_root_screen.dart';
@@ -46,6 +48,7 @@ import 'package:wits_app/view/root/choose_role_screen.dart';
 import 'package:wits_app/view/root_screen.dart';
 import 'package:wits_app/view/sales/sales%20representative/rejected_delegation_details_screen.dart';
 import 'package:wits_app/view/sales/sales%20representative/rejected_delegations_screen.dart';
+import 'package:wits_app/view/sales/sales%20representative/resend_delegation_screen.dart';
 import 'package:wits_app/view/sales/sales%20representative/salesman_root_screen-new.dart';
 import 'package:wits_app/view/sales/sales_employee/add_order_from_delegation_sales_employee_screen.dart';
 import 'package:wits_app/view/sales/sales_employee/delegations_list_sales_employee_screen.dart';
@@ -131,12 +134,16 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/order-details-screen', page: () => OrderDetailsScreen()),
         GetPage(name: '/accept-and-assign-sales-employee', page: () => AcceptAndAssignSalesEmployee()),
 
+
         // General
         GetPage(name: '/notifications_screen', page: () => NotificationsScreen()),
         GetPage(name: '/notes-list-screen', page: () => NotesScreen()),
         GetPage(name: '/note-detials-screen', page: () => NoteDetailsScreen()),
         GetPage(name: '/orders-sidemenu-screen', page: () => OrdersSideMenuScreen()),
         GetPage(name: '/done-orders-manager-side-menu-screen', page: () => DoneOrdersManagerSideMenuScreen()),
+        GetPage(name: '/done-orders-employee-side-menu-screen', page: () => DoneOrdersEmployeesScreen()),
+        GetPage(name: '/order-details-employee-side-menu-screen', page: () => OrderDetailsForEmployeesSideMenuScreen()),
+
         GetPage(name: '/doing-orders-manager-side-menu-screen', page: () => DoingOrdersManagerSideMenuScreen()),
 
         //Sales Employee
@@ -154,6 +161,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/order-from-salesperson-screen', page: () => SalesmanOrderScreen()),
         GetPage(name: '/salesman-root-screen', page: () => SalesmanRootScreen(), binding: GolbalBindings()),
         GetPage(name: '/salesman-root-screen-new', page: () => SalesMangerRootScreenNew(), binding: GolbalBindings()),
+        GetPage(name: '/resend-delegation-screen', page: () => ResendDelegationScreen()),
 
         GetPage(name: '/reject-delegation-screen', page: () => RejectDelegationScreen()),
 

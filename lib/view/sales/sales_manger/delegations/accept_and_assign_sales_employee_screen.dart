@@ -71,7 +71,6 @@ class AcceptAndAssignSalesEmployee extends StatelessWidget {
                       title: "مدير قسم المبيعات",
                       scaffoldKey: scaffoldKey,
                     ),
-                    TitleWidget(tilte: 'تفاصيل الطلب'),
                     Expanded(
                       child: SizedBox(
                         width: width,
@@ -91,6 +90,7 @@ class AcceptAndAssignSalesEmployee extends StatelessWidget {
                               case Status.DATA:
                                 return Column(
                                   children: [
+                                    TitleWidget(tilte: 'تفاصيل الطلب'),
                                     Directionality(
                                       textDirection: TextDirection.rtl,
                                       child: Container(
@@ -124,9 +124,6 @@ class AcceptAndAssignSalesEmployee extends StatelessWidget {
                                         width: 178.w,
                                         height: 50.h,
                                         onPressed: () async {
-                                          // addNewOrderScreenController
-
-                                          //if all fields not empty
                                           FocusScope.of(context).requestFocus(FocusNode());
                                           showDialogCustom(
                                             height: height,

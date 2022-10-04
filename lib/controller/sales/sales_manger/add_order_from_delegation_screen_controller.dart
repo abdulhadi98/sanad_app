@@ -53,26 +53,28 @@ class AddNewOrderFromDelegationScreenController extends GetxController {
   addNewOrder() async {
     dynamic response;
     setStatus(Status.LOADING);
-     try {
-    print(orderModel!.toJson());
-    String? token = await sharedPreferences!.getString("token");
-    response = await http.post(
-        Uri.parse(
-          UrlsContainer.addNewOrder,
-        ),
-        body: orderModel!.toJson(),
-        headers: {'Authorization': 'Bearer $token'});
-    dynamic body = jsonDecode(response.body);
-    print(body);
-    returnOrderID = body['data']['id'].toString();
+    try {
+      print(orderModel!.toJson());
+      String? token = await sharedPreferences!.getString("token");
+      response = await http.post(
+          Uri.parse(
+            UrlsContainer.addNewOrder,
+          ),
+          body: orderModel!.toJson(),
+          headers: {'Authorization': 'Bearer $token'});
+      dynamic body = jsonDecode(response.body);
+      print(body);
+      returnOrderID = body['data']['id'].toString();
+      print('adsssssssssssssssssssssssssssss $returnOrderID');
+      print('adsssssssssssssssssssssssssssss ${Get.arguments['delegation_id'].toString()}');
 
-    String code = body['code'].toString();
-    String message = body['message'];
+      String code = body['code'].toString();
+      String message = body['message'];
 
-    Utils.getResponseCode(code, message);
-    setStatus(Status.DATA);
+      Utils.getResponseCode(code, message);
+      setStatus(Status.DATA);
 
-    return code;
+      return code;
     } catch (e) {
       print(e);
       setStatus(Status.ERROR);
@@ -89,11 +91,10 @@ class AddNewOrderFromDelegationScreenController extends GetxController {
       // print(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + returnsOrderId.toString());
       String? token = await sharedPreferences!.getString("token");
       response = await http.post(
-          Uri.parse(
-            UrlsContainer.addOrderIdToDelegation,
-          ),
-          body: {'order_id': returnOrderID.toString(), 'delegation_id': Get.arguments['delegation_id'].toString()},
-          headers: {'Authorization': 'Bearer $token'});
+        Uri.parse(UrlsContainer.addOrderIdToDelegation),
+        body: {'order_id': returnOrderID.toString(), 'delegation_id': Get.arguments['delegation_id'].toString()},
+        headers: {'Authorization': 'Bearer $token'},
+      );
       //   print(";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;" + returnsOrderId.toString());
 
       dynamic body = jsonDecode(response.body);
@@ -142,7 +143,7 @@ class AddNewOrderFromDelegationScreenController extends GetxController {
         invoiceNumber: invoiceNumberController.value.text,
         categoriesNumber: categoriesNumberController.value.text,
         details: details == null ? 'لايوجد تفاصيل' : details,
-        warehouseId: '99');
+        warehouseId: '0');
   }
 
   @override

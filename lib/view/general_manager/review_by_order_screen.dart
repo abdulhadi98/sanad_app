@@ -17,6 +17,7 @@ import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
 import 'package:wits_app/view/common_wigets/textfield_search.dart';
 import 'package:wits_app/view/common_wigets/title_widget.dart';
+import 'package:wits_app/view/common_wigets/worker_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/worker_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 
@@ -186,6 +187,7 @@ class ReviewByOrderScreen extends StatelessWidget {
                                                               workerName: reviewByOrderController.employeeList[index].name!,
                                                               workerDepartment: '',
                                                               onPressed: () {
+                                                                reviewByOrderController.setEmployeeName(reviewByOrderController.employeeList[index].id!);
                                                                 reviewByOrderController.employeeId = reviewByOrderController.employeeList[index].id;
                                                                 //  SalesMangerRootScreen.salesmanId = driversController.driversList[index].id;
                                                                 print(reviewByOrderController.employeeId);
@@ -205,6 +207,7 @@ class ReviewByOrderScreen extends StatelessWidget {
                                       );
                                     },
                                   ),
+                                  if (reviewByOrderController.employeeName.value.isNotEmpty) WorkerName(name: reviewByOrderController.employeeName.value),
                                   SizedBox(
                                     height: 20.h,
                                   ),

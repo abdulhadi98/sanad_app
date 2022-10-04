@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:wits_app/controller/orders_by_warehouse_controller.dart';
 
 import 'package:wits_app/controller/orders_controller.dart';
 import 'package:wits_app/helper/app_colors.dart';
@@ -21,17 +20,17 @@ import '../../../../controller/global_controller.dart';
 import '../../../../helper/enums.dart';
 import '../../../../helper/utils.dart';
 
-class DoneOrdersManagerSideMenuScreen extends StatelessWidget {
+class DoneOrdersEmployeesScreen extends StatelessWidget {
   final GlobalController globalController = Get.find<GlobalController>();
-  final ordersController = Get.put<OrdersByWarehouseController>(
-    OrdersByWarehouseController(),
+  final put = Get.put<OrdersController>(
+    OrdersController(),
   );
+  final OrdersController ordersController = Get.find<OrdersController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
-    //
 
     bool isKeyboardShowing = MediaQuery.of(context).viewInsets.vertical > 0;
 
@@ -88,27 +87,27 @@ class DoneOrdersManagerSideMenuScreen extends StatelessWidget {
                                       return OrderWidget(
                                           onTap: () {
                                             OrdersRootScreen.orderId = ordersController.ordersList[i].id;
-                                            if (Get.arguments['api'] == "/get-warehouse-finished-orders")
+                                            if (Get.arguments['api'] == "/get-preprator-finished-orders")
                                               Get.toNamed(
-                                                '/Order-details-movament-manger-screen', //because it's for managers
+                                                '/order-details-employee-side-menu-screen',
                                                 arguments: {
                                                   "order_id": ordersController.ordersList[i].id.toString(),
                                                 },
                                               );
-                                            // else if (Get.arguments['api'] == "/get-orders-need-driver")
-                                            //   Get.toNamed(
-                                            //     '/assign-driver-screen',
-                                            //     arguments: {
-                                            //       "order_id": ordersController.ordersList[i].id.toString(),
-                                            //     },
-                                            //   );
-                                            // else if (Get.arguments['api'] == "/get-unprinted-orders")
-                                            //   Get.toNamed(
-                                            //     '/print-order-movament-manger-screen',
-                                            //     arguments: {
-                                            //       "order_id": ordersController.ordersList[i].id.toString(),
-                                            //     },
-                                            //   );
+                                            else if (Get.arguments['api'] == "/get-driver-finished-orders")
+                                              Get.toNamed(
+                                                '/order-details-employee-side-menu-screen',
+                                                arguments: {
+                                                  "order_id": ordersController.ordersList[i].id.toString(),
+                                                },
+                                              );
+                                            else if (Get.arguments['api'] == '/get-sales-employee-finished-orders')
+                                              Get.toNamed(
+                                                '/order-details-employee-side-menu-screen',
+                                                arguments: {
+                                                  "order_id": ordersController.ordersList[i].id.toString(),
+                                                },
+                                              );
                                             // OrdersRootScreen.orderId = ordersController.ordersList[i].id;
                                             // switch (ordersController.ordersList[i].status!.status) {
                                             //   case 'استلام طلب جديد':

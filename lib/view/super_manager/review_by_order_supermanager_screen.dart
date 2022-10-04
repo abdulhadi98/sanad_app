@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:wits_app/controller/general_manager/add_review_by_order_controller.dart';
 
 import 'package:wits_app/controller/order_details_controller.dart';
+import 'package:wits_app/controller/super_manager/add_review_by_order_supermanger_controller.dart';
 import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/helper/utils.dart';
 import 'package:wits_app/view/common_wigets/dilog_custom.dart';
@@ -17,6 +18,7 @@ import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
 import 'package:wits_app/view/common_wigets/textfield_search.dart';
 import 'package:wits_app/view/common_wigets/title_widget.dart';
+import 'package:wits_app/view/common_wigets/worker_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/worker_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 
@@ -26,8 +28,8 @@ import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
 
 class ReviewByOrderSupermanagerScreen extends StatelessWidget {
-  final ReviewByOrderController reviewByOrderController = Get.put<ReviewByOrderController>(
-    ReviewByOrderController(),
+  final ReviewByOrderSuperManagerController reviewByOrderController = Get.put<ReviewByOrderSuperManagerController>(
+    ReviewByOrderSuperManagerController(),
   );
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -186,6 +188,7 @@ class ReviewByOrderSupermanagerScreen extends StatelessWidget {
                                                               workerName: reviewByOrderController.employeeList[index].name!,
                                                               workerDepartment: '',
                                                               onPressed: () {
+                                                                reviewByOrderController.setEmployeeName(reviewByOrderController.employeeList[index].id!);
                                                                 reviewByOrderController.employeeId = reviewByOrderController.employeeList[index].id;
                                                                 //  SalesMangerRootScreen.salesmanId = driversController.driversList[index].id;
                                                                 print(reviewByOrderController.employeeId);
@@ -205,6 +208,7 @@ class ReviewByOrderSupermanagerScreen extends StatelessWidget {
                                       );
                                     },
                                   ),
+                                  if (reviewByOrderController.employeeName.value.isNotEmpty) WorkerName(name: reviewByOrderController.employeeName.value),
                                   SizedBox(
                                     height: 20.h,
                                   ),

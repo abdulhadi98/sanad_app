@@ -119,6 +119,15 @@ class ReviewByDepartmentController extends GetxController {
     // }
   }
 
+  RxString employeeName = ''.obs;
+  setEmployeeName(int empId) {
+    employeeName.value = employeeList.firstWhere((element) => element.id == empId).name!;
+  }
+  RxString departmentName = ''.obs;
+  setDepartmentName(int departmentId) {
+    departmentName.value = rolesList.firstWhere((element) => element.id == departmentId).role!;
+  }
+
   getEmployeesByDepartmentWithWareHouse() async {
     employeeList.clear();
     print(employeesSpinner.value);
