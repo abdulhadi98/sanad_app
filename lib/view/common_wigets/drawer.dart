@@ -60,6 +60,7 @@ class AppDrawer extends StatelessWidget {
                             child: Row(
                               children: [
                                 IconButton(
+                                  
                                   padding: EdgeInsets.all(5.r),
                                   constraints: BoxConstraints(),
                                   onPressed: () {
@@ -167,14 +168,14 @@ class AppDrawer extends StatelessWidget {
                             title: "الملاحظات",
                             onTap: () {
                               Get.toNamed('/notes-list-screen');
-                              print('ad');
+                              print('notes');
                             },
                           ),
                           DrawerButton(
                             iconPath: 'assets/icons/ic_notification_active.svg',
                             title: "إشعارات",
                             onTap: () {
-                              Get.toNamed('notifications_screen');
+                              Get.toNamed('/notifications_screen');
                             },
                           ),
 

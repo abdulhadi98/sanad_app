@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flutter/services.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:wits_app/helper/app_colors.dart';
@@ -53,11 +53,27 @@ class DeliverToClientController extends GetxController {
   }
 
   Rx<File>? selectedImage = File('null').obs;
+  Future<File> testCompressAndGetFile(File file, String targetPath) async {
+    var result = await FlutterImageCompress.compressAndGetFile(
+      file.absolute.path, targetPath,
+      quality: 30,
+      // rotate: 180,
+    );
+    print('compressed');
+
+    print(file.lengthSync());
+    print(result!.lengthSync());
+
+    return result;
+  }
+
   Future pickImage() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) return;
-      final imageTemp = File(image.path);
+      var imageTemp = File(image.path);
+      imageTemp = await testCompressAndGetFile(imageTemp, imageTemp.path + 'compressed.jpg');
+
       selectedImage!.value = imageTemp;
     } on PlatformException catch (e) {
       print(e.toString());

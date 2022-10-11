@@ -102,6 +102,8 @@ class ChooseWarehouseScreen extends StatelessWidget {
                                           onPressed: () async {
                                             await sharedPreferences!.setInt('warehouse_id', getWarehousesController.warehousesList[index].id!);
                                             print(sharedPreferences!.getInt('warehouse_id'));
+                                            print(sharedPreferences!.getInt('warehouseId'));
+
                                             Get.toNamed('/super-manager-root-screen');
                                           },
                                         ),

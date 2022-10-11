@@ -3,19 +3,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import 'package:wits_app/controller/orders_controller.dart';
-import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/view/common_wigets/bottom_nav_bar.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 import 'package:wits_app/view/common_wigets/header_widget.dart';
-
-import 'package:wits_app/view/common_wigets/main_button.dart';
 import 'package:wits_app/view/common_wigets/order_widget.dart';
-import 'package:wits_app/view/common_wigets/textfield_custom.dart';
 import 'package:wits_app/view/sales/sales_manger/orders/orders_root_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
-
 import '../../../../controller/global_controller.dart';
 import '../../../../helper/enums.dart';
 import '../../../../helper/utils.dart';

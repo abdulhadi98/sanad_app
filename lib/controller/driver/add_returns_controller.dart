@@ -16,6 +16,7 @@ import 'package:http/http.dart' as http;
 import 'package:wits_app/network/urls_container.dart';
 import '../../helper/enums.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class AddReturnsController extends GetxController {
   Rx<Status>? status = Status.DATA.obs;
@@ -52,6 +53,19 @@ class AddReturnsController extends GetxController {
   OrderModel? orderModel;
   setStatus(Status s) {
     status!.value = s;
+  }
+
+  Future<File> testCompressAndGetFile(File file, String targetPath) async {
+    var result = await FlutterImageCompress.compressAndGetFile(
+      file.absolute.path, targetPath,
+      quality: 30,
+      // rotate: 180,
+    );
+
+    print(file.lengthSync());
+    print(result!.lengthSync());
+
+    return result;
   }
 
   Rx<File>? selectedImage = File('null').obs;
@@ -167,7 +181,8 @@ class AddReturnsController extends GetxController {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) return;
-      final imageTemp = File(image.path);
+      var imageTemp = File(image.path);
+      imageTemp = await testCompressAndGetFile(imageTemp, imageTemp.path + 'compressed.jpg');
       selectedImages.add(imageTemp);
       // selectedImages.value = imageTemp;
     } on PlatformException catch (e) {
@@ -179,7 +194,9 @@ class AddReturnsController extends GetxController {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) return;
-      final imageTemp = File(image.path);
+      var imageTemp = File(image.path);
+      imageTemp = await testCompressAndGetFile(imageTemp, imageTemp.path + 'compressed.jpg');
+
       selectedImage!.value = imageTemp;
       // selectedImages.value = imageTemp;
     } on PlatformException catch (e) {

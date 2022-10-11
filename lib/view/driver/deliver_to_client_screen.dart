@@ -151,40 +151,41 @@ class DeliverToClientScreen extends StatelessWidget {
                                         height: 15.h,
                                       ),
                                       if (deliverToClientController.selectedImage!.value.path == 'null')
-                                        Padding(
-                                          padding: EdgeInsets.only(bottom: 30.h),
-                                          child: MainButton(
-                                            text: 'الفاتورة غير مختومة',
-                                            color: AppColors.red,
-                                            width: 295.w,
-                                            height: 50.h,
-                                            onPressed: () async {
-                                              showDialogCustom(
-                                                height: height,
-                                                width: width,
-                                                context: context,
-                                                padding: EdgeInsets.zero,
-                                                dialogContent: DialogContentAreYouSure(
-                                                  onYes: () async {
-                                                    dynamic status = await deliverToClientController.orderNotStamped();
+                                        Column(
+                                          children: [
+                                            MainButton(
+                                              text: 'الفاتورة غير مختومة',
+                                              color: AppColors.red,
+                                              width: 295.w,
+                                              height: 50.h,
+                                              onPressed: () async {
+                                                showDialogCustom(
+                                                  height: height,
+                                                  width: width,
+                                                  context: context,
+                                                  padding: EdgeInsets.zero,
+                                                  dialogContent: DialogContentAreYouSure(
+                                                    onYes: () async {
+                                                      dynamic status = await deliverToClientController.orderNotStamped();
 
-                                                    if (status == '200') {
-                                                      showDialogCustom(
-                                                          height: height,
-                                                          width: width,
-                                                          context: context,
-                                                          padding: EdgeInsets.zero,
-                                                          dialogContent: IsThereReturns(height: height, width: width, orderDetailsController: orderDetailsController));
-                                                    }
-                                                  },
-                                                ),
-                                              );
-                                            },
-                                          ),
+                                                      if (status == '200') {
+                                                        showDialogCustom(
+                                                            height: height,
+                                                            width: width,
+                                                            context: context,
+                                                            padding: EdgeInsets.zero,
+                                                            dialogContent: IsThereReturns(height: height, width: width, orderDetailsController: orderDetailsController));
+                                                      }
+                                                    },
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                            SizedBox(
+                                              height: 25.h,
+                                            ),
+                                          ],
                                         ),
-                                      SizedBox(
-                                        height: 20.h,
-                                      ),
                                       Padding(
                                         padding: EdgeInsets.only(bottom: 30.0.h),
                                         child: MainButton(

@@ -17,7 +17,7 @@ class NotificationsController extends GetxController {
     status!.value = s;
   }
 
-  List<Notification> notifiationsList = [];
+  List<NotificationModel> notifiationsList = [];
 
   getNotification() async {
     notifiationsList.clear();
@@ -30,7 +30,7 @@ class NotificationsController extends GetxController {
       Map body = jsonDecode(response.body);
       print(body);
       List<dynamic> data = body['data'];
-      notifiationsList = List<Notification>.from(data.map((x) => Notification.fromJson(x)).toList());
+      notifiationsList = List<NotificationModel>.from(data.map((x) => NotificationModel.fromJson(x)).toList());
       notifiationsList.removeWhere((element) => element.isDone == 1);
       setStatus(Status.DATA);
       String code = body['code'].toString();

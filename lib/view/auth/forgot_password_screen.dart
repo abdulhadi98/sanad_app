@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:wits_app/controller/general/forgot_password_controller.dart';
 import 'package:wits_app/controller/login_screen_controller.dart';
 import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/helper/utils.dart';
+import 'package:wits_app/view/common_wigets/dilog_custom.dart';
+import 'package:wits_app/view/common_wigets/showdialog_are_you_sure.dart';
+import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import '../common_wigets/main_button.dart';
 import '../common_wigets/textfield_custom.dart';
 
-class LoginScreen extends StatelessWidget {
-  LoginScreen({Key? key}) : super(key: key);
-
-  var put = Get.lazyPut<LoginScreenController>(
-    () => LoginScreenController(),
+class ForgotPasswordScreen extends StatelessWidget {
+  final put = Get.lazyPut<ForgotPasswordController>(
+    () => ForgotPasswordController(),
   ); // or optionally with tag
-  LoginScreenController loginScreenController = Get.find<LoginScreenController>();
+  ForgotPasswordController forgotPasswordController = Get.find<ForgotPasswordController>();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -61,7 +63,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 Obx(
-                  () => loginScreenController.spinner.value
+                  () => forgotPasswordController.spinner.value
                       ? SizedBox(
                           height: height / 1.5,
                           child: Center(
@@ -71,72 +73,54 @@ class LoginScreen extends StatelessWidget {
                       : Column(
                           children: [
                             SizedBox(
-                              height: 70.h,
+                              height: 130.h,
                             ),
                             TextFieldCustom(
                               textDirection: TextDirection.ltr,
-                              textEditingController: loginScreenController.emailController,
+                              textEditingController: forgotPasswordController.emailController,
                               hint: "اسم المستخدم",
                               onChanged: (val) {
                                 print(val);
                               },
                             ),
+
                             SizedBox(
-                              height: 29.h,
-                            ),
-                            TextFieldCustom(
-                              textDirection: TextDirection.ltr,
-                              textEditingController: loginScreenController.passwordController.value,
-                              hint: "كلمة المرور",
-                              isPassword: true,
-                              onChanged: (val) {
-                                print(val);
-                              },
-                            ),
-                            SizedBox(
-                              height: 71.h,
+                              height: 30.h,
                             ),
                             MainButton(
-                              text: 'تسجيل الدخول',
+                              text: 'إرسال إلى مسؤول التحكم',
                               height: 50.h,
                               width: 238.w,
                               onPressed: () async {
-                                dynamic status = await loginScreenController.signIn();
-                                print(status);
+                                showDialogCustom(
+                                  height: height,
+                                  width: width,
+                                  context: context,
+                                  padding: EdgeInsets.zero,
+                                  dialogContent: DialogContentAreYouSure(
+                                    onYes: () async {
+                                      dynamic status = await forgotPasswordController.forgotPassword();
+                                      if (status == '200')
+                                        showDialogCustom(
+                                          height: height,
+                                          width: width,
+                                          context: context,
+                                          padding: EdgeInsets.zero,
+                                          dialogContent: DialogContentThanks(
+                                            onTap: () {
+                                              Get.offAllNamed('/');
+                                            },
+                                          ),
+                                        );
+                                    },
+                                  ),
+                                );
                               },
                             ),
                             SizedBox(
                               height: 21.h,
                             ),
-                            InkWell(
-                              onTap: () {
-                                Get.toNamed('/forgot-password-screen');
-                              },
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'نسيت كلمة المرور',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w200,
-                                      color: AppColors.brown,
-                                      fontSize: 12.sp,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 2.w,
-                                  ),
-                                  const Directionality(
-                                    textDirection: TextDirection.ltr,
-                                    child: Icon(
-                                      Icons.arrow_back_ios,
-                                      size: 14,
-                                      color: AppColors.brown,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+
                             // SizedBox(
                             //   height: 135.h,
                             // ),

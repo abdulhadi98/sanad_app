@@ -183,20 +183,30 @@ class ReciveFromAnotherDriver extends StatelessWidget {
                                   SizedBox(
                                     height: 5.h,
                                   ),
-                                  Container(
-                                    width: 295.w,
-                                    height: 220.h,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(25.r),
-                                        border: Border.all(
-                                          color: AppColors.mainColor2,
-                                        )),
-                                    padding: EdgeInsets.all(19.r),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10.r),
-                                      child: Image.network(
-                                        '${UrlsContainer.imagesUrl}\/${orderDetailsController.orderDetailsModel!.clientStamp!}',
-                                        fit: BoxFit.contain,
+                                  InkWell(
+                                    onTap: () {
+                                      showDialogCustom(
+                                          context: context,
+                                          padding: EdgeInsets.zero,
+                                          dialogContent: DialogContentSingleImage(path: orderDetailsController.orderDetailsModel!.clientStamp!),
+                                          height: height,
+                                          width: width);
+                                    },
+                                    child: Container(
+                                      width: 295.w,
+                                      height: 220.h,
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(25.r),
+                                          border: Border.all(
+                                            color: AppColors.mainColor2,
+                                          )),
+                                      padding: EdgeInsets.all(19.r),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10.r),
+                                        child: Image.network(
+                                          '${UrlsContainer.imagesUrl}\/${orderDetailsController.orderDetailsModel!.clientStamp!}',
+                                          fit: BoxFit.contain,
+                                        ),
                                       ),
                                     ),
                                   ),

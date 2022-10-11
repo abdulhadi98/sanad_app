@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:wits_app/helper/utils.dart';
 
 class NotificationWidget extends StatelessWidget {
   final String? title;
@@ -8,7 +9,7 @@ class NotificationWidget extends StatelessWidget {
   final String mainColor;
   final String sideColor;
   final String type;
-
+  final DateTime? notificationDate;
   final Function? onTap;
 //  final Function() onTap;
 
@@ -16,6 +17,7 @@ class NotificationWidget extends StatelessWidget {
     Key? key,
     this.onTap,
     this.title,
+    this.notificationDate,
     // this.clientNumber,
     required this.mainColor,
     required this.sideColor,
@@ -46,16 +48,53 @@ class NotificationWidget extends StatelessWidget {
                   width: width,
                   height: 70.h,
                   color: Color(int.parse(mainColor)),
-                  child: Row(
+                  child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         title!.length > 40 ? '...' + title!.substring(0, 40) : title!,
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 12.sp,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.bold,
                         ),
+                      ),
+                      SizedBox(
+                        height: 4.h,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          FutureBuilder<String>(
+                            future: Utils.formatProcessDate(notificationDate ?? 'null'), // async work
+                            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                              switch (snapshot.connectionState) {
+                                case ConnectionState.waiting:
+                                  return Text('');
+                                default:
+                                  if (snapshot.hasError)
+                                    return Text('');
+                                  else
+                                    return Text(
+                                      snapshot.data!,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 10.sp,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    );
+                              }
+                            },
+                          ),
+                          Text(
+                            '  -  ' + Utils.formatProcessTime(notificationDate!),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10.sp,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

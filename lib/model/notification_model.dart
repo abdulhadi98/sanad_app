@@ -4,12 +4,12 @@
 
 import 'dart:convert';
 
-List<Notification> notificationFromJson(String str) => List<Notification>.from(json.decode(str).map((x) => Notification.fromJson(x)));
+List<NotificationModel> notificationFromJson(String str) => List<NotificationModel>.from(json.decode(str).map((x) => NotificationModel.fromJson(x)));
 
-String notificationToJson(List<Notification> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String notificationToJson(List<NotificationModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Notification {
-  Notification(
+class NotificationModel {
+  NotificationModel(
       {this.id,
       this.isDone,
       this.action,
@@ -48,7 +48,7 @@ class Notification {
   int? reviewId;
   int? delegationId;
   int? returnsId;
-  factory Notification.fromJson(Map<String, dynamic> json) => Notification(
+  factory NotificationModel.fromJson(Map<String, dynamic> json) => NotificationModel(
         id: json["id"] == null ? null : json["id"],
         action: json["action"] == null ? null : json["action"],
         color: json["color"] == null ? null : json["color"],

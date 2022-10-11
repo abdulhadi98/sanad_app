@@ -103,7 +103,6 @@ class AddReturnsAfterDeliverScreen extends StatelessWidget {
                                   return Column(
                                     children: [
                                       TitleWidget(tilte: "تفاصيل المرتجعات"),
-
                                       TextFieldCustom(
                                         enabled: false,
                                         hint: '',
@@ -173,7 +172,6 @@ class AddReturnsAfterDeliverScreen extends StatelessWidget {
                                         height: 50.h,
                                         onPressed: () async {
                                           FocusScope.of(context).requestFocus(FocusNode());
-
                                           addReturnsController.pickImage();
                                         },
                                       ),

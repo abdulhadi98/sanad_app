@@ -6,6 +6,7 @@ import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/model/return_details_model.dart';
 import 'package:wits_app/network/urls_container.dart';
 import 'package:wits_app/view/common_wigets/title_widget.dart';
+import 'package:zoom_widget/zoom_widget.dart';
 
 class DialogContentThanks extends StatelessWidget {
   const DialogContentThanks({Key? key, required this.onTap}) : super(key: key);
@@ -57,6 +58,83 @@ class DialogContentThanks extends StatelessWidget {
                       ),
                       TitleWidget(
                         tilte: 'شكراً لك',
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        });
+  }
+}
+
+class DialogContentSingleImage extends StatelessWidget {
+  DialogContentSingleImage({Key? key, this.gridHeight, required this.path}) : super(key: key);
+  double? gridHeight;
+  List<ImageModel>? imagesList;
+  final String path;
+
+  @override
+  Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    return ScreenUtilInit(
+        designSize: const Size(375, 812),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return StatefulBuilder(
+            builder: (context, setState) {
+              return Container(
+                height: height,
+                width: width,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 15.w,
+                          vertical: 15.h,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            InkWell(
+                              onTap: () => Get.back(),
+                              child: SvgPicture.asset(
+                                'assets/icons/Icon Close Light-1.svg',
+                                width: 16.w,
+                                height: 16.w,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: height / 1.5,
+                        width: width - 30.w,
+                        color: AppColors.background.withOpacity(0),
+                        //color: Colors.amber,
+                        child: Zoom(
+                          backgroundColor: AppColors.background.withOpacity(0),
+                          //  initTotalZoomOut: true,
+                          scrollWeight: 0,
+                          initScale: 1,
+                          child: Container(
+                            color: AppColors.background.withOpacity(0),
+                            height: height / 1.5,
+                            width: width - 30.w,
+                            child: Center(
+                              child: Image.network(
+                                UrlsContainer.imagesUrl + '/' + path,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -144,13 +222,15 @@ class DialogContentImages extends StatelessWidget {
                                   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 105.w, childAspectRatio: 1.05, crossAxisSpacing: 35.w, mainAxisSpacing: 20.h),
                                   itemCount: imagesList!.length,
                                   itemBuilder: (BuildContext ctx, index) {
-                                    return Container(
-                                      height: 91.h,
-                                      width: 106.w,
-                                      color: Colors.amber,
-                                      child: Image.network(
-                                        UrlsContainer.imagesUrl + '/' + imagesList![index].path!,
-                                        fit: BoxFit.fill,
+                                    return InkWell(
+                                      child: Container(
+                                        height: 91.h,
+                                        width: 106.w,
+                                        color: Colors.amber,
+                                        child: Image.network(
+                                          UrlsContainer.imagesUrl + '/' + imagesList![index].path!,
+                                          fit: BoxFit.fill,
+                                        ),
                                       ),
                                     );
                                   }),

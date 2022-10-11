@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -83,12 +84,27 @@ class DeliverToDriverController extends GetxController {
     }
   }
 
+  Future<File> testCompressAndGetFile(File file, String targetPath) async {
+    var result = await FlutterImageCompress.compressAndGetFile(
+      file.absolute.path, targetPath,
+      quality: 30,
+      // rotate: 180,
+    );
+
+    print(file.lengthSync());
+    print(result!.lengthSync());
+
+    return result;
+  }
+
   RxList<File> selectedImages = <File>[].obs;
   Future pickImage() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) return;
-      final imageTemp = File(image.path);
+      var imageTemp = File(image.path);
+      imageTemp = await testCompressAndGetFile(imageTemp, imageTemp.path + 'compressed.jpg');
+
       selectedImages.add(imageTemp);
       // selectedImages.value = imageTemp;
     } on PlatformException catch (e) {

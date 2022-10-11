@@ -18,6 +18,7 @@ import 'package:wits_app/view/common_wigets/dilog_custom.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 
 import 'package:wits_app/view/common_wigets/main_button.dart';
+import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
 import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/worker_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
@@ -134,7 +135,7 @@ class OrderDetailsMovmentMangerScreen extends StatelessWidget {
                                               enableStepAnimation: true,
                                             ),
                                           ),
-                                          SizedBox(height: 270.h, width: 100.w, child: Processes(processesList: orderDetailsController.orderDetailsModel!.processes!)),
+                                          SizedBox(height: 280.h, width: 100.w, child: Processes(processesList: orderDetailsController.orderDetailsModel!.processes!)),
                                           Container(
                                             // color: Colors.red,
                                             child: Column(
@@ -178,109 +179,113 @@ class OrderDetailsMovmentMangerScreen extends StatelessWidget {
 
                                               // DetailsButton(text: 'تفاصيل', width: 76.w, height: 29.h, onPressed: () {}, isEnabeld: statusId > 2),
                                               SizedBox(
-                                                height: 29.h,
+                                                height: 33.h,
                                               ),
                                               SizedBox(
                                                 height: 15.h,
                                               ),
-                                              DetailsButton(
-                                                  text: 'تفاصيل',
-                                                  width: 76.w,
-                                                  height: 29.h,
-                                                  onPressed: () {
-                                                    showDialogCustom(
-                                                      height: height,
-                                                      width: width,
-                                                      context: context,
-                                                      padding: EdgeInsets.zero,
-                                                      dialogContent: StatefulBuilder(
-                                                        builder: (context, setState) {
-                                                          return Container(
-                                                            padding: EdgeInsets.all(15.r),
-                                                            color: AppColors.white,
-                                                            child: Column(
-                                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                                              mainAxisAlignment: MainAxisAlignment.start,
-                                                              children: [
-                                                                Padding(
-                                                                  padding: EdgeInsets.symmetric(
-                                                                    horizontal: 15.w,
-                                                                    vertical: 15.h,
-                                                                  ),
-                                                                  child: Row(
-                                                                    mainAxisAlignment: MainAxisAlignment.end,
-                                                                    children: [
-                                                                      InkWell(
-                                                                        onTap: () {
-                                                                          Get.back();
-                                                                        },
-                                                                        child: SvgPicture.asset(
-                                                                          'assets/icons/Icon Close Light-1.svg',
-                                                                          width: 16.w,
-                                                                          height: 16.w,
-                                                                        ),
+                                              orderDetailsController.orderDetailsModel!.truckImages!.length > 0
+                                                  ? DetailsButton(
+                                                      text: 'تفاصيل',
+                                                      width: 76.w,
+                                                      height: 29.h,
+                                                      onPressed: () {
+                                                        showDialogCustom(
+                                                          height: height,
+                                                          width: width,
+                                                          context: context,
+                                                          padding: EdgeInsets.zero,
+                                                          dialogContent: StatefulBuilder(
+                                                            builder: (context, setState) {
+                                                              return Container(
+                                                                padding: EdgeInsets.all(15.r),
+                                                                color: AppColors.white,
+                                                                child: Column(
+                                                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsets.symmetric(
+                                                                        horizontal: 15.w,
+                                                                        vertical: 15.h,
                                                                       ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Text(
-                                                                  'صور السائقين',
-                                                                  style: TextStyle(
-                                                                    fontSize: 25.sp,
-                                                                    fontWeight: FontWeight.bold,
-                                                                    color: AppColors.textColorXDarkBlue,
-                                                                  ),
-                                                                ),
-                                                                Padding(
-                                                                  padding: EdgeInsets.only(bottom: 6.h),
-                                                                  child: Divider(
-                                                                    color: AppColors.textColorXDarkBlue,
-                                                                    indent: width / 2.3,
-                                                                    endIndent: width / 2.3,
-                                                                    thickness: 1,
-                                                                  ),
-                                                                ),
-                                                                Container(
-                                                                  //   padding: EdgeInsets.symmetric(vertical: 5.),
-
-                                                                  width: width,
-                                                                  child: Container(
-                                                                    width: 305.w,
-                                                                    height: orderDetailsController.orderDetailsModel!.truckImages!.length > 2 ? 300.h : 170.h,
-                                                                    decoration: BoxDecoration(
-                                                                        borderRadius: BorderRadius.circular(25.r),
-                                                                        border: Border.all(
-                                                                          color: AppColors.mainColor2,
-                                                                        )),
-                                                                    padding: EdgeInsets.all(25.r),
-                                                                    alignment: Alignment.topCenter,
-                                                                    child: GridView.builder(
-                                                                        shrinkWrap: true,
-                                                                        padding: EdgeInsets.zero,
-                                                                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                                                                            maxCrossAxisExtent: 105.w, childAspectRatio: 1.05, crossAxisSpacing: 35.w, mainAxisSpacing: 20.h),
-                                                                        itemCount: orderDetailsController.orderDetailsModel!.truckImages!.length,
-                                                                        itemBuilder: (BuildContext ctx, index) {
-                                                                          return Container(
-                                                                            height: 91.h,
-                                                                            width: 106.w,
-                                                                            //  color: Colors.amber,
-                                                                            child: Image.network(
-                                                                              UrlsContainer.imagesUrl + '/' + orderDetailsController.orderDetailsModel!.truckImages![index].path!,
-                                                                              fit: BoxFit.fill,
+                                                                      child: Row(
+                                                                        mainAxisAlignment: MainAxisAlignment.end,
+                                                                        children: [
+                                                                          InkWell(
+                                                                            onTap: () {
+                                                                              Get.back();
+                                                                            },
+                                                                            child: SvgPicture.asset(
+                                                                              'assets/icons/Icon Close Light-1.svg',
+                                                                              width: 16.w,
+                                                                              height: 16.w,
                                                                             ),
-                                                                          );
-                                                                        }),
-                                                                  ),
-                                                                )
-                                                              ],
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
-                                                    );
-                                                  },
-                                                  isEnabeld: orderDetailsController.orderDetailsModel!.statusId! > 3), //قيد التسليم صور الشاحنة
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    Text(
+                                                                      'صور من السائق',
+                                                                      style: TextStyle(
+                                                                        fontSize: 25.sp,
+                                                                        fontWeight: FontWeight.bold,
+                                                                        color: AppColors.textColorXDarkBlue,
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsets.only(bottom: 6.h),
+                                                                      child: Divider(
+                                                                        color: AppColors.textColorXDarkBlue,
+                                                                        indent: width / 2.3,
+                                                                        endIndent: width / 2.3,
+                                                                        thickness: 1,
+                                                                      ),
+                                                                    ),
+                                                                    Container(
+                                                                      //   padding: EdgeInsets.symmetric(vertical: 5.),
+
+                                                                      width: width,
+                                                                      child: Container(
+                                                                        width: 305.w,
+                                                                        height: orderDetailsController.orderDetailsModel!.truckImages!.length > 2 ? 300.h : 170.h,
+                                                                        decoration: BoxDecoration(
+                                                                            borderRadius: BorderRadius.circular(25.r),
+                                                                            border: Border.all(
+                                                                              color: AppColors.mainColor2,
+                                                                            )),
+                                                                        padding: EdgeInsets.all(25.r),
+                                                                        alignment: Alignment.topCenter,
+                                                                        child: GridView.builder(
+                                                                            shrinkWrap: true,
+                                                                            padding: EdgeInsets.zero,
+                                                                            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                                                                                maxCrossAxisExtent: 105.w, childAspectRatio: 1.05, crossAxisSpacing: 35.w, mainAxisSpacing: 20.h),
+                                                                            itemCount: orderDetailsController.orderDetailsModel!.truckImages!.length,
+                                                                            itemBuilder: (BuildContext ctx, index) {
+                                                                              return Container(
+                                                                                height: 91.h,
+                                                                                width: 106.w,
+                                                                                //  color: Colors.amber,
+                                                                                child: Image.network(
+                                                                                  UrlsContainer.imagesUrl + '/' + orderDetailsController.orderDetailsModel!.truckImages![index].path!,
+                                                                                  fit: BoxFit.fill,
+                                                                                ),
+                                                                              );
+                                                                            }),
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              );
+                                                            },
+                                                          ),
+                                                        );
+                                                      },
+                                                      isEnabeld: orderDetailsController.orderDetailsModel!.statusId! > 3) //قيد التسليم صور الشاحنة
+                                                  : SizedBox(
+                                                      height: 29.h,
+                                                    ),
                                               SizedBox(
                                                 height: 15.h,
                                               ),
@@ -382,7 +387,7 @@ class OrderDetailsMovmentMangerScreen extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 15.h,
+                                    height: 20.h,
                                   ),
                                   TextFieldCustom(
                                     enabled: false,
@@ -471,13 +476,23 @@ class OrderDetailsMovmentMangerScreen extends StatelessWidget {
                                               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 105.w, childAspectRatio: 1.05, crossAxisSpacing: 35.w, mainAxisSpacing: 20.h),
                                               itemCount: orderDetailsController.orderDetailsModel!.truckImages!.length,
                                               itemBuilder: (BuildContext ctx, index) {
-                                                return Container(
-                                                  height: 91.h,
-                                                  width: 106.w,
-                                                  color: Colors.amber,
-                                                  child: Image.network(
-                                                    UrlsContainer.imagesUrl + '/' + orderDetailsController.orderDetailsModel!.truckImages![index].path!,
-                                                    fit: BoxFit.fill,
+                                                return InkWell(
+                                                  onTap: () {
+                                                    showDialogCustom(
+                                                        context: context,
+                                                        padding: EdgeInsets.zero,
+                                                        dialogContent: DialogContentSingleImage(path: orderDetailsController.orderDetailsModel!.truckImages![index].path!),
+                                                        height: height,
+                                                        width: width);
+                                                  },
+                                                  child: Container(
+                                                    height: 91.h,
+                                                    width: 106.w,
+                                                    color: Colors.amber,
+                                                    child: Image.network(
+                                                      UrlsContainer.imagesUrl + '/' + orderDetailsController.orderDetailsModel!.truckImages![index].path!,
+                                                      fit: BoxFit.fill,
+                                                    ),
                                                   ),
                                                 );
                                               }),
@@ -507,11 +522,21 @@ class OrderDetailsMovmentMangerScreen extends StatelessWidget {
                                                 color: AppColors.mainColor2,
                                               )),
                                           padding: EdgeInsets.all(19.r),
-                                          child: ClipRRect(
-                                            borderRadius: BorderRadius.circular(10.r),
-                                            child: Image.network(
-                                              '${UrlsContainer.imagesUrl}\/${orderDetailsController.orderDetailsModel!.billImage!}',
-                                              fit: BoxFit.contain,
+                                          child: InkWell(
+                                            onTap: () {
+                                              showDialogCustom(
+                                                  context: context,
+                                                  padding: EdgeInsets.zero,
+                                                  dialogContent: DialogContentSingleImage(path: orderDetailsController.orderDetailsModel!.billImage!),
+                                                  height: height,
+                                                  width: width);
+                                            },
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(10.r),
+                                              child: Image.network(
+                                                '${UrlsContainer.imagesUrl}\/${orderDetailsController.orderDetailsModel!.billImage!}',
+                                                fit: BoxFit.contain,
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -704,7 +729,7 @@ class ProcessWidget extends StatelessWidget {
                       return Text('');
                     default:
                       if (snapshot.hasError)
-                        return Text('Error');
+                        return Text('');
                       else
                         return Text(
                           snapshot.data!,

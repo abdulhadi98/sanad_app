@@ -3,58 +3,58 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../helper/app_colors.dart';
 
-class TextFieldCustom extends StatelessWidget {
-  final TextInputType? keyboardType;
-  final String hint;
-  final bool? enabled;
-  final TextEditingController? textEditingController;
-  final bool? isPassword;
+  class TextFieldCustom extends StatelessWidget {
+    final TextInputType? keyboardType;
+    final String hint;
+    final bool? enabled;
+    final TextEditingController? textEditingController;
+    final bool? isPassword;
 
-  final Function(String) onChanged;
-  final dynamic onError;
-  TextDirection? textDirection;
-  TextFieldCustom({
-    this.textDirection,
-    this.isPassword,
-    Key? key,
-    this.keyboardType,
-    required this.hint,
-    required this.onChanged,
-    this.onError,
-    this.enabled,
-    this.textEditingController,
-  }) : super(key: key);
+    final Function(String) onChanged;
+    final dynamic onError;
+    TextDirection? textDirection;
+    TextFieldCustom({
+      this.textDirection,
+      this.isPassword,
+      Key? key,
+      this.keyboardType,
+      required this.hint,
+      required this.onChanged,
+      this.onError,
+      this.enabled,
+      this.textEditingController,
+    }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: textDirection ?? TextDirection.rtl,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25.r),
-          color: enabled == null ? Colors.white : AppColors.background,
-        ),
-        width: 295.w,
-        height: 50.h,
-        child: TextField(
-          keyboardType: keyboardType ?? TextInputType.text,
-          obscureText: isPassword ?? false,
-          enabled: enabled ?? true,
-          textAlignVertical: TextAlignVertical.bottom,
-          onChanged: onChanged,
-          style: TextStyle(
-            color: AppColors.black.withOpacity(.70),
-            fontWeight: FontWeight.normal,
-            fontSize: 15.sp,
+    @override
+    Widget build(BuildContext context) {
+      return Directionality(
+        textDirection: textDirection ?? TextDirection.rtl,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25.r),
+            color: enabled == null ? Colors.white : AppColors.background,
           ),
-          controller: textEditingController,
-          decoration: enabled == false ? notEnabled(hint) : enabledK(hint),
+          width: 295.w,
+          height: 50.h,
+          child: TextField(
+            keyboardType: keyboardType ?? TextInputType.text,
+            obscureText: isPassword ?? false,
+            enabled: enabled ?? true,
+            textAlignVertical: TextAlignVertical.bottom,
+            onChanged: onChanged,
+            style: TextStyle(
+              color: AppColors.black.withOpacity(.70),
+              fontWeight: FontWeight.normal,
+              fontSize: 15.sp,
+            ),
+            controller: textEditingController,
+            decoration: enabled == false ? notEnabled(hint) : enabledK(hint),
         ),
       ),
     );
   }
 }
-
+  
 InputDecoration enabledTall(hint) => InputDecoration(
       alignLabelWithHint: true,
       label: Text(

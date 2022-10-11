@@ -20,7 +20,7 @@ import '../../../../controller/global_controller.dart';
 import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
 
-class ReciveReturnsScreen extends StatelessWidget {
+class ReturnsDetailsScreen extends StatelessWidget {
   final returnDetailsController = Get.put<ReturnDetailsController>(ReturnDetailsController());
   final scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalController globalController = Get.find<GlobalController>();
@@ -49,7 +49,7 @@ class ReciveReturnsScreen extends StatelessWidget {
                     HeaderWidget(
                       width: width,
                       employeeName: "اسم الموظف",
-                      title: "مسؤول المرتجعات",
+                      title: "",
                       scaffoldKey: scaffoldKey,
                     ),
                     Expanded(
@@ -76,6 +76,7 @@ class ReciveReturnsScreen extends StatelessWidget {
                                 return Column(
                                   children: [
                                     TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
+                                    
                                     TextFieldCustom(
                                       enabled: false,
                                       hint: 'رقم العميل',
@@ -208,26 +209,11 @@ class ReciveReturnsScreen extends StatelessWidget {
                                     Padding(
                                       padding: EdgeInsets.only(bottom: 30.h),
                                       child: MainButton(
-                                        text: 'تم إستلام المرتجعات',
+                                        text: 'عودة',
                                         width: 232.w,
                                         height: 50.h,
                                         onPressed: () async {
-                                          dynamic status = await returnDetailsController.reciveReturns();
-                                          // if (status == '777')
-                                          //   Utils.showGetXToast(
-                                          //       message: status);
-                                          if (status == '200')
-                                            showDialogCustom(
-                                              height: height,
-                                              width: width,
-                                              context: context,
-                                              padding: EdgeInsets.zero,
-                                              dialogContent: DialogContentThanks(
-                                                onTap: () {
-                                                  Get.offAllNamed('/returns-manger-root-screen');
-                                                },
-                                              ),
-                                            );
+                                          Get.back();
                                         },
                                       ),
                                     ),

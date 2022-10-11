@@ -22,7 +22,7 @@ import '../../../../controller/global_controller.dart';
 import '../../../../helper/enums.dart';
 import '../../../../helper/utils.dart';
 
-class OrdersScreentReturnsManger extends StatelessWidget {
+class ReturnsReturnsManagerScreen extends StatelessWidget {
   final GlobalController globalController = Get.find<GlobalController>();
   final returnsController = Get.put<ReturnsController>(
     ReturnsController(),
@@ -56,7 +56,7 @@ class OrdersScreentReturnsManger extends StatelessWidget {
                       HeaderWidget(
                         width: width,
                         employeeName: "اسم الموظف",
-                        title: "مسؤول المرتجعات",
+                        title: "",
                         scaffoldKey: scaffoldKey,
                       ),
                       SizedBox(
@@ -88,15 +88,13 @@ class OrdersScreentReturnsManger extends StatelessWidget {
                                       return ReturnWidget(
                                         onTap: () {
                                           OrdersRootScreen.orderId = returnsController.returnsList[i].id;
-                                          if (Get.arguments['api'] == "/get-returns")
+                                          if (Get.arguments['api'] == "/get-all-returns")
                                             Get.toNamed(
-                                              '/recive-returns-screen',
+                                              '/returns_details_screen',
                                               arguments: {
                                                 "returns_id": returnsController.returnsList[i].id.toString(),
                                               },
                                             );
-                                            
-                                            
 
                                           // OrdersRootScreen.orderId = returnsController.ordersList[i].id;
                                           // switch (returnsController.ordersList[i].status!.status) {

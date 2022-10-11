@@ -2,13 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import 'package:wits_app/controller/orders_controller.dart';
+import 'package:wits_app/view/common_wigets/bottom_nav_bar.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
-import 'package:wits_app/view/common_wigets/main_button.dart';
+import 'package:wits_app/view/common_wigets/header_widget.dart';
 
-import '../common_wigets/bottom_nav_bar.dart';
-import '../common_wigets/header_widget.dart';
+import 'package:wits_app/view/common_wigets/order_widget.dart';
+import 'package:wits_app/view/sales/sales_manger/orders/orders_root_screen.dart';
+import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 
-class OrderAllRetrunsManagerScreen extends StatelessWidget {
+import '../../../../controller/global_controller.dart';
+import '../../../../helper/enums.dart';
+import '../../../../helper/utils.dart';
+
+class OrdersForRetrunsManagerScreen extends StatelessWidget {
+  final GlobalController globalController = Get.find<GlobalController>();
+  final put = Get.put<OrdersController>(
+    OrdersController(),
+  );
+  final OrdersController ordersController = Get.find<OrdersController>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
@@ -16,89 +28,102 @@ class OrderAllRetrunsManagerScreen extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     //
 
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) {
-        return Scaffold(
-          key: scaffoldKey,
-          resizeToAvoidBottomInset: false,
-          endDrawer: AppDrawer(
-            scaffoldKey: scaffoldKey,
-          ),
-          body: Container(
+    bool isKeyboardShowing = MediaQuery.of(context).viewInsets.vertical > 0;
+
+    return Scaffold(
+      key: scaffoldKey,
+      resizeToAvoidBottomInset: true,
+      endDrawer: AppDrawer(scaffoldKey: scaffoldKey),
+      body: ScreenUtilInit(
+        designSize: const Size(375, 812),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return SizedBox(
             height: height,
             width: width,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Expanded(
                   child: Column(
                     children: [
                       HeaderWidget(
-                        scaffoldKey: scaffoldKey,
                         width: width,
-                        employeeName: 'اسم الموظف',
-                        title: 'مدير المرتجعات',
+                        employeeName: "اسم الموظف",
+                        title: "مسؤول المرتجعات",
+                        scaffoldKey: scaffoldKey,
                       ),
                       SizedBox(
-                        height: 49.h,
+                        height: 3.h,
                       ),
-                      // MainButton(
-                      //   text: 'استلام المرتجعات',
-                      //   width: 224.w,
-                      //   height: 50.h,
-                      //   onPressed: () {
-                      //     Get.toNamed(
-                      //       '/orders-screen-warehouse-manger',
-                      //       arguments: {
-                      //         "api": "/get-returns",
-                      //       },
-                      //     );
-                      //   },
-                      // ),
-                      // SizedBox(
-                      //   height: 30.h,
-                      // ),
+                      Expanded(child: Obx(() {
+                        switch (ordersController.status!.value) {
+                          case Status.LOADING:
+                            return SizedBox(
+                              height: height / 1.5,
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            );
+                          case Status.ERROR:
+                            return SizedBox(
+                              height: height / 1.5,
+                              child: Center(
+                                child: Utils.errorText(),
+                              ),
+                            );
 
-                      MainButton(
-                        text: 'طلبيات جديدة',
-                        width: 224.w,
-                        height: 50.h,
-                        onPressed: () {
-                          Get.toNamed(
-                            '/orders-quality-supervisor-screen',
-                            arguments: {
-                              "api": "/get-stamped-orders",
-                            },
-                          );
-                        },
-                      ),
-                      SizedBox(
-                        height: 30.h,
-                      ),
-                      MainButton(
-                        text: 'طلبيات قيد التنفيذ',
-                        width: 224.w,
-                        height: 50.h,
-                        onPressed: () {
-                          Get.toNamed(
-                            '/orders-quality-supervisor-screen',
-                            arguments: {
-                              "api": "/get-orders",
-                            },
-                          );
-                        },
-                      ),
+                          case Status.DATA:
+                            return ordersController.ordersList.length > 0
+                                ? ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    itemCount: ordersController.ordersList.length,
+                                    itemBuilder: (BuildContext context, int i) {
+                                      return OrderWidget(
+                                          onTap: () {
+                                            OrdersRootScreen.orderId = ordersController.ordersList[i].id;
+                                            if (Get.arguments['api'] == "/get-orders")
+                                              Get.toNamed(
+                                                '/Order-details-movament-manger-screen',
+                                                arguments: {
+                                                  "order_id": ordersController.ordersList[i].id.toString(),
+                                                },
+                                              );
+                                          },
+                                          title: ordersController.ordersList[i].name ?? 'null',
+                                          clientNumber: ordersController.ordersList[i].invoiceNumber!.toString(),
+                                          mainColor: ordersController.ordersList[i].status!.color,
+                                          sideColor: ordersController.ordersList[i].status!.secondColor,
+                                          type: 'delegation');
+                                    })
+                                : Center(child: Utils.errorText(text: 'لا يوجد طلبيات حالياً'));
+                        }
+                      })),
                     ],
                   ),
                 ),
-                buildBottomNavBar(width, height, false, () {}),
+
+                //  if (WidgetsBinding.instance?.window.viewInsets.bottom! > 0.0)
+                if (!isKeyboardShowing)
+                  buildBottomNavBar(
+                    width,
+                    height,
+                    false,
+                    () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => SalesMangerRootScreen(),
+                        ),
+                      );
+                    },
+                  ),
               ],
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

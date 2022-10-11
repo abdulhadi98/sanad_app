@@ -11,17 +11,21 @@ class UrlsContainer {
   //Sales Man
   static String deleteDelegation = "$baseApiUrl/delete-delegation";
   static String resendDelegation = "$baseApiUrl/resend-delegation";
-  
 
   static String getNotifications = "$baseApiUrl/get-notifications";
   static String getReviews = "$baseApiUrl/get-reviews";
   static String getReviewsById = "$baseApiUrl/get-review-by-id";
 
   static String addDeviceToken = "$baseApiUrl/add-device-token";
+  static String forgotPassword = "$baseApiUrl/forget-password";
+
+  static String searchManager = "$baseApiUrl/search-manager";
+  static String searchEmployee = "$baseApiUrl/search-employee";
+
   static String removeDeviceToken = "$baseApiUrl/remove-device-token";
 
   static String getUser = "$baseApiUrl/get-user";
-  static String forgotPassword = "$baseApiUrl/forgot-password";
+  // static String forgotPassword = "$baseApiUrl/forgot-password";
   static String resetPassword = "$baseApiUrl/reset-password";
   static String logout = "$baseApiUrl/logout";
 

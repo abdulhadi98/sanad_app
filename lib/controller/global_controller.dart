@@ -1,11 +1,10 @@
 import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:wits_app/model/notification_model.dart';
 import '../helper/app_colors.dart';
 import '../helper/utils.dart';
 import '../main.dart';
@@ -14,6 +13,34 @@ import '../network/urls_container.dart';
 
 class GlobalController extends GetxController {
   // var scaffoldKey = GlobalKey<ScaffoldState>();
+  List<NotificationModel> notifiationsList = [];
+
+  getNotification() async {
+    notifiationsList.clear();
+    String? token = await sharedPreferences!.getString("token");
+    //print(token);
+    // print(Uri.parse(UrlsContainer.baseApiUrl + Get.arguments['api']!));
+ //   setStatus(Status.LOADING);
+    try {
+      dynamic response = await http.get(Uri.parse(UrlsContainer.getNotifications), headers: {'Authorization': 'Bearer $token'});
+      Map body = jsonDecode(response.body);
+      print(body);
+      List<dynamic> data = body['data'];
+      notifiationsList = List<NotificationModel>.from(data.map((x) => NotificationModel.fromJson(x)).toList());
+      notifiationsList.removeWhere((element) => element.isDone == 1);
+   //   setStatus(Status.DATA);
+      String code = body['code'].toString();
+      String message = body['message'];
+      Utils.getResponseCode(code, message);
+      return code;
+    } catch (e) {
+      print(e);
+    //  setStatus(Status.ERROR);
+      // spinner.value = false;
+      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
+      return 'error';
+    }
+  }
   RxString userName = ' '.obs;
   getUser() async {
     String? accessToken = sharedPreferences!.getString('token');

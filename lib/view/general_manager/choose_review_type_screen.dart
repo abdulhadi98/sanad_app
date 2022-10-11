@@ -72,7 +72,7 @@ class ChooseReviewTypeScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                buildBottomNavBar(width, height, true, () {}),
+                buildBottomNavBar(width, height, false, () {}),
               ],
             ),
           ),

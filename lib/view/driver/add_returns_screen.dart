@@ -53,7 +53,6 @@ class AddReturnsScreen extends StatelessWidget {
                       title: "السائق",
                       scaffoldKey: scaffoldKey,
                     ),
-                    TitleWidget(tilte: "تفاصيل المرتجعات"),
                     Expanded(
                       child: SizedBox(
                         width: width,
@@ -77,6 +76,7 @@ class AddReturnsScreen extends StatelessWidget {
                               case Status.DATA:
                                 return Column(
                                   children: [
+                                    TitleWidget(tilte: "تفاصيل المرتجعات"),
                                     Directionality(
                                       textDirection: TextDirection.rtl,
                                       child: Container(
@@ -109,6 +109,8 @@ class AddReturnsScreen extends StatelessWidget {
                                     ),
                                     TextFieldCustom(
                                       // enabled: false,
+                                      keyboardType: TextInputType.number,
+
                                       textEditingController: addReturnsController.invoiceNumberController.value,
                                       hint: 'رقم فاتورة المرتجعات',
                                       onChanged: (val) {},
@@ -157,7 +159,6 @@ class AddReturnsScreen extends StatelessWidget {
                                       height: 50.h,
                                       onPressed: () async {
                                         FocusScope.of(context).requestFocus(FocusNode());
-
                                         addReturnsController.pickImage();
                                       },
                                     ),

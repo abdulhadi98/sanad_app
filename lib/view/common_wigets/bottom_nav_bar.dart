@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:wits_app/helper/utils.dart';
 import 'package:wits_app/main.dart';
+import 'package:wits_app/network/urls_container.dart';
 
 import '../../helper/app_colors.dart';
 
@@ -99,7 +100,20 @@ Widget buildBottomNavBar(
                         if (Get.currentRoute != route) Get.offAllNamed(route);
                       },
                     ),
-                    buildBottomNavBarItem(false, 'assets/icons/Icon Search Dark.svg', 'بحث', () {}),
+                    buildBottomNavBarItem(false, 'assets/icons/Icon Search Dark.svg', 'بحث', () async {
+                      print(Get.currentRoute);
+                      bool isManager = await Utils.isThisRoleManager();
+                      print(isManager);
+                      String searchRoute = '/search_screen';
+
+                      if (Get.currentRoute != searchRoute) {
+                        if (isManager) {
+                          Get.toNamed(searchRoute, arguments: {'api': '/search-manager'});
+                        } else {
+                          Get.toNamed(searchRoute, arguments: {'api': '/search-employee'});
+                        }
+                      }
+                    }),
                   ]),
                 ),
               ),

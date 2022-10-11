@@ -47,14 +47,15 @@ class OrderWidget extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                    if(clientNumber!=null) Text(
-                        clientNumber! + ' - ',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.bold,
+                      if (clientNumber != null)
+                        Text(
+                          clientNumber! + ' - ',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
                       Text(
                         title,
                         style: TextStyle(
@@ -71,15 +72,13 @@ class OrderWidget extends StatelessWidget {
                   width: width - width / 1.29,
                   height: 70.h,
                   color: Color(int.parse(sideColor)),
-                  child: IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/icons/Icon Arrow.svg',
-                      height: 14.w,
-                      width: 8.w,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {},
+                  child: SvgPicture.asset(
+                    'assets/icons/Icon Arrow.svg',
+                    height: 14.w,
+                    width: 8.w,
+                    color: Colors.white,
                   ),
+                  //   onPressed: () {},
                 )
               ],
             ),

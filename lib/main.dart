@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wits_app/bindings/bindings.dart';
 import 'package:wits_app/controller/sales/sales_man/rejected_delegations_controller.dart';
 import 'package:wits_app/middleware/auth_middleware.dart';
+import 'package:wits_app/view/auth/forgot_password_screen.dart';
 import 'package:wits_app/view/auth/login_screen.dart';
 import 'package:wits_app/view/driver/add_returns_after_deliver_screen.dart';
 import 'package:wits_app/view/driver/add_returns_screen.dart';
@@ -21,6 +22,8 @@ import 'package:wits_app/view/general/notes/note_details_screen.dart';
 import 'package:wits_app/view/general/notes/notes_list_screen.dart';
 import 'package:wits_app/view/general/order_details_for_employee_screen.dart';
 import 'package:wits_app/view/general/orders_side_menu_screen.dart';
+import 'package:wits_app/view/general/resetpassword_notification_screen.dart';
+import 'package:wits_app/view/general/search_screen.dart';
 import 'package:wits_app/view/general_manager/choose_review_type_screen.dart';
 import 'package:wits_app/view/general_manager/general_manager_root_screen.dart';
 import 'package:wits_app/view/general_manager/review_by_department_screen.dart';
@@ -40,8 +43,10 @@ import 'package:wits_app/view/preparation_worker/prepration_done_screen.dart';
 import 'package:wits_app/view/quality_supervisor/check_order_screen.dart';
 import 'package:wits_app/view/quality_supervisor/orders_quality_supervisor_screen.dart';
 import 'package:wits_app/view/quality_supervisor/quality_supervisor_root_screen.dart';
+import 'package:wits_app/view/returns_manger/all_returns_returns_manager_screen.dart';
 import 'package:wits_app/view/returns_manger/orders_returns_manager_screen.dart';
 import 'package:wits_app/view/returns_manger/recive_returns_screen.dart';
+import 'package:wits_app/view/returns_manger/returns_details_screen.dart';
 import 'package:wits_app/view/returns_manger/returns_list_screen.dart';
 import 'package:wits_app/view/returns_manger/returns_manger_root_screen.dart';
 import 'package:wits_app/view/root/choose_role_screen.dart';
@@ -134,17 +139,18 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/order-details-screen', page: () => OrderDetailsScreen()),
         GetPage(name: '/accept-and-assign-sales-employee', page: () => AcceptAndAssignSalesEmployee()),
 
-
         // General
+        GetPage(name: '/search_screen', page: () => SearchScreen()),
         GetPage(name: '/notifications_screen', page: () => NotificationsScreen()),
+        GetPage(name: '/reset_password_notification_screen', page: () => ResetPasswordNotificationScreen()),
         GetPage(name: '/notes-list-screen', page: () => NotesScreen()),
         GetPage(name: '/note-detials-screen', page: () => NoteDetailsScreen()),
         GetPage(name: '/orders-sidemenu-screen', page: () => OrdersSideMenuScreen()),
         GetPage(name: '/done-orders-manager-side-menu-screen', page: () => DoneOrdersManagerSideMenuScreen()),
         GetPage(name: '/done-orders-employee-side-menu-screen', page: () => DoneOrdersEmployeesScreen()),
         GetPage(name: '/order-details-employee-side-menu-screen', page: () => OrderDetailsForEmployeesSideMenuScreen()),
-
         GetPage(name: '/doing-orders-manager-side-menu-screen', page: () => DoingOrdersManagerSideMenuScreen()),
+        GetPage(name: '/forgot-password-screen', page: () => ForgotPasswordScreen()),
 
         //Sales Employee
         GetPage(name: '/sales-employee-root-screen', page: () => SalesEmployeeRootScreen(), binding: GolbalBindings()),
@@ -194,7 +200,9 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/orders-screen-returns-manger', page: () => OrdersScreentReturnsManger()),
         GetPage(name: '/recive-returns-screen', page: () => ReciveReturnsScreen()),
         GetPage(name: '/return-manger-root-screen', page: () => ReturnsMangerRootScreen(), binding: GolbalBindings()),
-        GetPage(name: '/all-orders-returns-manager-screen', page: () => OrderAllRetrunsManagerScreen()),
+        GetPage(name: '/all-orders-returns-manager-screen', page: () => OrdersForRetrunsManagerScreen()),
+        GetPage(name: '/all-returns-returns-manager-screen', page: () => ReturnsReturnsManagerScreen()),
+        GetPage(name: '/returns_details_screen', page: () => ReturnsDetailsScreen()),
 
         //Driver
         GetPage(name: '/driver-root-screen', page: () => DriverRootScreen(), binding: GolbalBindings()),

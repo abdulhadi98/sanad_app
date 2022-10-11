@@ -90,6 +90,7 @@ class NotificationsScreen extends StatelessWidget {
                                       itemCount: notificationsController.notifiationsList.length,
                                       itemBuilder: (BuildContext context, int i) {
                                         return NotificationWidget(
+                                          notificationDate: notificationsController.notifiationsList[i].createdAt ,
                                             title: notificationsController.notifiationsList[i].title ?? 'null',
                                             //  clientNumber: notificationsController.notifiationsList[i].invoiceNumber!.toString(),
                                             mainColor: notificationsController.notifiationsList[i].color!,
@@ -135,6 +136,14 @@ class NotificationsScreen extends StatelessWidget {
                                                     "returns_id": notificationsController.notifiationsList[i].returnsId.toString(),
                                                   },
                                                 );
+                                              else if (notificationsController.notifiationsList[i].type == 'password-reset') {
+                                                Get.toNamed(
+                                                  '/reset_password_notification_screen',
+                                                  arguments: {
+                                                    "reset_password": notificationsController.notifiationsList[i].body,
+                                                  },
+                                                );
+                                              }
                                             }
 
                                             // OrdersRootScreen.orderId = notificationsController.notifiationsList[i].id;

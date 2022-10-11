@@ -34,7 +34,7 @@ class DelegationWidget extends StatelessWidget {
                   height: 70.h,
                   color: Color(0xFF366A8E),
                   child: Text(
-                    "طلبية من ${Utils.getDelegationCreator(salesmanName.toString())}",//salesman name id creator id but I can't edit it now
+                    "طلبية من ${Utils.getDelegationCreator(salesmanName.toString())}", //salesman name id creator id but I can't edit it now
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14.sp,
@@ -47,16 +47,13 @@ class DelegationWidget extends StatelessWidget {
                   width: width - width / 1.29,
                   height: 70.h,
                   color: Color(0xFF1C415A),
-                  child: IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/icons/Icon Arrow.svg',
-                      height: 14.w,
-                      width: 8.w,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {},
+                  child: SvgPicture.asset(
+                    'assets/icons/Icon Arrow.svg',
+                    height: 14.w,
+                    width: 8.w,
+                    color: Colors.white,
                   ),
-                )
+                ),
               ],
             ),
           ),
