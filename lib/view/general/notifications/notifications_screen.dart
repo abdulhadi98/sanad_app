@@ -11,6 +11,7 @@ import 'package:wits_app/view/common_wigets/drawer.dart';
 import 'package:wits_app/view/common_wigets/main_button.dart';
 import 'package:wits_app/view/common_wigets/notification_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/assign_salses_employee/worker_widget.dart';
+import 'package:wits_app/view/sales/sales_manger/orders/order_from_salesperson_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/orders/orders_root_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
 
@@ -90,7 +91,7 @@ class NotificationsScreen extends StatelessWidget {
                                       itemCount: notificationsController.notifiationsList.length,
                                       itemBuilder: (BuildContext context, int i) {
                                         return NotificationWidget(
-                                          notificationDate: notificationsController.notifiationsList[i].createdAt ,
+                                            notificationDate: notificationsController.notifiationsList[i].createdAt,
                                             title: notificationsController.notifiationsList[i].title ?? 'null',
                                             //  clientNumber: notificationsController.notifiationsList[i].invoiceNumber!.toString(),
                                             mainColor: notificationsController.notifiationsList[i].color!,
@@ -115,7 +116,16 @@ class NotificationsScreen extends StatelessWidget {
                                                   },
                                                 );
                                               } else if (notificationsController.notifiationsList[i].type == 'delegation') {
-                                                if (notificationsController.notifiationsList[i].action == 'info') return;
+                                                if (notificationsController.notifiationsList[i].action == 'info') {
+                                                  print(notificationsController.notifiationsList[i].body);
+                                                  if (notificationsController.notifiationsList[i].body!.contains('رفض')) {
+                                                    print(notificationsController.notifiationsList[i].delegationId);
+                                                    SalesmanOrderScreen.delegationId = notificationsController.notifiationsList[i].delegationId;
+                                                    Get.toNamed('/rejected-delegation-details-screen', arguments: {'delegation_id': notificationsController.notifiationsList[i].delegationId});
+                                                  }
+                                                  return;
+                                                }
+
                                                 Get.toNamed(
                                                   Utils.getRouteFromNotificationDelegation(notificationsController.notifiationsList[i].action),
                                                   arguments: {

@@ -10,6 +10,7 @@ import 'package:wits_app/helper/app_colors.dart';
 
 import 'package:wits_app/helper/enums.dart';
 import 'package:wits_app/helper/utils.dart';
+import 'package:wits_app/network/urls_container.dart';
 import 'package:wits_app/view/common_wigets/dilog_custom.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
 import 'package:wits_app/view/common_wigets/main_button.dart';
@@ -109,7 +110,48 @@ class DeliverToClientScreen extends StatelessWidget {
                                         },
                                       ),
                                       SizedBox(
-                                        height: 15.h,
+                                        height: 18.h,
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.only(right: 10.w),
+                                        width: 295.w,
+                                        child: Align(
+                                          alignment: Alignment.centerRight,
+                                          child: Text(
+                                            ':ختم العميل',
+                                            style: TextStyle(color: AppColors.textColorXDarkBlue, fontSize: 15.sp, fontWeight: FontWeight.bold),
+                                          ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          showDialogCustom(
+                                              context: context,
+                                              padding: EdgeInsets.zero,
+                                              dialogContent: DialogContentSingleImage(path: orderDetailsController.orderDetailsModel!.clientStamp!),
+                                              height: height,
+                                              width: width);
+                                        },
+                                        child: Container(
+                                          width: 295.w,
+                                          height: 220.h,
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(25.r),
+                                              border: Border.all(
+                                                color: AppColors.mainColor2,
+                                              )),
+                                          padding: EdgeInsets.all(19.r),
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(10.r),
+                                            child: Image.network(
+                                              '${UrlsContainer.imagesUrl}\/${orderDetailsController.orderDetailsModel!.clientStamp!}',
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20.h,
                                       ),
                                       MainButton(
                                         text: 'تصوير الفاتورة المختومة',

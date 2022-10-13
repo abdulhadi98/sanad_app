@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 import 'package:wits_app/controller/orders_controller.dart';
 import 'package:wits_app/controller/returns_manger/returns_controller.dart';
+import 'package:wits_app/controller/super_manager/returns_by_warehouse_controller.dart';
 import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/view/common_wigets/bottom_nav_bar.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
@@ -22,17 +23,19 @@ import '../../../../controller/global_controller.dart';
 import '../../../../helper/enums.dart';
 import '../../../../helper/utils.dart';
 
-class ReturnsReturnsManagerScreen extends StatelessWidget {
+class ReturnsByWareHouseScreen extends StatelessWidget {
   final GlobalController globalController = Get.find<GlobalController>();
-  final returnsController = Get.put<ReturnsController>(
-    ReturnsController(),
+  final returnsController = Get.put<ReturnsByWarehouseController>(
+    ReturnsByWarehouseController(),
   );
   final scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
     bool isKeyboardShowing = MediaQuery.of(context).viewInsets.vertical > 0;
+
     return Scaffold(
       key: scaffoldKey,
       resizeToAvoidBottomInset: true,
@@ -54,7 +57,7 @@ class ReturnsReturnsManagerScreen extends StatelessWidget {
                       HeaderWidget(
                         width: width,
                         employeeName: "اسم الموظف",
-                        title: "",
+                        title: "مسؤول التحكم",
                         scaffoldKey: scaffoldKey,
                       ),
                       SizedBox(
@@ -86,7 +89,7 @@ class ReturnsReturnsManagerScreen extends StatelessWidget {
                                       return ReturnWidget(
                                         onTap: () {
                                           OrdersRootScreen.orderId = returnsController.returnsList[i].id;
-
+                                          //  if (Get.arguments['api'] == "/get-returns")
                                           Get.toNamed(
                                             '/returns_details_screen',
                                             arguments: {

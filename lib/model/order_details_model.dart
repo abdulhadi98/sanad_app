@@ -59,7 +59,7 @@ class OrderDetailsModel {
 
   String? commercialRecord;
   int? creatorId;
-  int? invoiceNumber;
+  dynamic invoiceNumber;
   int? catsNumber;
   int? boxNumber;
   String? details;

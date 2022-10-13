@@ -99,6 +99,22 @@ class DriverRootScreen extends StatelessWidget {
                           Get.toNamed('/add-returns-screen', arguments: {'client_number': ''});
                         },
                       ),
+                      SizedBox(
+                        height: 30.h,
+                      ),
+                      MainButton(
+                        text: 'سجل المرتجعات',
+                        width: 224.w,
+                        height: 50.h,
+                        onPressed: () {
+                          Get.toNamed(
+                            '/all-returns-returns-manager-screen', //here if you go to returns orders screen then all the orders will show in black color because the order will use the returns widget
+                            arguments: {
+                              "api": "/get-driver-returns",
+                            },
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ),

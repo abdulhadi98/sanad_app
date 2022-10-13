@@ -21,7 +21,8 @@ class ReturnDetailsModel {
       this.images,
       this.clientNumber,
       this.clientName,
-      this.invoiceImage,this.invoiceNumber});
+      this.invoiceImage,
+      this.invoiceNumber});
 
   int? id;
   String? commercialRecord;
@@ -32,9 +33,10 @@ class ReturnDetailsModel {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? clientNumber;
+  //int? returnsIs_elivered
   List<ImageModel>? images;
   List<ImageModel>? invoiceImage;
-  int? invoiceNumber;
+  dynamic invoiceNumber;
 
   String? clientName;
   factory ReturnDetailsModel.fromJson(Map<String, dynamic> json) => ReturnDetailsModel(
@@ -50,7 +52,6 @@ class ReturnDetailsModel {
         images: json["returns_images"] == null ? null : List<ImageModel>.from(json["returns_images"].map((x) => ImageModel.fromJson(x))),
         clientNumber: json["client_number"] == null ? null : json["client_number"],
         invoiceNumber: json["invoice_number"] == null ? null : json["invoice_number"],
-
         invoiceImage: json["returns_invoice_images"] == null ? null : List<ImageModel>.from(json["returns_invoice_images"].map((x) => ImageModel.fromJson(x))),
       );
 

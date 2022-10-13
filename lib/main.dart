@@ -74,6 +74,7 @@ import 'package:wits_app/view/super_manager/add_new_order_super_manager_screen.d
 import 'package:wits_app/view/super_manager/choose_review_type_supermanager_screen.dart';
 import 'package:wits_app/view/super_manager/choose_warehouse_screen.dart';
 import 'package:wits_app/view/super_manager/orders_super_manger_screen.dart';
+import 'package:wits_app/view/super_manager/returns_by_warehouse_screen.dart';
 import 'package:wits_app/view/super_manager/review_by_department_supermanager_screen.dart';
 import 'package:wits_app/view/super_manager/review_by_order_supermanager_screen.dart';
 import 'package:wits_app/view/super_manager/supermanager_root_screen.dart';
@@ -236,10 +237,12 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/add-delegation-super-manager-screen', page: () => AddDelegationSuperManagerScreen()),
 
         GetPage(name: '/super-manager-orders-screen', page: () => SuperManagerOrdersScreen()),
+
         GetPage(name: '/choose-review-type-screen', page: () => ChooseReviewTypeScreen()),
         GetPage(name: '/review-by-order-supermanager-screen', page: () => ReviewByOrderSupermanagerScreen()),
         GetPage(name: '/review-by-department-supermanager-screen', page: () => ReviewByDepartmentSuperManagerScreen()),
         GetPage(name: '/choose-review-type-supermanager-screen', page: () => ChooseReviewTypeSupermanagerScreen()),
+        GetPage(name: '/returns-by-warehouse-screen', page: () => ReturnsByWareHouseScreen()),
       ],
     );
   }

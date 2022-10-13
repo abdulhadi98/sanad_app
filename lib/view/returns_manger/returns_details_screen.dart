@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:steps_indicator/steps_indicator.dart';
 import 'package:wits_app/controller/incpection_officer/enter_box_number_controller.dart';
 import 'package:wits_app/controller/returns_manger/receive_returns_controller.dart';
 import 'package:wits_app/controller/returns_manger/return_details_controller.dart';
@@ -16,6 +17,7 @@ import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
 import 'package:wits_app/view/common_wigets/title_widget.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
+import 'package:wits_app/view/warehouse_manger/assign_preparator_screen.dart';
 import '../../../../controller/global_controller.dart';
 import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
@@ -75,8 +77,87 @@ class ReturnsDetailsScreen extends StatelessWidget {
                               case Status.DATA:
                                 return Column(
                                   children: [
-                                    TitleWidget(tilte: 'تفاصيل الطلبية الجديدة'),
-                                    
+                                    TitleWidget(tilte: 'تفاصيل المرتجعات'),
+                                    Container(
+                                      //  color: Colors.red,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(right: 45.0.w),
+                                        child: Row(
+                                          textDirection: TextDirection.rtl,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(top: 12.0.h),
+                                              child: StepsIndicator(
+                                                selectedStep: returnDetailsController.returnDetailsModel!.returnsIsDelivered == 1 ? 1 : 0,
+                                                nbSteps: 2,
+                                                doneLineColor: Colors.green, //line
+                                                doneStepColor: Colors.green,
+                                                undoneLineColor: Color(0xFFE5E5E5), //line
+                                                selectedStepColorIn: Colors.orange,
+                                                selectedStepColorOut: Color(0xFFE5E5E5),
+                                                unselectedStepColorIn: Colors.transparent,
+                                                unselectedStepColorOut: Color(0xFFE5E5E5),
+                                                isHorizontal: false,
+                                                lineLength: 33.h,
+                                                lineLengthCustomStep: [
+                                                  StepsIndicatorCustomLine(
+                                                    nbStep: 1,
+                                                    length: 40,
+                                                  )
+                                                ],
+                                                enableLineAnimation: true,
+                                                enableStepAnimation: true,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 15.w,
+                                            ),
+                                            Column(
+                                              children: [
+                                                ReturnsProcessWidget(
+                                                  processName: "تم الاستلام",
+                                                  onDetailsPressed: () {},
+                                                  processCreateDate: returnDetailsController.returnDetailsModel!.createdAt!,
+                                                ),
+                                                ReturnsProcessWidget(
+                                                  processName: "تم الاستلام",
+                                                  onDetailsPressed: () {},
+                                                  processCreateDate: returnDetailsController.returnDetailsModel!.createdAt!,
+                                                ),
+                                              ],
+                                            ),
+                                            Column(
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsets.only(bottom: 15.0.h, left: 12.w, top: 8.h),
+                                                  child: Text(
+                                                    'تم الاستلام',
+                                                    textAlign: TextAlign.start,
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style: TextStyle(color: AppColors.textColorXDarkBlue, fontSize: 14.sp, fontWeight: FontWeight.w200),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(bottom: 15.0.h, left: 12.w, top: 8.h),
+                                                  child: Text(
+                                                    'تم التسليم',
+                                                    textAlign: TextAlign.start,
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style: TextStyle(color: AppColors.textColorXDarkBlue, fontSize: 14.sp, fontWeight: FontWeight.w200),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 15.h,
+                                    ),
                                     TextFieldCustom(
                                       enabled: false,
                                       hint: 'رقم العميل',
@@ -249,92 +330,64 @@ class ReturnsDetailsScreen extends StatelessWidget {
       ),
     );
   }
-  //  Widget buildGalleryList() {
-  //   return Container(
-  //     height: (width - 2 * width * .05 - 2 * width * .02) / 3,
-  //     child: ListView.builder(
-  //       scrollDirection: Axis.horizontal,
-  //       itemCount: personalAssetPhotos.length,
-  //       padding: EdgeInsets.zero,
-  //       itemBuilder: (context, index) {
-  //         return Row(
-  //           children: [
-  //             galleryItem(personalAssetPhotos, index,
-  //                 (width - 2 * width * .05 - 2 * width * .02) / 3),
-  //             if (index != (personalAssetPhotos.length) - 1)
-  //               SizedBox(
-  //                 width: width * .02,
-  //               )
-  //           ],
-  //         );
-  //       },
-  //     ),
-  //   );
-  // }
-  // galleryItem(List<PersonalAssetPhotos> photos, index, itemSize) {
-  //   List<String> urls = personalAssetPhotos
-  //       .map((e) => '${UrlsContainer.baseUrl}/${e.link}')
-  //       .toList(); //ggg
+}
 
-  //   return GestureDetector(
-  //     onTap: () {
-  //       print(photos[index].link);
-  //       RoutesHelper.navigateToGalleryScreen(
-  //           gallery: urls, index: index, context: context);
-  //     },
-  //     child: Stack(
-  //       children: [
-  //         Positioned(
-  //           child: ClipRRect(
-  //             borderRadius: BorderRadius.all(Radius.circular(8.0)),
-  //             child: ImageWidget(
-  //                 url: '${UrlsContainer.baseUrl}/${photos[index].link}',
-  //                 width: itemSize,
-  //                 height: itemSize,
-  //                 fit: BoxFit.cover),
-  //           ),
-  //         ),
-  //         Positioned(
-  //           right: 0,
-  //           top: 0,
-  //           // top: 0,
-  //           child: GestureDetector(
-  //             onTap: () {
-  //               print(photos[index].link! + index.toString());
+class ReturnsProcessWidget extends StatelessWidget {
+  ReturnsProcessWidget({this.onDetailsPressed, this.processCreateDate, required this.processName});
+  final String processName;
+  final DateTime? processCreateDate;
+  final Function? onDetailsPressed;
 
-  //               print(photosUrl);
-
-  //               print(photosUrl.length);
-  //               photosUrl.removeWhere((element) {
-  //                 if (element == photos[index].link) {
-  //                   print('found and delete( $element)');
-  //                 }
-
-  //                 return element == photos[index].link!;
-  //               });
-
-  //               updateAsset(() {});
-
-  //               print(photosUrl.length);
-  //             },
-  //             child: Container(
-  //               alignment: Alignment.center,
-  //               padding: EdgeInsets.all(4),
-  //               decoration: BoxDecoration(
-  //                 border: Border.all(color: AppColors.white, width: .5),
-  //                 shape: BoxShape.circle,
-  //                 color: AppColors.mainColor,
-  //               ),
-  //               child: Icon(
-  //                 Icons.delete_outline_outlined,
-  //                 color: AppColors.gray,
-  //                 size: width * .04,
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: 10.h),
+      child: Row(
+        textDirection: TextDirection.rtl,
+        children: [
+          SizedBox(
+            width: 9.w,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                //  alignment: Alignment.centerRight,
+                //   width: 100.w,
+                child: Text(
+                  processCreateDate == null ? '' : Utils.formatProcessTime(processCreateDate!),
+                  textAlign: TextAlign.start,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: Color(0xFF798186), fontSize: 10.sp, fontWeight: FontWeight.w200),
+                ),
+              ),
+              FutureBuilder<String>(
+                future: Utils.formatProcessDate(processCreateDate ?? 'null'), // async work
+                builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
+                      return Text('');
+                    default:
+                      if (snapshot.hasError)
+                        return Text('');
+                      else
+                        return Text(
+                          snapshot.data!,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(color: Color(0xFF798186), fontSize: 12.sp, fontWeight: FontWeight.w200),
+                        );
+                  }
+                },
+              )
+            ],
+          ),
+          SizedBox(
+            width: 10.w,
+          ),
+        ],
+      ),
+    );
+  }
 }
