@@ -72,26 +72,7 @@ class OrdersController extends GetxController {
     }
   }
 
-  addNewOrder() async {
-    String? token = await sharedPreferences!.getString("token");
-    dynamic response;
-    spinner.value = true;
-    try {
-    response = await http.post(Uri.parse(UrlsContainer.getORders), headers: {'Authorization': 'Bearer $token'});
-    dynamic body = jsonDecode(response.body);
-    print(body);
-    spinner.value = false;
-    String code = body['code'].toString();
-    String message = body['message'];
-    Utils.getResponseCode(code, message);
-    return code;
-    } catch (e) {
-      print(e);
-      spinner.value = false;
-      Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
-      return 'error';
-    }
-  }
+ 
 
   @override
   void onInit() {

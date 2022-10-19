@@ -34,7 +34,7 @@ class DelegationWidget extends StatelessWidget {
                   height: 70.h,
                   color: Color(0xFF366A8E),
                   child: Text(
-                    "طلبية من ${Utils.getDelegationCreator(salesmanName.toString())}", //salesman name id creator id but I can't edit it now
+                    "طلبية من $salesmanName", //salesman name id creator id but I can't edit it now
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 14.sp,

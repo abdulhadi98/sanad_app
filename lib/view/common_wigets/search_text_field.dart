@@ -19,7 +19,7 @@ class SearchField extends StatelessWidget {
   final dynamic onError;
   TextDirection? textDirection;
   SearchField({
-   required this.onSearchPressed,
+    required this.onSearchPressed,
     this.height,
     this.width,
     this.textDirection,
@@ -55,6 +55,8 @@ class SearchField extends StatelessWidget {
             fontWeight: FontWeight.normal,
             fontSize: 15.sp,
           ),
+          onSubmitted: (val) => onSearchPressed(),
+          onEditingComplete: () => onSearchPressed(),
           controller: textEditingController,
           decoration: searchDecoration(hint),
         ),

@@ -11,9 +11,7 @@ class SalesEmployeeModel {
         this.createdAt,
         this.updatedAt,
         this.deviceToken,
-        this.deviceKey,  
-
-        
+        this.deviceKey,
     });
 
        int?  id;

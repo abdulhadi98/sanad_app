@@ -23,16 +23,18 @@ class DelegationModel {
       this.createdAt,
       this.updatedAt,
       this.employeeId,
-      this.clientNumber});
+      this.clientNumber,
+      this.creatorName});
   dynamic employeeId;
   String? delegationEmployeeName;
   int? id;
   String? details;
   dynamic clientNumber;
   dynamic creatorId;
+  String? creatorName;
 
   String? commercialRecord;
-  dynamic? warehouseId;
+  dynamic warehouseId;
   int? orderId;
   int? accepted;
   String? acceptedDetails;
@@ -41,6 +43,7 @@ class DelegationModel {
   factory DelegationModel.fromJson(Map<String, dynamic> json) => DelegationModel(
         clientNumber: json["client_number"] == null ? null : json["client_number"],
         id: json["id"] == null ? null : json["id"],
+        creatorName: json["creator_name"] == null ? null : json["creator_name"],
         delegationEmployeeName: json["creator_name"] == null ? null : json["creator_name"],
         commercialRecord: json["commercial_record"] == null ? null : json["commercial_record"],
         creatorId: json["creator_id"] == null ? null : json["creator_id"],

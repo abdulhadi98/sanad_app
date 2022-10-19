@@ -66,8 +66,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                         TitleWidget(
                           tilte: 'تفاصيل الطلب',
                         ),
-                        TextFieldCustom(
-                            hint: 'أدخل اسم العميل', onChanged: (val) {}),
+                        TextFieldCustom(hint: 'أدخل اسم العميل', onChanged: (val) {}),
                         SizedBox(
                           height: 17.h,
                         ),
@@ -98,10 +97,8 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                       height: height,
                                       width: width,
                                       child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
                                           Padding(
                                             padding: EdgeInsets.symmetric(
@@ -109,17 +106,19 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                               vertical: 15.h,
                                             ),
                                             child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
+                                              mainAxisAlignment: MainAxisAlignment.end,
                                               children: [
                                                 InkWell(
                                                   onTap: () {
                                                     Get.back();
                                                   },
-                                                  child: SvgPicture.asset(
-                                                    'assets/icons/Icon Close Light-1.svg',
-                                                    width: 16.w,
-                                                    height: 16.w,
+                                                  child: Padding(
+                                                    padding: EdgeInsets.only(bottom: 15.0.h, left: 15.w, top: 20.w, right: 15.w),
+                                                    child: SvgPicture.asset(
+                                                      'assets/icons/Icon Close Light-1.svg',
+                                                      width: 16.w,
+                                                      height: 16.w,
+                                                    ),
                                                   ),
                                                 ),
                                               ],
@@ -158,60 +157,46 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
                                                   builder: (context, setState) {
                                                     return InkWell(
                                                       onTap: () {
-                                                        Navigator.of(context)
-                                                            .pushAndRemoveUntil(
-                                                                MaterialPageRoute(
-                                                                  builder:
-                                                                      (context) =>
-                                                                          SalesMangerRootScreen(),
-                                                                ),
-                                                                (Route<dynamic>
-                                                                        route) =>
-                                                                    false);
+                                                        Navigator.of(context).pushAndRemoveUntil(
+                                                            MaterialPageRoute(
+                                                              builder: (context) => SalesMangerRootScreen(),
+                                                            ),
+                                                            (Route<dynamic> route) => false);
                                                       },
                                                       child: Container(
                                                         //       color: AppColors.white,
                                                         height: height,
                                                         width: width,
                                                         child: Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          mainAxisAlignment: MainAxisAlignment.start,
                                                           children: [
                                                             Padding(
-                                                              padding: EdgeInsets
-                                                                  .symmetric(
-                                                                horizontal:
-                                                                    15.w,
+                                                              padding: EdgeInsets.symmetric(
+                                                                horizontal: 15.w,
                                                                 vertical: 15.h,
                                                               ),
                                                               child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .end,
+                                                                mainAxisAlignment: MainAxisAlignment.end,
                                                                 children: [
                                                                   InkWell(
                                                                     onTap: () {
                                                                       Get.back();
                                                                     },
-                                                                    child: SvgPicture
-                                                                        .asset(
-                                                                      'assets/icons/Icon Close Light-1.svg',
-                                                                      width:
-                                                                          16.w,
-                                                                      height:
-                                                                          16.w,
+                                                                    child: Padding(
+                                                                      padding: EdgeInsets.only(bottom: 15.0.h, left: 15.w, top: 20.w, right: 15.w),
+                                                                      child: SvgPicture.asset(
+                                                                        'assets/icons/Icon Close Light-1.svg',
+                                                                        width: 16.w,
+                                                                        height: 16.w,
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ],
                                                               ),
                                                             ),
                                                             SizedBox(
-                                                              height:
-                                                                  height / 3,
+                                                              height: height / 3,
                                                             ),
                                                             TitleWidget(
                                                               tilte: 'شكراً لك',

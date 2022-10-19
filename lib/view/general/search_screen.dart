@@ -124,7 +124,7 @@ class SearchScreen extends StatelessWidget {
                                     child: Column(
                                     children: [
                                       buildSearchField(),
-                                      Utils.errorText(text: 'لا توجد نتائج'),
+                                      Utils.errorText(text: 'لاتوجد نتائج'),
                                     ],
                                   ));
                         }
@@ -156,24 +156,44 @@ class SearchScreen extends StatelessWidget {
     );
   }
 
-  Padding buildSearchField() {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 15.w),
-      child: SearchField(
-        onSearchPressed: () async {
-          if (ordersController.searchFieldController.text.isEmpty) {
-            Utils.showGetXToast(title: 'تنبيه', message: 'لا يوجد نتائج', toastColor: AppColors.mainColor2);
-            return;
-          }
-          if (Get.arguments['api'] == '/search-employee') await ordersController.searchEmployee(ordersController.searchFieldController.text);
-          if (Get.arguments['api'] == '/search-manager') await ordersController.searchManager(ordersController.searchFieldController.text);
-        },
-        width: Get.width,
-        height: 60.h,
-        hint: 'ابحث',
-        textEditingController: ordersController.searchFieldController,
-        onChanged: (val) {},
-      ),
+  Widget buildSearchField() {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 2.h, horizontal: 15.w),
+          child: SearchField(
+            onSearchPressed: () async {
+              if (ordersController.searchFieldController.text.isEmpty) {
+                Utils.showGetXToast(title: 'تنبيه', message: 'لا يوجد نتائج', toastColor: AppColors.mainColor2);
+                return;
+              }
+              if (Get.arguments['api'] == '/search-employee') await ordersController.searchEmployee(ordersController.searchFieldController.text);
+              if (Get.arguments['api'] == '/search-manager') await ordersController.searchManager(ordersController.searchFieldController.text);
+            },
+            width: Get.width,
+            height: 60.h,
+            hint: 'ابحث',
+            textEditingController: ordersController.searchFieldController,
+            onChanged: (val) {},
+          ),
+        ),
+        MainButton(
+            text: 'ابحث',
+            width: 224.w,
+            height: 50.h,
+            onPressed: () async {
+              if (ordersController.searchFieldController.text.isEmpty) {
+                Utils.showGetXToast(title: 'تنبيه', message: 'لا يوجد نتائج', toastColor: AppColors.mainColor2);
+                return;
+              }
+              if (Get.arguments['api'] == '/search-employee') await ordersController.searchEmployee(ordersController.searchFieldController.text);
+              if (Get.arguments['api'] == '/search-manager') await ordersController.searchManager(ordersController.searchFieldController.text);
+            }),
+        SizedBox(
+          height: 8.h,
+        ),
+        Divider()
+      ],
     );
   }
 }

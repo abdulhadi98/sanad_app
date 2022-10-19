@@ -34,7 +34,7 @@ class DialogContentAreYouSure extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.symmetric(
-                      horizontal: 15.w,
+                      horizontal: 10.w,
                       vertical: 15.h,
                     ),
                     child: Row(
@@ -44,10 +44,13 @@ class DialogContentAreYouSure extends StatelessWidget {
                           onTap: () {
                             Get.back();
                           },
-                          child: SvgPicture.asset(
-                            'assets/icons/Icon Close Light-1.svg',
-                            width: 16.w,
-                            height: 16.w,
+                          child: Padding(
+                            padding: EdgeInsets.only(bottom: 15.0.h, left: 15.w, top: 20.w, right: 15.w),
+                            child: SvgPicture.asset(
+                              'assets/icons/Icon Close Light-1.svg',
+                              width: 16.w,
+                              height: 16.w,
+                            ),
                           ),
                         ),
                       ],

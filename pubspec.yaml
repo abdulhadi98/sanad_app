@@ -44,6 +44,7 @@ dependencies:
   open_file: ^3.2.1
   flutter_image_compress: ^1.1.3
   zoom_widget: ^2.0.0
+ # device_preview: ^1.1.0
  # searchfield: ^0.6.7
  # advanced_search: ^2.2.3
 dependency_overrides:

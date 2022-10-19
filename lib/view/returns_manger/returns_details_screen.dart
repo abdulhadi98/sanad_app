@@ -100,12 +100,7 @@ class ReturnsDetailsScreen extends StatelessWidget {
                                                 unselectedStepColorOut: Color(0xFFE5E5E5),
                                                 isHorizontal: false,
                                                 lineLength: 33.h,
-                                                lineLengthCustomStep: [
-                                                  StepsIndicatorCustomLine(
-                                                    nbStep: 1,
-                                                    length: 40,
-                                                  )
-                                                ],
+
                                                 enableLineAnimation: true,
                                                 enableStepAnimation: true,
                                               ),
@@ -123,7 +118,8 @@ class ReturnsDetailsScreen extends StatelessWidget {
                                                 ReturnsProcessWidget(
                                                   processName: "تم الاستلام",
                                                   onDetailsPressed: () {},
-                                                  processCreateDate: returnDetailsController.returnDetailsModel!.createdAt!,
+                                                  processCreateDate:
+                                                      returnDetailsController.returnDetailsModel!.returnsIsDelivered == 0 ? null : returnDetailsController.returnDetailsModel!.updatedAt!,
                                                 ),
                                               ],
                                             ),

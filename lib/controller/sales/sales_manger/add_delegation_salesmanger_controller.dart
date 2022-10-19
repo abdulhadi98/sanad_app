@@ -56,7 +56,7 @@ class AddDelegationSalesMangerController extends GetxController {
 
   addDelegationManger() async {
     dynamic response;
-    spinner.value = true;
+    setStatus(Status.LOADING);
 
     try {
       print(delegationModel!
@@ -71,9 +71,9 @@ class AddDelegationSalesMangerController extends GetxController {
 
       dynamic body = jsonDecode(response.body);
       print(body);
-      spinner.value = false;
       String code = body['code'].toString();
       String message = body['message'];
+      setStatus(Status.DATA);
 
       Utils.getResponseCode(code, message, onData: () {
         employeeId = null;
@@ -82,7 +82,7 @@ class AddDelegationSalesMangerController extends GetxController {
       return code;
     } catch (e) {
       print(e);
-      spinner.value = false;
+      setStatus(Status.ERROR);
       Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
       return 'error';
     }

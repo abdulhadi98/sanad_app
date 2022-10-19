@@ -89,7 +89,7 @@ class AddDelegationController extends GetxController {
 
   addDelegation() async {
     dynamic response;
-    spinner.value = true;
+    setStatus(Status.LOADING);
 
     try {
       print(delegationModel!.toJson());
@@ -102,15 +102,16 @@ class AddDelegationController extends GetxController {
           headers: {'Authorization': 'Bearer $token'});
       dynamic body = jsonDecode(response.body);
       print(body);
-      spinner.value = false;
       String code = body['code'].toString();
       String message = body['message'];
 
       Utils.getResponseCode(code, message);
+      setStatus(Status.DATA);
+
       return code;
     } catch (e) {
       print(e);
-      spinner.value = false;
+      setStatus(Status.ERROR);
       Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
       return 'error';
     }

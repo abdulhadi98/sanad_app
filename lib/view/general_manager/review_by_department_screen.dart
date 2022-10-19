@@ -123,10 +123,13 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                                                           onTap: () {
                                                             Get.back();
                                                           },
-                                                          child: SvgPicture.asset(
-                                                            'assets/icons/Icon Close Light-1.svg',
-                                                            width: 16.w,
-                                                            height: 16.w,
+                                                          child: Padding(
+                            padding: EdgeInsets.only(bottom: 15.0.h, left: 15.w, top: 20.w, right: 15.w),
+                                                            child: SvgPicture.asset(
+                                                              'assets/icons/Icon Close Light-1.svg',
+                                                              width: 16.w,
+                                                              height: 16.w,
+                                                            ),
                                                           ),
                                                         ),
                                                       ],
@@ -225,10 +228,13 @@ class ReviewByDepartmentScreen extends StatelessWidget {
                                                           onTap: () {
                                                             Get.back();
                                                           },
-                                                          child: SvgPicture.asset(
-                                                            'assets/icons/Icon Close Light-1.svg',
-                                                            width: 16.w,
-                                                            height: 16.w,
+                                                          child: Padding(
+                            padding: EdgeInsets.only(bottom: 15.0.h, left: 15.w, top: 20.w, right: 15.w),
+                                                            child: SvgPicture.asset(
+                                                              'assets/icons/Icon Close Light-1.svg',
+                                                              width: 16.w,
+                                                              height: 16.w,
+                                                            ),
                                                           ),
                                                         ),
                                                       ],
