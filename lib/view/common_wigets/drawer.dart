@@ -60,7 +60,6 @@ class AppDrawer extends StatelessWidget {
                             child: Row(
                               children: [
                                 IconButton(
-                                  
                                   padding: EdgeInsets.all(5.r),
                                   constraints: BoxConstraints(),
                                   onPressed: () {
@@ -197,7 +196,7 @@ class AppDrawer extends StatelessWidget {
                                     var status = await globalController.removeDeviceToken();
                                     if (status == '200') {
                                       await sharedPreferences!.clear();
-                                      print(sharedPreferences!.getInt('role').toString());
+                                      //    print(sharedPreferences!.getInt('role').toString());
                                       Get.offAllNamed('/');
                                       print('logout ok');
                                     }

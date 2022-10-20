@@ -22,6 +22,7 @@ import 'package:wits_app/view/common_wigets/drawer.dart';
 
 import 'package:wits_app/view/common_wigets/main_button.dart';
 import 'package:wits_app/view/common_wigets/order_widget.dart';
+import 'package:wits_app/view/common_wigets/showdialog_are_you_sure.dart';
 import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
 import 'package:wits_app/view/common_wigets/title_widget.dart';
@@ -245,19 +246,26 @@ class CheckOrderScreen extends StatelessWidget {
                                     width: 232.w,
                                     height: 50.h,
                                     onPressed: () async {
-                                      dynamic status = await checkOrderController.accecptStampedBill();
-                                      if (status == '200')
-                                        showDialogCustom(
-                                          height: height,
-                                          width: width,
-                                          context: context,
-                                          padding: EdgeInsets.zero,
-                                          dialogContent: DialogContentThanks(
-                                            onTap: () {
-                                              Get.offAllNamed('/quality-supervisor-root-screen');
-                                            },
-                                          ),
-                                        );
+                                      showDialogCustom(
+                                        height: height,
+                                        width: width,
+                                        context: context,
+                                        padding: EdgeInsets.zero,
+                                        dialogContent: DialogContentAreYouSure(
+                                          onYes: () async {
+                                            dynamic status = await checkOrderController.accecptStampedBill();
+                                            if (status == '200')
+                                              showDialogCustom(
+                                                  height: height,
+                                                  width: width,
+                                                  context: context,
+                                                  padding: EdgeInsets.zero,
+                                                  dialogContent: DialogContentThanks(onTap: () {
+                                                    Get.offAllNamed('/quality-supervisor-root-screen');
+                                                  }));
+                                          },
+                                        ),
+                                      );
                                     },
                                   ),
                                   SizedBox(
@@ -271,19 +279,26 @@ class CheckOrderScreen extends StatelessWidget {
                                       width: 232.w,
                                       height: 50.h,
                                       onPressed: () async {
-                                        dynamic status = await checkOrderController.rejectStampedBill();
-                                        if (status == '200')
-                                          showDialogCustom(
-                                            height: height,
-                                            width: width,
-                                            context: context,
-                                            padding: EdgeInsets.zero,
-                                            dialogContent: DialogContentThanks(
-                                              onTap: () {
-                                                Get.offAllNamed('/quality-supervisor-root-screen');
-                                              },
-                                            ),
-                                          );
+                                        showDialogCustom(
+                                          height: height,
+                                          width: width,
+                                          context: context,
+                                          padding: EdgeInsets.zero,
+                                          dialogContent: DialogContentAreYouSure(
+                                            onYes: () async {
+                                              dynamic status = await checkOrderController.rejectStampedBill();
+                                              if (status == '200')
+                                                showDialogCustom(
+                                                    height: height,
+                                                    width: width,
+                                                    context: context,
+                                                    padding: EdgeInsets.zero,
+                                                    dialogContent: DialogContentThanks(onTap: () {
+                                                      Get.offAllNamed('/quality-supervisor-root-screen');
+                                                    }));
+                                            },
+                                          ),
+                                        );
                                       },
                                     ),
                                   ),

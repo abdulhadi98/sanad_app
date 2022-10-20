@@ -80,42 +80,39 @@ Widget buildBottomNavBar(
               Positioned(
                 //  bottom: 0,
 
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 72.w),
-                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                    if (!isAddAvalible)
-                      buildBottomNavBarItem(false, 'assets/icons/Icon Back Light.svg', 'رجوع', () {
-                        print(Get.currentRoute);
-                        String route = Utils.getRouteFromRole();
-                        if (Get.currentRoute != route) Get.back();
-                      }),
-                    buildBottomNavBarItem(
-                      false,
-                      'assets/icons/Icon Home Active.svg',
-                      'الرئيسية',
-                      () {
-                        print('sds');
-                        print(Get.currentRoute);
-                        String route = Utils.getRouteFromRole();
-                        if (Get.currentRoute != route) Get.offAllNamed(route);
-                      },
-                    ),
-                    buildBottomNavBarItem(false, 'assets/icons/Icon Search Dark.svg', 'بحث', () async {
+                child: Row(mainAxisAlignment: isAddAvalible ? MainAxisAlignment.spaceAround : MainAxisAlignment.spaceEvenly, children: [
+                  if (!isAddAvalible)
+                    buildBottomNavBarItem(false, 'assets/icons/Icon Back Light.svg', 'رجوع', () {
                       print(Get.currentRoute);
-                      bool isManager = await Utils.isThisRoleManager();
-                      print(isManager);
-                      String searchRoute = '/search_screen';
-
-                      if (Get.currentRoute != searchRoute) {
-                        if (isManager) {
-                          Get.toNamed(searchRoute, arguments: {'api': '/search-manager'});
-                        } else {
-                          Get.toNamed(searchRoute, arguments: {'api': '/search-employee'});
-                        }
-                      }
+                      String route = Utils.getRouteFromRole();
+                      if (Get.currentRoute != route) Get.back();
                     }),
-                  ]),
-                ),
+                  buildBottomNavBarItem(
+                    false,
+                    'assets/icons/Icon Home Active.svg',
+                    'الرئيسية',
+                    () {
+                      print('sds');
+                      print(Get.currentRoute);
+                      String route = Utils.getRouteFromRole();
+                      if (Get.currentRoute != route) Get.offAllNamed(route);
+                    },
+                  ),
+                  buildBottomNavBarItem(false, 'assets/icons/Icon Search Dark.svg', 'بحث', () async {
+                    print(Get.currentRoute);
+                    bool isManager = await Utils.isThisRoleManager();
+                    print(isManager);
+                    String searchRoute = '/search_screen';
+
+                    if (Get.currentRoute != searchRoute) {
+                      if (isManager) {
+                        Get.toNamed(searchRoute, arguments: {'api': '/search-manager'});
+                      } else {
+                        Get.toNamed(searchRoute, arguments: {'api': '/search-employee'});
+                      }
+                    }
+                  }),
+                ]),
               ),
             ],
           ),
@@ -127,7 +124,8 @@ Widget buildBottomNavBarItem(isSelected, image, text, onTap, {size}) {
   return InkWell(
     onTap: onTap,
     child: Container(
-      height: 70.h,
+      //   color: Colors.amber,
+      padding: EdgeInsets.only(bottom: 5.0.h, left: 20.w, top: 5.w, right: 20.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

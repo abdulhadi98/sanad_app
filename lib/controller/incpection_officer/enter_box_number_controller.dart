@@ -65,14 +65,12 @@ class EnterBoxNumberController extends GetxController {
     invoiceNumberController.value.text = orderModel!.invoiceNumber!;
     categoriesNumberController.value.text = orderModel!.categoriesNumber.toString();
     addressController.value.text = orderModel!.regionName! + ', ' + orderModel!.cityName!;
-
     detailsController.value.text = orderModel!.details ?? 'لا توجد تفاصيل';
   }
 
   enterBoxesNumber() async {
     dynamic response;
     setStatus(Status.LOADING);
-
     try {
       print(orderModel!.toJson());
       String? token = await sharedPreferences!.getString("token");
@@ -87,7 +85,6 @@ class EnterBoxNumberController extends GetxController {
       print(body);
       String code = body['code'].toString();
       String message = body['message'];
-
       Utils.getResponseCode(code, message);
       setStatus(Status.DATA);
       return code;
@@ -104,7 +101,11 @@ class EnterBoxNumberController extends GetxController {
       Utils.showGetXToast(title: 'تنبيه', message: 'يرجى إدخال عدد الصناديق', toastColor: AppColors.red);
       return false;
     }
-
+    dynamic boxNumber = int.parse(boxesNumberController.value.text);
+    if (boxNumber < 1) {
+      Utils.showGetXToast(title: 'تنبيه', message: 'يجب أن يكون عدد الصناديق أكبر من الصفر', toastColor: AppColors.red);
+      return false;
+    }
     return true;
   }
 

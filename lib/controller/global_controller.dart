@@ -105,7 +105,6 @@ class GlobalController extends GetxController {
   removeDeviceToken() async {
     dynamic response;
     logoutSpinner.value = true;
-
     try {
       String? token = await sharedPreferences!.getString("token");
       response = await http.post(
@@ -118,15 +117,12 @@ class GlobalController extends GetxController {
       print(body);
       String code = body['code'].toString();
       String message = body['message'];
-
       Utils.getResponseCode(code, message);
       logoutSpinner.value = false;
-
       return code;
     } catch (e) {
       print(e);
       logoutSpinner.value = false;
-
       Utils.showGetXToast(title: 'خطأ', message: 'حدث خطأ غير متوقع, يرجى المحاولة لاحقاً', toastColor: AppColors.red);
       return 'error';
     }

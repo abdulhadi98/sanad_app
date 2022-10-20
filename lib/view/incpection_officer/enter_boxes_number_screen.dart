@@ -1,36 +1,24 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:wits_app/controller/incpection_officer/enter_box_number_controller.dart';
-import 'package:wits_app/controller/movment_manger/print_order_movment_manger_controller.dart';
-import 'package:wits_app/controller/prepration_worker/prepration_done_controller.dart';
-import 'package:wits_app/helper/app_colors.dart';
 import 'package:wits_app/helper/enums.dart';
 import 'package:wits_app/helper/utils.dart';
-import 'package:wits_app/main.dart';
 import 'package:wits_app/view/common_wigets/dilog_custom.dart';
 import 'package:wits_app/view/common_wigets/drawer.dart';
-
 import 'package:wits_app/view/common_wigets/main_button.dart';
 import 'package:wits_app/view/common_wigets/showdialog_are_you_sure.dart';
 import 'package:wits_app/view/common_wigets/showdialog_thanks.dart';
 import 'package:wits_app/view/common_wigets/textfield_custom.dart';
 import 'package:wits_app/view/common_wigets/title_widget.dart';
-import 'package:wits_app/view/sales/sales_manger/add_new_order/add_new_order_screen.dart';
 import 'package:wits_app/view/sales/sales_manger/sales_manger_root_screen.dart';
-
 import '../../../../controller/global_controller.dart';
-import '../../../../controller/sales/add_new_order_screen_controller.dart';
 import '../common_wigets/bottom_nav_bar.dart';
 import '../common_wigets/header_widget.dart';
 
 class EnterBoxesNumberScreen extends StatelessWidget {
   var put = Get.lazyPut<EnterBoxNumberController>(
-    () => EnterBoxNumberController(),
+    () => EnterBoxNumberController(),fenix: true
   );
   final EnterBoxNumberController enterBoxNumberController = Get.find<EnterBoxNumberController>();
   var scaffoldKey = GlobalKey<ScaffoldState>();

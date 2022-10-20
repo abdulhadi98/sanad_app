@@ -47,14 +47,11 @@ class ReturnWidget extends StatelessWidget {
                   width: width - width / 1.29,
                   height: 70.h,
                   color: AppColors.black,
-                  child: IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/icons/Icon Arrow.svg',
-                      height: 14.w,
-                      width: 8.w,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {},
+                  child: SvgPicture.asset(
+                    'assets/icons/Icon Arrow.svg',
+                    height: 14.w,
+                    width: 8.w,
+                    color: Colors.white,
                   ),
                 )
               ],
